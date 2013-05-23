@@ -20,8 +20,8 @@ public class EarlyAccessUpdate {
     public static void updateWiki() throws Exception {
 
         SeleniumDriverFactory sdf = new SeleniumDriverFactory();
-        sdf.setDriverType(SeleniumDriverFactory.DriverType.CHROME);
-        sdf.setChromeDriverPath("classpath:chromedriver.exe");
+        sdf.setDriverType(SeleniumDriverFactory.DriverType.FIREFOX);
+//        sdf.setChromeDriverPath("classpath:chromedriver.exe");
 
         Properties props = getPropertiesFromPropsFile();
         String rootUrl = props.getProperty("url");
