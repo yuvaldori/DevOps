@@ -1,4 +1,3 @@
-import iTests.framework.tools.SGTestHelper;
 import iTests.framework.utils.IOUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebElement;
@@ -20,8 +19,8 @@ public class EarlyAccessUpdate {
     public static void updateWiki() throws Exception {
 
         SeleniumDriverFactory sdf = new SeleniumDriverFactory();
-        sdf.setDriverType(SeleniumDriverFactory.DriverType.FIREFOX);
-//        sdf.setChromeDriverPath("classpath:chromedriver.exe");
+        sdf.setDriverType(SeleniumDriverFactory.DriverType.CHROME);
+        sdf.setChromeDriverPath("file:///" + getRootDir() + "/src/main/resources/chromedriver.exe");
 
         Properties props = getPropertiesFromPropsFile();
         String rootUrl = props.getProperty("url");
@@ -33,7 +32,7 @@ public class EarlyAccessUpdate {
         p.login(props.getProperty("user"),props.getProperty("password"));
         MarkupPage markupPage = PageFactory.initElements(sdf.getDriver(), MarkupPage.class);
 
-        File tempWikiTextFile = new File(SGTestHelper.getSGTestRootDir() + "/src/main/resources/wiki-text.txt");
+        File tempWikiTextFile = new File(getRootDir() + "/src/main/resources/wiki-text.txt");
         String wikiText = markupPage.getText();
         int startIndex = wikiText.indexOf("h2");
         String currentVersionTextBlock = wikiText.substring(startIndex, wikiText.indexOf("h2", startIndex + 1));
@@ -73,16 +72,16 @@ public class EarlyAccessUpdate {
         String oldBuildNumber = args[4];
         String newBuildNumber = args[5];
 
-        File propertiesFile = new File(SGTestHelper.getSGTestRootDir() + "/src/main/resources/wiki_update.properties");
+        File propertiesFile = new File(getRootDir() + "/src/main/resources/wiki_update.properties");
         String backupPath = IOUtils.backupFile(propertiesFile.getPath());
 
         Map<String, String> replaceMap = new HashMap<String, String>();
         replaceMap.put("USER", user);
         replaceMap.put("PASSWORD", password);
-        replaceMap.put("OLD-MILESTONE", oldMilestone);
-        replaceMap.put("NEW-MILESTONE", newMilestone);
-        replaceMap.put("OLD-BUILD-NUMBER", oldBuildNumber);
-        replaceMap.put("NEW-BUILD-NUMBER", newBuildNumber);
+        replaceMap.put("OLD_MILESTONE", oldMilestone);
+        replaceMap.put("NEW_MILESTONE", newMilestone);
+        replaceMap.put("OLD_BUILD_NUMBER", oldBuildNumber);
+        replaceMap.put("NEW_BUILD_NUMBER", newBuildNumber);
         IOUtils.replaceTextInFile(propertiesFile, replaceMap);
 
         updateWiki();
@@ -143,7 +142,7 @@ public class EarlyAccessUpdate {
 
     private static Properties getPropertiesFromPropsFile() {
 
-        File propsFile = new File(SGTestHelper.getSGTestRootDir() + "/src/main/resources/wiki_update.properties");
+        File propsFile = new File(getRootDir() + "/src/main/resources/wiki_update.properties");
         Properties props;
         try {
             props = IOUtils.readPropertiesFromFile(propsFile);
@@ -151,6 +150,10 @@ public class EarlyAccessUpdate {
             throw new IllegalStateException("Failed reading properties file : " + e.getMessage());
         }
         return props;
+    }
+
+    private static String getRootDir(){
+        return new File(".").getAbsolutePath();
     }
 
 
