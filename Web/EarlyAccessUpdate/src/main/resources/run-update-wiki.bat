@@ -6,7 +6,8 @@ set OLD_MILESTONE=%3
 set NEW_MILESTONE=%4
 set OLD_BUILD_NUMBER=%5
 set NEW_BUILD_NUMBER=%6
+set BUILD_VERSION=%7
 
 cd ../../../
-call mvn exec:java -Dexec.mainClass="EarlyAccessUpdate" -Dexec.args="%USER% %PASSWORD% %OLD_MILESTONE% %NEW_MILESTONE% %OLD_BUILD_NUMBER% %NEW_BUILD_NUMBER%"
+call mvn exec:java -Dexec.mainClass="EarlyAccessUpdate" -Dexec.args="%USER% %PASSWORD% %OLD_MILESTONE% %NEW_MILESTONE% %OLD_BUILD_NUMBER% %NEW_BUILD_NUMBER% %BUILD_VERSION%"
 

@@ -18,6 +18,10 @@
             <id>openspaces</id>
             <url>http://maven-repository.openspaces.org</url>
         </repository>
+        <repository>
+        <id>atlassian</id>
+        <url>https://maven.atlassian.com/content/repositories/atlassian-contrib</url>
+    </repository>
     </repositories>
 
     <pluginRepositories>
@@ -39,11 +43,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>webui.tests</groupId>
-            <artifactId>beans</artifactId>
-            <version>9.5.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>iTests.framework</groupId>
             <artifactId>iTests-framework</artifactId>
             <version>${iTestsFrameworkVersion}</version>
@@ -52,6 +51,11 @@
             <groupId>org.hyperic</groupId>
             <artifactId>sigar</artifactId>
             <version>1.6.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swift.common</groupId>
+            <artifactId>confluence-soap</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
 
