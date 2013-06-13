@@ -52,7 +52,7 @@ public class EarlyAccessUpdate {
         }
 
         String deckOpenning = "{deck:id=previous}";
-        String cardOpenning = "{card:labal=" + buildVersion + " " + oldMilestone.toUpperCase() + "}";
+        String cardOpenning = "{card:label=" + buildVersion + " " + oldMilestone.toUpperCase() + "}";
         String cardClose = "{card}";
 
         pageContent = pageContent.replace(deckOpenning, deckOpenning + "\n\n" + cardOpenning + "\n" + currentVersionTextBlock + "\n" + cardClose);
