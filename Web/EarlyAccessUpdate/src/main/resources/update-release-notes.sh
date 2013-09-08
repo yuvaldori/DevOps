@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#USAGE:  sh -x ./update-release-notes.sh  jiraUser jiraPass wikiUser wikiPass GS 9.6.1 1,2,3 2013-07-09 9.6.1 9.6.1
+
 JIRA_USER=${1}
 JIRA_PASSWORD=${2}
 WIKI_USER=${3}
