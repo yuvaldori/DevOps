@@ -20,9 +20,10 @@ public class ReleaseNotesUpdate {
         String wikiPassword = args[3];
         String issueProject = args[4];
         String issueFixVersion = args[5];
-        String createdAfter = args[6];
-        String buildVersion = args[7];
-        String sinceVersion = args[8];
+        String sprintNumber = args[6];
+        String createdAfter = args[7];
+        String buildVersion = args[8];
+        String sinceVersion = args[9];
 
         JiraClient jiraClient = new JiraClient(jiraUser, jiraPassword);
         String issueType = "";
@@ -61,14 +62,10 @@ public class ReleaseNotesUpdate {
                 createdAfter = tempCreatedAfter;
             }
 
-            String jqlQuery = jiraClient.createJqlQuery(issueProject, issueType, issueResolution, issueStatus, issueFixVersion, createdAfter);
+            String jqlQuery = jiraClient.createJqlQuery(issueProject, issueType, issueResolution, issueStatus, issueFixVersion, sprintNumber, createdAfter);
             System.out.println("query: " + jqlQuery);
             SearchResult filter = jiraClient.createFilter(jqlQuery);
             Set<Issue> issuesFromFilter = jiraClient.getIssuesFromFilter(filter);
-
-            for(Issue issue : issuesFromFilter){
-                System.out.println(issue.getKey());
-            }
 
             WikiClient wikiClient = new WikiClient("http://wiki.gigaspaces.com/wiki", wikiUser, wikiPassword);
 
