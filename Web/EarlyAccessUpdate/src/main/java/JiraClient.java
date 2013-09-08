@@ -32,7 +32,7 @@ public class JiraClient {
         initComponents();
 
         final JerseyJiraRestClientFactory factory = new JerseyJiraRestClientFactory();
-        final URI jiraServerUri = new URI("https://cloudifysource.atlassian.net");
+        final URI jiraServerUri = new URI("https://gigaspaces.atlassian.net");
         jiraClient = factory.createWithBasicHttpAuthentication(jiraServerUri, user, password);
         pm = new NullProgressMonitor();
     }
@@ -57,7 +57,7 @@ public class JiraClient {
         return issues;
     }
 
-    public String createJqlQuery(String issueProject, String issueType, String issueResolution, String issueStatus, String issueFixVersion, String createdAfter){
+    public String createJqlQuery(String issueProject, String issueType, String issueResolution, String issueStatus, String issueFixVersion, String sprintNumber, String createdAfter){
 
         StringBuilder query = new StringBuilder();
         query.append("project = " + issueProject);
@@ -73,6 +73,9 @@ public class JiraClient {
         }
         if(issueFixVersion != null && !issueFixVersion.isEmpty()){
             query.append(" AND fixVersion in (\"" + issueFixVersion + "\")");
+        }
+        if(sprintNumber != null && !sprintNumber.isEmpty()){
+            query.append(" AND sprint in (" + sprintNumber + ")");
         }
         if(createdAfter != null && !createdAfter.isEmpty()){
             query.append(" AND created >= " + createdAfter);
@@ -99,7 +102,7 @@ public class JiraClient {
 
             String componentName = component.getName();
 
-            if(serverComponents.contains(componentName) || componentName.equalsIgnoreCase("rest")){
+            if(serverComponents.contains(componentName)){
                 if(issue.getIssueType().getName().contains("Bug")){
                     return "API, Proxy, Server, External Data Source";
                 }
@@ -110,7 +113,7 @@ public class JiraClient {
             if(openspacesComponents.contains(componentName)){
                 return "OpenSpaces";
             }
-            if(serviceGridComponents.contains(componentName) || componentName.equalsIgnoreCase("cloud driver")){
+            if(serviceGridComponents.contains(componentName)){
                 return "Service Grid";
             }
             if(cppComponents.contains(componentName)){
