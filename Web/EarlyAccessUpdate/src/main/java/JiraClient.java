@@ -1,15 +1,20 @@
 import com.atlassian.jira.rest.client.JiraRestClient;
 import com.atlassian.jira.rest.client.NullProgressMonitor;
-import com.atlassian.jira.rest.client.domain.BasicComponent;
-import com.atlassian.jira.rest.client.domain.BasicIssue;
-import com.atlassian.jira.rest.client.domain.Issue;
-import com.atlassian.jira.rest.client.domain.SearchResult;
+import com.atlassian.jira.rest.client.domain.*;
+import com.atlassian.jira.rest.client.domain.input.FieldInput;
+import com.atlassian.jira.rest.client.domain.input.TransitionInput;
 import com.atlassian.jira.rest.client.internal.jersey.JerseyJiraRestClientFactory;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: nirb
@@ -26,6 +31,10 @@ public class JiraClient {
     private Set<String> cppComponents;
     private Set<String> dotNetComponents;
     private Set<String> adminAndUitComponents;
+    private Set<String> platforms;
+
+
+
 
     public JiraClient(String user, String password) throws URISyntaxException {
 
@@ -84,6 +93,51 @@ public class JiraClient {
         return query.toString();
 
     }
+
+    public String platformsIterableToToString(ObjectMapper mapper, Issue issue) throws JSONException, IOException {
+        String result = "";
+        JSONArray platforms = (JSONArray) issue.getFieldByName("Platform").getValue();
+        if(platforms == null)
+            return "";
+        for(int i = 0; i < platforms.length(); i++){
+            result+=mapper.readValue(platforms.get(i).toString(), Map.class).get("value") + ",";
+        }
+        if(result.lastIndexOf(",") == result.length()-1){
+            result = result.substring(0, result.length()-1);
+        }
+        return result;
+    }
+
+    public String salesforceIdIterableToToString(Issue issue){
+        if(issue.getFieldByName("SalesForce Case ID") == null)
+            return "";
+        String id = (String) issue.getFieldByName("SalesForce Case ID").getValue();
+        if(id != null){
+            return id +"";
+        }
+        return "";
+    }
+
+    public String fixVersionIterableToToString(Issue issue) throws JSONException, IOException {
+        String result = "";
+        for(Version version : issue.getFixVersions()){
+            result += version.getName() + ",";
+        }
+        if(result.lastIndexOf(",") == result.length()-1){
+            result = result.substring(0, result.length()-1);
+        }
+        return result;
+    }
+
+    public boolean isPublicIssue(ObjectMapper mapper, Issue issue) throws JSONException, IOException {
+        JSONObject platforms = (JSONObject) issue.getFieldByName("Security Level").getValue();
+        if(mapper.readValue(platforms.toString(), Map.class).get("name").equals("Public"))
+            return true;
+        else
+            return false;
+    }
+
+
 
     public String componentsIterableToString(Iterable<BasicComponent> iterable){
 
@@ -148,6 +202,7 @@ public class JiraClient {
         cppComponents = new HashSet<String>();
         dotNetComponents = new HashSet<String>();
         adminAndUitComponents = new HashSet<String>();
+        platforms = new HashSet<String>();
 
         openspacesComponents.add("Elastic PU");
         openspacesComponents.add("ESB");
@@ -180,23 +235,33 @@ public class JiraClient {
         adminAndUitComponents.add("Maven");
         adminAndUitComponents.add("Packages");
         adminAndUitComponents.add("Web-UI");
+
+        platforms.add("All");
+        platforms.add("Java");
+        platforms.add(".NET");
+        platforms.add("C++");
     }
 
 
-//    public static void main(String[] args) throws URISyntaxException {
+//    public static void main(String[] args) throws URISyntaxException, JSONException, IOException {
 //        final JerseyJiraRestClientFactory factory = new JerseyJiraRestClientFactory();
-//        final URI jiraServerUri = new URI("https://cloudifysource.atlassian.net");
-//        final JiraRestClient jiraClient = factory.createWithBasicHttpAuthentication(jiraServerUri, "nirb", "Qqry3090");
+//        final URI jiraServerUri = new URI("https://gigaspaces.atlassian.net");
+//        final JiraRestClient jiraClient = factory.createWithBasicHttpAuthentication(jiraServerUri, "xxx", "xxxx");
 //        final NullProgressMonitor pm = new NullProgressMonitor();
 //
-//        SearchResult filter = jiraClient.getSearchClient().searchJql("issuetype = Bug AND fixVersion = \"2.6.0-m4\"", pm);
-//
+//        SearchResult filter = jiraClient.getSearchClient().searchJql("project = GS AND issuetype = Bug AND key = GS-11315", pm);
+//        ObjectMapper mapper = new ObjectMapper();
 //        for(BasicIssue issue : filter.getIssues()){
 //            Issue result = jiraClient.getIssueClient().getIssue(issue.getKey(), pm);
-//            System.out.println(result.getDescription());
+//                JSONArray platforms = (JSONArray) result.getFieldByName("Platform").getValue();
+//                for(int i = 0; i < platforms.length(); i++){
+//                    System.out.println(mapper.readValue(platforms.get(i).toString(), Map.class).get("value"));
+//                }
+//
+//
 //        }
 
-        // now let's vote for it
+//        //now let's vote for it
 //        jiraClient.getIssueClient().vote(issue.getVotesUri(), pm);
 //
 //        // now let's watch it
@@ -213,7 +278,7 @@ public class JiraClient {
 //        final TransitionInput transitionInput = new TransitionInput(resolveIssueTransition.getId(), fieldInputs, Comment.valueOf("My comment"));
 //        jiraClient.getIssueClient().transition(issue.getTransitionsUri(), transitionInput, pm);
 
-    }
+//    }
 
 //    private static Transition getTransitionByName(Iterable<Transition> transitions, String transitionName) {
 //        for (Transition transition : transitions) {
@@ -223,4 +288,5 @@ public class JiraClient {
 //        }
 //        return null;
 //    }
+}
 
