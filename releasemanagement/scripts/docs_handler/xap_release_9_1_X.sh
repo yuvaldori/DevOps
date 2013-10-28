@@ -1,0 +1,57 @@
+#!/bin/bash
+
+. ./setenv.sh
+
+MAJOR_VERSION=9
+API_DOC_VERSION=${MAJOR_VERSION}.1
+XAP_RELEASE_VERSION=${API_DOC_VERSION}.2
+MILESTONE=ga
+BUILD_NUM=7900
+
+XAP_DIR=gigaspaces-xap-premium-${XAP_RELEASE_VERSION}-${MILESTONE}
+XAP_ZIP_FILENAME=${XAP_DIR}-b${BUILD_NUM}.zip
+DOTNET_HELP_FILE=gigaspaces-xap.net-${XAP_RELEASE_VERSION}-${MILESTONE}-b${BUILD_NUM}-doc.zip
+
+# LINKS
+JAVADOC_LINK=JavaDoc${API_DOC_VERSION}
+DOTNETDOC_LINK=dotnetdocs${API_DOC_VERSION}
+CPPDOC_LINK=cppdocs${API_DOC_VERSION}
+
+# DOCS DIRS
+JAVA_DOCS_DIR=${XAP_DIR}/docs/xap-javadoc 
+DOTNET_DOCS_DIR=${XAP_DIR}/dotnet/docs
+CPP_DOCS_DIR=${XAP_DIR}/cpp/docs/html
+
+cp ${XAP_RELEASE_DOWNLOAD_DIR}/${MAJOR_VERSION}/${XAP_RELEASE_VERSION}/${XAP_ZIP_FILENAME} ${DOC_DIR}
+
+pushd ${DOC_DIR} 
+
+rm -rf ${XAP_DIR} 
+
+unzip ${XAP_ZIP_FILENAME}
+
+####### JAVA API ######
+unzip -d ${JAVA_DOCS_DIR} ${XAP_DIR}/docs/xap-javadoc.zip  
+
+###### DOTNET API #####
+mkdir  ${XAP_DIR}/dotnet
+mkdir  ${DOTNET_DOCS_DIR}
+cp  ${XAP_RELEASE_DOWNLOAD_DIR}/${MAJOR_VERSION}/${XAP_RELEASE_VERSION}/${DOTNET_HELP_FILE} ${DOTNET_DOCS_DIR}
+unzip -d ${DOTNET_DOCS_DIR} ${DOTNET_DOCS_DIR}/${DOTNET_HELP_FILE}
+mv ${DOTNET_DOCS_DIR}/Index.html ${DOTNET_DOCS_DIR}/index.html
+
+###### CPP API #####
+cp -R ${DOC_DIR}/gigaspaces-xap-premium-9.0.0-m6/cpp  ${XAP_DIR} 
+
+
+###### REMOVE LINKS ######
+rm ${JAVADOC_LINK} ${DOTNETDOC_LINK} ${CPPDOC_LINK}
+
+###### CREATE LINKS ######
+ln -s ${JAVA_DOCS_DIR} ${JAVADOC_LINK}
+ln -s ${DOTNET_DOCS_DIR} ${DOTNETDOC_LINK}
+ln -s ${CPP_DOCS_DIR} ${CPPDOC_LINK}
+
+popd
+
+
