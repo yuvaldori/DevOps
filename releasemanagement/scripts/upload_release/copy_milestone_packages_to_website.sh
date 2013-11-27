@@ -1,8 +1,7 @@
 #!/bin/bash
 
-VERSION=9.7.0
-BUILD_NUMBER=10484
-MILESTONE=m3
+source params.sh
+
 REPOSITORY=/export/builds
 BUILD_DIR=${REPOSITORY}/${VERSION}/build_${BUILD_NUMBER}
 
