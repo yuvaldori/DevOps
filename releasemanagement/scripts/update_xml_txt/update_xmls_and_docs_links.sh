@@ -1,8 +1,12 @@
 LOCAL_TRUNK_DIR=/tmp/update_xml_docs
 #LOCAL_TRUNK_DIR=/d/tmp/update_xml_docs
 LOG_FILE=$LOCAL_TRUNK_DIR/update_xml_docs.log
+MAJOR_OLD=9
+MINOR_OLD=5
+MAJOR_NEW=9
+MINOR_NEW=7
 
-#echo "*** start ***" > $LOG_FILE
+echo "*** start ***" > $LOG_FILE
 
 mkdir -p $LOCAL_TRUNK_DIR
 
@@ -13,25 +17,27 @@ dirs="examples gigaspaces gigaspaces-dotnet gigaspaces-poco/cpp gs-webui mule op
 for dir in $dirs
 do
 	echo "*** checkout $LOCAL_TRUNK_DIR/$dir ***" >> $LOG_FILE
-	svn checkout svn://svn-srv/SVN/xap/trunk/$dir $LOCAL_TRUNK_DIR/$dir
+	svn checkout svn://pc-lab14/SVN/xap/trunk/$dir $LOCAL_TRUNK_DIR/$dir
 done
+
+
 
 echo "*** Update XMLs with new version of XSDs and DTD ***" >> $LOG_FILE
 find "${LOCAL_TRUNK_DIR}" -type f -not \( -name .svn -a -prune \) -name '*.xml' |
 while read fname
 do
-	grep "dtd\/9_7" "$fname" && echo "$fname" >> $LOG_FILE
-	sed -i 's/dtd\/9_7/dtd\/9_8/g' "$fname"
-	grep "schema\/9.7" "$fname" && echo "$fname" >> $LOG_FILE
-	sed -i 's/schema\/9.7/schema\/9.8/g' "$fname"
+	grep "dtd\/${MAJOR_OLD}_${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
+	sed -i "s/dtd\/${MAJOR_OLD}_${MINOR_OLD}/dtd\/${MAJOR_NEW}_${MINOR_NEW}/g" "$fname"
+	grep "schema\/${MAJOR_OLD}.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
+	sed -i "s/schema\/${MAJOR_OLD}.${MINOR_OLD}/schema\/${MAJOR_NEW}.${MINOR_NEW}/g" "$fname"
 done
 
 echo "*** Update Documentation links with new wiki space ***" >> $LOG_FILE
 find "${LOCAL_TRUNK_DIR}" -type f -not \( -name .svn -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' |
 while read fname
 do	
-	grep "display\/XAP97" "$fname" && echo "$fname" >> $LOG_FILE
-	sed -i 's/display\/XAP97/display\XAP98/g' "$fname"
+	grep "display\/XAP${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
+	sed -i "s/display\/XAP${MAJOR_OLD}${MINOR_OLD}/display\/XAP${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
 done
 
 echo "*** Display svn diff ***" >> $LOG_FILE
