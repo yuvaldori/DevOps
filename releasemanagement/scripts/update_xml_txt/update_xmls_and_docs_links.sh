@@ -33,7 +33,7 @@ do
 done
 
 echo "*** Update Documentation links with new wiki space ***" >> $LOG_FILE
-find "${LOCAL_TRUNK_DIR}" -type f -not \( -name .svn -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' |
+find "${LOCAL_TRUNK_DIR}" -type f -not \( -name .svn -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' -o -name '*.config' |
 while read fname
 do	
 	grep "display\/XAP${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
