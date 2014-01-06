@@ -1,11 +1,12 @@
 #!/bin/bash
 
 . ./setenv.sh
+source params.sh
 
-API_DOC_VERSION=9.7
-XAP_RELEASE_VERSION=${API_DOC_VERSION}.0
-MILESTONE=m5
-BUILD_NUM=10487
+#API_DOC_VERSION=9.7
+#XAP_RELEASE_VERSION=${API_DOC_VERSION}.0
+#MILESTONE=m6
+#BUILD_NUM=10491
 
 XAP_DIR=gigaspaces-xap-premium-${XAP_RELEASE_VERSION}-${MILESTONE}
 XAP_ZIP_FILENAME=${XAP_DIR}-b${BUILD_NUM}.zip
@@ -27,34 +28,37 @@ cp ${XAP_EA_DIR}/${XAP_RELEASE_VERSION}/${MILESTONE}/${XAP_ZIP_FILENAME} ${DOC_D
 
 pushd ${DOC_DIR} 
 
-rm -rf ${XAP_DIR} 
+	rm -rf ${XAP_DIR} 
 
-unzip ${XAP_ZIP_FILENAME}
+	unzip ${XAP_ZIP_FILENAME}
 
-####### JAVA API ######
-unzip -d ${JAVA_DOCS_DIR} ${XAP_DIR}/docs/xap-javadoc.zip  
+	####### JAVA API ######
+	unzip -d ${JAVA_DOCS_DIR} ${XAP_DIR}/docs/xap-javadoc.zip  
 
-###### DOTNET API #####
-mkdir  ${XAP_DIR}/dotnet
-mkdir  ${DOTNET_DOCS_DIR}
-cp  ${XAP_EA_DIR}/${XAP_RELEASE_VERSION}/${MILESTONE}/${DOTNET_HELP_FILE} ${DOTNET_DOCS_DIR}
-unzip -d ${DOTNET_DOCS_DIR} ${DOTNET_DOCS_DIR}/${DOTNET_HELP_FILE}
-mv ${DOTNET_DOCS_DIR}/Index.html ${DOTNET_DOCS_DIR}/index.html
+	###### DOTNET API #####
+	mkdir  ${XAP_DIR}/dotnet
+	mkdir  ${DOTNET_DOCS_DIR}
+	cp  ${XAP_EA_DIR}/${XAP_RELEASE_VERSION}/${MILESTONE}/${DOTNET_HELP_FILE} ${DOTNET_DOCS_DIR}
+	unzip -d ${DOTNET_DOCS_DIR} ${DOTNET_DOCS_DIR}/${DOTNET_HELP_FILE}
+	mv ${DOTNET_DOCS_DIR}/Index.html ${DOTNET_DOCS_DIR}/index.html
 
-###### CPP API #####
-cp -R ${DOC_DIR}/gigaspaces-xap-premium-9.7.0-m5/cpp  ${XAP_DIR} 
+	###### CPP API #####
+	cp -R ${DOC_DIR}/gigaspaces-xap-premium-${PREVIOUS_VERSION}/cpp  ${XAP_DIR} 
+	pushd ${XAP_DIR}/cpp
+		find .  -name '*.html' -exec sed -i "s/XAP ${MAJOR_OLD}.${MINOR_OLD}/XAP ${MAJOR_NEW}.${MINOR_NEW}/g" '{}' \; 
+	popd
 
-###### SCALA API ######
-unzip -d ${XAP_DIR}/docs ${XAP_DIR}/docs/openspaces-scala-scaladocs.zip
+	###### SCALA API ######	
+	unzip -d ${XAP_DIR}/docs ${XAP_DIR}/docs/openspaces-scala-scaladocs.zip
 
-###### REMOVE LINKS ######
-rm ${JAVADOC_LINK} ${DOTNETDOC_LINK} ${CPPDOC_LINK} ${SCALADOC_LINK}
+	###### REMOVE LINKS ######
+	rm ${JAVADOC_LINK} ${DOTNETDOC_LINK} ${CPPDOC_LINK} ${SCALADOC_LINK}
 
-###### CREATE LINKS ######
-ln -s ${JAVA_DOCS_DIR} ${JAVADOC_LINK}
-ln -s ${DOTNET_DOCS_DIR} ${DOTNETDOC_LINK}
-ln -s ${CPP_DOCS_DIR} ${CPPDOC_LINK}
-ln -s ${SCALA_DOCS_DIR} ${SCALADOC_LINK}
+	###### CREATE LINKS ######
+	ln -s ${JAVA_DOCS_DIR} ${JAVADOC_LINK}
+	ln -s ${DOTNET_DOCS_DIR} ${DOTNETDOC_LINK}
+	ln -s ${CPP_DOCS_DIR} ${CPPDOC_LINK}
+	ln -s ${SCALA_DOCS_DIR} ${SCALADOC_LINK}
 
 popd
 
