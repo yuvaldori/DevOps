@@ -38,6 +38,9 @@ while read fname
 do	
 	grep "display\/XAP${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/display\/XAP${MAJOR_OLD}${MINOR_OLD}/display\/XAP${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
+	### Limor Please check this part in 10.1
+	grep "PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
+	sed -i "s/PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}/PLATFORM_VERSION=${MAJOR_NEW}.${MINOR_NEW}/g" "$fname"
 done
 
 echo "*** Display svn diff ***" >> $LOG_FILE

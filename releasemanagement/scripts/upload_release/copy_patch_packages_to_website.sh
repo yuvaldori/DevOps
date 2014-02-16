@@ -19,7 +19,7 @@ RN_FILE=Release_Notes_${MAJOR}_${MINOR}_${SERVICEPACK}_patch${PATCH_NUMBER}.doc
 ssh  -i ~/.ssh/website  tempfiles@www.gigaspaces.com "mkdir -p ${DEST_DIR}"
 
 #copy release notes file
-#scp -i ~/.ssh/website ${REPOSITORY}/release_notes/${RN_FILE} tempfiles@www.gigaspaces.com:${DEST_DIR}
+scp -i ~/.ssh/website ${REPOSITORY}/release_notes/${RN_FILE} tempfiles@www.gigaspaces.com:${DEST_DIR}
 
 #copy package files
 case  $PATCH_TYPE  in
@@ -38,5 +38,4 @@ case  $PATCH_TYPE  in
 
       *)              
 esac
-
 
