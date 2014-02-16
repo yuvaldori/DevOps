@@ -17,13 +17,12 @@ XAP_MAVEN_VERSION=${XAP_MAJOR_VERSION}.${XAP_MINOR_VERSION}.${XAP_SERVICE_PACK}-
 svn cp ${CLOUDIFY_TRUNK_SVN_URL} ${CLOUDIFY_BRANCHES_SVN_URL}/${TAGS_BRANCHES_FOLDER}/${BRANCH_NAME} -m "Create branch ${BRANCH_NAME} from trunk"
 
 
-#TEST_PROJECTS_LIST=( Cloudify-iTests-Deployer Cloudify-iTests Cloudify-iTests-webuitf Cloudify-iTests-sandbox iTests-Framework )
-#CLOUDIFY_PROJECTS_LIST=( cloudify-recipes cloudify cloudify-widget-recipes )
-TEST_PROJECTS_LIST="Cloudify-iTests-Deployer Cloudify-iTests Cloudify-iTests-webuitf Cloudify-iTests-sandbox iTests-Framework"
-CLOUDIFY_PROJECTS_LIST="cloudify-recipes cloudify cloudify-widget-recipes"
-ENTIRE_PROJECTS_LIST="${TEST_PROJECTS_LIST} ${CLOUDIFY_PROJECTS_LIST}"
+TEST_PROJECTS_LIST=( Cloudify-iTests-Deployer Cloudify-iTests Cloudify-iTests-webuitf Cloudify-iTests-sandbox iTests-Framework )
+CLOUDIFY_PROJECTS_LIST=( cloudify-recipes cloudify cloudify-widget-recipes )
 
-for project in "${CLOUDIFY_PROJECTS_LIST}"
+CONCATE_PROJECTS_LIST="${TEST_PROJECTS_LIST[@]} ${CLOUDIFY_PROJECTS_LIST[@]}"
+
+for project in "${CLOUDIFY_PROJECTS_LIST[@]}"
 do	
 	if [ -d ${project}/.git ]; then
 		pushd ${project}
@@ -67,7 +66,7 @@ do
 	popd
 done
 
-for project in "${TEST_PROJECTS_LIST}"
+for project in "${TEST_PROJECTS_LIST[@]}"
 do
         if [ -d ${project}/.git ]; then
                 pushd ${project}
@@ -102,7 +101,7 @@ do
         popd
 done
 
-for project in ${ENTIRE_PROJECTS_LIST}
+for project in "${CONCATE_PROJECTS_LIST[@]}"
 do
 	pushd ${project}		
 	exists=`git show-ref refs/heads/${BRANCH_NAME}`
@@ -114,3 +113,15 @@ do
 	fi
 	popd
 done
+#for project in "${TEST_PROJECTS_LIST[@]}"
+#do
+#	pushd ${project}		
+#	exists=`git show-ref refs/heads/${BRANCH_NAME}`
+#	if [ -n "$exists" ]; then
+#	    	echo "*** ${project} - branch: ${BRANCH_NAME} exists"
+#	else
+#		echo "*** !!!${project} - branch: ${BRANCH_NAME} does not exist!!!"
+#
+#	fi
+#	popd
+#done
