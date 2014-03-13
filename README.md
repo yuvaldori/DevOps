@@ -26,7 +26,7 @@ Scripts list under releasemanagement\scripts folder (build64A:/opt/git-repo)
 4. releasemanagement\scripts\java_versions
 	4.1 configJava.sh
 	
-5. releasemanagement\scripts\s3
+5. releasemanagement\scripts\s3 (build64A:/opt/scripts/s3/)
 	5.1 s3clean.sh
 	Description:
 	clean s3 bucket - s3://gigaspaces-maven-repository-eu every 7 days
