@@ -101,7 +101,7 @@ do
         popd
 done
 
-for project in "${CONCATE_PROJECTS_LIST[@]}"
+for project in "${CLOUDIFY_PROJECTS_LIST[@]}"
 do
 	pushd ${project}		
 	exists=`git show-ref refs/heads/${BRANCH_NAME}`
@@ -113,15 +113,15 @@ do
 	fi
 	popd
 done
-#for project in "${TEST_PROJECTS_LIST[@]}"
-#do
-#	pushd ${project}		
-#	exists=`git show-ref refs/heads/${BRANCH_NAME}`
-#	if [ -n "$exists" ]; then
-#	    	echo "*** ${project} - branch: ${BRANCH_NAME} exists"
-#	else
-#		echo "*** !!!${project} - branch: ${BRANCH_NAME} does not exist!!!"
-#
-#	fi
-#	popd
-#done
+for project in "${TEST_PROJECTS_LIST[@]}"
+do
+	pushd ${project}		
+	exists=`git show-ref refs/heads/${BRANCH_NAME}`
+	if [ -n "$exists" ]; then
+	    	echo "*** ${project} - branch: ${BRANCH_NAME} exists"
+	else
+		echo "*** !!!${project} - branch: ${BRANCH_NAME} does not exist!!!"
+
+	fi
+	popd
+done

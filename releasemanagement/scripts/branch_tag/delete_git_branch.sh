@@ -2,9 +2,12 @@
 
 source params.sh
 
-PROJECTS_LIST=( cloudify-recipes cloudify Cloudify-iTests-Deployer Cloudify-iTests Cloudify-iTests-webuitf Cloudify-iTests-sandbox cloudify-widget-recipes iTests-Framework )
-#PROJECTS_LIST=( Cloudify-iTests-webuitf Cloudify-iTests-sandbox )
+PROJECTS_LIST=( Cloudify-iTests-Deployer Cloudify-iTests Cloudify-iTests-webuitf Cloudify-iTests-sandbox iTests-Framework cloudify-recipes cloudify)
 
+
+#PROJECTS_LIST=( cloudify-recipes cloudify Cloudify-iTests-Deployer Cloudify-iTests Cloudify-iTests-webuitf Cloudify-iTests-sandbox cloudify-widget-recipes iTests-Framework )
+#PROJECTS_LIST=( Cloudify-iTests-webuitf Cloudify-iTests-sandbox )
+BRANCH_NAME=2_7_0_ga_softlayer
 
 for project in "${PROJECTS_LIST[@]}"
 do

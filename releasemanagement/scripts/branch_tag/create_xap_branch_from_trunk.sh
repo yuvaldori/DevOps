@@ -80,7 +80,7 @@ do
 	fi
 	popd
 done
-for project in ${GIT_PROJECTS_LIST[@]}}
+for project in ${GIT_PROJECTS_LIST[@]}
 do
 	pushd ${project}		
 	exists=`git show-ref refs/heads/${BRANCH_NAME}`
