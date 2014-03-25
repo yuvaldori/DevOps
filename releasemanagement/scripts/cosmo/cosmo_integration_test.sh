@@ -2,7 +2,7 @@
 
 function retry {
    nTrys=0
-   maxTrys=5
+   maxTrys=10
    status=256
    until [ $status == 0 ] ; do
       echo "*** Running $1"      

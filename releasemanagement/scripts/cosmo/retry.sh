@@ -12,7 +12,7 @@ function retry {
             exit $status
       fi
       if [ $status != 0 ] ; then
-            echo "Failed with exit code $status ... retry $nTrys"
+            echo "Failed (exit code $status)... retry $nTrys"
             sleep 15
       fi
    done

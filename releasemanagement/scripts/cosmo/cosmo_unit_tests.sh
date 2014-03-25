@@ -23,12 +23,12 @@ function retry {
 fail_file=cosmo_unit_tests_fail.log
 
 
-#REPOS_LIST="cosmo-plugin-agent-installer,cosmo-celery-common,cosmo-manager,cosmo-cli,cosmo-plugin-plugin-installer,\
-#cosmo-plugin-openstack-provisioner,cosmo-plugin-python-webserver,cosmo-manager-rest-client,cosmo-plugin-kv-store,\
-#cosmo-fabric-runner,cosmo-plugin-vagrant-provisioner"
+#REPOS_LIST="cosmo-plugin-agent-installer cosmo-celery-common cosmo-manager,cosmo-cli cosmo-plugin-plugin-installer \
+#cosmo-plugin-openstack-provisioner cosmo-plugin-python-webserver cosmo-manager-rest-client cosmo-plugin-kv-store \
+#cosmo-fabric-runner cosmo-plugin-vagrant-provisioner"
 
 # Order is important!
-#REPOS_LIST="cosmo-fabric-runner,cosmo-manager-rest-client,cosmo-celery-common,cosmo-plugin-plugin-installer,cosmo-plugin-kv-store,cosmo-manager,cosmo-cli"
+#REPOS_LIST="cosmo-fabric-runner cosmo-manager-rest-client cosmo-celery-common cosmo-plugin-plugin-installer cosmo-plugin-kv-store cosmo-manager cosmo-cli"
 
 echo "### Repositories list: $REPOS_LIST"
 
@@ -110,9 +110,13 @@ do
 	
 	popd
 	
-	cat </dev/null>$fail_file
-	echo "### cosmo_unit_tests_fail=$cosmo_unit_tests_fail"
-	echo "$cosmo_unit_tests_fail" > $fail_file 
+	rm -f $fail_file	
+	#cat </dev/null>$fail_file
+	if [ ! -z $cosmo_unit_tests_fail ]
+	then
+		echo "### cosmo_unit_tests_fail=$cosmo_unit_tests_fail"
+		echo "$cosmo_unit_tests_fail" > $fail_file 
+	fi
   	
 done
 
