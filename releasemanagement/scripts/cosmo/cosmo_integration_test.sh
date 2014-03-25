@@ -1,7 +1,26 @@
 #!/bin/bash
 
-#export PATH=${PATH}:/usr/share/elasticsearch/bin:$HOME/.rvm/bin:$HOME/.rvm/gems/ruby-2.1.0/bin
-#source ~/.bashrc	
+function retry {
+   nTrys=0
+   maxTrys=5
+   status=256
+   until [ $status == 0 ] ; do
+      echo "*** Running $1"      
+      $1
+      status=$?
+      nTrys=$(($nTrys + 1))
+      if [ $nTrys -gt $maxTrys ] ; then
+            echo "Number of re-trys exceeded. Exit code: $status"
+            exit $status
+      fi
+      if [ $status != 0 ] ; then
+            echo "Failed (exit code $status)... retry $nTrys"
+            sleep 15
+      fi
+   done
+}
+
+	
 echo "### PATH is: $PATH"
 
 #echo "### Running rvm use 2.1.0"
@@ -19,7 +38,7 @@ echo "### Activating virtualenv"
 source env/bin/activate
 
 echo "### Installing nose"
-pip install nose
+retry "pip install nose"
 
 echo "### Installing protobuf using easy_install"
 easy_install protobuf	
@@ -33,7 +52,7 @@ pushd cosmo-manager
 	
 	pushd manager-rest
 		echo "### Installing manager-rest dependencies"
-		pip install . --process-dependency-links
+		retry "pip install . --process-dependency-links"
 		if [ $? != 0 ]; then
 			exit $?
 		fi
@@ -41,7 +60,7 @@ pushd cosmo-manager
 
 	pushd workflows
 		echo "### Installing integration tests dependencies"
-		pip install . --process-dependency-links
+		retry "pip install . --process-dependency-links"
 		if [ $? != 0 ]; then
 			exit $?
 		fi

@@ -1,5 +1,25 @@
 #!/bin/bash
 
+function retry {
+   nTrys=0
+   maxTrys=10
+   status=256
+   until [ $status == 0 ] ; do
+      echo "*** Running $1"      
+      $1
+      status=$?
+      nTrys=$(($nTrys + 1))
+      if [ $nTrys -gt $maxTrys ] ; then
+            echo "Number of re-trys exceeded. Exit code: $status"
+            exit $status
+      fi
+      if [ $status != 0 ] ; then
+            echo "Failed (exit code $status)... retry $nTrys"
+            sleep 15
+      fi
+   done
+}
+
 fail_file=cosmo_unit_tests_fail.log
 
 
@@ -12,8 +32,6 @@ fail_file=cosmo_unit_tests_fail.log
 
 echo "### Repositories list: $REPOS_LIST"
 
-IFS=","
-
 echo "### Creating vitualenv"
 # Erase previous env before and not after so that in a case of failure we'll have the previous env
 rm -rf env
@@ -23,13 +41,13 @@ echo "### Activating vitualenv"
 source env/bin/activate
 
 echo "### Installing flake8"
-pip install flake8
+retry "pip install flake8"
 
 echo "### Installing nose"
-pip install nose
+retry "pip install nose"
 
 echo "### Upgrading to latest pip"
-pip install --upgrade pip
+retry "pip install --upgrade pip"
 
 # There's an issue with protobuf installation using pip
 echo "### Installing protobuf using easy_install"
@@ -52,14 +70,14 @@ do
 	echo "### Installing [$r] dependencies"
 	if [ "$r" = "cosmo-celery-common" ]
 	then
-		python setup.py install
+		retry "python setup.py install"
 		retval=$?
 		if [ $retval -ne 0 ]; then
 			echo "### Installation for package [$r] exited with code $retval"
 			exit $retval
 		fi
 	else
- 		pip install . --process-dependency-links
+ 		retry "pip install . --process-dependency-links"
 		retval=$?
 		if [ $retval -ne 0 ]; then
 			echo "### Installation for package [$r] exited with code $retval"
@@ -74,7 +92,7 @@ do
 	echo "### Running nosetests for: $r"
 	if [ "$r" = "cosmo-fabric-runner" ]
 	then
-		pip install -r test-requirements.txt
+		retry "pip install -r test-requirements.txt"
 		nosetests cosmo_fabric/tests/test_fabric_retry_runner.py:TestLocalRunnerCase -e .*sudo.*
 	elif [ "$r" = "cosmo-plugin-agent-installer" ]
 	then
