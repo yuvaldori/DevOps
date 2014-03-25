@@ -1,4 +1,5 @@
-function retry {
+function retry 
+{
    nTrys=0
    maxTrys=10
    status=256
