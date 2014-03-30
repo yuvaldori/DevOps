@@ -66,7 +66,8 @@ pkg_cosmo_ui()
 pkg_cloudify3()
 ## copy cloudify3 package...
 if glob.glob('{0}/cloudify*.deb'.format(config.PACKAGES['cloudify3']['package_path'])):
-	print "yes"	
+	print "yes"
+	print os.environ["TARZAN_BUILDS"]	
 	copy_dir('{0}'.format(config.PACKAGES['cloudify3']['package_path']),os.environ["TARZAN_BUILDS"]+"/3.0.0")
 
 
