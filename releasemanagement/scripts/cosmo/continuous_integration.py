@@ -12,15 +12,15 @@
 # sudo mkdir -p /var/log/packager &&
 #       sudo touch /var/log/packager/packager.log &&
 #####################################################
-
+import sys
 import os
+import glob
 import shutil, errno
 from fabric.api import * #NOQA
 from get import *  # NOQA
 from pkg import *  # NOQA
 import config
 from packager import *  # NOQA
-import glob
 
 
 print("*** packaging manager")
@@ -62,12 +62,22 @@ shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.
 get_cosmo_ui()
 pkg_cosmo_ui()
 
+manager_file = glob.glob(os.path.join('{0}'.format(config.PACKAGES['manager']['package_path']), '{0}*.deb'.format(config.PACKAGES['manager']['name'])))
+print manager_file
+celery_file = glob.glob(os.path.join('{0}'.format(config.PACKAGES['celery']['package_path']), '{0}*.deb'.format(config.PACKAGES['celery']['name'])))
+print celery_file
+ui_file = glob.glob(os.path.join('{0}'.format(config.PACKAGES['cosmo-ui']['package_path']), '{0}*.deb'.format(config.PACKAGES['cosmo-ui']['name'])))
+print ui_file
+if  manager_file and celery_file and ui_file:
+	pkg_cloudify3()
+else:
+	print "Cannot pack cloudify3 because missing deb files"
+	sys.exit(1)
 
-pkg_cloudify3()
 ## copy cloudify3 package...
-if glob.glob('{0}/cloudify*.deb'.format(config.PACKAGES['cloudify3']['package_path'])):
-	print "yes"
-	print os.environ["TARZAN_BUILDS"]	
-	copy_dir('{0}'.format(config.PACKAGES['cloudify3']['package_path']),os.environ["TARZAN_BUILDS"]+"/3.0.0")
+#if glob.glob('{0}/cloudify*.deb'.format(config.PACKAGES['cloudify3']['package_path'])):
+#	print "yes"
+#	print os.environ["TARZAN_BUILDS"]	
+#	copy_dir('{0}'.format(config.PACKAGES['cloudify3']['package_path']),os.environ["TARZAN_BUILDS"]+"/3.0.0")
 
 
