@@ -58,8 +58,8 @@ do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery
 pkg_celery()
 
 print("*** packaging ui")
-shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(config.PACKAGES['cosmo-ui']['sources_path']))
 get_cosmo_ui()
+shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(config.PACKAGES['cosmo-ui']['sources_path']))
 pkg_cosmo_ui()
 
 manager_file = glob.glob(os.path.join('{0}'.format(config.PACKAGES['manager']['package_path']), '{0}*.deb'.format(config.PACKAGES['manager']['name'])))
