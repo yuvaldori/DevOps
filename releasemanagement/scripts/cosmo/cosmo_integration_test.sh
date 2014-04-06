@@ -1,25 +1,6 @@
 #!/bin/bash
 
-function retry {
-   nTrys=0
-   maxTrys=10
-   status=256
-   until [ $status == 0 ] ; do
-      echo "*** Running $1"      
-      $1
-      status=$?
-      nTrys=$(($nTrys + 1))
-      if [ $nTrys -gt $maxTrys ] ; then
-            echo "Number of re-trys exceeded. Exit code: $status"
-            exit $status
-      fi
-      if [ $status != 0 ] ; then
-            echo "Failed (exit code $status)... retry $nTrys"
-            sleep 15
-      fi
-   done
-}
-
+source retry.sh
 	
 echo "### PATH is: $PATH"
 
@@ -43,14 +24,14 @@ retry "pip install nose"
 echo "### Installing protobuf using easy_install"
 easy_install protobuf	
 
-pushd cosmo-manager
+pushd cloudify-manager
 
 	pushd workflow-service
 		echo "### Running bundle install for workflow-service"
 		bundle install
 	popd
 	
-	pushd manager-rest
+	pushd rest-service
 		echo "### Installing manager-rest dependencies"
 		retry "pip install . --process-dependency-links"
 		if [ $? != 0 ]; then
@@ -58,7 +39,7 @@ pushd cosmo-manager
 		fi
 	popd
 
-	pushd workflows
+	pushd tests
 		echo "### Installing integration tests dependencies"
 		retry "pip install . --process-dependency-links"
 		if [ $? != 0 ]; then

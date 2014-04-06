@@ -1,34 +1,13 @@
 #!/bin/bash
 
-function retry {
-   nTrys=0
-   maxTrys=10
-   status=256
-   until [ $status == 0 ] ; do
-      echo "*** Running $1"      
-      $1
-      status=$?
-      nTrys=$(($nTrys + 1))
-      if [ $nTrys -gt $maxTrys ] ; then
-            echo "Number of re-trys exceeded. Exit code: $status"
-            exit $status
-      fi
-      if [ $status != 0 ] ; then
-            echo "Failed (exit code $status)... retry $nTrys"
-            sleep 15
-      fi
-   done
-}
+source retry.sh
 
 fail_file=cosmo_unit_tests_fail.log
 
-
-#REPOS_LIST="cosmo-plugin-agent-installer cosmo-celery-common cosmo-manager,cosmo-cli cosmo-plugin-plugin-installer \
-#cosmo-plugin-openstack-provisioner cosmo-plugin-python-webserver cosmo-manager-rest-client cosmo-plugin-kv-store \
-#cosmo-fabric-runner cosmo-plugin-vagrant-provisioner"
-
 # Order is important!
-#REPOS_LIST="cosmo-fabric-runner cosmo-manager-rest-client cosmo-celery-common cosmo-plugin-plugin-installer cosmo-plugin-kv-store cosmo-manager cosmo-cli"
+#REPOS_LIST="cloudify-dsl-parser cloudify-rest-client cloudify-plugins-common cloudify-cli \
+#cloudify-manager/plugins/plugin-installer cloudify-bash-plugin"
+
 
 echo "### Repositories list: $REPOS_LIST"
 
@@ -60,15 +39,10 @@ do
      		
 	echo "### Processing repository: $r"	   	
 	
-	if [ "$r" = "cosmo-manager" ]
-	then		
-		r="$r/manager-rest"
-	fi
-
 	pushd $r
 
 	echo "### Installing [$r] dependencies"
-	if [ "$r" = "cosmo-celery-common" ]
+	if [ "$r" = "cloudify-plugins-common" ]
 	then
 		retry "python setup.py install"
 		retval=$?
@@ -90,11 +64,7 @@ do
 	echo "### flake8 exited with code $?"
 
 	echo "### Running nosetests for: $r"
-	if [ "$r" = "cosmo-fabric-runner" ]
-	then
-		retry "pip install -r test-requirements.txt"
-		nosetests cosmo_fabric/tests/test_fabric_retry_runner.py:TestLocalRunnerCase -e .*sudo.*
-	elif [ "$r" = "cosmo-plugin-agent-installer" ]
+	if [ "$r" = "cloudify-manager/plugins/agent-installer" ]
 	then
 		nosetests worker_installer/tests/test_worker_installer.py:TestLocalInstallerCase --nologcapture --nocapture
 	else

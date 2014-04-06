@@ -38,10 +38,10 @@ def copy_dir(src,dst):
     shutil.copytree(src, dst)
 
 ## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['manager']['sources_path'],parent_dir+'/cosmo-plugin-dsl-parser'))
+do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['manager']['sources_path'],parent_dir+'/cloudify-dsl-parser'))
 
 ## install manager with dependencies into manager virtualenv
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['manager']['sources_path'],parent_dir+'/cosmo-manager/manager-rest'))
+do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['manager']['sources_path'],parent_dir+'/cloudify-manager/rest-service'))
 
 ## package manager virtualenv
 pkg_manager()
@@ -49,12 +49,10 @@ pkg_manager()
 print("*** packaging celery")
 get_celery()
 ## install celery with dependencies into celery virtualenv
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cosmo-fabric-runner'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cosmo-manager-rest-client'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cosmo-celery-common'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cosmo-plugin-kv-store'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cosmo-plugin-plugin-installer'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cosmo-plugin-agent-installer'))
+do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-rest-client'))
+do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-plugins-common'))
+do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
+do('{0}/bin/pip --default-timeout=45 install {1}'.format(config.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
 pkg_celery()
 
 print("*** packaging ui")
