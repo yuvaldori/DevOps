@@ -6,8 +6,7 @@ fail_file=cosmo_unit_tests_fail.log
 
 # Order is important!
 #REPOS_LIST="cloudify-dsl-parser cloudify-rest-client cloudify-plugins-common cloudify-cli \
-#cloudify-manager/plugins/plugin-installer cloudify-bash-plugin"
-
+#cloudify-manager/plugins/plugin-installer cloudify-manager/rest-service cloudify-bash-plugin"
 
 echo "### Repositories list: $REPOS_LIST"
 
