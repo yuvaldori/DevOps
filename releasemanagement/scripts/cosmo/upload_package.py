@@ -19,8 +19,8 @@ import shutil, errno
 from fabric.api import * #NOQA
 from get import *  # NOQA
 from pkg import *  # NOQA
-import config
-from packager import *  # NOQA
+import packages
+from packman import *  # NOQA
 import glob
 import params
 from boto.s3.connection import S3Connection
@@ -41,17 +41,19 @@ def copy_dir(src,dst):
 
 ## copy cloudify3 package...
 print "uploading cloudify3 package to s3 and tarzan/builds"
-PACKAGE_SOURCE_PATH='{0}'.format(config.PACKAGES['cloudify3']['package_path'])
+PACKAGE_SOURCE_PATH='{0}'.format(packages.PACKAGES['cloudify3']['package_path'])
 PACKAGE_DEST_DIR="nightly"
 PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 if glob.glob('{0}/cloudify*.deb'.format(PACKAGE_SOURCE_PATH)):
+	
+	#copy_dir('{0}'.format(packages.PACKAGES['ubuntu-agent']['package_path']),'{0}'.format(PACKAGE_SOURCE_PATH))
 
 	#print os.environ["TARZAN_BUILDS"]	
-	copy_dir('{0}'.format(PACKAGE_SOURCE_PATH),os.environ["TARZAN_BUILDS"]+"/"+PACKAGE_DEST_PATH)
-	print "uploaded file to {0}".format(os.environ["TARZAN_BUILDS"]+"/"+PACKAGE_DEST_PATH) 
+	copy_dir('{0}'.format(PACKAGE_SOURCE_PATH),os.environ["TARZAN_BUILDS"]+"/"+PACKAGE_DEST_DIR)
+	print "uploaded file to {0}".format(os.environ["TARZAN_BUILDS"]+"/"+PACKAGE_DEST_DIR) 
 	
 	os.chdir( PACKAGE_SOURCE_PATH ) 
-	filenames = ['cloudify3_3.0.0_amd64.deb', 'cloudify3-components_3.0.0_amd64.deb']
+	filenames = ['cloudify3_3.0.0_amd64.deb', 'cloudify3-components_3.0.0_amd64.deb', 'ubuntu-agent_3.0.0_amd64.deb']
 	conn = S3Connection(aws_access_key_id=params.AWS_KEY, aws_secret_access_key=params.AWS_SECRET)
 	for fname in filenames:
     		bucket = conn.get_bucket("gigaspaces-repository-eu")    		
