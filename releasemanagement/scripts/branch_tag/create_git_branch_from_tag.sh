@@ -9,7 +9,7 @@ CLOUDIFY_TRUNK_SVN_URL=${CLOUDIFY_SVN_URL}/trunk
 CLOUDIFY_TAGS_SVN_URL=${CLOUDIFY_SVN_URL}/tags
 CLOUDIFY_BRANCHES_SVN_URL=${CLOUDIFY_SVN_URL}/branches
 
-BRANCH_NAME=${CLOUDIFY_MAJOR_VERSION}_${CLOUDIFY_MINOR_VERSION}_${CLOUDIFY_SERVICEPACK_VERSION}_release_softlayer 
+BRANCH_NAME=${CLOUDIFY_MAJOR_VERSION}_${CLOUDIFY_MINOR_VERSION}_${CLOUDIFY_SERVICEPACK_VERSION}_${MILESTONE} 
 TAGS_BRANCHES_FOLDER=${CLOUDIFY_MAJOR_VERSION}_${CLOUDIFY_MINOR_VERSION}_X
 CLOUDIFY_MAVEN_VERSION=${CLOUDIFY_MAJOR_VERSION}.${CLOUDIFY_MINOR_VERSION}.${CLOUDIFY_SERVICEPACK_VERSION}-SNAPSHOT
 XAP_MAVEN_VERSION=9.7.0-SNAPSHOT
@@ -17,7 +17,7 @@ TAG_NAME_TO_PREPARE_BRANCH_FROM=2.7.0_ga_build5996_01_20_2014
 
 TEST_PROJECTS_LIST=( Cloudify-iTests-Deployer Cloudify-iTests Cloudify-iTests-webuitf Cloudify-iTests-sandbox iTests-Framework )
 #CLOUDIFY_PROJECTS_LIST=( cloudify-recipes cloudify cloudify-widget-recipes )
-CLOUDIFY_PROJECTS_LIST=( cloudify-recipes cloudify )
+CLOUDIFY_PROJECTS_LIST=( cloudify-recipes cloudify cloudify-widget-recipes)
 
 
 svn cp ${CLOUDIFY_TAGS_SVN_URL}/${TAGS_BRANCHES_FOLDER}/${TAG_NAME_TO_PREPARE_BRANCH_FROM} ${CLOUDIFY_BRANCHES_SVN_URL}/${TAGS_BRANCHES_FOLDER}/${BRANCH_NAME} -m "Create branch ${BRANCH_NAME} from ${TAG_NAME_TO_PREPARE_BRANCH_FROM}"
@@ -61,7 +61,7 @@ do
 	#git status
 	
 	#git commit -m "Change modules maven version to ${CLOUDIFY_MAVEN_VERSION}"
-	#git push origin  +${BRANCH_NAME}
+	git push origin  +${BRANCH_NAME}
 		
 	#popd
 	popd
@@ -97,7 +97,7 @@ do
        #git status
 
         #git commit -m "Change modules maven version to ${CLOUDIFY_MAVEN_VERSION}"
-        #git push origin  +${BRANCH_NAME}
+        git push origin  +${BRANCH_NAME}
 
         popd
 done

@@ -13,7 +13,7 @@ TAGS_BRANCHES_FOLDER=${XAP_MAJOR_VERSION}_${XAP_MINOR_VERSION}_X
 svn cp ${XAP_TAGS_SVN_URL}/${TAGS_BRANCHES_FOLDER}/${TAG_NAME} ${XAP_BRANCHES_SVN_URL}/${TAGS_BRANCHES_FOLDER}/${BRANCH_NAME} -m "Create branch ${BRANCH_NAME} from ${XAP_TAGS_SVN_URL}/${TAGS_BRANCHES_FOLDER}/${TAG_NAME}"
 
 TEST_PROJECTS_LIST=( Cloudify-iTests Cloudify-iTests-webuitf iTests-Framework )
-GIT_PROJECTS_LIST=( mongo-datasource petclinic-jpa )
+GIT_PROJECTS_LIST=( mongo-datasource mongo-datasource-itests petclinic-jpa )
 
 for project in "${TEST_PROJECTS_LIST[@]}"
 do

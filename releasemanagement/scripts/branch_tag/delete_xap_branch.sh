@@ -4,7 +4,7 @@
 BRANCH_NAME="9_7_1_m1"
 
 TEST_PROJECTS_LIST=( Cloudify-iTests Cloudify-iTests-webuitf iTests-Framework )
-GIT_PROJECTS_LIST=( mongo-datasource petclinic-jpa )
+GIT_PROJECTS_LIST=( mongo-datasource mongo-datasource-itests petclinic-jpa )
 
 
 for project in ${TEST_PROJECTS_LIST[@]}

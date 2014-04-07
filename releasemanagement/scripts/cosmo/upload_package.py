@@ -42,12 +42,14 @@ def copy_dir(src,dst):
 ## copy cloudify3 package...
 print "uploading cloudify3 package to s3 and tarzan/builds"
 PACKAGE_SOURCE_PATH='{0}'.format(config.PACKAGES['cloudify3']['package_path'])
-PACKAGE_DEST_PATH="org/cloudify3/latest"
+PACKAGE_DEST_DIR="nightly"
+PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 if glob.glob('{0}/cloudify*.deb'.format(PACKAGE_SOURCE_PATH)):
 
 	#print os.environ["TARZAN_BUILDS"]	
 	copy_dir('{0}'.format(PACKAGE_SOURCE_PATH),os.environ["TARZAN_BUILDS"]+"/"+PACKAGE_DEST_PATH)
 	print "uploaded file to {0}".format(os.environ["TARZAN_BUILDS"]+"/"+PACKAGE_DEST_PATH) 
+	
 	os.chdir( PACKAGE_SOURCE_PATH ) 
 	filenames = ['cloudify3_3.0.0_amd64.deb', 'cloudify3-components_3.0.0_amd64.deb']
 	conn = S3Connection(aws_access_key_id=params.AWS_KEY, aws_secret_access_key=params.AWS_SECRET)

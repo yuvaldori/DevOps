@@ -16,7 +16,7 @@ SVN_REVISION_NUMBER=`svn info ${XAP_TRUNK_SVN_URL} | grep Revision | awk '{print
 svn cp ${XAP_TRUNK_SVN_URL} ${XAP_BRANCHES_SVN_URL}/${TAGS_BRANCHES_FOLDER}/${BRANCH_NAME} -m "Create branch ${BRANCH_NAME} from ${XAP_TRUNK_SVN_URL}, revision: ${SVN_REVISION_NUMBER}"
 
 TEST_PROJECTS_LIST=( Cloudify-iTests Cloudify-iTests-webuitf iTests-Framework )
-GIT_PROJECTS_LIST=( mongo-datasource petclinic-jpa )
+GIT_PROJECTS_LIST=( mongo-datasource mongo-datasource-itests petclinic-jpa )
 #ENTIRE_PROJECTS_LIST="${GIT_PROJECTS_LIST} ${TEST_PROJECTS_LIST}"
 
 for project in ${TEST_PROJECTS_LIST[@]}
