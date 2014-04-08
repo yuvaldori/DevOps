@@ -40,7 +40,6 @@ get_manager()
 do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['manager']['sources_path'],parent_dir+'/cloudify-dsl-parser'))
 ## install manager with dependencies into manager virtualenv
 do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['manager']['sources_path'],parent_dir+'/cloudify-manager/rest-service'))
-
 ## package manager virtualenv
 pkg_manager()
 

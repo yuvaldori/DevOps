@@ -13,6 +13,7 @@
 #       sudo touch /var/log/packager/packager.log &&
 #####################################################
 
+import commands
 import sys
 import os
 import shutil, errno
@@ -38,15 +39,31 @@ def copy_dir(src,dst):
     shutil.copytree(src, dst)
 
 #export TARZAN_BUILDS=/export/builds/cloudify3
+print "TARZAN_BUILDS="+os.environ["TARZAN_BUILDS"]
 
 ## copy cloudify3 package...
 print "uploading cloudify3 package to s3 and tarzan/builds"
 PACKAGE_SOURCE_PATH='{0}'.format(packages.PACKAGES['cloudify3']['package_path'])
 PACKAGE_DEST_DIR="nightly"
 PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
-if glob.glob('{0}/cloudify*.deb'.format(PACKAGE_SOURCE_PATH)):
-	
-	#copy_dir('{0}'.format(packages.PACKAGES['ubuntu-agent']['package_path']),'{0}'.format(PACKAGE_SOURCE_PATH))
+
+
+commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
+#copy 3rd parties deb from /packages folder
+shutil.copyfile('/packages/cloudify3-components_3.0.0_amd64.deb','{0}/cloudify3-components_3.0.0_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+
+#check that all deb files exist in /cloudify folder
+cloudify_package = glob.glob('{0}/cloudify3_*.deb'.format(PACKAGE_SOURCE_PATH))
+print cloudify_package
+thirdparties_package = glob.glob('{0}/cloudify3-components*.deb'.format(PACKAGE_SOURCE_PATH))
+print thirdparties_package
+ubuntu_package = glob.glob('{0}/ubuntu-agent_*.deb'.format(PACKAGE_SOURCE_PATH))
+print ubuntu_package
+
+
+if  cloudify_package and thirdparties_package and ubuntu_package:
+	#copy ubuntu deb to /cloudify folder	
+	shutil.copyfile('{0}/ubuntu-agent_3.0.0_amd64.deb'.format(packages.PACKAGES['ubuntu-agent']['package_path']),'{0}/ubuntu-agent_3.0.0_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 
 	#print os.environ["TARZAN_BUILDS"]	
 	copy_dir('{0}'.format(PACKAGE_SOURCE_PATH),os.environ["TARZAN_BUILDS"]+"/"+PACKAGE_DEST_DIR)
@@ -62,7 +79,7 @@ if glob.glob('{0}/cloudify*.deb'.format(PACKAGE_SOURCE_PATH)):
    	 	print "uploaded file %s" % fname
 
 else:
-	print "Cannot upload cloudify3 package because cloudify3 deb file is missing"
+	print "Cannot upload package because some deb files are missing"
 	sys.exit(1)
 	
 
