@@ -45,9 +45,9 @@ pushd ${DOC_DIR}
 	mv ${DOTNET_DOCS_DIR}/Index.html ${DOTNET_DOCS_DIR}/index.html
 
 	###### CPP API #####
-	cp -R ${DOC_DIR}/gigaspaces-xap-premium-${PREVIOUS_VERSION}/cpp  ${XAP_DIR} 
+	cp -R ${DOC_DIR}//gigaspaces-xap-premium-9.6.2-ga/cpp  ${XAP_DIR} 
 	pushd ${XAP_DIR}/cpp
-		find .  -name '*.html' -exec sed -i "s/XAP ${MAJOR_OLD}.${MINOR_OLD}/XAP ${MAJOR_NEW}.${MINOR_NEW}/g" '{}' \; 
+		find .  -name '*.html' -exec sed -i "s/XAP 9.6/XAP ${MAJOR_NEW}.${MINOR_NEW}/g" '{}' \; 
 	popd
 
 	###### SCALA API ######	

@@ -53,9 +53,9 @@ pushd ${DOC_DIR}
 	# must be changed from 9.6 to 9.7 by running following command within ${XAP_DIR}/cpp folder:
 	# find .  -name '*.html' -exec sed -i "s/XAP 9.6/XAP 9.7/g" '{}' \; 
 
-	cp -R ${DOC_DIR}/gigaspaces-xap-premium-${PREVIOUS_VERSION}/cpp  ${XAP_DIR} 
+	cp -R ${DOC_DIR}/gigaspaces-xap-premium-9.6.2-ga/cpp  ${XAP_DIR} 
 	pushd ${XAP_DIR}/cpp
-		find .  -name '*.html' -exec sed -i "s/XAP ${MAJOR_OLD}.${MINOR_OLD}/XAP ${MAJOR_NEW}.${MINOR_NEW}/g" '{}' \; 
+		find .  -name '*.html' -exec sed -i "s/XAP 9.6/XAP ${MAJOR_NEW}.${MINOR_NEW}/g" '{}' \; 
 	popd
 	
 	###### SCALA API ######
