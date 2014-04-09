@@ -26,11 +26,11 @@ import glob
 import params
 from boto.s3.connection import S3Connection
 
-#os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
-#os.environ["PACK_COMPONENTS"]="no" 
-#os.environ["PACK_CORE"]="no" 
-#os.environ["PACK_UI"]="yes"
-#os.environ["BUILD_NUM"]="444"  
+os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
+os.environ["PACK_COMPONENTS"]="yes" 
+os.environ["PACK_CORE"]="yes" 
+os.environ["PACK_UI"]="yes"
+os.environ["BUILD_NUM"]=""  
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
