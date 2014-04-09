@@ -63,7 +63,7 @@ ubuntu_agent_conf = packages.PACKAGES['ubuntu-agent']
 
 ## copy cloudify3 package
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
-PACKAGE_DEST_DIR="nightly-test"
+PACKAGE_DEST_DIR="nightly"
 PACKAGE_DEST_BUILD_DIR=PACKAGE_DEST_DIR+"_"+BUILD_NUM
 PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
