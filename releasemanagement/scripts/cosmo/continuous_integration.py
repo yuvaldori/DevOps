@@ -22,6 +22,22 @@ from pkg import *  # NOQA
 import packages
 from packman import *  # NOQA
 
+#os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
+#os.environ["PACK_COMPONENTS"]="no" 
+#os.environ["PACK_CORE"]="no" 
+#os.environ["PACK_UI"]="yes"
+#os.environ["BUILD_NUM"]="444"  
+TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
+PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
+PACK_CORE=os.environ["PACK_CORE"]
+PACK_UI=os.environ["PACK_UI"]
+BUILD_NUM=os.environ["BUILD_NUM"]
+print TARZAN_BUILDS 
+print PACK_COMPONENTS
+print PACK_CORE
+print PACK_UI
+print BUILD_NUM
+
 def copy_dir(src,dst):
     if os.path.exists(dst):
         shutil.rmtree(dst)
@@ -33,53 +49,67 @@ parent_dir=os.path.abspath('../..')
 print("root dir: "+parent_dir)
 
 
-print("*** packaging manager")
-# prepares virtualenv and copies relevant files to manager virtualenv
-get_manager()
-## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['manager']['sources_path'],parent_dir+'/cloudify-dsl-parser'))
-## install manager with dependencies into manager virtualenv
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['manager']['sources_path'],parent_dir+'/cloudify-manager/rest-service'))
-## package manager virtualenv
-pkg_manager()
-
-print("*** packaging celery")
-get_celery()
-## install celery with dependencies into celery virtualenv
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-rest-client'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-plugins-common'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['celery']['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
-pkg_celery()
-
-print("*** packaging ui")
-get_cosmo_ui()
-shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(packages.PACKAGES['cosmo-ui']['sources_path']))
-pkg_cosmo_ui()
-
-manager_file = glob.glob(os.path.join('{0}'.format(packages.PACKAGES['manager']['package_path']), '{0}*.deb'.format(packages.PACKAGES['manager']['name'])))
-print manager_file
-celery_file = glob.glob(os.path.join('{0}'.format(packages.PACKAGES['celery']['package_path']), '{0}*.deb'.format(packages.PACKAGES['celery']['name'])))
-print celery_file
-ui_file = glob.glob(os.path.join('{0}'.format(packages.PACKAGES['cosmo-ui']['package_path']), '{0}*.deb'.format(packages.PACKAGES['cosmo-ui']['name'])))
-print ui_file
-if  manager_file and celery_file and ui_file:
-	pkg_cloudify3()
-else:
-	print "Cannot pack cloudify3 because missing deb files"
-	sys.exit(1)
+manager_conf = packages.PACKAGES['manager']
+celery_conf = packages.PACKAGES['celery']
+cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
+linux_conf = packages.PACKAGES['linux-agent']
 
 
-print("*** packaging linux-agent")
+if PACK_CORE == "yes":
+	print("*** packaging manager")
+	# prepares virtualenv and copies relevant files to manager virtualenv
+	get_manager()
+	## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(manager_conf['sources_path'],parent_dir+'/cloudify-dsl-parser'))
+	## install manager with dependencies into manager virtualenv
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(manager_conf['sources_path'],parent_dir+'/cloudify-manager/rest-service'))
+	## package manager virtualenv
+	pkg_manager()
 
-get_linux_agent()
-## install linux_agent with dependencies into celery virtualenv
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['linux-agent']['sources_path'],parent_dir+'/cloudify-rest-client'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['linux-agent']['sources_path'],parent_dir+'/cloudify-plugins-common'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['linux-agent']['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
-do('{0}/bin/pip --default-timeout=45 install {1}'.format(packages.PACKAGES['linux-agent']['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
-pkg_linux_agent()
-pkg_ubuntu_agent()
+	print("*** packaging celery")
+	get_celery()
+	## install celery with dependencies into celery virtualenv
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-rest-client'))
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-plugins-common'))
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
+	pkg_celery()
+	manager_file = glob.glob(os.path.join('{0}'.format(manager_conf['package_path']), '{0}*.deb'.format(manager_conf['name'])))
+	print manager_file
+	celery_file = glob.glob(os.path.join('{0}'.format(celery_conf['package_path']), '{0}*.deb'.format(celery_conf['name'])))
+	print celery_file
+	if  manager_file and celery_file:
+		pkg_cloudify_core()
+	else:
+		print "Cannot pack cloudify-core because missing deb files"
+		sys.exit(1)
+	print("*** packaging linux-agent")
+	get_linux_agent()
+	## install linux_agent with dependencies into celery virtualenv
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-rest-client'))
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-plugins-common'))
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
+	pkg_linux_agent()
+	pkg_ubuntu_agent()
+
+if PACK_UI == "yes":
+	print("*** packaging ui")
+	get_cloudify_ui()
+	shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(cloudify_ui_conf['sources_path']))
+	pkg_cloudify_ui()
+
+	ui_file = glob.glob(os.path.join('{0}'.format(cloudify_ui_conf['package_path']), '{0}*.deb'.format(cloudify_ui_conf['name'])))
+	print ui_file
+
+	if  ui_file:
+		pkg_cloudify_ui()
+	else:
+		print "Cannot pack cloudify-ui because missing deb files"
+		sys.exit(1)
+
+
+
 
 
 
