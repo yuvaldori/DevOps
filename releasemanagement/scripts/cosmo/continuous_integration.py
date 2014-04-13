@@ -22,17 +22,14 @@ from pkg import *  # NOQA
 import packages
 from packman import *  # NOQA
 
-os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
-os.environ["PACK_COMPONENTS"]="yes" 
-os.environ["PACK_CORE"]="yes" 
-os.environ["PACK_UI"]="yes"
-os.environ["BUILD_NUM"]="1-1"  
-TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
+#os.environ["PACK_COMPONENTS"]="yes" 
+#os.environ["PACK_CORE"]="yes" 
+#os.environ["PACK_UI"]="yes"
+#os.environ["BUILD_NUM"]="1-1"  
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
 PACK_UI=os.environ["PACK_UI"]
 BUILD_NUM=os.environ["BUILD_NUM"]
-print TARZAN_BUILDS 
 print PACK_COMPONENTS
 print PACK_CORE
 print PACK_UI

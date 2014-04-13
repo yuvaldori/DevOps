@@ -107,7 +107,9 @@ if PACK_UI == "yes":
 		print "*** ui deb file is missing ***"
 print filenames
 
-commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
+#commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
+local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
+
 print "copy 3rd parties deb from /packages folder"
 shutil.copyfile('/packages/cloudify3-components_3.0.0_amd64.deb','{0}/cloudify-components_3.0.0_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 
