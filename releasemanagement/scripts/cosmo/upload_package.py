@@ -26,11 +26,11 @@ import glob
 import params
 from boto.s3.connection import S3Connection
 
-os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
-os.environ["PACK_COMPONENTS"]="yes" 
-os.environ["PACK_CORE"]="yes" 
-os.environ["PACK_UI"]="yes"
-os.environ["BUILD_NUM"]=""  
+#os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
+#os.environ["PACK_COMPONENTS"]="yes" 
+#os.environ["PACK_CORE"]="yes" 
+#os.environ["PACK_UI"]="yes"
+#os.environ["BUILD_NUM"]=""  
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
@@ -117,11 +117,9 @@ print "uploading cloudify3 packages to s3 and tarzan/builds"
 
 os.chdir( PACKAGE_SOURCE_PATH )
 conn = S3Connection(aws_access_key_id=params.AWS_KEY, aws_secret_access_key=params.AWS_SECRET)
-for fname in filenames:
-	if full_build=="yes":	
-		
-		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
-		shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/"+fname)
+for fname in filenames:				
+	mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
+	shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/"+fname)
 	
 	mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
 	shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
@@ -129,9 +127,9 @@ for fname in filenames:
     	bucket = conn.get_bucket("gigaspaces-repository-eu")  
 	full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, fname)   	 	
 	key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
-	if full_build=="yes":   		
-    		full_key_name = os.path.join(PACKAGE_DEST_PATH, fname)   	 	
-		key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read') 		
+	   		
+    	full_key_name = os.path.join(PACKAGE_DEST_PATH, fname)   	 	
+	key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read') 		
    	print "uploaded file %s" % fname
 
 
