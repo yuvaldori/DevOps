@@ -78,6 +78,11 @@ PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
 print "check that all deb files exist in /cloudify folder"
 
+#This will be removed when the pkg_components will be ready
+if PACK_COMPONENTS == "yes":
+	print "copy 3rd parties deb from /packages folder"
+	shutil.copyfile('/packages/cloudify3-components_3.0.0_amd64.deb','{0}/cloudify-components_3.0.0_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+
 components_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
 print components_package
 core_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_core_conf['name']))
@@ -113,9 +118,6 @@ print filenames
 
 #commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
 local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
-
-print "copy 3rd parties deb from /packages folder"
-shutil.copyfile('/packages/cloudify3-components_3.0.0_amd64.deb','{0}/cloudify-components_3.0.0_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 
 
 print "uploading cloudify3 packages to s3 and tarzan/builds"
