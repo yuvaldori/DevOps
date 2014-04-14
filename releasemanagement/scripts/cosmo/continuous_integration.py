@@ -22,9 +22,9 @@ from pkg import *  # NOQA
 import packages
 from packman import *  # NOQA
 
-#os.environ["PACK_COMPONENTS"]="yes" 
-#os.environ["PACK_CORE"]="yes" 
-#os.environ["PACK_UI"]="yes"
+#os.environ["PACK_COMPONENTS"]="true" 
+#os.environ["PACK_CORE"]="true" 
+#os.environ["PACK_UI"]="true"
 #os.environ["BUILD_NUM"]="1-1"  
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
@@ -52,7 +52,7 @@ cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
 linux_conf = packages.PACKAGES['linux-agent']
 
 
-if PACK_CORE == "yes":
+if PACK_CORE == "true":
 	print("*** packaging manager")
 	# prepares virtualenv and copies relevant files to manager virtualenv
 	get_manager()
@@ -90,7 +90,7 @@ if PACK_CORE == "yes":
 	pkg_linux_agent()
 	pkg_ubuntu_agent()
 
-if PACK_UI == "yes":
+if PACK_UI == "true":
 	print("*** packaging ui")
 	get_cloudify_ui()
 	shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(cloudify_ui_conf['sources_path']))

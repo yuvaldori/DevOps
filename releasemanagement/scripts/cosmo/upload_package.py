@@ -27,9 +27,9 @@ import params
 from boto.s3.connection import S3Connection
 
 #os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
-#os.environ["PACK_COMPONENTS"]="yes" 
-#os.environ["PACK_CORE"]="yes" 
-#os.environ["PACK_UI"]="yes"
+#os.environ["PACK_COMPONENTS"]="true" 
+#os.environ["PACK_CORE"]="true" 
+#os.environ["PACK_UI"]="true"
 #os.environ["BUILD_NUM"]="1-1"  
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
@@ -79,19 +79,15 @@ print ui_package
 ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
 print ubuntu_package
 filenames=[]
-full_build="no"
 
 
-if PACK_COMPONENTS == "yes" and PACK_CORE == "yes" and PACK_UI == "yes":
-	full_build="yes"
-
-if PACK_COMPONENTS == "yes":
+if PACK_COMPONENTS == "true":
 	if components_package:
 		a=components_package[0].split("/")		
 		filenames.append(a[2]) 
 	else:
 		print "*** components deb file is missing ***"
-if PACK_CORE == "yes":	
+if PACK_CORE == "true":	
 	if core_package and ubuntu_package:
 		a=core_package[0].split("/")		
 		filenames.append(a[2])
@@ -99,7 +95,7 @@ if PACK_CORE == "yes":
 		filenames.append(b[2])		
 	else:
 		print "*** core deb files are missing ***"
-if PACK_UI == "yes":
+if PACK_UI == "true":
 	if ui_package:
 		a=ui_package[0].split("/")		
 		filenames.append(a[2])	
