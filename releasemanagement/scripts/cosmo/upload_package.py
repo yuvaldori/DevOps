@@ -31,16 +31,21 @@ from boto.s3.connection import S3Connection
 #os.environ["PACK_CORE"]="yes" 
 #os.environ["PACK_UI"]="yes"
 #os.environ["BUILD_NUM"]="1-1"  
+#os.environ["CONFIGURATION_NAME"]="NightlyBuild" 
+
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
 PACK_UI=os.environ["PACK_UI"]
 BUILD_NUM=os.environ["BUILD_NUM"]
+CONFIGURATION_NAME=os.environ["CONFIGURATION_NAME"]
+
 print TARZAN_BUILDS 
 print PACK_COMPONENTS
 print PACK_CORE
 print PACK_UI
 print BUILD_NUM
+print CONFIGURATION_NAME
 
 def mkdirp(directory):
     if not os.path.isdir(directory):
@@ -63,7 +68,10 @@ ubuntu_agent_conf = packages.PACKAGES['ubuntu-agent']
 
 ## copy cloudify3 package
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
-PACKAGE_DEST_DIR="nightly"
+if CONFIGURATION_NAME == "NightlyBuild":
+	PACKAGE_DEST_DIR="nightly"
+else:
+	PACKAGE_DEST_DIR="continuous"
 PACKAGE_DEST_BUILD_DIR=PACKAGE_DEST_DIR+"_"+BUILD_NUM
 PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
