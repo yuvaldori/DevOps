@@ -3,6 +3,7 @@
 source retry.sh
 
 fail_file=cosmo_unit_tests_fail.log
+report_dir=/opt/buildagent/workspace/root/cosmo/trunk/CI/NightlyBuild/xunit_reports
 
 # Order is important!
 #REPOS_LIST="cloudify-dsl-parser cloudify-rest-client cloudify-plugins-common cloudify-cli \
@@ -65,9 +66,12 @@ do
 	echo "### Running nosetests for: $r"
 	if [ "$r" = "cloudify-manager/plugins/agent-installer" ]
 	then
-		nosetests worker_installer/tests/test_worker_installer.py:TestLocalInstallerCase --nologcapture --nocapture
+		nosetests worker_installer/tests/test_worker_installer.py:TestLocalInstallerCase --nologcapture --nocapture --with-xunit --xunit-file=$report_dir/xunit-cloudify-manager-agent-installer.xml
+	elif [ "$r" = "cloudify-manager/rest-service" ]
+	then
+  		nosetests . --nologcapture --nocapture --with-xunit --xunit-file=$report_dir/xunit-cloudify-manager-rest-service.xml
 	else
-		nosetests . --nologcapture --nocapture
+		nosetests . --nologcapture --nocapture --with-xunit --xunit-file=$report_dir/xunit-$r.xml
 	fi
 
 	result=`echo $?`
