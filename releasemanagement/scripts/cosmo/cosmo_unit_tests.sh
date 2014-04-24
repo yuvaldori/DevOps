@@ -20,13 +20,13 @@ echo "### Activating vitualenv"
 source env/bin/activate
 
 echo "### Installing flake8"
-retry "pip install flake8 --index-url http://localhost:3141/tgrid/dev"
+retry "pip install flake8"
 
 echo "### Installing nose"
-retry "pip install nose --index-url http://localhost:3141/tgrid/dev"
+retry "pip install nose"
 
 echo "### Upgrading to latest pip"
-retry "pip install --upgrade pip --index-url http://localhost:3141/tgrid/dev"
+retry "pip install --upgrade pip"
 
 # There's an issue with protobuf installation using pip
 echo "### Installing protobuf using easy_install"
@@ -58,7 +58,7 @@ do
 			exit $retval
 		fi
 	else
- 		retry "pip install . --process-dependency-links --index-url http://localhost:3141/tgrid/dev"
+ 		retry "pip install . --process-dependency-links"
 		retval=$?
 		if [ $retval -ne 0 ]; then
 			echo "### Installation for package [$r] exited with code $retval"
