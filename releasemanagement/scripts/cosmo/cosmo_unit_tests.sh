@@ -33,9 +33,11 @@ echo "### Installing protobuf using easy_install"
 easy_install protobuf
 
 echo "deleting old reports nirb" 
-pushd $report_dir
+if [ -d "$report_dir" ]; then
+  pushd $report_dir
     rm -rf *
-popd
+  popd
+fi
 
 echo "### Running tests"
 
