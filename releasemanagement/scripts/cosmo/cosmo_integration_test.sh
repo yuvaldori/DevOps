@@ -3,7 +3,7 @@
 source retry.sh
 	
 echo "### PATH is: $PATH"
-report_dir='pwd'/xunit_reports
+report_dir=`pwd`/xunit_reports
 
 #echo "### Running rvm use 2.1.0"
 #rvm use 2.1.0
