@@ -3,6 +3,7 @@
 source retry.sh
 	
 echo "### PATH is: $PATH"
+report_dir='pwd'/xunit_reports
 
 #echo "### Running rvm use 2.1.0"
 #rvm use 2.1.0
@@ -46,7 +47,7 @@ pushd cloudify-manager
 			exit $?
 		fi
 		echo "### Running integration tests"
-		nosetests -s -v workflow_tests
+		nosetests -s -v workflow_tests --with-xunit --xunit-file=$report_dir/xunit-integration-tests.xml
 		retval=$?
 		echo "### Integration tests exited with code $retval"
 		if [ $retval != 0 ]; then
