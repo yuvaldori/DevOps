@@ -37,6 +37,8 @@ if [ -d "$report_dir" ]; then
   pushd $report_dir
     rm -rf *
   popd
+else
+  mkdir -p "$report_dir"
 fi
 
 echo "### Running tests"
