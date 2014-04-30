@@ -142,7 +142,7 @@ for fname in filenames:
 		#Removing the version from packge name for nightly and continuous folders
 		name_without_version=fname.replace(PRODUCT_VERSION_FULL+"_",'')
 		shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/"+name_without_version)
-		f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_DIR+'/build_num', 'w')
+		f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_DIR+'/build.num', 'w')
 		f.write(BUILD_NUM)
 	
 	mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
