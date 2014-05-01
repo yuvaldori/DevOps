@@ -94,7 +94,7 @@ local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 if PACK_COMPONENTS == "yes":
 	print "copy 3rd parties deb from /packages folder"
 	components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
-	shutil.copyfile('/packages/cloudify3-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
+	shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 
 print "check that all deb files exist in /cloudify folder"
 components_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
