@@ -41,6 +41,10 @@ do
 	### Limor Please check this part in 10.1
 	grep "PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}/PLATFORM_VERSION=${MAJOR_NEW}.${MINOR_NEW}/g" "$fname"
+	#grep "xap${MAJOR_OLD}${MINOR_OLD}net" "$fname" && echo "$fname" >> $LOG_FILE
+	#sed -i "s/xap${MAJOR_OLD}${MINOR_OLD}net/xap${MAJOR_NEW}${MINOR_NEW}net/g" "$fname"
+	grep "\/xap${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
+	sed -i "s/\/xap${MAJOR_OLD}${MINOR_OLD}/xap${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
 done
 
 echo "*** Display svn diff ***" >> $LOG_FILE
