@@ -55,28 +55,26 @@ TARZAN_STABLE_BUILD_DIR=TARZAN_BUILDS+"/"+PRODUCT_VERSION+"/"+STABLE_BUILD_DIR
 os.chdir( TARZAN_SOURCE_DIR )
 conn = S3Connection(aws_access_key_id=params.AWS_KEY, aws_secret_access_key=params.AWS_SECRET)
 
-for filename in glob.glob(os.path.join(TARZAN_SOURCE_DIR, '*.*')):
-	if "trunk" in CONFIGURATION_PATH_NAME:
+if "trunk" in CONFIGURATION_PATH_NAME:
+	for filename in glob.glob(os.path.join(TARZAN_SOURCE_DIR, '*.*')):
 		mkdirp(TARZAN_STABLE_DIR)		
 		shutil.copy(filename, TARZAN_STABLE_DIR)
-		
-	mkdirp(TARZAN_STABLE_BUILD_DIR)
-	shutil.copy(filename, TARZAN_STABLE_BUILD_DIR)
-
-	l=filename.split("/")
-	fname=l[-1]
-	if "trunk" in CONFIGURATION_PATH_NAME:
+		l=filename.split("/")
+		fname=l[-1]
 		bucket = conn.get_bucket("gigaspaces-repository-eu")		
 		full_key_name = os.path.join(AWS_DEST_PATH, fname) 		 	 	
-		key = bucket.new_key(full_key_name).set_contents_from_filename(filename, policy='public-read') 		
-   		
-    	
+		key = bucket.new_key(full_key_name).set_contents_from_filename(filename, policy='public-read') 
+		print "uploaded file %s" % filename
+	   		
+for filename in glob.glob(os.path.join(TARZAN_SOURCE_BUILD_DIR, '*.*')):
+	mkdirp(TARZAN_STABLE_BUILD_DIR)
+	shutil.copy(filename, TARZAN_STABLE_BUILD_DIR)
+	l=filename.split("/")
+	fname=l[-1]
 	bucket = conn.get_bucket("gigaspaces-repository-eu")
 	full_key_name = os.path.join(AWS_DEST_BUILD_PATH, fname)   	 	
 	key = bucket.new_key(full_key_name).set_contents_from_filename(filename, policy='public-read')
-	
 	print "uploaded file %s" % filename
-	   		
     	
 
 
