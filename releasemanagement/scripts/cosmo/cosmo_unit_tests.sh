@@ -13,7 +13,7 @@ echo "### Repositories list: $REPOS_LIST"
 
 echo "### Creating vitualenv"
 # Erase previous env before and not after so that in a case of failure we'll have the previous env
-rm -rf env
+sudo rm -rf env
 virtualenv env
 
 echo "### Activating vitualenv"
