@@ -133,7 +133,7 @@ print filenames
 
 print "uploading cloudify3 packages to s3 and tarzan/builds"
 
-
+x=1
 os.chdir( PACKAGE_SOURCE_PATH )
 conn = S3Connection(aws_access_key_id=params.AWS_KEY, aws_secret_access_key=params.AWS_SECRET)
 for fname in filenames:
@@ -142,13 +142,15 @@ for fname in filenames:
 		#Removing the version from packge name for nightly and continuous folders
 		name_without_version=fname.replace(PRODUCT_VERSION_FULL+"_",'')
 		shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/"+name_without_version)
-		f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_DIR+'/build.num', 'w')
+		f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_DIR+'/build.num', 'wb')
 		f.write(BUILD_NUM)
+		f.close()
 	
 	mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
 	shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
-
-	
+	f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_BUILD_DIR+'/build.links', 'a')
+	f.write("NIGHTLY_LINK"+str(x)+"=http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
+		
 	if "trunk" in CONFIGURATION_PATH_NAME:
 		bucket = conn.get_bucket("gigaspaces-repository-eu")
 		full_key_name = os.path.join(PACKAGE_DEST_PATH, name_without_version)   	 	
@@ -159,6 +161,11 @@ for fname in filenames:
 	full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, fname)   	 	
 	key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
 	
+	f.write("NIGHTLY_S3_LINK"+str(x)+"=http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
+	f.close()
+
+	x+=1
+
 	print "uploaded file %s" % fname
 	   		
     	
