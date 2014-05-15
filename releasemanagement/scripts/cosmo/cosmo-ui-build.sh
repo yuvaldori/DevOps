@@ -19,7 +19,7 @@ function run_command
 
 if [ -d dist ]
 then
-	sudo rm -rf dist
+	sudo rm -rf dist/*
 fi
 retry "npm install"
 retry "bower install -force"
