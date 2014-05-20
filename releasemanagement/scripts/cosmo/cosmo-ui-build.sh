@@ -24,8 +24,16 @@ fi
 retry "npm install"
 retry "bower install -force"
 retry "bower update -force"
+
 run_command "grunt build"
+
+
 pushd dist
+	echo $BUILD_NUM > views/versionDetails.html
+	echo $BUILD_ID >> views/versionDetails.html
+	echo $CONFIGURATION_NAME >> views/versionDetails.html
+	echo $REVISION >> views/versionDetails.html
+
 	run_command "npm install --production"
 	run_command "npm pack"
 #popd
