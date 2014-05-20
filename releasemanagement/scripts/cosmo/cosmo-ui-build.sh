@@ -29,10 +29,15 @@ run_command "grunt build"
 
 
 pushd dist
-	echo $BUILD_NUM > views/versionDetails.html
-	echo $BUILD_ID >> views/versionDetails.html
-	echo $CONFIGURATION_NAME >> views/versionDetails.html
-	echo $REVISION >> views/versionDetails.html
+	echo '{' > views/versionDetails.html
+	echo '    "revision": "'$REVISION'",' >> views/versionDetails.html
+	echo '    "buildVersion": "'$BUILD_NUM'",' >> views/versionDetails.html
+	echo '    "buildId": "'$BUILD_ID'",' >> views/versionDetails.html
+	echo '    "configurationName": "'$CONFIGURATION_NAME'",' >> views/versionDetails.html
+	echo '    "timestamp": "'`date +%T`'",' >> views/versionDetails.html
+	echo '    "date": "'`date +'%d/%m/%Y'`'"' >> views/versionDetails.html
+	echo '}' >> views/versionDetails.html
+
 
 	run_command "npm install --production"
 	run_command "npm pack"
