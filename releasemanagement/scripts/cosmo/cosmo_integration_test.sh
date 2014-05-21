@@ -11,7 +11,7 @@ sudo ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
 sudo ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
 
 echo "### PATH is: $PATH"
-report_dir=`pwd`/xunit_reports
+report_file="$(pwd)/xunit_reports/xunit-integration-tests.xml"
 
 #echo "### Running rvm use 2.1.0"
 #rvm use 2.1.0
@@ -87,7 +87,7 @@ pushd cloudify-manager
 		fi
 		echo "### Running integration tests"		
 		
-		nosetests -s -v workflow_tests --with-xunit --xunit-file=$report_dir/xunit-integration-tests.xml
+		nosetests -s -v workflow_tests --with-xunit --xunit-file=$report_file
 		retval=$?
 		echo "### Integration tests exited with code $retval"
 		if [ $retval != 0 ]; then
