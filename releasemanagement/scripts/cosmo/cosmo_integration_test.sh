@@ -78,10 +78,14 @@ pushd cloudify-manager
 			exit $?
 		fi
 		echo "### Running integration tests"
-		/etc/init.d/rabbitmq-server start
+		
+		#Preparation
+		sudo /etc/init.d/rabbitmq-server start
 		export PATH=/usr/share/elasticsearch/bin:$PATH
-		ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
-		ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
+		sudo mkdir -p /usr/share/elasticsearch/data
+		sudo chmod 777 /usr/share/elasticsearch/data
+		sudo ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
+		sudo ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
 
 		nosetests -s -v workflow_tests --with-xunit --xunit-file=$report_dir/xunit-integration-tests.xml
 		retval=$?
