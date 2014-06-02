@@ -27,9 +27,9 @@ import params
 from boto.s3.connection import S3Connection
 
 #os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
-#os.environ["PACK_COMPONENTS"]="yes" 
-#os.environ["PACK_CORE"]="yes" 
-#os.environ["PACK_UI"]="yes"
+#os.environ["PACK_COMPONENTS"]="no" 
+#os.environ["PACK_CORE"]="no" 
+#os.environ["PACK_UI"]="no"
 #os.environ["BUILD_NUM"]="1-248"  
 #os.environ["CONFIGURATION_NAME"]="NightlyBuild" 
 #os.environ["PRODUCT_VERSION"]="3.0.0" 
@@ -149,8 +149,12 @@ for fname in filenames:
 	mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
 	shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
 	f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_BUILD_DIR+'/build.links', 'a')
+	links_file='build.links'
+	os.remove(links_file)
+	f1 = open(links_file, 'a')
 	#f.write("NIGHTLY_LINK"+str(x)+"=http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
 	f.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
+	f1.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
 	
 	#x+=1	
 
@@ -168,8 +172,10 @@ for fname in filenames:
 	key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
 	
 	#f.write("NIGHTLY_S3_LINK"+str(x)+"=http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
-	f.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
+	f.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
+	f1.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
 	f.close()
+	f1.close()
 
 	#x+=1
 
