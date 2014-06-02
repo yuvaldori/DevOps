@@ -28,13 +28,14 @@ from boto.s3.connection import S3Connection
 
 #os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
 #os.environ["PACK_COMPONENTS"]="no" 
-#os.environ["PACK_CORE"]="no" 
-#os.environ["PACK_UI"]="no"
-#os.environ["BUILD_NUM"]="1-248"  
+#os.environ["PACK_CORE"]="yes" 
+#os.environ["PACK_UI"]="yes"
+#os.environ["BUILD_NUM"]="1-20"  
 #os.environ["CONFIGURATION_NAME"]="NightlyBuild" 
 #os.environ["PRODUCT_VERSION"]="3.0.0" 
-#os.environ["PRODUCT_VERSION_FULL"]="3.0.0-m1-b1-248" 
+#os.environ["PRODUCT_VERSION_FULL"]="3.0.0-m1-b1-20" 
 #os.environ["CONFIGURATION_PATH_NAME"]="root/cosmo/trunk/CI/NightlyBuild"
+#os.environ["CONFIGURATION_PATH_NAME"]="root/cosmo/branch/CI/NightlyBuild"
 
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
@@ -64,6 +65,10 @@ def copy_dir(src,dst):
     if os.path.exists(dst):
         shutil.rmtree(dst)
     shutil.copytree(src, dst)
+
+def remove_file(filename):
+	if os.path.isfile(filename):	
+		os.remove(filename)
 
 current_dir=os.path.dirname(os.path.realpath(__file__))
 print("current dir: "+current_dir)
@@ -131,12 +136,26 @@ if PACK_UI == "yes":
 print filenames
 
 
-print "uploading cloudify3 packages to s3 and Tarzan/builds"
+tarzan_links_file='nightly-tarzan.links'
+tarzan_links_file_path=TARZAN_BUILDS+'/'+PACKAGE_DEST_BUILD_DIR+'/'+tarzan_links_file
+remove_file(tarzan_links_file_path)
+
+aws_links_file='nightly-aws.links'
+aws_links_file_path=TARZAN_BUILDS+'/'+PACKAGE_DEST_BUILD_DIR+'/'+aws_links_file
+remove_file(aws_links_file_path)
+
+local_tarzan_links_file_path=current_dir+'/'+tarzan_links_file
+remove_file(local_tarzan_links_file_path)
+
+local_aws_links_file_path=current_dir+'/'+aws_links_file
+remove_file(local_aws_links_file_path)
+
 
 #x=1
 os.chdir( PACKAGE_SOURCE_PATH )
 conn = S3Connection(aws_access_key_id=params.AWS_KEY, aws_secret_access_key=params.AWS_SECRET)
 for fname in filenames:
+	print "uploading nightly packages to Tarzan"
 	if "trunk" in CONFIGURATION_PATH_NAME:				
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
 		#Removing the version from packge name for nightly and continuous folders
@@ -145,22 +164,24 @@ for fname in filenames:
 		f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_DIR+'/build.num', 'wb')
 		f.write(BUILD_NUM)
 		f.close()
-	
+
 	mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
 	shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
-	f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_BUILD_DIR+'/build.links', 'a')
-	links_file='build.links'
-	os.remove(links_file)
-	f1 = open(links_file, 'a')
-	#f.write("NIGHTLY_LINK"+str(x)+"=http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
-	f.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
-	f1.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
 	
-	#x+=1	
+	f1 = open(tarzan_links_file_path, 'a')
+	f2 = open(aws_links_file_path, 'a')
+	f3 = open(local_tarzan_links_file_path, 'a')
+	f4 = open(local_aws_links_file_path, 'a')
+
+	#"NIGHTLY_LINK"+str(x)+"
+	f1.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
+	f3.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
+	f1.close()
+	f3.close()
 
 	print "uploaded file %s to Tarzan" % fname
 
-for fname in filenames:
+	print "uploading nightly packages to S3"
 	if "trunk" in CONFIGURATION_PATH_NAME:
 		bucket = conn.get_bucket("gigaspaces-repository-eu")
 		full_key_name = os.path.join(PACKAGE_DEST_PATH, name_without_version)   	 	
@@ -170,18 +191,18 @@ for fname in filenames:
 	bucket = conn.get_bucket("gigaspaces-repository-eu")
 	full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, fname)   	 	
 	key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
-	
-	#f.write("NIGHTLY_S3_LINK"+str(x)+"=http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
-	f.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
-	f1.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
-	f.close()
-	f1.close()
+
+	print "uploaded file %s to S3" % fname
+
+	f2.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
+	f4.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
+	f2.close()
+	f4.close()
+
 
 	#x+=1
 
-	print "uploaded file %s to s3" % fname
-
-	   		
+		   		
     	
 
 
