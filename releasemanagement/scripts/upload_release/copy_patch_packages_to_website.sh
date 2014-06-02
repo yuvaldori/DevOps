@@ -4,8 +4,6 @@ source params.sh
 
 DEST_DIR=\~/tempfiles/${VERSION}_patch${PATCH_NUMBER}
 echo DEST_DIR=${DEST_DIR}
-REPOSITORY=/export/builds
-BUILD_DIR=${REPOSITORY}/${VERSION}/build_${BUILD_NUMBER}
 CLOUDIFY_BUILD_DIR=${REPOSITORY}/cloudify/${VERSION}/build_${BUILD_NUMBER}
 
 XAP_ZIP_FILE="${BUILD_DIR}/xap-premium/1.5/gigaspaces-xap-premium-${VERSION}-ga-b${BUILD_NUMBER}.zip"

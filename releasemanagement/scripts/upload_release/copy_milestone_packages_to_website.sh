@@ -2,9 +2,6 @@
 
 source params.sh
 
-REPOSITORY=/export/builds
-BUILD_DIR=${REPOSITORY}/${VERSION}/build_${BUILD_NUMBER}
-
 ##copy gslicense.xml from xap-premium zip to xap-bigdata
 #cp -rp ${BUILD_DIR} ${BUILD_DIR}_backup
 #pushd ${BUILD_DIR}/xap-premium/1.5
@@ -37,5 +34,5 @@ ssh  -i ~/.ssh/website  tempfiles@www.gigaspaces.com "mkdir -p ~/tempfiles/downl
 for file in `find ${BUILD_DIR} -name "*.zip" -o -name "*.tar.gz" -o -name "*.msi"  | grep -v license | grep -v testsuite`; do
 
   echo Uploading $file to ~/tempfiles/downloads/EarlyAccess/xap/${VERSION}/${MILESTONE}
-  scp -i ~/.ssh/website $file tempfiles@www.gigaspaces.com:~/tempfiles/downloads/EarlyAccess/xap/${VERSION}/${MILESTONE}
+  scp -o "StrictHostKeyChecking no" -i ~/.ssh/website $file tempfiles@www.gigaspaces.com:~/tempfiles/downloads/EarlyAccess/xap/${VERSION}/${MILESTONE}
 done

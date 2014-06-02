@@ -1,11 +1,6 @@
 #!/bin/bash
 
-MAJOR_VERSION=9
-VERSION=${MAJOR_VERSION}.7.0
-BUILD_NUMBER=10496
-MILESTONE=ga
-REPOSITORY=/export/builds
-BUILD_DIR=${REPOSITORY}/${VERSION}/build_${BUILD_NUMBER}
+source params.sh
 
 ssh  -i ~/.ssh/website  tempfiles@www.gigaspaces.com "mkdir -p ~/download_files/${MAJOR_VERSION}/${VERSION}/"
 
