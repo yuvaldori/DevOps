@@ -2,6 +2,9 @@
 
 source retry.sh
 
+fail_file=cosmo_i_tests_fail.log
+rm -f $fail_file
+
 #Preparation
 sudo /etc/init.d/rabbitmq-server start
 export PATH=/usr/share/elasticsearch/bin:$PATH
@@ -50,6 +53,7 @@ do
 			retval=$?
 			if [ $retval -ne 0 ]; then
 				echo "### Installation for package [$r] exited with code $retval"
+				echo "fail" > $fail_file
 				exit $retval
 			fi
 		else
@@ -57,6 +61,7 @@ do
 			retval=$?
 			if [ $retval -ne 0 ]; then
 				echo "### Installation for package [$r] exited with code $retval"
+				echo "fail" > $fail_file
 				exit $retval
 			fi
 		fi
@@ -75,6 +80,7 @@ pushd cloudify-manager
 		echo "### Installing manager-rest dependencies"
 		retry "pip install . --process-dependency-links"
 		if [ $? != 0 ]; then
+			echo "fail" > $fail_file
 			exit $?
 		fi
 	popd
@@ -83,6 +89,7 @@ pushd cloudify-manager
 		echo "### Installing integration tests dependencies"
 		retry "pip install . --process-dependency-links"
 		if [ $? != 0 ]; then
+			echo "fail" > $fail_file
 			exit $?
 		fi
 		echo "### Running integration tests"		
@@ -93,6 +100,7 @@ pushd cloudify-manager
 		echo "### Integration tests exited with code $retval"
 		if [ $retval != 0 ]; then
 			echo "### Script ended with exit code $retval"
+			echo "fail" > $fail_file
         		exit $retval
 		fi
 	popd	
