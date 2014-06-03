@@ -51,16 +51,16 @@ do
 	pushd $r
 
 	echo "### Installing [$r] dependencies"
-	if [ "$r" = "cloudify-plugins-common" ]
+	if [ "$r" = "cloudify-plugins-common" ] || [ "$r" = "cloudify-cli" ]
 	then
-		retry "python setup.py install"
+		retry "pip install . -r requirements.txt"
 		retval=$?
 		if [ $retval -ne 0 ]; then
 			echo "### Installation for package [$r] exited with code $retval"
 			exit $retval
 		fi
 	else
- 		retry "pip install . --process-dependency-links"
+ 		retry "pip install ."
 		retval=$?
 		if [ $retval -ne 0 ]; then
 			echo "### Installation for package [$r] exited with code $retval"
