@@ -150,6 +150,9 @@ remove_file(local_tarzan_links_file_path)
 local_aws_links_file_path=current_dir+'/'+aws_links_file
 remove_file(local_aws_links_file_path)
 
+links_file='nightly.links'
+local_links_file_path=current_dir+'/'+links_file
+remove_file(local_links_file_path)
 
 #x=1
 os.chdir( PACKAGE_SOURCE_PATH )
@@ -202,7 +205,14 @@ for fname in filenames:
 
 	#x+=1
 
-		   		
+#permanent links	
+f = open(local_links_file_path, 'a')
+f.write("cloudify_components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-components_amd64.deb\n")
+f.write("cloudify_core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-core_amd64.deb\n")
+f.write("cloudify_ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ui_amd64.deb\n")
+f.write("cloudify_ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/ubuntu-agent_amd64.deb\n")
+f.close()
+	   		
     	
 
 
