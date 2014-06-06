@@ -206,18 +206,12 @@ for fname in filenames:
 	#x+=1
 
 #permanent links	
-f = open(local_links_file_path, 'a')
-f.write("cloudify_components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-components_amd64.deb\n")
-f.close()
-f = open(local_links_file_path, 'a')
-f.write("cloudify_core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-core_amd64.deb\n")
-f.close()
-f = open(local_links_file_path, 'a')
-f.write("cloudify_ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ui_amd64.deb\n")
-f.close()
-f = open(local_links_file_path, 'a')
-f.write("cloudify_ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/ubuntu-agent_amd64.deb\n")
-f.close()
+f5 = open(local_links_file_path, 'a')
+f5.write("cloudify_components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-components_amd64.deb\n")
+f5.write("cloudify_core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-core_amd64.deb\n")
+f5.write("cloudify_ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ui_amd64.deb\n")
+f5.write("cloudify_ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/ubuntu-agent_amd64.deb\n")
+f5.close()
 	   		
     	
 
