@@ -5,6 +5,11 @@
 #CLI_SHA=1fee425e6a2f21a231f023fae4d7885ad07a0e4e
 #OS_PROVIDER_SHA=2fa30b0b6b9c2e20068ed3d68e160390f309fcee
 
+echo "DSL_SHA=$DSL_SHA"
+echo "REST_CLIENT_SHA=$REST_CLIENT_SHA"
+echo "CLI_SHA=$CLI_SHA"
+echo "OS_PROVIDER_SHA=$OS_PROVIDER_SHA"
+
 #edit the revision number in linux/provision.sh
 fileName="linux/provision.sh"
 win_fileName="windows/provision.bat"
