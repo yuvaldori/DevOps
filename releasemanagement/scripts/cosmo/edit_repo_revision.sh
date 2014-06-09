@@ -13,7 +13,7 @@ echo "OS_PROVIDER_SHA=$OS_PROVIDER_SHA"
 #edit the revision number in linux/provision.sh
 fileName="linux/provision.sh"
 win_fileName="windows/provision.bat"
-sed -i s/.*DSL_SHA=.*/DSL_SHA=${DSL_SHA}/g $fileName $win_fileName
-sed -i s/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=${REST_CLIENT_SHA}/g $fileName $win_fileName
-sed -i s/.*CLI_SHA=.*/CLI_SHA=${CLI_SHA}/g $fileName $win_fileName
-sed -i s/.*OS_PROVIDER_SHA=.*/OS_PROVIDER_SHA=${OS_PROVIDER_SHA}/g $fileName $win_fileName
+sed -i 's/.*DSL_SHA=.*/DSL_SHA=${DSL_SHA}/g' $fileName $win_fileName
+sed -i 's/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=${REST_CLIENT_SHA}/g' $fileName $win_fileName
+sed -i 's/.*CLI_SHA=.*/CLI_SHA=${CLI_SHA}/g' $fileName $win_fileName
+sed -i 's/.*OS_PROVIDER_SHA=.*/OS_PROVIDER_SHA=${OS_PROVIDER_SHA}/g' $fileName $win_fileName
