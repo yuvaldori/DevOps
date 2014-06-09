@@ -6,7 +6,7 @@
 #vagrant plugin install unf                                         #
 #####################################################################
 
-source cli_credentials.sh
+#source cli_credentials.sh
 
 rm -f /cloudify/cfy_*_i386.deb
 
