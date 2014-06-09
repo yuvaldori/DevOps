@@ -1,9 +1,9 @@
 #!/bin/bash
 
-DSL_SHA=d2bedb39b62bddc3888c09e21163ab987f3d4883
-REST_CLIENT_SHA=b84591d8fb024f9bbf4679f361d15ec18fc1cae1
-CLI_SHA=1fee425e6a2f21a231f023fae4d7885ad07a0e4e
-OS_PROVIDER_SHA=2fa30b0b6b9c2e20068ed3d68e160390f309fcee
+#DSL_SHA=d2bedb39b62bddc3888c09e21163ab987f3d4883
+#REST_CLIENT_SHA=b84591d8fb024f9bbf4679f361d15ec18fc1cae1
+#CLI_SHA=1fee425e6a2f21a231f023fae4d7885ad07a0e4e
+#OS_PROVIDER_SHA=2fa30b0b6b9c2e20068ed3d68e160390f309fcee
 
 #edit the revision number in linux/provision.sh
 fileName="linux/provision.sh"
