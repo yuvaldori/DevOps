@@ -100,6 +100,17 @@ if PACK_COMPONENTS == "yes":
 	print "copy 3rd parties deb from /packages folder"
 	components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
+#########
+
+if PACK_CORE == "yes":
+	print "rename cli packages"
+	cli_linux32_new_name='cfy_'+PRODUCT_VERSION_FULL+'_i386.deb'
+	cli_linux64_new_name='cfy_'+PRODUCT_VERSION_FULL+'_amd64.deb'
+	#cli_win_new_name='cfy_'+PRODUCT_VERSION_FULL+'_i386.deb'
+	os.rename('{0}/cfy_3.0_i386.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux32_new_name))
+	os.rename('{0}/cfy_3.0_amd64.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux64_new_name))	
+	#shutil.copyfile('{0}/cfy_3.0_amd64.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))
+
 
 print "check that all deb files exist in /cloudify folder"
 components_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
@@ -110,6 +121,11 @@ ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_con
 print ui_package
 ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
 print ubuntu_package
+cli_linux32_package = glob.glob('{0}/cfy_*_i386.deb'.format(PACKAGE_SOURCE_PATH))
+print cli_linux32_package
+cli_linux64_package = glob.glob('{0}/cfy_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+print cli_linux64_package
+
 filenames=[]
 
 
@@ -120,11 +136,15 @@ if PACK_COMPONENTS == "yes":
 	else:
 		print "*** components deb file is missing ***"
 if PACK_CORE == "yes":	
-	if core_package and ubuntu_package:
+	if core_package and ubuntu_package and cli_linux32_package and cli_linux64_package:
 		a=core_package[0].split("/")		
 		filenames.append(a[2])
 		b=ubuntu_package[0].split("/")		
-		filenames.append(b[2])		
+		filenames.append(b[2])
+		c=cli_linux32_package[0].split("/")		
+		filenames.append(c[2])
+		d=cli_linux64_package[0].split("/")		
+		filenames.append(d[2])		
 	else:
 		print "*** core deb files are missing ***"
 if PACK_UI == "yes":
@@ -134,7 +154,6 @@ if PACK_UI == "yes":
 	else:
 		print "*** ui deb file is missing ***"
 print filenames
-
 
 tarzan_links_file='nightly-tarzan.links'
 tarzan_links_file_path=TARZAN_BUILDS+'/'+PACKAGE_DEST_BUILD_DIR+'/'+tarzan_links_file
