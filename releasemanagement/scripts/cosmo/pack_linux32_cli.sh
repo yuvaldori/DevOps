@@ -21,6 +21,7 @@ s=`vagrant ssh linux32 -- ec2metadata | grep public-hostname | cut -f1 -d"." | c
 echo "ip_address="$ip_address
 
 #copy linux32 deb file
-sudo scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
+sudo chown tgrid -R /cloudify
+scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
 
 #vagrant destroy -f linux32
