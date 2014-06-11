@@ -5,6 +5,9 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
              echo "Failed (exit code $status)"
+             rm -f xunit_reports/xunit-integration-tests.xml
+	     scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
+ 
 	     #sudo docker stop $ID
 	     #sudo docker rm $ID
 	     exit 1
