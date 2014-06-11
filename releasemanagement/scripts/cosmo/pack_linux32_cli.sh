@@ -8,7 +8,7 @@
 
 source cli_credentials.sh
 
-rm -f /cloudify/cfy_*_i386.deb
+rm -f /cloudify/cloudify-cli_*_i386.deb
 
 
 #destroy linux32 vm if exit
