@@ -4,11 +4,10 @@ function  exit_on_error {
       status=$?
       echo "exit code="$status    
       if [ $status != 0 ] ; then
-            echo "Failed (exit code $status)"
-	     #sudo docker stop $ID
-	     #sudo docker rm $ID
+             echo "Failed (exit code $status)"
+	     sudo docker stop $ID
+	     sudo docker rm $ID
 	     exit 1
-            
       fi
 
 }
@@ -42,7 +41,8 @@ sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.
 exit_on_error
 # copy report file from lxc
 sudo scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
-#sudo docker stop $ID
-#exit_on_error
-#sudo docker rm $ID
-#exit_on_error
+
+sudo docker stop $ID
+exit_on_error
+sudo docker rm $ID
+exit_on_error
