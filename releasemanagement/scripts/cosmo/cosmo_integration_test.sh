@@ -99,8 +99,8 @@ pushd cloudify-manager
 		fi
 		echo "### Running integration tests"		
 		
-		#nosetests -s -v workflow_tests --with-xunit --xunit-file=$report_file
-		nosetests -s -v workflow_tests --nologcapture --nocapture
+		nosetests -s -v workflow_tests --with-xunit --xunit-file=$report_file
+		#nosetests -s -v workflow_tests --nologcapture --nocapture
 		retval=$?
 		echo "### Integration tests exited with code $retval"
 		if [ $retval != 0 ]; then
