@@ -8,7 +8,7 @@
 
 source cli_credentials.sh
 
-rm -f /cloudify/cfy_*_amd64.deb
+rm -f /cloudify/cloudify-cli_*_amd64.deb
 
 
 #destroy linux64 vm if exit
