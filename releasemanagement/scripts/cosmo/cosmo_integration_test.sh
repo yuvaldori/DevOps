@@ -14,7 +14,12 @@ sudo ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
 sudo ln -s /usr/local/bin/gunicorn /usr/bin/gunicorn
 
 echo "### PATH is: $PATH"
+
 report_file="$(pwd)/xunit_reports/xunit-integration-tests.xml"
+if [ ! -d "$(pwd)/xunit_reports/" ]; then
+  echo "creating report directory"
+  mkdir "$(pwd)/xunit_reports/"
+fi
 
 #echo "### Running rvm use 2.1.0"
 #rvm use 2.1.0
