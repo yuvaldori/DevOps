@@ -104,12 +104,12 @@ if PACK_COMPONENTS == "yes":
 
 if PACK_CORE == "yes":
 	print "rename cli packages"
-	cli_linux32_new_name='cfy_'+PRODUCT_VERSION_FULL+'_i386.deb'
-	cli_linux64_new_name='cfy_'+PRODUCT_VERSION_FULL+'_amd64.deb'
-	#cli_win_new_name='cfy_'+PRODUCT_VERSION_FULL+'_i386.deb'
+	cli_linux32_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_i386.deb'
+	cli_linux64_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_amd64.deb'
+	cli_win_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'.exe'
 	os.rename('{0}/cfy_3.0_i386.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux32_new_name))
 	os.rename('{0}/cfy_3.0_amd64.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux64_new_name))	
-	#shutil.copyfile('{0}/cfy_3.0_amd64.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))
+	#shutil.copyfile('{0}/CloudifyCLI-3.0.exe'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))
 
 
 print "check that all deb files exist in /cloudify folder"
