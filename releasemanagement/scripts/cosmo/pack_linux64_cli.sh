@@ -24,7 +24,7 @@ echo "ip_address="$ip_address
 sudo chown tgrid -R /cloudify
 scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
 
-#vagrant destroy -f linux64
+vagrant destroy -f linux64
 
 
 
