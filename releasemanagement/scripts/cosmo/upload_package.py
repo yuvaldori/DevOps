@@ -121,9 +121,9 @@ ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_con
 print ui_package
 ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
 print ubuntu_package
-cli_linux32_package = glob.glob('{0}/cfy_*_i386.deb'.format(PACKAGE_SOURCE_PATH))
+cli_linux32_package = glob.glob('{0}/cloudify-cli_*_i386.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux32_package
-cli_linux64_package = glob.glob('{0}/cfy_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+cli_linux64_package = glob.glob('{0}/cloudify-cli_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux64_package
 
 filenames=[]
@@ -135,6 +135,7 @@ if PACK_COMPONENTS == "yes":
 		filenames.append(a[2]) 
 	else:
 		print "*** components deb file is missing ***"
+		exit(1)
 if PACK_CORE == "yes":	
 	if core_package and ubuntu_package and cli_linux32_package and cli_linux64_package:
 		a=core_package[0].split("/")		
@@ -147,12 +148,14 @@ if PACK_CORE == "yes":
 		filenames.append(d[2])		
 	else:
 		print "*** core deb files are missing ***"
+		exit(1)
 if PACK_UI == "yes":
 	if ui_package:
 		a=ui_package[0].split("/")		
 		filenames.append(a[2])	
 	else:
 		print "*** ui deb file is missing ***"
+		exit(1)
 print filenames
 
 tarzan_links_file='nightly-tarzan.links'
