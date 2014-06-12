@@ -5,8 +5,8 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
              echo "Failed (exit code $status)"
-             #rm -f xunit_reports/xunit-integration-tests.xml
-	     #scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
+             rm -f xunit_reports/xunit-integration-tests.xml
+	     scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
  
 	     sudo docker stop $ID
 	     sudo docker rm $ID
@@ -28,8 +28,9 @@ exit_on_error
 echo "container IP="$IP
 sleep 7
 
+#The private key must remain private. If you permit others to read it, that condition is not satisfied.
+chmod 600 phusion.key
 #sudo ssh-keygen -f "/root/.ssh/known_hosts" -R $IP
-
 sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP 'echo test'
 exit_on_error
 
@@ -43,8 +44,8 @@ echo "sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ph
 sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP "cd /opt ; ./cosmo_integration_test.sh"
 exit_on_error
 # copy xunit-integration-tests.xml report file from lxc
-#rm -f xunit_reports/xunit-integration-tests.xml
-#scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
+rm -f xunit_reports/xunit-integration-tests.xml
+scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
 
 sudo docker stop $ID
 exit_on_error
