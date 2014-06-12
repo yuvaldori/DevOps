@@ -208,8 +208,10 @@ for fname in filenames:
 		bucket = conn.get_bucket("gigaspaces-repository-eu")
 		full_key_name = os.path.join(PACKAGE_DEST_PATH, name_without_version)   	 	
 		key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read') 		
-   		
-    	
+   		f5 = open(local_links_file_path, 'a')
+    		f5.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_PATH+"/"+name_without_version+"\n")
+    		f5.close()
+    		
 	bucket = conn.get_bucket("gigaspaces-repository-eu")
 	full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, fname)   	 	
 	key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
@@ -219,20 +221,21 @@ for fname in filenames:
 	f2.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
 	f4.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
 	f2.close()
+	
 	f4.close()
 
 
 	#x+=1
 
 #permanent links	
-f5 = open(local_links_file_path, 'a')
-f5.write("cloudify_components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-components_amd64.deb\n")
-f5.write("cloudify_core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-core_amd64.deb\n")
-f5.write("cloudify_ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ui_amd64.deb\n")
-f5.write("cloudify_ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/ubuntu-agent_amd64.deb\n")
-f5.write("cloudify_cli_x86_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-cli_i386.deb\n")
-f5.write("cloudify_cli_x64_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-cli_amd64.deb\n")
-f5.close()
+#f5 = open(local_links_file_path, 'a')
+#f5.write("cloudify_components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-components_amd64.deb\n")
+#f5.write("cloudify_core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-core_amd64.deb\n")
+#f5.write("cloudify_ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ui_amd64.deb\n")
+#f5.write("cloudify_ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/ubuntu-agent_amd64.deb\n")
+#f5.write("cloudify_cli_x86_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-cli_i386.deb\n")
+#f5.write("cloudify_cli_x64_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-cli_amd64.deb\n")
+#f5.close()
 	   		
     	
 
