@@ -5,11 +5,11 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
              echo "Failed (exit code $status)"
-             rm -f xunit_reports/xunit-integration-tests.xml
-	     scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
+             #rm -f xunit_reports/xunit-integration-tests.xml
+	     #scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
  
-	     #sudo docker stop $ID
-	     #sudo docker rm $ID
+	     sudo docker stop $ID
+	     sudo docker rm $ID
 	     exit 1
       fi
 
@@ -43,10 +43,10 @@ echo "sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ph
 sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP "cd /opt ; ./cosmo_integration_test.sh"
 exit_on_error
 # copy xunit-integration-tests.xml report file from lxc
-rm -f xunit_reports/xunit-integration-tests.xml
-scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
+#rm -f xunit_reports/xunit-integration-tests.xml
+#scp -rp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i phusion.key root@$IP:/opt/xunit_reports/*.xml xunit_reports
 
-#sudo docker stop $ID
-#exit_on_error
-#sudo docker rm $ID
-#exit_on_error
+sudo docker stop $ID
+exit_on_error
+sudo docker rm $ID
+exit_on_error
