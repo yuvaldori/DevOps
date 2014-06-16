@@ -84,6 +84,7 @@ if PACK_CORE == "yes":
 	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-plugins-common'))
 	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
 	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
+	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/workflows'))
 	packages.PACKAGES['celery']['version']=PRODUCT_VERSION
 	pack(packages.PACKAGES['celery'])
 	#pkg_celery()
