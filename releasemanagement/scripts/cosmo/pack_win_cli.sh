@@ -17,7 +17,7 @@ vagrant destroy -f windows
 vagrant up windows --provider=aws
 
 #get guest ip address
-s=`vagrant ssh windows -- ec2metadata | grep public-hostname | cut -f1 -d"." | cut -d" " -f2` ; s=${s#ec2-} ; ip_address=${s//-/.}
+ip_address=`vagrant ssh-config | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
 #copy windows exe file
