@@ -30,6 +30,7 @@ from boto.s3.connection import S3Connection
 #os.environ["PACK_COMPONENTS"]="no" 
 #os.environ["PACK_CORE"]="yes" 
 #os.environ["PACK_UI"]="yes"
+#os.environ["PACK_CLI"]="yes"
 #os.environ["BUILD_NUM"]="1-20"  
 #os.environ["CONFIGURATION_NAME"]="NightlyBuild" 
 #os.environ["PRODUCT_VERSION"]="3.0.0" 
@@ -102,7 +103,7 @@ if PACK_COMPONENTS == "yes":
 	shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 #########
 
-if PACK_CORE == "yes":
+if PACK_CLI == "yes":
 	print "rename cli packages"
 	cli_linux32_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_i386.deb'
 	cli_linux64_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_amd64.deb'
@@ -134,27 +135,32 @@ if PACK_COMPONENTS == "yes":
 		a=components_package[0].split("/")		
 		filenames.append(a[2]) 
 	else:
-		print "*** components deb file is missing ***"
+		print "*** components package file is missing ***"
 		exit(1)
 if PACK_CORE == "yes":	
-	if core_package and ubuntu_package and cli_linux32_package and cli_linux64_package:
+	if core_package and ubuntu_package:
 		a=core_package[0].split("/")		
 		filenames.append(a[2])
 		b=ubuntu_package[0].split("/")		
 		filenames.append(b[2])
+	else:
+		print "*** core packages files are missing ***"
+		exit(1)
+if PACK_CLI == "yes":	
+	if cli_linux32_package and cli_linux64_package:
 		c=cli_linux32_package[0].split("/")		
 		filenames.append(c[2])
 		d=cli_linux64_package[0].split("/")		
 		filenames.append(d[2])		
 	else:
-		print "*** core deb files are missing ***"
+		print "*** cli packages files are missing ***"
 		exit(1)
 if PACK_UI == "yes":
 	if ui_package:
 		a=ui_package[0].split("/")		
 		filenames.append(a[2])	
 	else:
-		print "*** ui deb file is missing ***"
+		print "*** ui package file is missing ***"
 		exit(1)
 print filenames
 
