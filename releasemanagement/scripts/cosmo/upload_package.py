@@ -128,6 +128,9 @@ cli_linux32_package = glob.glob('{0}/cloudify-cli_*_i386.deb'.format(PACKAGE_SOU
 print cli_linux32_package
 cli_linux64_package = glob.glob('{0}/cloudify-cli_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux64_package
+#cli_win_package = glob.glob('{0}/cloudify-cli_*.exe'.format(PACKAGE_SOURCE_PATH))
+#print cli_win_package
+#CloudifyCLI-3.0.exe
 
 filenames=[]
 
