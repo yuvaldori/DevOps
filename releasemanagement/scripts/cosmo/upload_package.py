@@ -110,9 +110,22 @@ if PACK_CLI == "yes":
 	cli_linux32_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_i386.deb'
 	cli_linux64_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	cli_win_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'.exe'
-	os.rename('{0}/cfy_3.0_i386.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux32_new_name))
-	os.rename('{0}/cfy_3.0_amd64.deb'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux64_new_name))	
-	#shutil.copyfile('{0}/CloudifyCLI-3.0.exe'.format(PACKAGE_SOURCE_PATH),'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))
+	
+	cli_linux32 = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'cfy_*_i386.deb'))
+	cli_linux32 = ''.join(cli_linux32)
+	print cli_linux32
+	os.rename(cli_linux32,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux32_new_name))
+
+	cli_linux64 = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'cfy_*_amd64.deb'))
+	cli_linux64 = ''.join(cli_linux64)
+	print cli_linux32
+	os.rename(cli_linux32,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux64_new_name))
+
+	#orig name - CloudifyCLI-3.0.exe
+	cli_win = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'CloudifyCLI*.exe'))
+	cli_win = ''.join(cli_win)
+	print cli_win
+	os.rename(cli_win,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))		
 
 
 print "check that all deb files exist in /cloudify folder"
@@ -128,9 +141,9 @@ cli_linux32_package = glob.glob('{0}/cloudify-cli_*_i386.deb'.format(PACKAGE_SOU
 print cli_linux32_package
 cli_linux64_package = glob.glob('{0}/cloudify-cli_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux64_package
-#cli_win_package = glob.glob('{0}/cloudify-cli_*.exe'.format(PACKAGE_SOURCE_PATH))
-#print cli_win_package
-#CloudifyCLI-3.0.exe
+cli_win_package = glob.glob('{0}/cloudify-cli_*.exe'.format(PACKAGE_SOURCE_PATH))
+print cli_win_package
+
 
 filenames=[]
 
@@ -153,10 +166,12 @@ if PACK_CORE == "yes":
 		exit(1)
 if PACK_CLI == "yes":	
 	if cli_linux32_package and cli_linux64_package:
-		c=cli_linux32_package[0].split("/")		
-		filenames.append(c[2])
-		d=cli_linux64_package[0].split("/")		
-		filenames.append(d[2])		
+		a=cli_linux32_package[0].split("/")		
+		filenames.append(a[2])
+		b=cli_linux64_package[0].split("/")		
+		filenames.append(b[2])
+		c=cli_win_package[0].split("/")		
+		filenames.append(c[2])		
 	else:
 		print "*** cli packages files are missing ***"
 		exit(1)
@@ -241,16 +256,7 @@ for fname in filenames:
 
 	#x+=1
 
-#permanent links	
-#f5 = open(local_links_file_path, 'a')
-#f5.write("cloudify_components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-components_amd64.deb\n")
-#f5.write("cloudify_core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-core_amd64.deb\n")
-#f5.write("cloudify_ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ui_amd64.deb\n")
-#f5.write("cloudify_ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/ubuntu-agent_amd64.deb\n")
-#f5.write("cloudify_cli_x86_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-cli_i386.deb\n")
-#f5.write("cloudify_cli_x64_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-cli_amd64.deb\n")
-#f5.close()
-	   		
+		
     	
 
 
