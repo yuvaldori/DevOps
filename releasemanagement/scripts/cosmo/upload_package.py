@@ -118,8 +118,8 @@ if PACK_CLI == "yes":
 
 	cli_linux64 = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'cfy_*_amd64.deb'))
 	cli_linux64 = ''.join(cli_linux64)
-	print cli_linux32
-	os.rename(cli_linux32,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux64_new_name))
+	print cli_linux64
+	os.rename(cli_linux64,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux64_new_name))
 
 	#orig name - CloudifyCLI-3.0.exe
 	cli_win = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'CloudifyCLI*.exe'))
