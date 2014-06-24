@@ -83,7 +83,7 @@ pushd cloudify-manager
 	
 	pushd rest-service
 		echo "### Installing manager-rest dependencies"
-		retry "pip install . -r dev-requirements.txt"
+		retry "pip install ."
 		if [ $? != 0 ]; then
 			echo "fail" > $fail_file
 			exit $?
@@ -92,7 +92,7 @@ pushd cloudify-manager
 
 	pushd tests
 		echo "### Installing integration tests dependencies"
-		retry "pip install . -r dev-requirements.txt"
+		retry "pip install ."
 		if [ $? != 0 ]; then
 			echo "fail" > $fail_file
 			exit $?
