@@ -51,22 +51,22 @@ do
 	pushd $r
 
 	echo "### Installing [$r] dependencies"
-	if [ "$r" = "cloudify-plugins-common" ] || [ "$r" = "cloudify-cli" ]
-	then
-		retry "pip install . -r requirements.txt"
+	#if [ "$r" = "cloudify-plugins-common" ] || [ "$r" = "cloudify-cli" ]
+	#then
+		retry "pip install . -r dev-requirements.txt"
 		retval=$?
 		if [ $retval -ne 0 ]; then
 			echo "### Installation for package [$r] exited with code $retval"
 			exit $retval
 		fi
-	else
- 		retry "pip install ."
-		retval=$?
-		if [ $retval -ne 0 ]; then
-			echo "### Installation for package [$r] exited with code $retval"
-			exit $retval
-		fi
-	fi
+	#else
+ 		#retry "pip install ."
+		#retval=$?
+		#if [ $retval -ne 0 ]; then
+			#echo "### Installation for package [$r] exited with code $retval"
+			#exit $retval
+		#fi
+	#fi
 		
 	echo "### Running flake8 for: $r"
 	flake8 .
