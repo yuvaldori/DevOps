@@ -52,24 +52,24 @@ do
 	pushd $r
 
 		echo "### Installing [$r] dependencies"
-		if [ "$r" = "cloudify-plugins-common" ] || [ "$r" = "cloudify-cli" ]
-		then
-			retry "pip install . -r requirements.txt"
+		#if [ "$r" = "cloudify-plugins-common" ] || [ "$r" = "cloudify-cli" ]
+		#then
+			retry "pip install . -r dev-requirements.txt"
 			retval=$?
 			if [ $retval -ne 0 ]; then
 				echo "### Installation for package [$r] exited with code $retval"
 				echo "fail" > $fail_file
 				exit $retval
 			fi
-		else
- 			retry "pip install ."
-			retval=$?
-			if [ $retval -ne 0 ]; then
-				echo "### Installation for package [$r] exited with code $retval"
-				echo "fail" > $fail_file
-				exit $retval
-			fi
-		fi
+		#else
+ 			#retry "pip install ."
+			#retval=$?
+			#if [ $retval -ne 0 ]; then
+				#echo "### Installation for package [$r] exited with code $retval"
+				#echo "fail" > $fail_file
+				#exit $retval
+			#fi
+		#fi
 
 	popd
 done	
@@ -83,7 +83,7 @@ pushd cloudify-manager
 	
 	pushd rest-service
 		echo "### Installing manager-rest dependencies"
-		retry "pip install . --process-dependency-links"
+		retry "pip install . -r dev-requirements.txt"
 		if [ $? != 0 ]; then
 			echo "fail" > $fail_file
 			exit $?
@@ -92,7 +92,7 @@ pushd cloudify-manager
 
 	pushd tests
 		echo "### Installing integration tests dependencies"
-		retry "pip install . --process-dependency-links"
+		retry "pip install . -r dev-requirements.txt"
 		if [ $? != 0 ]; then
 			echo "fail" > $fail_file
 			exit $?
