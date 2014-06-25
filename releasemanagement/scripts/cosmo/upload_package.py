@@ -12,16 +12,13 @@
 # sudo mkdir -p /var/log/packager &&
 #       sudo touch /var/log/packager/packager.log &&
 #####################################################
-
 import commands
 import sys
 import os
 import shutil, errno
 from fabric.api import * #NOQA
-from get import *  # NOQA
-from pkg import *  # NOQA
 import packages
-from packman import *  # NOQA
+from packman.packman import *  # NOQA
 import glob
 import params
 from boto.s3.connection import S3Connection
