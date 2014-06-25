@@ -54,71 +54,123 @@ print("root dir: "+parent_dir)
 manager_conf = packages.PACKAGES['manager']
 celery_conf = packages.PACKAGES['celery']
 cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
-linux_conf = packages.PACKAGES['linux-agent']
+cloudify_ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
+ubuntu_agent_conf = packages.PACKAGES['Ubuntu-agent']
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 
 
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 if os.path.exists(PACKAGE_SOURCE_PATH):
-	local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
+	#local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 	shutil.rmtree(PACKAGE_SOURCE_PATH)
 
 
+p = PythonHandler()
+
 if PACK_CORE == "yes":
+	
+	
 	print("*** packaging manager")
-	# prepares virtualenv and copies relevant files to manager virtualenv
-	get_manager()
+	if os.path.exists(manager_conf['package_path']):	
+		shutil.rmtree(manager_conf['package_path'])
+
+	## prepares virtualenv and copies relevant files to manager virtualenv	
+	do('pkm get -c manager')
 	## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(manager_conf['sources_path'],parent_dir+'/cloudify-dsl-parser'))
+	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-dsl-parser'), manager_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
 	## install manager with dependencies into manager virtualenv
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(manager_conf['sources_path'],parent_dir+'/cloudify-manager/rest-service'))
-	## package manager virtualenv
-	packages.PACKAGES['manager']['version']=PRODUCT_VERSION
-	pack(packages.PACKAGES['manager'])
-	#pkg_manager()
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/rest-service'), manager_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	do('pkm pack -c manager')
+	##rename manager package
+	manager_file = glob.glob(os.path.join('{0}'.format(manager_conf['package_path']), '{0}*.deb'.format(manager_conf['name'])))
+	manager_file = ''.join(manager_file)
+	print manager_file
+	os.rename(str(manager_file),'{0}/{1}'.format(manager_conf['package_path'],'manager_'+PRODUCT_VERSION+'_amd64.deb'))	
 
 	print("*** packaging celery")
-	get_celery()
+	if os.path.exists(celery_conf['package_path']):	
+		shutil.rmtree(celery_conf['package_path'])
+	do('pkm get -c celery')
 	## install celery with dependencies into celery virtualenv
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-rest-client'))
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-plugins-common'))
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(celery_conf['sources_path'],parent_dir+'/cloudify-manager/workflows'))
-	packages.PACKAGES['celery']['version']=PRODUCT_VERSION
-	pack(packages.PACKAGES['celery'])
-	#pkg_celery()
-
-	print("*** packaging cloudify-core")
-	manager_file = glob.glob(os.path.join('{0}'.format(manager_conf['package_path']), '{0}*.deb'.format(manager_conf['name'])))
-	print manager_file
+	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-plugins-common'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/plugin-installer'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/agent-installer'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/workflows'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	do('pkm pack -c celery')
 	celery_file = glob.glob(os.path.join('{0}'.format(celery_conf['package_path']), '{0}*.deb'.format(celery_conf['name'])))
+	celery_file = ''.join(celery_file)
 	print celery_file
+	##rename celery package
+	os.rename(celery_file,'{0}/{1}'.format(celery_conf['package_path'],'celery_'+PRODUCT_VERSION+'_amd64.deb'))
+
+	print("*** packaging cloudify-core")	
 	if  manager_file and celery_file:
-		packages.PACKAGES['cloudify-core']['version']=PRODUCT_VERSION
-		pack(packages.PACKAGES['cloudify-core'])
-		#pkg_cloudify_core()
+		do('pkm pack -c cloudify-core')
+		cloudify_core_file = glob.glob(os.path.join('{0}'.format(cloudify_core_conf['package_path']), '{0}*.deb'.format(cloudify_core_conf['name'])))
+		cloudify_core_file = ''.join(cloudify_core_file)
+		print cloudify_core_file
+		##rename cloudify-core package
+		os.rename(cloudify_core_file,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-core_'+PRODUCT_VERSION+'_amd64.deb'))
 	else:
 		print "Cannot pack cloudify-core because missing deb files"
 		sys.exit(1)
+
 	
-	print("*** packaging linux-agent")
-	get_linux_agent()
+	print("*** packaging ubuntu-agent")
+	print(ubuntu_agent_conf['package_path'])
+	if os.path.exists(ubuntu_agent_conf['package_path']):	
+		shutil.rmtree(ubuntu_agent_conf['package_path'])
+	do('pkm get -c Ubuntu-agent')	
 	## install linux_agent with dependencies into celery virtualenv
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-rest-client'))
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-plugins-common'))
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/plugin-installer'))
-	do('{0}/bin/pip --default-timeout=45 install {1}'.format(linux_conf['sources_path'],parent_dir+'/cloudify-manager/plugins/agent-installer'))
-	packages.PACKAGES['linux-agent']['version']=PRODUCT_VERSION
-	pack(packages.PACKAGES['linux-agent'])
-	packages.PACKAGES['ubuntu-agent']['version']=PRODUCT_VERSION
-	pack(packages.PACKAGES['ubuntu-agent'])
-	#pkg_linux_agent()
-	#pkg_ubuntu_agent()
+	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-rest-client'), ubuntu_agent_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-plugins-common'), ubuntu_agent_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/plugin-installer'), ubuntu_agent_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/agent-installer'), ubuntu_agent_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)	
+	##create tar file
+	do('pkm pack -c Ubuntu-agent')
+	##create deb file
+	do('pkm pack -c cloudify-ubuntu-agent')
+	ubuntu_agent_file = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH),'{0}*amd64.deb'.format(cloudify_ubuntu_agent_conf['name'])))		
+	ubuntu_agent_file = ''.join(ubuntu_agent_file)
+	print "PACKAGE_SOURCE_PATH="+PACKAGE_SOURCE_PATH
+	print "ubuntu_agent_file="+ubuntu_agent_file
+
+	ubuntu_agent_file32 = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH),'{0}*x86_64.rpm'.format(cloudify_ubuntu_agent_conf['name'])))
+	ubuntu_agent_file32 = ''.join(ubuntu_agent_file32)
+	print "ubuntu_agent_file32="+ubuntu_agent_file32
+
+	##rename ubuntu-agent package
+	os.rename(ubuntu_agent_file,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ubuntu-agent_'+PRODUCT_VERSION+'_amd64.deb'))
+	os.rename(ubuntu_agent_file32,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ubuntu-agent_'+PRODUCT_VERSION+'_x86_64.rpm'))
+	
 
 if PACK_UI == "yes":
+
 	print("*** packaging ui")
-	get_cloudify_ui()
+	do('pkm get -c cloudify-ui')
 	#shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(cloudify_ui_conf['sources_path']))
 	#pkg_cloudify_ui()
 
@@ -126,13 +178,14 @@ if PACK_UI == "yes":
 	print tar_ui_file
 	shutil.copy(''.join(tar_ui_file),'{0}'.format(cloudify_ui_conf['sources_path']))
 	
-	#deb_ui_file = glob.glob(os.path.join('{0}'.format(cloudify_ui_conf['package_path']), '{0}*.deb'.format(cloudify_ui_conf['name'])))
-	#print deb_ui_file
+	if  tar_ui_file:		
+		do('pkm pack -c cloudify-ui')
+		cloudify_ui_file = glob.glob(os.path.join('{0}'.format(cloudify_ui_conf['package_path']), '{0}*.deb'.format(cloudify_ui_conf['name'])))
+		cloudify_ui_file = ''.join(cloudify_ui_file)
+		print cloudify_ui_file
+		##rename cloudify-ui package
+		os.rename(cloudify_ui_file,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ui_'+PRODUCT_VERSION+'_amd64.deb'))
 
-	if  tar_ui_file:
-		packages.PACKAGES['cloudify-ui']['version']=PRODUCT_VERSION
-		pack(packages.PACKAGES['cloudify-ui'])
-		#pkg_cloudify_ui()
 	else:
 		print "Cannot pack cloudify-ui because missing tar files"
 		sys.exit(1)
