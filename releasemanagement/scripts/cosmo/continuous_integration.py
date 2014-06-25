@@ -17,10 +17,10 @@ import os
 import glob
 import shutil, errno
 from fabric.api import * #NOQA
-from get import *  # NOQA
-from pkg import *  # NOQA
+# from get import *  # NOQA
+# from pkg import *  # NOQA
 import packages
-from packman import *  # NOQA
+from packman.packman import *  # NOQA
 
 #os.environ["PACK_COMPONENTS"]="yes" 
 #os.environ["PACK_CORE"]="yes" 
