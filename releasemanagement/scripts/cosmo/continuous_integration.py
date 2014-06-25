@@ -47,7 +47,7 @@ def copy_dir(src,dst):
 
 current_dir=os.path.dirname(os.path.realpath(__file__))
 print("current dir: "+current_dir)
-parent_dir=os.path.abspath('../..')
+parent_dir=os.path.abspath('..')
 print("root dir: "+parent_dir)
 
 
