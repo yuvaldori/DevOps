@@ -18,7 +18,6 @@ import os
 import shutil, errno
 from fabric.api import * #NOQA
 import packages
-from packman.packman import *  # NOQA
 import glob
 import params
 from boto.s3.connection import S3Connection
@@ -72,13 +71,13 @@ def remove_file(filename):
 
 current_dir=os.path.dirname(os.path.realpath(__file__))
 print("current dir: "+current_dir)
-parent_dir=os.path.abspath('../..')
+parent_dir=os.path.abspath('..')
 print("root dir: "+parent_dir)
 
 cloudify_components_conf = packages.PACKAGES['cloudify-components']
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
-ubuntu_agent_conf = packages.PACKAGES['ubuntu-agent']
+ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
 
 ## copy cloudify3 package
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
