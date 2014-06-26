@@ -16,13 +16,13 @@ echo "CLI_SHA=$CLI_SHA"
 echo "OS_PROVIDER_SHA=$OS_PROVIDER_SHA"
 
 #edit the revision number in linux/provision.sh
-fileName="linux/provision.sh"
+fileName="cloudify-cli-packager/vagrant/linux/provision.sh"
 sed -i "s/.*DSL_SHA=.*/DSL_SHA=$DSL_SHA/g" $fileName
 sed -i "s/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $fileName
 sed -i "s/.*CLI_SHA=.*/CLI_SHA=$CLI_SHA/g" $fileName
 sed -i "s/.*OS_PROVIDER_SHA=.*/OS_PROVIDER_SHA=$OS_PROVIDER_SHA/g" $fileName
 
-win_fileName="windows/provision.bat"
+win_fileName="cloudify-cli-packager/vagrant/windows/provision.bat"
 sed -i "s/.*SET DSL_SHA=.*/SET DSL_SHA=$DSL_SHA/g" $win_fileName
 sed -i "s/.*SET REST_CLIENT_SHA=.*/SET REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $win_fileName
 sed -i "s/.*SET CLI_SHA=.*/SET CLI_SHA=$CLI_SHA/g" $win_fileName
