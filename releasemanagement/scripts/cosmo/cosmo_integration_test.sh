@@ -76,11 +76,6 @@ done
 
 pushd cloudify-manager
 
-	pushd workflow-service
-		echo "### Running bundle install for workflow-service"
-		bundle install
-	popd
-	
 	pushd rest-service
 		echo "### Installing manager-rest dependencies"
 		retry "pip install ."
