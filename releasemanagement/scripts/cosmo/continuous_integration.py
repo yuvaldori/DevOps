@@ -55,7 +55,7 @@ manager_conf = packages.PACKAGES['manager']
 celery_conf = packages.PACKAGES['celery']
 cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
 cloudify_ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
-ubuntu_agent_conf = packages.PACKAGES['Ubuntu-agent']
+ubuntu_agent_conf = packages.PACKAGES['linux-agent']
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 
 
