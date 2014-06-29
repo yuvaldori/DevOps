@@ -23,6 +23,6 @@ echo "ip_address="$ip_address
 #copy components deb file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify-packager/output-packages/*.deb /opt/install
+scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify-packager/output-packages/*.deb /cloudify
 
-vagrant destroy -f
+#vagrant destroy -f
