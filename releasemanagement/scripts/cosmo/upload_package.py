@@ -102,7 +102,7 @@ if PACK_COMPONENTS == "yes":
 	components = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
 	components = ''.join(components)
 	print components
-	components_new_name=cloudify_components_conf['name'])+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'
+	components_new_name=cloudify_components_conf['name']+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(components,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 #########
 
