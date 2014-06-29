@@ -95,10 +95,10 @@ PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 
 #This will be removed when the pkg_components will be ready
-if PACK_COMPONENTS == "yes":
-	print "copy 3rd parties deb from /packages folder"
-	components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
-	shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
+#if PACK_COMPONENTS == "yes":
+	#print "copy 3rd parties deb from /packages folder"
+	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
+	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 #########
 
 if PACK_CLI == "yes":
