@@ -25,4 +25,4 @@ sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
 scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify-packager/output-packages/*.deb /cloudify
 
-#vagrant destroy -f
+vagrant destroy -f
