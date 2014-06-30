@@ -8,13 +8,26 @@
 
 source ../../cli_credentials.sh
 
+function  exit_on_error {
+      status=$?
+      echo "exit code="$status    
+      if [ $status != 0 ] ; then
+         	echo "Failed (exit code $status)" 
+		vagrant destroy -f windows            
+		exit 1
+      fi
+
+}
+
 rm -f /cloudify/cloudify-cli_*_i386.deb
 
 
 #destroy linux32 vm if exit
 vagrant destroy -f linux32
 
+
 vagrant up linux32 --provider=aws
+exit_on_error
 
 #get guest ip address
 s=`vagrant ssh linux32 -- ec2metadata | grep public-hostname | cut -f1 -d"." | cut -d" " -f2` ; s=${s#ec2-} ; ip_address=${s//-/.}
@@ -23,5 +36,6 @@ echo "ip_address="$ip_address
 #copy linux32 deb file
 sudo chown tgrid -R /cloudify
 scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
+exit_on_error
 
 vagrant destroy -f linux32
