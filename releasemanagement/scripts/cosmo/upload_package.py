@@ -104,8 +104,17 @@ if PACK_COMPONENTS == "yes":
 	print components
 	components_new_name=cloudify_components_conf['name']+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(components,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
-#########
 
+if PACK_CORE == "yes":
+	#print "copy 3rd parties deb from /packages folder"
+	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
+	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
+	win_agent = glob.glob('{0}/Cloudify.exe'.format(PACKAGE_SOURCE_PATH))
+	win_agent = ''.join(win_agent)
+	print win_agent
+	win_agent_new_name=cloudify-windows-agent+'_'+PRODUCT_VERSION_FULL+'.exe
+	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
+	
 if PACK_CLI == "yes":
 	print "rename cli packages"
 	cli_linux32_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_i386.deb'
@@ -138,7 +147,7 @@ ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_con
 print ui_package
 ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
 print ubuntu_package
-win_agent_package = glob.glob('{0}/Cloudify.exe'.format(PACKAGE_SOURCE_PATH))
+win_agent_package = glob.glob('{0}/cloudify-windows-agent*.exe'.format(PACKAGE_SOURCE_PATH))
 print win_agent_package
 cli_linux32_package = glob.glob('{0}/cloudify-cli_*_i386.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux32_package
