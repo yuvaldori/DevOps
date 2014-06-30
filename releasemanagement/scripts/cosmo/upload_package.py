@@ -112,7 +112,7 @@ if PACK_CORE == "yes":
 	win_agent = glob.glob('{0}/Cloudify.exe'.format(PACKAGE_SOURCE_PATH))
 	win_agent = ''.join(win_agent)
 	print win_agent
-	win_agent_new_name=cloudify-windows-agent+'_'+PRODUCT_VERSION_FULL+'.exe
+	win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'.exe'
 	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
 	
 if PACK_CLI == "yes":
