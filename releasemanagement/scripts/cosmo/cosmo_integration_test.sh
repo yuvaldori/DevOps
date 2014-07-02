@@ -52,25 +52,14 @@ do
 	pushd $r
 
 		echo "### Installing [$r] dependencies"
-		if [ "$r" = "cloudify-manager/plugins/plugin-installer" ] || [ "$r" = "cloudify-manager/rest-service" ]
-		then
-			retry "pip install ."
-			retval=$?
-			if [ $retval -ne 0 ]; then
-				echo "### Installation for package [$r] exited with code $retval"
-				exit $retval
-			fi
-		else
-	 		
-			retry "pip install . -r dev-requirements.txt"
-			retval=$?
-			if [ $retval -ne 0 ]; then
-				echo "### Installation for package [$r] exited with code $retval"
-				exit $retval
-			fi
+		
+		retry "pip install . -r dev-requirements.txt"
+		retval=$?
+		if [ $retval -ne 0 ]; then
+			echo "### Installation for package [$r] exited with code $retval"
+			exit $retval
 		fi
-
-
+		
 	popd
 done	
 
@@ -78,7 +67,7 @@ pushd cloudify-manager
 
 	pushd rest-service
 		echo "### Installing manager-rest dependencies"
-		retry "pip install ."
+		retry "pip install . -r dev-requirements.txt"
 		if [ $? != 0 ]; then
 			echo "fail" > $fail_file
 			exit $?
