@@ -225,7 +225,7 @@ for fname in filenames:
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
 		#Removing the version from packge name for nightly and continuous folders
 		if fname.endswith(".exe"):
-			name_without_version=fname.replace(PRODUCT_VERSION_FULL,'')
+			name_without_version=fname.replace("_"+PRODUCT_VERSION_FULL,'')
 		else:
 			name_without_version=fname.replace(PRODUCT_VERSION_FULL+"_",'')
 		shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/"+name_without_version)
