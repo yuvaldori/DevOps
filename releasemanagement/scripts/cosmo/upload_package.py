@@ -221,6 +221,19 @@ os.chdir( PACKAGE_SOURCE_PATH )
 conn = S3Connection(aws_access_key_id=params.AWS_KEY, aws_secret_access_key=params.AWS_SECRET)
 for fname in filenames:
 	print "uploading nightly packages to Tarzan"
+	#get the url prefix
+	url_prefix=""
+	if fname.startswith('cloudify-components'):
+		url_prefix="cloudify_components_package_url: "
+	elif fname.startswith('cloudify-core'):
+		url_prefix="cloudify_core_package_url: "
+	elif fname.startswith('cloudify-ui'):
+		url_prefix="cloudify_ui_package_url: "
+	elif fname.startswith('cloudify-ubuntu-agent'):
+		url_prefix="cloudify_ubuntu_agent_url: "
+	elif fname.startswith('cloudify-windows-agent'):
+		url_prefix="cloudify_windows_agent_url: "
+
 	if "trunk" in CONFIGURATION_PATH_NAME:				
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
 		#Removing the version from packge name for nightly and continuous folders
@@ -242,8 +255,8 @@ for fname in filenames:
 	f4 = open(local_aws_links_file_path, 'a')
 
 	#"NIGHTLY_LINK"+str(x)+"
-	f1.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
-	f3.write("http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
+	f1.write(url_prefix+"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
+	f3.write(url_prefix+"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/"+fname+"\n")
 	f1.close()
 	f3.close()
 
@@ -255,7 +268,7 @@ for fname in filenames:
 		full_key_name = os.path.join(PACKAGE_DEST_PATH, name_without_version)   	 	
 		key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read') 		
    		f5 = open(local_links_file_path, 'a')
-    		f5.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_PATH+"/"+name_without_version+"\n")
+    		f5.write(url_prefix+"http://repository.cloudifysource.org/"+PACKAGE_DEST_PATH+"/"+name_without_version+"\n")
     		f5.close()
     		
 	bucket = conn.get_bucket("gigaspaces-repository-eu")
@@ -264,8 +277,8 @@ for fname in filenames:
 
 	print "uploaded file %s to S3" % fname
 
-	f2.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
-	f4.write("http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
+	f2.write(url_prefix+"http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
+	f4.write(url_prefix+"http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
 	f2.close()
 	
 	f4.close()
