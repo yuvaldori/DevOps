@@ -11,6 +11,11 @@ echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"	   	
+	if [[ `git branch | grep temp_version` ]]
+	then
+	    echo "Branch named temp_version already exists, deleting it"
+	    git branch -d temp_version
+	fi
 
 	pushd $r
 	  	echo '{' > VERSION
@@ -20,11 +25,12 @@ do
   		echo '    "commit": "'$REVISION'"' >> VERSION
   		echo '}' >> VERSION
   	popd
-	
-	result=`echo $?`
-	echo "### Nosetests exited with code $result"
-        if [ $result -ne 0 ]; then
-		cosmo_unit_tests_fail="$r,$cosmo_unit_tests_fail"			
-   		echo "### Unit tests failed for: $r";   			
-	fi
+  	git checkout -b temp_version
+	git commit -m 'edit VERSION by nightly'
+	#result=`echo $?`
+	#echo "### Nosetests exited with code $result"
+        #if [ $result -ne 0 ]; then
+	#	cosmo_unit_tests_fail="$r,$cosmo_unit_tests_fail"			
+   	#	echo "### Unit tests failed for: $r";   			
+	#fi
 done
