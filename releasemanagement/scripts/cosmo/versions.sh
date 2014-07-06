@@ -17,7 +17,7 @@ do
   		echo '    "version": "'$REVISION'",' >> VERSION
   		echo '    "build": "'$BUILD_NUM'",' >> VERSION
   		echo '    "date": "'`date +'%d/%m/%Y'`'",' >> VERSION
-  		echo '    "commit": "'$CONFIGURATION_NAME'"' >> VERSION
+  		echo '    "commit": "'$REVISION'"' >> VERSION
   		echo '}' >> VERSION
   	popd
 	
