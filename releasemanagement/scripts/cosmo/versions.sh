@@ -79,6 +79,7 @@ do
 	echo "### Processing repository: $r"
 	pushd $r
 		if [ "$MILESTONE" != "ga" ]
+		then
 			BRANCH_TO_PUSH_VERSION="temp_version"
 			if [[ `git branch | grep temp_version` ]]
 	 		then
