@@ -16,11 +16,31 @@ echo "PACK_UI=$PACK_UI"
 echo "MANAGER_SHA=$MANAGER_SHA"
 echo "CLI_SHA=$CLI_SHA"
 echo "UI_SHA=$UI_SHA"
-
+echo "MAJOR_VERSION=$MAJOR_VERSION"
+echo "MINOR_VERSION=$MINOR_VERSION"
+echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
+echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
+echo "MILESTONE=$MILESTONE"
 
 if [ "$PACK_CLI" == "yes" ]
 then
 	REPOS_LIST="cloudify-cli/cosmo_cli "
+	
+	case "$MILESTONE" in
+	        ga)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION
+	            ;;
+	         
+	        rc)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION$MILESTONE"1"
+	            ;;
+	         
+	        
+	        *)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION`echo "$MILESTONE" | sed -r 's/m/a/'`
+	 
+	esac
+	
 fi
 if [ "$PACK_CORE" == "yes" ]
 then
@@ -29,6 +49,20 @@ fi
 if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST"cosmo-ui"
+	case "$MILESTONE" in
+	        ga)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION
+	            ;;
+	         
+	        rc)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION$MILESTONE"1"
+	            ;;
+	         
+	        
+	        *)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"-"$MILESTONE
+	 
+	esac
 fi
 
 echo "REPOS_LIST=$REPOS_LIST"
