@@ -42,7 +42,7 @@ do
 		if [[ `git branch | grep temp_version` ]]
 	 	then
 	 		echo "Branch named temp_version already exists, deleting it"
-	 		git branch -d temp_version
+	 		git branch -D temp_version
 	 		exit_on_error
 	 	fi
 	 	git checkout -b temp_version
