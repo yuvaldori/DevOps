@@ -55,6 +55,7 @@ echo "MINOR_VERSION=$MINOR_VERSION"
 echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
 echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
 echo "MILESTONE=$MILESTONE"
+BRANCH_TO_PUSH_VERSION=""
 
 if [ "$PACK_CLI" == "yes" ]
 then
@@ -77,16 +78,19 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	pushd $r
-		if [[ `git branch | grep temp_version` ]]
-	 	then
-	 		echo "Branch named temp_version already exists, deleting it"
-	 		git branch -D temp_version
+		if [ "$MILESTONE" != "ga" ]
+			BRANCH_TO_PUSH_VERSION="temp_version"
+			if [[ `git branch | grep temp_version` ]]
+	 		then
+	 			echo "Branch named temp_version already exists, deleting it"
+	 			git branch -D temp_version
+	 			exit_on_error
+	 		fi		
+	 		git checkout -b temp_version
 	 		exit_on_error
-	 	fi
-	 	git checkout -b temp_version
-	 	exit_on_error
-	 	git push origin temp_version
-		exit_on_error
+		else
+			BRANCH_TO_PUSH_VERSION="master"
+		fi
 		#set revision sha
 		if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
 		then
@@ -117,5 +121,8 @@ do
 	  	
 	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
+	  	git push origin $BRANCH_TO_PUSH_VERSION
+		exit_on_error
+	  	
   	popd
 done
