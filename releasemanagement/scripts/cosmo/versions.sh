@@ -70,6 +70,6 @@ do
 	  	echo '}' >> VERSION
 	  	
 	  	git commit -m 'edit VERSION file by nightly build'
-	  	exit_on_erro
+	  	exit_on_error
   	popd
 done
