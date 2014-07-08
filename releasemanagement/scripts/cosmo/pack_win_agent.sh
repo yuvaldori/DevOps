@@ -36,6 +36,7 @@ echo "ip_address="$ip_address
 
 ##copy windows exe file
 sudo chown tgrid -R /cloudify
+sudo rm -rf /agents/windows-agent
 sudo mkdir -p /agents/windows-agent
 sudo chown tgrid -R /agents/windows-agent
 #sshpass -p 'abcd1234!!' scp -p vagrant@$ip_address:/home/vagrant/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI-3.0.exe /cloudify
