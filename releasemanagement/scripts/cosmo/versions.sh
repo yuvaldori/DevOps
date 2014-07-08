@@ -60,7 +60,7 @@ do
 			REVISION=$UI_SHA	
 		fi
 		
-		DATE=`date +"%d/%m/%Y"`
+		DATE=`date +"%d/%m/%Y-%T"`
 		
 	  	echo '{' > VERSION
 	  	echo '    "version": "'$PRODUCT_VERSION'",' >> VERSION
