@@ -105,15 +105,15 @@ if PACK_COMPONENTS == "yes":
 	components_new_name=cloudify_components_conf['name']+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(components,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 
-if PACK_CORE == "yes":
+#if PACK_CORE == "yes":
 	#print "copy 3rd parties deb from /packages folder"
 	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
-	win_agent = glob.glob('{0}/Cloudify.exe'.format(PACKAGE_SOURCE_PATH))
-	win_agent = ''.join(win_agent)
-	print win_agent
-	win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'.exe'
-	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
+	##win_agent = glob.glob('{0}/Cloudify.exe'.format(PACKAGE_SOURCE_PATH))
+	##win_agent = ''.join(win_agent)
+	##print win_agent
+	##win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'.exe'
+	##os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
 	
 if PACK_CLI == "yes":
 	print "rename cli packages"
@@ -147,8 +147,8 @@ ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_con
 print ui_package
 ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
 print ubuntu_package
-win_agent_package = glob.glob('{0}/cloudify-windows-agent*.exe'.format(PACKAGE_SOURCE_PATH))
-print win_agent_package
+#win_agent_package = glob.glob('{0}/cloudify-windows-agent*.exe'.format(PACKAGE_SOURCE_PATH))
+#print win_agent_package
 cli_linux32_package = glob.glob('{0}/cloudify-cli_*_i386.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux32_package
 cli_linux64_package = glob.glob('{0}/cloudify-cli_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
@@ -168,13 +168,14 @@ if PACK_COMPONENTS == "yes":
 		print "*** components package file is missing ***"
 		exit(1)
 if PACK_CORE == "yes":	
-	if core_package and ubuntu_package and win_agent_package:
+	#if core_package and ubuntu_package and win_agent_package:
+	if core_package and ubuntu_package:
 		a=core_package[0].split("/")		
 		filenames.append(a[2])
 		b=ubuntu_package[0].split("/")		
 		filenames.append(b[2])
-		c=win_agent_package[0].split("/")		
-		filenames.append(c[2])
+		#c=win_agent_package[0].split("/")		
+		#filenames.append(c[2])
 	else:
 		print "*** core packages files are missing ***"
 		exit(1)
