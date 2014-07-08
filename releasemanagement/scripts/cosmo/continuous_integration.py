@@ -55,7 +55,7 @@ manager_conf = packages.PACKAGES['manager']
 celery_conf = packages.PACKAGES['celery']
 cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
 cloudify_ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
-ubuntu_agent_conf = packages.PACKAGES['linux-agent']
+ubuntu_agent_conf = packages.PACKAGES['Ubuntu-agent']
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 
 
@@ -135,7 +135,7 @@ if PACK_CORE == "yes":
 	print(ubuntu_agent_conf['package_path'])
 	if os.path.exists(ubuntu_agent_conf['package_path']):	
 		shutil.rmtree(ubuntu_agent_conf['package_path'])
-	do('pkm get -c linux-agent')	
+	do('pkm get -c Ubuntu-agent')	
 	## install linux_agent with dependencies into celery virtualenv
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
@@ -150,7 +150,7 @@ if PACK_CORE == "yes":
 	if r.return_code != 0:
 		exit(1)	
 	##create tar file
-	do('pkm pack -c linux-agent')
+	do('pkm pack -c Ubuntu-agent')
 	##create deb file
 	do('pkm pack -c cloudify-ubuntu-agent')
 	ubuntu_agent_file = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH),'{0}*amd64.deb'.format(cloudify_ubuntu_agent_conf['name'])))		
