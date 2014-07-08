@@ -53,7 +53,7 @@ do
 
 		echo "### Installing [$r] dependencies"
 		
-		retry "pip install . -r dev-requirements.txt"
+		retry "pip install ."
 		retval=$?
 		if [ $retval -ne 0 ]; then
 			echo "### Installation for package [$r] exited with code $retval"
@@ -67,7 +67,7 @@ pushd cloudify-manager
 
 	pushd rest-service
 		echo "### Installing manager-rest dependencies"
-		retry "pip install . -r dev-requirements.txt"
+		retry "pip install ."
 		if [ $? != 0 ]; then
 			echo "fail" > $fail_file
 			exit $?
