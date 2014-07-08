@@ -122,7 +122,7 @@ do
 	  	
 	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
-	  	git push origin $BRANCH_TO_PUSH_VERSION
+	  	git push --force origin $BRANCH_TO_PUSH_VERSION
 		exit_on_error
 	  	
   	popd
