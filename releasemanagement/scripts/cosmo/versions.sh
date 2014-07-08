@@ -10,15 +10,15 @@ echo "CLI_SHA=$CLI_SHA"
 echo "UI_SHA=$UI_SHA"
 
 
-if [ "$PACK_CLI" = "yes" ]
+if [ "$PACK_CLI" == "yes" ]
 then
 	REPOS_LIST="cloudify-cli/cosmo_cli "
 fi
-if [ "$PACK_CORE" = "yes" ]
+if [ "$PACK_CORE" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST"cloudify-manager/rest-service/manager_rest "
 fi
-if [ "$PACK_UI" = "yes" ]
+if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST"cosmo-ui"
 fi
