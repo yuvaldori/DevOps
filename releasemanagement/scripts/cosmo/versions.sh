@@ -69,7 +69,7 @@ do
 	  	echo '    "commit": "'$REVISION'"' >> VERSION
 	  	echo '}' >> VERSION
 	  	
-	  	git commit -m 'edit VERSION file by nightly build'
+	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
   	popd
 done
