@@ -9,6 +9,40 @@ function  exit_on_error {
       fi
 
 }
+function  get_product_version_for_pypi {
+      case "$MILESTONE" in
+	        ga)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION
+	            ;;
+	         
+	        rc)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION$MILESTONE"1"
+	            ;;
+	         
+	        
+	        *)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION`echo "$MILESTONE" | sed -r 's/m/a/'`
+	 
+	esac
+
+}
+function  get_product_version_for_npm {
+	case "$MILESTONE" in
+	        ga)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION
+	            ;;
+	         
+	        rc)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION$MILESTONE"1"
+	            ;;
+	         
+	        
+	        *)
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"-"$MILESTONE
+	 
+	esac
+
+}
 
 echo "PACK_CLI=$PACK_CLI"
 echo "PACK_CORE=$PACK_CORE"
@@ -25,22 +59,6 @@ echo "MILESTONE=$MILESTONE"
 if [ "$PACK_CLI" == "yes" ]
 then
 	REPOS_LIST="cloudify-cli/cosmo_cli "
-	
-	case "$MILESTONE" in
-	        ga)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION
-	            ;;
-	         
-	        rc)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION$MILESTONE"1"
-	            ;;
-	         
-	        
-	        *)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION`echo "$MILESTONE" | sed -r 's/m/a/'`
-	 
-	esac
-	
 fi
 if [ "$PACK_CORE" == "yes" ]
 then
@@ -49,20 +67,6 @@ fi
 if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST"cosmo-ui"
-	case "$MILESTONE" in
-	        ga)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION
-	            ;;
-	         
-	        rc)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION$MILESTONE"1"
-	            ;;
-	         
-	        
-	        *)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"-"$MILESTONE
-	 
-	esac
 fi
 
 echo "REPOS_LIST=$REPOS_LIST"
@@ -81,7 +85,7 @@ do
 	 	fi
 	 	git checkout -b temp_version
 	 	exit_on_error
-			   	
+		
 		#set revision sha
 		if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
 		then
@@ -93,6 +97,13 @@ do
 		then
 			REVISION=$UI_SHA	
 		fi
+		#set product version
+		if [ "$r" == "cosmo-ui" ]
+		then
+			get_product_version_for_npm
+		else
+			get_product_version_for_pypi
+		if
 		
 		DATE=`date +"%d/%m/%Y-%T"`
 		
