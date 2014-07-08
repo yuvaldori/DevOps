@@ -36,8 +36,10 @@ echo "ip_address="$ip_address
 
 ##copy windows exe file
 sudo chown tgrid -R /cloudify
+sudo mkdir -p /agents/windows-agent
+sudo chown tgrid -R /agents/windows-agent
 #sshpass -p 'abcd1234!!' scp -p vagrant@$ip_address:/home/vagrant/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI-3.0.exe /cloudify
-scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/windows_agent_packager.pem Administrator@$ip_address:/cygdrive/c/Cloudify.exe /cloudify
+scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/windows_agent_packager.pem Administrator@$ip_address:/cygdrive/c/Cloudify.exe /agents/windows-agent
 exit_on_error
 
 vagrant destroy -f
