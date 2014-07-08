@@ -2,6 +2,11 @@
 
 source retry.sh
 
+echo "PACK_CLI=$PACK_CLI"
+echo "PACK_CORE=$$PACK_CORE"
+echo "PACK_UI=$$PACK_UI"
+
+
 if [ "$PACK_CLI" = "yes" ]
 then
 	REPOS_LIST="cloudify-cli/cosmo_cli "
@@ -15,7 +20,7 @@ then
 	REPOS_LIST=$REPOS_LIST"cosmo-ui"
 fi
 
-echo "REPOS_LIST
+echo "REPOS_LIST=$REPOS_LIST"
 
 echo "### Repositories list: $REPOS_LIST"
 
@@ -33,11 +38,12 @@ do
 	then
 		REVISION=$UI_SHA	
 	fi
+	DATE='`date +'%d/%m/%Y'`'
 	pushd $r
 	  	echo '{' > VERSION
   		echo '    "version": "'$PRODUCT_VERSION'",' >> VERSION
   		echo '    "build": "'$BUILD_NUM'",' >> VERSION
-  		echo '    "date": "'`date +'%d/%m/%Y'`'",' >> VERSION
+  		echo '    "date": "'$DATE'",' >> VERSION
   		echo '    "commit": "'$REVISION'"' >> VERSION
   		echo '}' >> VERSION
   	popd
