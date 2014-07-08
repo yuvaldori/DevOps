@@ -77,7 +77,7 @@ if PACK_CORE == "yes":
 	## prepares virtualenv and copies relevant files to manager virtualenv	
 	do('pkm get -c manager')
 	## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
-	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-dsl-parser'), manager_conf['sources_path'])
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-dsl-parser'), manager_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	## install manager with dependencies into manager virtualenv
@@ -96,10 +96,10 @@ if PACK_CORE == "yes":
 		shutil.rmtree(celery_conf['package_path'])
 	do('pkm get -c celery')
 	## install celery with dependencies into celery virtualenv
-	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
-	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-plugins-common'), celery_conf['sources_path'])
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-plugins-common'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/plugin-installer'), celery_conf['sources_path'])
@@ -137,10 +137,10 @@ if PACK_CORE == "yes":
 		shutil.rmtree(ubuntu_agent_conf['package_path'])
 	do('pkm get -c linux-agent')	
 	## install linux_agent with dependencies into celery virtualenv
-	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-rest-client'), ubuntu_agent_conf['sources_path'])
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
-	r=p.pip('{0}/ -r{0}/dev-requirements.txt'.format(parent_dir + '/cloudify-plugins-common'), ubuntu_agent_conf['sources_path'])
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-plugins-common'), ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/plugin-installer'), ubuntu_agent_conf['sources_path'])
