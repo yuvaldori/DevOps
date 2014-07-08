@@ -41,7 +41,7 @@ do
 	then
 		REVISION=$UI_SHA	
 	fi
-	DATE=date +'%d/%m/%Y'
+	DATE=`date +"%y-%m-%d"`
 	pushd $r
 	  	echo '{' > VERSION
   		echo '    "version": "'$PRODUCT_VERSION'",' >> VERSION
