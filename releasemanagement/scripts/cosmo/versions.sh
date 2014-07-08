@@ -37,35 +37,39 @@ echo "### Repositories list: $REPOS_LIST"
 
 for r in ${REPOS_LIST}
 do
-	if [[ `git branch | grep temp_version` ]]
- 	then
- 		echo "Branch named temp_version already exists, deleting it"
- 		git branch -d temp_version
- 		exit_on_error
- 	fi
- 	git checkout -b temp_version
- 	exit_on_error
-	echo "### Processing repository: $r"	   	
-	#set revision sha
-	if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
-	then
-		REVISION=$MANAGER_SHA
-	elif [ "$r" == "cloudify-cli/cosmo_cli" ]
-	then
-		REVISION=$CLI_SHA
-	elif [ "$r" == "cosmo-ui" ]
-	then
-		REVISION=$UI_SHA	
-	fi
-	DATE=`date +"%d/%m/%Y"`
+	echo "### Processing repository: $r"
 	pushd $r
+		if [[ `git branch | grep temp_version` ]]
+	 	then
+	 		echo "Branch named temp_version already exists, deleting it"
+	 		git branch -d temp_version
+	 		exit_on_error
+	 	fi
+	 	git checkout -b temp_version
+	 	exit_on_error
+			   	
+		#set revision sha
+		if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
+		then
+			REVISION=$MANAGER_SHA
+		elif [ "$r" == "cloudify-cli/cosmo_cli" ]
+		then
+			REVISION=$CLI_SHA
+		elif [ "$r" == "cosmo-ui" ]
+		then
+			REVISION=$UI_SHA	
+		fi
+		
+		DATE=`date +"%d/%m/%Y"`
+		
 	  	echo '{' > VERSION
-  		echo '    "version": "'$PRODUCT_VERSION'",' >> VERSION
-  		echo '    "build": "'$BUILD_NUM'",' >> VERSION
-  		echo '    "date": "'$DATE'",' >> VERSION
-  		echo '    "commit": "'$REVISION'"' >> VERSION
-  		echo '}' >> VERSION
+	  	echo '    "version": "'$PRODUCT_VERSION'",' >> VERSION
+	  	echo '    "build": "'$BUILD_NUM'",' >> VERSION
+	  	echo '    "date": "'$DATE'",' >> VERSION
+	  	echo '    "commit": "'$REVISION'"' >> VERSION
+	  	echo '}' >> VERSION
+	  	
+	  	git commit -m 'edit VERSION file by nightly build'
+	  	exit_on_erro
   	popd
-  	git commit -m 'edit VERSION file by nightly build'
-  	exit_on_error
 done
