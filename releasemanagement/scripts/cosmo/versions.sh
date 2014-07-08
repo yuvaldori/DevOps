@@ -85,7 +85,8 @@ do
 	 	fi
 	 	git checkout -b temp_version
 	 	exit_on_error
-		
+	 	git push origin temp_version
+		exit_on_error
 		#set revision sha
 		if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
 		then
