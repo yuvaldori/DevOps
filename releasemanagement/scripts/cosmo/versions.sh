@@ -33,7 +33,7 @@ function  get_product_version_for_npm {
 	            ;;
 	         
 	        rc)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION$MILESTONE"1"
+	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"-"$MILESTONE"1"
 	            ;;
 	         
 	        
