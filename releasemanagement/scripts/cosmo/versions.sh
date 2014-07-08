@@ -3,8 +3,11 @@
 source retry.sh
 
 echo "PACK_CLI=$PACK_CLI"
-echo "PACK_CORE=$$PACK_CORE"
-echo "PACK_UI=$$PACK_UI"
+echo "PACK_CORE=$PACK_CORE"
+echo "PACK_UI=$PACK_UI"
+echo "MANAGER_SHA=$MANAGER_SHA"
+echo "CLI_SHA=$CLI_SHA"
+echo "UI_SHA=$UI_SHA"
 
 
 if [ "$PACK_CLI" = "yes" ]
@@ -28,17 +31,17 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"	   	
 	#set revision sha
-	if [ "$r" = "cloudify-manager/rest-service/manager_rest" ]
+	if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
 	then
 		REVISION=$MANAGER_SHA
-	elif [ "$r"="cloudify-cli/cosmo_cli" ]
+	elif [ "$r" == "cloudify-cli/cosmo_cli" ]
 	then
 		REVISION=$CLI_SHA
-	elif [ "$r" = "cosmo-ui" ]
+	elif [ "$r" == "cosmo-ui" ]
 	then
 		REVISION=$UI_SHA	
 	fi
-	DATE='`date +'%d/%m/%Y'`'
+	DATE=date +'%d/%m/%Y'
 	pushd $r
 	  	echo '{' > VERSION
   		echo '    "version": "'$PRODUCT_VERSION'",' >> VERSION
