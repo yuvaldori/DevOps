@@ -1,6 +1,14 @@
 #!/bin/bash -x
 
-source retry.sh
+function  exit_on_error {
+      status=$?
+      echo "exit code="$status    
+      if [ $status != 0 ] ; then
+         	echo "Failed (exit code $status)" 
+		exit 1
+      fi
+
+}
 
 echo "PACK_CLI=$PACK_CLI"
 echo "PACK_CORE=$PACK_CORE"
@@ -29,6 +37,14 @@ echo "### Repositories list: $REPOS_LIST"
 
 for r in ${REPOS_LIST}
 do
+	if [[ `git branch | grep temp_version` ]]
+ 	then
+ 		echo "Branch named temp_version already exists, deleting it"
+ 		git branch -d temp_version
+ 		exit_on_error
+ 	fi
+ 	git checkout -b temp_version
+ 	exit_on_error
 	echo "### Processing repository: $r"	   	
 	#set revision sha
 	if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
@@ -50,4 +66,6 @@ do
   		echo '    "commit": "'$REVISION'"' >> VERSION
   		echo '}' >> VERSION
   	popd
+  	git commit -m 'edit VERSION file by nightly build'
+  	exit_on_error
 done
