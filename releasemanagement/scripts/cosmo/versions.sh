@@ -103,7 +103,7 @@ do
 			get_product_version_for_npm
 		else
 			get_product_version_for_pypi
-		if
+		fi
 		
 		DATE=`date +"%d/%m/%Y-%T"`
 		
