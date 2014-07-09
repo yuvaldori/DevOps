@@ -54,20 +54,9 @@ do
 	#if [ "$r" = "cloudify-manager/plugins/plugin-installer" ] || [ "$r" = "cloudify-manager/rest-service" ]
 	if [ "$r" = "cloudify-cli" ]
 	then
-		retry "pip install -r dev-requirements.txt"
-		#retval=$?
-		#if [ $retval -ne 0 ]; then
-			#echo "### Installation for package [$r] exited with code $retval"
-			#exit $retval
-		#fi
+		retry "pip install -r test-requirements.txt"
 	else
- 		
 		retry "pip install ."
-		#retval=$?
-		#if [ $retval -ne 0 ]; then
-			#echo "### Installation for package [$r] exited with code $retval"
-			#exit $retval
-		#fi
 	fi
 
 	#retry "pip install ."
