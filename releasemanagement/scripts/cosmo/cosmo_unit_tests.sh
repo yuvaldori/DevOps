@@ -54,7 +54,7 @@ do
 	#if [ "$r" = "cloudify-manager/plugins/plugin-installer" ] || [ "$r" = "cloudify-manager/rest-service" ]
 	if [ "$r" = "cloudify-cli" ]
 	then
-		retry "pip install -r test-requirements.txt"
+		retry "pip install . -r test-requirements.txt"
 	else
 		retry "pip install ."
 	fi
