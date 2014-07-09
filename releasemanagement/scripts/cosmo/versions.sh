@@ -50,6 +50,10 @@ echo "PACK_UI=$PACK_UI"
 echo "MANAGER_SHA=$MANAGER_SHA"
 echo "CLI_SHA=$CLI_SHA"
 echo "UI_SHA=$UI_SHA"
+echo "OS_PLUGIN_SHA=$OS_PLUGIN_SHA"
+echo "BASH_PLUGIN_SHA=$BASH_PLUGIN_SHA"
+echo "CHEF_PLUGIN_SHA=$CHEF_PLUGIN_SHA"
+echo "PUPPET_PLUGIN_SHA=$CHEF_PLUGIN_SHA"
 echo "MAJOR_VERSION=$MAJOR_VERSION"
 echo "MINOR_VERSION=$MINOR_VERSION"
 echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
@@ -63,7 +67,7 @@ then
 fi
 if [ "$PACK_CORE" == "yes" ]
 then
-	REPOS_LIST=$REPOS_LIST"cloudify-manager/rest-service/manager_rest "
+	REPOS_LIST=$REPOS_LIST"cloudify-manager/rest-service/manager_rest cloudify-openstack-plugin/nova_plugin cloudify-puppet-plugin/puppet_plugin cloudify-chef-plugin/chef_plugin cloudify-bash-plugin/bash_runner "
 fi
 if [ "$PACK_UI" == "yes" ]
 then
@@ -98,7 +102,19 @@ do
 			REVISION=$CLI_SHA
 		elif [ "$r" == "cosmo-ui" ]
 		then
-			REVISION=$UI_SHA	
+			REVISION=$UI_SHA
+		elif [ "$r" == "cloudify-openstack-plugin/nova_plugin" ]
+		then
+			REVISION=$OS_PLUGIN_SHA
+		elif [ "$r" == "cloudify-puppet-plugin/puppet_plugin" ]
+		then
+			REVISION=$PUPPET_PLUGIN_SHA
+		elif [ "$r" == "cloudify-chef-plugin/chef_plugin" ]
+		then
+			REVISION=$CHEF_PLUGIN_SHA
+		elif [ "$r" == "cloudify-bash-plugin/bash_runner" ]
+		then
+			REVISION=$BASH_PLUGIN_SHA
 		fi
 		#set product version
 		if [ "$r" == "cosmo-ui" ]
