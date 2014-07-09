@@ -135,7 +135,7 @@ if PACK_CLI == "yes":
 	cli_win = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'CloudifyCLI*.exe'))
 	cli_win = ''.join(cli_win)
 	print cli_win
-	os.rename(cli_win,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))		
+	#os.rename(cli_win,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))		
 
 
 print "check that all deb files exist in /cloudify folder"
@@ -184,8 +184,8 @@ if PACK_CLI == "yes":
 		filenames.append(a[2])
 		b=cli_linux64_package[0].split("/")		
 		filenames.append(b[2])
-		c=cli_win_package[0].split("/")		
-		filenames.append(c[2])		
+		#c=cli_win_package[0].split("/")		
+		#filenames.append(c[2])		
 	else:
 		print "*** cli packages files are missing ***"
 		exit(1)
