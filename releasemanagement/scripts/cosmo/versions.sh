@@ -123,7 +123,7 @@ do
 		then
 	  		git push --force origin master
 			exit_on_error
-		if
+		fi
 	  	
   	popd
 done
