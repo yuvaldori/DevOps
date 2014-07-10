@@ -38,7 +38,7 @@ echo "cloudify_openstack_provider_majorVersion=$cloudify_openstack_provider_majo
 echo "cloudify_python_majorVersion=$cloudify_python_majorVersion"
 echo "cloudify_puppet_majorVersion=$cloudify_puppet_majorVersion"
 echo "cloudify_packager_majorVersion=$cloudify_packager_majorVersion"
-echo "core_tag_name=core_tag_name"
+echo "core_tag_name=$core_tag_name"
 
 if [ "$PACK_CORE" == "yes" ]
 then
