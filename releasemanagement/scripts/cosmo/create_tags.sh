@@ -42,7 +42,11 @@ echo "core_tag_name=$core_tag_name"
 
 if [ "$PACK_CORE" == "yes" ]
 then
-	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu cloudify-cli packman cloudify-puppet-plugin "
+	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman cloudify-puppet-plugin "
+fi
+if [ "$PACK_CLI" == "yes" ]
+then
+	REPOS_LIST=$REPOS_LIST"cloudify-cli "
 fi
 if [ "$PACK_UI" == "yes" ]
 then
