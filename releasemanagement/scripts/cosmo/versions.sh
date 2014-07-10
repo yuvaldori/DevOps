@@ -138,9 +138,9 @@ do
 		then
 	  		git push --force origin master
 			exit_on_error
-		else
-			git push --force origin $VERSION_BRANCH_NAME
-			exit_on_error	
+		#else
+			#git push --force origin $VERSION_BRANCH_NAME
+			#exit_on_error	
 		fi
 	  	
   	popd
