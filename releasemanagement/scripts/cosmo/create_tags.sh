@@ -101,6 +101,7 @@ do
 	 		echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
 	 		git branch -D $VERSION_BRANCH_NAME
 	 		exit_on_error
+	 		git push origin --delete $VERSION_BRANCH_NAME
 	 	fi		
 	 		
 		
