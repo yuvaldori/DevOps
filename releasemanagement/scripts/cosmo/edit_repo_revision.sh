@@ -37,3 +37,21 @@ win_agent_fileName="cloudify-packager-ubuntu/vagrant/windows-agent/provision.bat
 sed -i "s/.*SET REST_CLIENT_SHA=.*/SET REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $win_agent_fileName
 sed -i "s/.*SET PLUGIN_COMMON_SHA=.*/SET PLUGIN_COMMON_SHA=$PLUGIN_COMMON_SHA/g" $win_agent_fileName
 sed -i "s/.*SET OS_PROVIDER_SHA=.*/SET OS_PROVIDER_SHA=$OS_PROVIDER_SHA/g" $win_agent_fileName
+
+
+defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.defaults.yaml"
+config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.yaml"
+
+components_package_url=$(grep "cloudify_components_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_components_package_url: //')
+core_package_url=$(grep "cloudify_core_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_core_package_url: //')
+ui_package_url=$(grep "cloudify_ui_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_ui_package_url: //')
+ubuntu_agent_url=$(grep "cloudify_ubuntu_agent_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_ubuntu_agent_url: //')
+windows_agent_url=$(grep "cloudify_windows_agent_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_windows_agent_url: //')
+
+sed -i "s|{{ components_package_url }}|$(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file
+sed -i "s|{{ core_package_url }}|$(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file
+sed -i "s|{{ ui_package_url }}|$(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file
+sed -i "s|{{ ubuntu_agent_url }}|$(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
+sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
+
+git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file $config_yaml_file
