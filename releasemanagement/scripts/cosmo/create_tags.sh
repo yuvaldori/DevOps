@@ -75,12 +75,12 @@ then
 	sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
 
 	git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file $config_yaml_file
-	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman cloudify-puppet-plugin "
+	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman cloudify-puppet-plugin cloudify-cli "
 fi
-if [ "$PACK_CLI" == "yes" ]
-then
-	REPOS_LIST=$REPOS_LIST"cloudify-cli "
-fi
+#$PACK_CLI" == "yes" ]
+#then
+#	REPOS_LIST=$REPOS_LIST"cloudify-cli "
+#fi
 if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST"cosmo-ui"
