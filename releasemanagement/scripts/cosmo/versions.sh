@@ -116,12 +116,31 @@ do
 			REVISION=$BASH_PLUGIN_SHA
 		fi
 		#set product version
+		#set product version
 		if [ "$r" == "cosmo-ui" ]
 		then
+			echo "run get_product_version_for_npm"
 			get_product_version_for_npm
 		else
-			get_product_version_for_pypi
+			
+			case "$r" in
+				'cloudify-bash-plugin/bash_runner')
+					PRODUCT_VERSION=$cloudify_bash_majorVersion
+					;;			 
+				'cloudify-chef-plugin/chef_plugin')
+					PRODUCT_VERSION=$cloudify_chef_majorVersion
+					;;			 
+				'cloudify-openstack-plugin/nova_plugin')
+					PRODUCT_VERSION=$cloudify_openstack_plugin_majorVersion
+					;;				
+				'cloudify-puppet-plugin/puppet_plugin')
+					PRODUCT_VERSION=$cloudify_puppet_majorVersion
+					;;							 
+				*)
+					PRODUCT_VERSION=$core_tag_name	 
+			esac
 		fi
+
 		
 		DATE=`date +"%d/%m/%Y-%T"`
 		
