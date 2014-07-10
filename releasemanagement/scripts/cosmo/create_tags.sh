@@ -45,8 +45,10 @@ echo "BUILD_NUM=$BUILD_NUM"
 
 if [ "$PACK_CORE" == "yes" ]
 then
-	defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.defaults.yaml"
-	config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.yaml"
+	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
+	defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$defaults_config_yaml_file_name
+	config_yaml_file_name="cloudify-config.yaml"
+	config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$config_yaml_file_name
 
 	#components_package_url=$(grep "cloudify_components_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_components_package_url: //')
 	#core_package_url=$(grep "cloudify_core_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_core_package_url: //')
@@ -73,8 +75,9 @@ then
 	sed -i "s|{{ ui_package_url }}|$(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file
 	sed -i "s|{{ ubuntu_agent_url }}|$(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
 	sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
-
-	git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file $config_yaml_file
+        pushd cloudify-openstack-provider/cloudify_openstack
+		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
+	pod
 	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman cloudify-puppet-plugin cloudify-cli "
 fi
 #$PACK_CLI" == "yes" ]
