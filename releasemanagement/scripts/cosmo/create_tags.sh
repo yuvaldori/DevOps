@@ -39,17 +39,34 @@ echo "cloudify_python_majorVersion=$cloudify_python_majorVersion"
 echo "cloudify_puppet_majorVersion=$cloudify_puppet_majorVersion"
 echo "cloudify_packager_majorVersion=$cloudify_packager_majorVersion"
 echo "core_tag_name=$core_tag_name"
+echo "PRODUCT_VERSION_FULL=$PRODUCT_VERSION_FULL"
+echo "BUILD_NUM=$BUILD_NUM"
+
 
 if [ "$PACK_CORE" == "yes" ]
 then
-	defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.defaults.yaml"
-	config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.yaml"
+	#defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.defaults.yaml"
+	#config_yaml_file="cloudify-openstack-provider/cloudify_openstack/cloudify-config.yaml"
 	
-	components_package_url=$(grep "cloudify_components_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_components_package_url: //')
-	core_package_url=$(grep "cloudify_core_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_core_package_url: //')
-	ui_package_url=$(grep "cloudify_ui_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_ui_package_url: //')
-	ubuntu_agent_url=$(grep "cloudify_ubuntu_agent_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_ubuntu_agent_url: //')
-	windows_agent_url=$(grep "cloudify_windows_agent_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_windows_agent_url: //')
+	#components_package_url=$(grep "cloudify_components_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_components_package_url: //')
+	#core_package_url=$(grep "cloudify_core_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_core_package_url: //')
+	#ui_package_url=$(grep "cloudify_ui_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_ui_package_url: //')
+	#ubuntu_agent_url=$(grep "cloudify_ubuntu_agent_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_ubuntu_agent_url: //')
+	#windows_agent_url=$(grep "cloudify_windows_agent_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_windows_agent_url: //')
+	if [ "$RELEASE_BUILD" == "false" ]
+	then
+		components_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-components_amd64.deb"
+		core_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-core_amd64.deb"
+		ubuntu_agent_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ubuntu-agent_amd64.deb"
+		windows_agent_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-windows-agent_amd64.deb"
+		ui_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-ui_amd64.deb"
+	else
+		ui_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_$BUILD_NUM/cloudify-ui_$PRODUCT_VERSION_FULL_amd64.deb"
+		core_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_$BUILD_NUM/cloudify-core_$PRODUCT_VERSION_FULL_amd64.deb"
+		ubuntu_agent_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_$BUILD_NUM/cloudify-ubuntu-agent_$PRODUCT_VERSION_FULL_amd64.deb"
+		windows_agent_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_$BUILD_NUM/cloudify-windows-agent_$PRODUCT_VERSION_FULL_amd64.deb"
+		components_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_$BUILD_NUM/cloudify-components_$PRODUCT_VERSION_FULL_amd64.deb"
+	fi
 	
 	sed -i "s|{{ components_package_url }}|$(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file
 	sed -i "s|{{ core_package_url }}|$(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file
