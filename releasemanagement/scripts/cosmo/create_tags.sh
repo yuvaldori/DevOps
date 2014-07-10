@@ -77,7 +77,7 @@ then
 	sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
         pushd cloudify-openstack-provider/cloudify_openstack
 		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
-	pod
+	popd
 	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman cloudify-puppet-plugin cloudify-cli "
 fi
 #$PACK_CLI" == "yes" ]
