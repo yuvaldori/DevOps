@@ -28,6 +28,7 @@ function  exit_on_error {
 echo "PACK_CLI=$PACK_CLI"
 echo "PACK_CORE=$PACK_CORE"
 echo "PACK_UI=$PACK_UI"
+echo "BRANCH_NAME=$BRANCH_NAME"
 echo "RELEASE_BUILD=$RELEASE_BUILD"
 echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 echo "cloudify_bash_majorVersion=$cloudify_bash_majorVersion"
