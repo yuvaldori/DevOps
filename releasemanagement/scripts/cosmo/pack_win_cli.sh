@@ -35,8 +35,10 @@ ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | s
 echo "ip_address="$ip_address
 
 ##copy windows exe file
+sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-sshpass -p 'abcd1234!!' scp -p vagrant@$ip_address:/home/vagrant/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI-3.0.exe /cloudify
+sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI-3.0.exe /cloudify
+
 exit_on_error
 
 vagrant destroy -f windows
