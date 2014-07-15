@@ -119,7 +119,7 @@ if PACK_CLI == "yes":
 	print "rename cli packages"
 	cli_linux32_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_i386.deb'
 	cli_linux64_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_amd64.deb'
-	#cli_win_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'.exe'
+	cli_win_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'.exe'
 	
 	cli_linux32 = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'cfy_*_i386.deb'))
 	cli_linux32 = ''.join(cli_linux32)
@@ -132,10 +132,10 @@ if PACK_CLI == "yes":
 	os.rename(cli_linux64,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_linux64_new_name))
 
 	#orig name - CloudifyCLI-3.0.exe
-	#cli_win = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'CloudifyCLI*.exe'))
-	#cli_win = ''.join(cli_win)
-	#print cli_win
-	#os.rename(cli_win,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))		
+	cli_win = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'CloudifyCLI*.exe'))
+	cli_win = ''.join(cli_win)
+	print cli_win
+	os.rename(cli_win,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))		
 
 
 print "check that all deb files exist in /cloudify folder"
@@ -153,8 +153,8 @@ cli_linux32_package = glob.glob('{0}/cloudify-cli_*_i386.deb'.format(PACKAGE_SOU
 print cli_linux32_package
 cli_linux64_package = glob.glob('{0}/cloudify-cli_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux64_package
-#cli_win_package = glob.glob('{0}/cloudify-cli_*.exe'.format(PACKAGE_SOURCE_PATH))
-#print cli_win_package
+cli_win_package = glob.glob('{0}/cloudify-cli_*.exe'.format(PACKAGE_SOURCE_PATH))
+print cli_win_package
 
 
 filenames=[]
@@ -184,8 +184,8 @@ if PACK_CLI == "yes":
 		filenames.append(a[2])
 		b=cli_linux64_package[0].split("/")		
 		filenames.append(b[2])
-		#c=cli_win_package[0].split("/")		
-		#filenames.append(c[2])		
+		c=cli_win_package[0].split("/")		
+		filenames.append(c[2])		
 	else:
 		print "*** cli packages files are missing ***"
 		exit(1)
