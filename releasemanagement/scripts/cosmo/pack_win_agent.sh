@@ -25,7 +25,7 @@ rm -f /cloudify/Cloudify.exe
 
 ##destroy windows vm if exit
 vagrant destroy -f
-exit_on_error
+
 
 vagrant up --provider=aws
 exit_on_error
