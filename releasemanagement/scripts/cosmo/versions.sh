@@ -141,7 +141,7 @@ do
 			esac
 		fi
 
-		
+		#PRODUCT_VERSION=`echo "$PRODUCT_VERSION" | sed -r 's/m/a/'`
 		DATE=`date +"%d/%m/%Y-%T"`
 		
 	  	echo '{' > VERSION
