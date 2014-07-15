@@ -49,6 +49,11 @@ then
 	defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$defaults_config_yaml_file_name
 	config_yaml_file_name="cloudify-config.yaml"
 	config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$config_yaml_file_name
+	defaults_cli_config_yaml_file_name="cloudify-config.defaults.yaml"
+	defaults_cli_config_yaml_file="cloudify-cli/cloudify_simple_provider/"$defaults_cli_config_yaml_file_name
+	config_cli_yaml_file_name="cloudify-config.yaml"
+	config_cli_yaml_file="cloudify-cli/cloudify_simple_provider/"$config_cli_yaml_file_name
+	
 
 	#components_package_url=$(grep "cloudify_components_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_components_package_url: //')
 	#core_package_url=$(grep "cloudify_core_package_url:" cloudify-packager-ubuntu/nightly-aws.links | sed 's/cloudify_core_package_url: //')
@@ -70,13 +75,13 @@ then
 		components_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_"$BUILD_NUM"/cloudify-components_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	fi
 
-	sed -i "s|{{ components_package_url }}|$(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file
-	sed -i "s|{{ core_package_url }}|$(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file
-	sed -i "s|{{ ui_package_url }}|$(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file
-	sed -i "s|{{ ubuntu_agent_url }}|$(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
-	sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file
+	sed -i "s|{{ components_package_url }}|$(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|{{ core_package_url }}|$(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|{{ ui_package_url }}|$(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|{{ ubuntu_agent_url }}|$(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
         pushd cloudify-openstack-provider/cloudify_openstack
-		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
+		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
 	popd
 	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman cloudify-puppet-plugin cloudify-cli "
 fi
