@@ -59,6 +59,8 @@ echo "MINOR_VERSION=$MINOR_VERSION"
 echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
 echo "MILESTONE=$MILESTONE"
 echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
+echo "RELEASE_BUILD=$RELEASE_BUILD"
+
 
 if [ "$PACK_CLI" == "yes" ]
 then
@@ -81,7 +83,7 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	pushd $r
-		if [ "$MILESTONE" != "ga" ]
+		if [ "$MILESTONE" != "ga" && "$RELEASE_BUILD" == "false" ]
 		then
 			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
 	 		then
@@ -153,7 +155,7 @@ do
 	  	
 	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
-	  	if [ "$MILESTONE" == "ga" ]
+	  	if [ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true"]
 		then
 	  		git push --force origin master
 			exit_on_error
