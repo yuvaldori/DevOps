@@ -156,6 +156,7 @@ do
 	  	echo '    "commit": "'$REVISION'"' >> VERSION
 	  	echo '}' >> VERSION
 	  	
+	  	git add VERSION
 	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
 	  	if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
