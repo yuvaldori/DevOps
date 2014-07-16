@@ -107,7 +107,7 @@ do
 	echo "### Processing repository: $r"
 	if [ "$RELEASE_BUILD" == "false" ]
 	then
-		TAG_NAME = "nightly"
+		TAG_NAME="nightly"
 	else
 		case "$r" in
 			cloudify-bash-plugin)
