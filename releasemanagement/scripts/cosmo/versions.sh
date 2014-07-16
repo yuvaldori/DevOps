@@ -83,7 +83,7 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	pushd $r
-		if [ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]
+		if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
 		then
 			echo "ga release branch name is: "`git branch`	
 		else
@@ -158,7 +158,7 @@ do
 	  	
 	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
-	  	if [ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]
+	  	if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
 		then
 	  		git push --force origin master
 			exit_on_error
