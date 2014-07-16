@@ -83,13 +83,16 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	pushd $r
-		if [ "$MILESTONE" != "ga" && "$RELEASE_BUILD" == "false" ]
+		if [ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]
 		then
+			echo "ga release branch name is: "`git branch`	
+		else
 			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
 	 		then
 	 			echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
 	 			git branch -D $VERSION_BRANCH_NAME
 	 			exit_on_error
+	 			git push origin --delete $VERSION_BRANCH_NAME
 	 		fi		
 	 		git checkout -b $VERSION_BRANCH_NAME
 	 		exit_on_error
@@ -155,7 +158,7 @@ do
 	  	
 	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
-	  	if [ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true"]
+	  	if [ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]
 		then
 	  		git push --force origin master
 			exit_on_error
