@@ -23,9 +23,9 @@ rm -f /cloudify/cloudify-components*_amd64.deb
 
 
 #destroy vm if exit
-vagrant destroy -f
+vagrant ubuntu destroy -f
 
-vagrant up --provider=aws
+vagrant up ubuntu --provider=aws
 exit_on_error
 
 #get guest ip address
@@ -40,4 +40,4 @@ sudo chown tgrid -R /cloudify
 scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify-packager/output-packages/*.deb /cloudify
 exit_on_error
 
-vagrant destroy -f
+vagrant ubuntu destroy -f
