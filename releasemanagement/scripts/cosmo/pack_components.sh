@@ -29,8 +29,10 @@ vagrant up --provider=aws
 exit_on_error
 
 #get guest ip address
-s=`vagrant ssh -- ec2metadata | grep public-hostname | cut -f1 -d"." | cut -d" " -f2` ; s=${s#ec2-} ; ip_address=${s//-/.}
+ip_address=`vagrant ssh-config | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
+#s=`vagrant ssh -- ec2metadata | grep public-hostname | cut -f1 -d"." | cut -d" " -f2` ; s=${s#ec2-} ; ip_address=${s//-/.}
+#echo "ip_address="$ip_address
 
 #copy components deb file
 sudo mkdir -p /cloudify
