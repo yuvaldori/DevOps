@@ -87,7 +87,10 @@ then
         pushd cloudify-openstack-provider/cloudify_openstack
 		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
 	popd
-	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman cloudify-puppet-plugin cloudify-cli "
+	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager \
+	cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin \
+	cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman \
+	cloudify-puppet-plugin cloudify-cli cloudify-examples cloudify-nodecellar-openstack cloudify-packager-centos"
 fi
 #$PACK_CLI" == "yes" ]
 #then
@@ -128,7 +131,7 @@ do
 			cloudify-puppet-plugin)
 				TAG_NAME=$cloudify_puppet_majorVersion
 				;;
-			cloudify-packager-ubuntu|packman)	
+			cloudify-packager-ubuntu|packman|cloudify-packager-centos)	
 				TAG_NAME=$cloudify_packager_majorVersion
 				;;			 
 			*)
