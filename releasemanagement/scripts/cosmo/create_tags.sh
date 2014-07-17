@@ -45,7 +45,7 @@ echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
 echo "UI_REPOS_LIST=$UI_REPOS_LIST"
 echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
 
-if [ "$PACK_CORE" == "yes" ]
+if [ "$PACK_CLI" == "yes" ]
 then
 	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
 	defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$defaults_config_yaml_file_name
@@ -94,6 +94,9 @@ then
 		git add $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
 		git commit -m 'replace urls in config yaml files' $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
 	popd
+fi
+if [ "$PACK_CORE" == "yes" ]
+then
 	REPOS_LIST=$CORE_REPOS_LIST
 fi
 if [ "$PACK_CLI" == "yes" ]
