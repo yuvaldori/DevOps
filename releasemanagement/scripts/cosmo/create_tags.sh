@@ -96,7 +96,7 @@ then
 	popd
 	REPOS_LIST=$CORE_REPOS_LIST
 fi
-if ["$PACK_CLI" == "yes" ]
+if [ "$PACK_CLI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST$CLI_REPOS_LIST
 fi
@@ -145,10 +145,10 @@ do
 	pushd $r
 		
 		echo "TAG_NAME=$TAG_NAME"
-		git tag -d $TAG_NAME
+		#git tag -d $TAG_NAME
 		git push origin :$TAG_NAME
 		#git checkout $VERSION_BRANCH_NAME
-        	git tag $TAG_NAME
+        	git tag -f $TAG_NAME
 		git push origin tag $TAG_NAME
 		git checkout $BRANCH_NAME
 		
