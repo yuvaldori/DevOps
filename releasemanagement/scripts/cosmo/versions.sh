@@ -9,34 +9,13 @@ function  exit_on_error {
       fi
 
 }
-function  get_product_version_for_pypi {
-      case "$MILESTONE" in
-	        ga)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION
-	            ;;
-	         
-	        rc1)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION$MILESTONE
-	            ;;
-	         
-	        
-	        *)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION`echo "$MILESTONE" | sed -r 's/m/a/'`
-	 
-	esac
 
-}
 function  get_product_version_for_npm {
 	case "$MILESTONE" in
 	        ga)
 	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION
 	            ;;
-	         
-	        rc1)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"-"$MILESTONE
-	            ;;
-	         
-	        
+
 	        *)
 	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"-"$MILESTONE
 	 
@@ -60,22 +39,47 @@ echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
 echo "MILESTONE=$MILESTONE"
 echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 echo "RELEASE_BUILD=$RELEASE_BUILD"
-
+echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
+echo "UI_REPOS_LIST=$UI_REPOS_LIST"
+echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
 
 if [ "$PACK_CLI" == "yes" ]
 then
 	REPOS_LIST="cloudify-cli/cosmo_cli "
+	FULL_REPOS=$CLI_REPOS_LIST
 fi
 if [ "$PACK_CORE" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST"cloudify-manager/rest-service/manager_rest cloudify-openstack-plugin/nova_plugin cloudify-puppet-plugin/puppet_plugin cloudify-chef-plugin/chef_plugin cloudify-bash-plugin/bash_runner "
+	FULL_REPOS=$FULL_REPOS$CORE_REPOS_LIST
 fi
 if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST"cosmo-ui"
+	FULL_REPOS=$FULL_REPOS$UI_REPOS_LIST
 fi
 
-echo "REPOS_LIST=$REPOS_LIST"
+echo "REPOS_LIST= $REPOS_LIST"
+echo "FULL_REPOS= $FULL_REPOS"
+
+echo "### Repositories list: $FULL_REPOS"
+for r in ${FULL_REPOS}
+do
+	echo "### Processing repository: $r"
+	pushd $r
+		if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+ 		then
+ 			echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
+ 			git branch -D $VERSION_BRANCH_NAME
+ 			exit_on_error
+ 			git push origin --delete $VERSION_BRANCH_NAME
+ 		fi		
+ 		git checkout -b $VERSION_BRANCH_NAME
+ 		exit_on_error
+ 	popd
+	
+done
+
 
 echo "### Repositories list: $REPOS_LIST"
 
@@ -83,20 +87,7 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	pushd $r
-		#if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
-		#then
-			#echo "ga release branch name is: "`git branch`	
-		#else
-			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
-	 		then
-	 			echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
-	 			git branch -D $VERSION_BRANCH_NAME
-	 			exit_on_error
-	 			git push origin --delete $VERSION_BRANCH_NAME
-	 		fi		
-	 		git checkout -b $VERSION_BRANCH_NAME
-	 		exit_on_error
-		#fi
+		
 		#set revision sha
 		if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
 		then
@@ -120,7 +111,6 @@ do
 		then
 			REVISION=$BASH_PLUGIN_SHA
 		fi
-		#set product version
 		#set product version
 		if [ "$r" == "cosmo-ui" ]
 		then
