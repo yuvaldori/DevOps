@@ -80,7 +80,7 @@ do
 	
 done
 
-if [ "$PACK_CORE" == "yes" ||  "$PACK_CLI" == "yes" ]
+if [[ "$PACK_CORE" == "yes" ||  "$PACK_CLI" == "yes" ]]
 then
 	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
 	defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$defaults_config_yaml_file_name
