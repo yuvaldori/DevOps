@@ -41,7 +41,9 @@ echo "cloudify_packager_majorVersion=$cloudify_packager_majorVersion"
 echo "core_tag_name=$core_tag_name"
 echo "PRODUCT_VERSION_FULL=$PRODUCT_VERSION_FULL"
 echo "BUILD_NUM=$BUILD_NUM"
-
+echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
+echo "UI_REPOS_LIST=$UI_REPOS_LIST"
+echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
 
 if [ "$PACK_CORE" == "yes" ]
 then
@@ -85,20 +87,22 @@ then
 	sed -i "s|{{ centos_agent_url }}|$(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
 	 
         pushd cloudify-openstack-provider/cloudify_openstack
-		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
+        	git add $defaults_config_yaml_file_name $config_yaml_file_name
+		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
 	popd
-	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager \
-	cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin \
-	cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman \
-	cloudify-puppet-plugin cloudify-cli cloudify-examples cloudify-nodecellar-openstack cloudify-packager-centos "
+	pushd cloudify-cli/cloudify_simple_provider
+		git add $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
+		git commit -m 'replace urls in config yaml files' $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
+	popd
+	REPOS_LIST=$CORE_REPOS_LIST
 fi
-#$PACK_CLI" == "yes" ]
-#then
-#	REPOS_LIST=$REPOS_LIST"cloudify-cli "
-#fi
+if ["$PACK_CLI" == "yes" ]
+then
+	REPOS_LIST=$REPOS_LIST$CLI_REPOS_LIST
+fi
 if [ "$PACK_UI" == "yes" ]
 then
-	REPOS_LIST=$REPOS_LIST"cosmo-ui"
+	REPOS_LIST=$REPOS_LIST$UI_REPOS_LIST
 fi
 
 echo "REPOS_LIST=$REPOS_LIST"
