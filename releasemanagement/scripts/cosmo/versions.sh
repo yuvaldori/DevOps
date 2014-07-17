@@ -127,13 +127,15 @@ then
         	git add $defaults_config_yaml_file_name $config_yaml_file_name
 		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
 		OS_PROVIDER_SHA=$(git rev-parse HEAD) 
+		git push origin $VERSION_BRANCH_NAME
 	popd
 	CLI_SHA_file="CLI.SHA"
 	rm -f $CLI_SHA_file
 	pushd cloudify-cli/cloudify_simple_provider
 		git add $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
 		git commit -m 'replace urls in config yaml files' $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
-		CLI_SHA=$(git rev-parse HEAD) 
+		CLI_SHA=$(git rev-parse HEAD)
+		git push origin $VERSION_BRANCH_NAME
 	popd
 	echo "$OS_PROVIDER_SHA" > $OS_PROVIDER_SHA_file
 	echo "$CLI_SHA" > $CLI_SHA_file
