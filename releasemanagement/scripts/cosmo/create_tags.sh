@@ -90,7 +90,7 @@ then
 	REPOS_LIST="cloudify-bash-plugin cloudify-dsl-parser cloudify-plugin-template cloudify-manager \
 	cloudify-rest-client cloudify-system-tests cloudify-plugins-common cloudify-chef-plugin \
 	cloudify-openstack-plugin cloudify-openstack-provider cloudify-python-plugin cloudify-packager-ubuntu packman \
-	cloudify-puppet-plugin cloudify-cli cloudify-examples cloudify-nodecellar-openstack cloudify-packager-centos"
+	cloudify-puppet-plugin cloudify-cli cloudify-examples cloudify-nodecellar-openstack cloudify-packager-centos "
 fi
 #$PACK_CLI" == "yes" ]
 #then
