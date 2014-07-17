@@ -159,14 +159,14 @@ do
 	  	git add VERSION
 	  	git commit -m 'edit VERSION file by nightly build' VERSION
 	  	exit_on_error
-	  	if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
-		then
-	  		git push --force origin master
-			exit_on_error
+	  	#if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
+		#then
+	  		#git push --force origin master
+			#exit_on_error
 		#else
 			#git push --force origin $VERSION_BRANCH_NAME
 			#exit_on_error	
-		fi
+		#fi
 	  	
   	popd
 done
