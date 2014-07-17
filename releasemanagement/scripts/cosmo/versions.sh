@@ -83,10 +83,10 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	pushd $r
-		if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
-		then
-			echo "ga release branch name is: "`git branch`	
-		else
+		#if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
+		#then
+			#echo "ga release branch name is: "`git branch`	
+		#else
 			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
 	 		then
 	 			echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
@@ -96,7 +96,7 @@ do
 	 		fi		
 	 		git checkout -b $VERSION_BRANCH_NAME
 	 		exit_on_error
-		fi
+		#fi
 		#set revision sha
 		if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
 		then
