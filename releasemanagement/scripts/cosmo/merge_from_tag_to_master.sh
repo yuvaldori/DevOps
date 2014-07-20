@@ -82,6 +82,7 @@ do
 			exit_on_error
  			git merge $TAG_NAME			
 			exit_on_error
+			#git checkout --theirs _layouts/default.html
 		fi
 		git add .
 		exit_on_error
