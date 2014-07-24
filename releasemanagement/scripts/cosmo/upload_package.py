@@ -125,9 +125,9 @@ if PACK_CORE == "yes":
 	
 if PACK_CLI == "yes":
 	print "rename cli packages"
-	cli_linux32_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_i386.deb'
-	cli_linux64_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'_amd64.deb'
-	cli_win_new_name='cloudify-cli_'+PRODUCT_VERSION_FULL+'.exe'
+	cli_linux32_new_name='cloudify-linux32-cli_'+PRODUCT_VERSION_FULL+'_i386.deb'
+	cli_linux64_new_name='cloudify-linux64-cli_'+PRODUCT_VERSION_FULL+'_amd64.deb'
+	cli_win_new_name='cloudify-windows-cli_'+PRODUCT_VERSION_FULL+'.exe'
 	
 	cli_linux32 = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'cfy_*_i386.deb'))
 	cli_linux32 = ''.join(cli_linux32)
