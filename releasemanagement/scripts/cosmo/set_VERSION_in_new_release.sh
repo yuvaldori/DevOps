@@ -20,7 +20,9 @@ source generic_functions.sh
 for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
-	pushd $r
+	VERSION_FULL_PATH=`find . -name "VERSION"`
+	VERSION_PATH=`dirname $VERSION_FULL_PATH`
+	pushd $VERSION_PATH
 		
 		#set product version
 		if [ "$r" == "cosmo-ui" ]
