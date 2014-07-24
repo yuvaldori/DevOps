@@ -241,7 +241,13 @@ for fname in filenames:
 		url_prefix="cloudify_ubuntu_agent_url: "
 	elif fname.startswith('cloudify-windows-agent'):
 		url_prefix="cloudify_windows_agent_url: "
-
+	elif fname.startswith('cloudify-windows-cli'):
+		url_prefix="cloudify-windows-cli: "
+	elif fname.startswith('cloudify-linux32-cli'):
+		url_prefix="cloudify-linux32-cli: "
+	elif fname.startswith('cloudify-linux64-cli'):
+		url_prefix="cloudify-linux64-cli: "
+		
 	if "trunk" in CONFIGURATION_PATH_NAME:				
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
 		#Removing the version from packge name for nightly and continuous folders
