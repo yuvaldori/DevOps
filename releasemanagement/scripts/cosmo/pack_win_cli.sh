@@ -37,7 +37,7 @@ echo "ip_address="$ip_address
 ##copy windows exe file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI-3.0.exe /cloudify
+sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI*.exe /cloudify
 
 exit_on_error
 
