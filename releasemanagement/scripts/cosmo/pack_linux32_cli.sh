@@ -19,6 +19,7 @@ function  exit_on_error {
 
 }
 
+sudo chown tgrid -R /cloudify
 rm -f /cloudify/cloudify-linux32-cli*i386.deb
 rm -f /cloudify/cfy_*_i386.deb
 
