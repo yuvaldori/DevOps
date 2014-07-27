@@ -19,7 +19,9 @@ function  exit_on_error {
 
 }
 
-rm -f /cloudify/cloudify-cli_*_amd64.deb
+sudo chown tgrid -R /cloudify
+rm -f /cloudify/cloudify-linux64-cli*amd64.deb
+rm -f /cloudify/cfy_*_amd64.deb
 
 
 #destroy linux64 vm if exit
