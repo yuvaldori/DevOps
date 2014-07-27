@@ -19,8 +19,8 @@ function  exit_on_error {
 
 }
 
-rm -f /cloudify/cloudify-cli_*_i386.deb
-
+rm -f /cloudify/cloudify-linux32-cli*i386.deb
+rm -f /cloudify/cfy_*_i386.deb
 
 #destroy linux32 vm if exit
 vagrant destroy -f linux32
