@@ -157,11 +157,11 @@ ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agen
 print ubuntu_package
 win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print win_agent_package
-cli_linux32_package = glob.glob('{0}/cloudify-cli_*_i386.deb'.format(PACKAGE_SOURCE_PATH))
+cli_linux32_package = glob.glob('{0}/cloudify-linux32-cli*_i386.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux32_package
-cli_linux64_package = glob.glob('{0}/cloudify-cli_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+cli_linux64_package = glob.glob('{0}/cloudify-linux64-cli*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print cli_linux64_package
-cli_win_package = glob.glob('{0}/cloudify-cli_*.exe'.format(PACKAGE_SOURCE_PATH))
+cli_win_package = glob.glob('{0}/cloudify-windows-cli*.exe'.format(PACKAGE_SOURCE_PATH))
 print cli_win_package
 
 
@@ -187,7 +187,7 @@ if PACK_CORE == "yes":
 		print "*** core packages files are missing ***"
 		exit(1)
 if PACK_CLI == "yes":	
-	if cli_linux32_package and cli_linux64_package:
+	if cli_linux32_package and cli_linux64_package and cli_win_package:
 		a=cli_linux32_package[0].split("/")		
 		filenames.append(a[2])
 		b=cli_linux64_package[0].split("/")		
