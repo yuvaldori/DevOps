@@ -20,7 +20,9 @@ function  exit_on_error {
 }
 
 
-rm -f /cloudify/cloudify-cli_*.exe
+sudo chown tgrid -R /cloudify
+rm -f /cloudify/cloudify-windows-cli*.exe
+rm -f /cloudify/CloudifyCLI*.exe
 
 
 ##destroy windows vm if exit
