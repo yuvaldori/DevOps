@@ -83,6 +83,7 @@ cloudify_components_conf = packages.PACKAGES['cloudify-components']
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
 ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
+centos_agent_conf = packages.PACKAGES['cloudify-centos-agent']
 
 ## copy cloudify3 package
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
@@ -117,11 +118,17 @@ if PACK_CORE == "yes":
 	#print "copy 3rd parties deb from /packages folder"
 	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
-	win_agent = glob.glob('{0}/cloudify-windows-agent_3.0.0_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+	win_agent = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 	win_agent = ''.join(win_agent)
 	print win_agent
 	win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
+	
+	centos_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_conf['name']))
+	centos_agent = ''.join(centos_agent)
+	print centos_agent
+	centos_agent_new_name='{0}_'.format(centos_agent_conf['name'])+PRODUCT_VERSION_FULL+'_amd64.deb'
+	os.rename(centos_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,centos_agent_new_name))
 	
 if PACK_CLI == "yes":
 	print "rename cli packages"
@@ -155,6 +162,8 @@ ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_con
 print ui_package
 ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
 print ubuntu_package
+centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_conf['name']))
+print centos_agent_package
 win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print win_agent_package
 cli_linux32_package = glob.glob('{0}/cloudify-linux32-cli*_i386.deb'.format(PACKAGE_SOURCE_PATH))
@@ -176,13 +185,15 @@ if PACK_COMPONENTS == "yes":
 		print "*** components package file is missing ***"
 		exit(1)
 if PACK_CORE == "yes":	
-	if core_package and ubuntu_package and win_agent_package:
+	if core_package and ubuntu_package and win_agent_package and centos_agent_package:
 		a=core_package[0].split("/")		
 		filenames.append(a[2])
 		b=ubuntu_package[0].split("/")		
 		filenames.append(b[2])
 		c=win_agent_package[0].split("/")		
 		filenames.append(c[2])
+		d=centos_agent_package[0].split("/")		
+		filenames.append(d[2])
 	else:
 		print "*** core packages files are missing ***"
 		exit(1)
