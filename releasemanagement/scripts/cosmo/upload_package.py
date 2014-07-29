@@ -259,6 +259,8 @@ for fname in filenames:
 		url_prefix="cloudify-linux32-cli: "
 	elif fname.startswith('cloudify-linux64-cli'):
 		url_prefix="cloudify-linux64-cli: "
+	elif fname.startswith('cloudify-centos-agent'):
+		url_prefix="cloudify-centos-agent: "
 		
 	if "trunk" in CONFIGURATION_PATH_NAME:				
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
