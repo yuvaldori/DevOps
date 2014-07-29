@@ -17,7 +17,7 @@ echo "DSL_SHA=$DSL_SHA"
 echo "REST_CLIENT_SHA=$REST_CLIENT_SHA"
 echo "CLI_SHA=$CLI_SHA"
 echo "OS_PROVIDER_SHA=$OS_PROVIDER_SHA"
-echo "PLUGIN_COMMON_SHA=$PLUGIN_COMMON_SHA"
+echo "COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA"
 echo "PACKMAN_SHA=$PACKMAN_SHA"
 
 #edit the revision number in linux/provision.sh
@@ -40,6 +40,6 @@ sed -i "s/.*SET OS_PROVIDER_SHA=.*/SET OS_PROVIDER_SHA=$OS_PROVIDER_SHA/g" $win_
 
 centos_agent_fileName="  cloudify-packager-centos/vagrant/centos-agent/provision.sh"
 sed -i "s/.*SET REST_CLIENT_SHA=.*/SET REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $centos_agent_fileName
-sed -i "s/.*SET PLUGIN_COMMON_SHA=.*/SET PLUGIN_COMMON_SHA=$PLUGIN_COMMON_SHA/g" $centos_agent_fileName
+sed -i "s/.*SET COMMON_PLUGIN_SHA=.*/SET COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $centos_agent_fileName
 sed -i "s/.*SET MANAGER_SHA=.*/SET MANAGER_SHA=$MANAGER_SHA/g" $centos_agent_fileName
 sed -i "s/.*SET PACKMAN_SHA=.*/SET PACKMAN_SHA=$PACKMAN_SHA/g" $centos_agent_fileName
