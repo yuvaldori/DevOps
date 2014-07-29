@@ -6,7 +6,7 @@
 #vagrant plugin install unf                                         #
 #####################################################################
 
-source ../../../cli_credentials.sh
+source ../../../credentials.sh
 
 function  exit_on_error {
       status=$?

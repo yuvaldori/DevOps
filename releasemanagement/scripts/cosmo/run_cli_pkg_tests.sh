@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../../cli_credentials.sh
+source ../../credentials.sh
 source ../../generic_functions.sh
 
 #WIN_CLI_PKG=http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-windows-cli.exe

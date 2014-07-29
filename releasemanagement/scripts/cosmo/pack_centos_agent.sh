@@ -6,40 +6,38 @@
 #vagrant plugin install unf                                         #
 #####################################################################
 
-source ../../credentials.sh
+source ../../../credentials.sh
+
 
 function  exit_on_error {
       status=$?
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		vagrant destroy -f linux64            
+		#vagrant destroy -f centos            
 		exit 1
       fi
 
 }
 
-sudo chown tgrid -R /cloudify
-rm -f /cloudify/cloudify-linux64-cli*amd64.deb
-rm -f /cloudify/cfy_*_amd64.deb
+
+#rm -f /cloudify/cloudify-cli_*.exe
 
 
-#destroy linux64 vm if exit
-vagrant destroy -f linux64
+##destroy centos vm if exit
+vagrant destroy -f centos
 
-vagrant up linux64 --provider=aws
+vagrant up centos --provider=aws
 exit_on_error
 
-#get guest ip address
-s=`vagrant ssh linux64 -- ec2metadata | grep public-hostname | cut -f1 -d"." | cut -d" " -f2` ; s=${s#ec2-} ; ip_address=${s//-/.}
+##get guest ip address
+ip_address=`vagrant ssh-config centos | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
-#copy linux64 deb file
+##copy centos deb file
+sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
-exit_on_error
+#scp -i ~/.ssh/aws/vagrant_build.pem root@$ip_address:/cloudify/*.deb /cloudify
+#exit_on_error
 
-vagrant destroy -f linux64
-
-
-
+#vagrant destroy -f centos
