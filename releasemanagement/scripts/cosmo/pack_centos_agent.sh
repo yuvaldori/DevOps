@@ -20,8 +20,9 @@ function  exit_on_error {
 
 }
 
-
-#rm -f /cloudify/cloudify-cli_*.exe
+sudo mkdir -p /cloudify
+sudo chown tgrid -R /cloudify
+rm -f /cloudify/cloudify-centos-agent*
 
 
 ##destroy centos vm if exit
@@ -37,7 +38,7 @@ echo "ip_address="$ip_address
 ##copy centos deb file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-#scp -i ~/.ssh/aws/vagrant_build.pem root@$ip_address:/cloudify/*.deb /cloudify
-#exit_on_error
+scp -i ~/.ssh/aws/vagrant_build.pem root@$ip_address:/cloudify/*.deb /cloudify
+exit_on_error
 
-#vagrant destroy -f centos
+vagrant destroy -f centos
