@@ -1,27 +1,7 @@
 #!/bin/bash -x
 
-function  exit_on_error {
-      status=$?
-      echo "exit code="$status    
-      if [ $status != 0 ] ; then
-         	echo "Failed (exit code $status)" 
-		exit 1
-      fi
+source generic_functions.sh
 
-}
-
-function  get_product_version_for_npm {
-	case "$MILESTONE" in
-	        ga)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION
-	            ;;
-
-	        *)
-	            PRODUCT_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"-"$MILESTONE
-	 
-	esac
-
-}
 
 echo "PACK_CLI=$PACK_CLI"
 echo "PACK_CORE=$PACK_CORE"
@@ -82,6 +62,9 @@ do
 	
 done
 
+git checkout master
+exit_on_error
+
 if [[ "$PACK_CORE" == "yes" ||  "$PACK_CLI" == "yes" ]]
 then
 	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
@@ -116,12 +99,21 @@ then
 		components_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_"$BUILD_NUM"/cloudify-components_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	fi
 
-	sed -i "s|{{ components_package_url }}|$(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
-	sed -i "s|{{ core_package_url }}|$(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
-	sed -i "s|{{ ui_package_url }}|$(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
-	sed -i "s|{{ ubuntu_agent_url }}|$(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
-	sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
-	sed -i "s|{{ centos_agent_url }}|$(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	#sed -i "s|{{ components_package_url }}|$(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	#sed -i "s|{{ core_package_url }}|$(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	#sed -i "s|{{ ui_package_url }}|$(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	#sed -i "s|{{ ubuntu_agent_url }}|$(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	#sed -i "s|{{ windows_agent_url }}|$(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	#sed -i "s|{{ centos_agent_url }}|$(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	
+	
+	sed -i "s|.*components_package_url:.*|			components_package_url: $(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|.*core_package_url:.*|			core_package_url: $(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|.*ui_package_url:.*|				ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|.*ubuntu_agent_url:.*|			ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|.*windows_agent_url:.*|			windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	sed -i "s|.*centos_agent_url:.*|			centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
+	
 	
 	OS_PROVIDER_SHA_file="OS_PROVIDER.SHA"
 	rm -f $OS_PROVIDER_SHA_file
@@ -143,82 +135,20 @@ then
 	echo "$CLI_SHA" > $CLI_SHA_file
 fi
 
-echo "### Repositories list: $REPOS_LIST"
+`python update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION$MILESTONE --plugins-version 1.1$MILESTONE --build-number $RELEASE_BUILD`
 
-for r in ${REPOS_LIST}
+	  	
+echo "### Repositories list: $FULL_REPOS"
+for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
 	pushd $r
-		
-		#set revision sha
-		if [ "$r" == "cloudify-manager/rest-service/manager_rest" ]
-		then
-			REVISION=$MANAGER_SHA
-		elif [ "$r" == "cloudify-cli/cosmo_cli" ]
-		then
-			REVISION=$CLI_SHA
-		elif [ "$r" == "cosmo-ui" ]
-		then
-			REVISION=$UI_SHA
-		elif [ "$r" == "cloudify-openstack-plugin/nova_plugin" ]
-		then
-			REVISION=$OS_PLUGIN_SHA
-		elif [ "$r" == "cloudify-puppet-plugin/puppet_plugin" ]
-		then
-			REVISION=$PUPPET_PLUGIN_SHA
-		elif [ "$r" == "cloudify-chef-plugin/chef_plugin" ]
-		then
-			REVISION=$CHEF_PLUGIN_SHA
-		elif [ "$r" == "cloudify-bash-plugin/bash_runner" ]
-		then
-			REVISION=$BASH_PLUGIN_SHA
-		fi
-		#set product version
-		if [ "$r" == "cosmo-ui" ]
-		then
-			echo "run get_product_version_for_npm"
-			get_product_version_for_npm
-		else
-			
-			case "$r" in
-				'cloudify-bash-plugin/bash_runner')
-					PRODUCT_VERSION=$cloudify_bash_majorVersion
-					;;			 
-				'cloudify-chef-plugin/chef_plugin')
-					PRODUCT_VERSION=$cloudify_chef_majorVersion
-					;;			 
-				'cloudify-openstack-plugin/nova_plugin')
-					PRODUCT_VERSION=$cloudify_openstack_plugin_majorVersion
-					;;				
-				'cloudify-puppet-plugin/puppet_plugin')
-					PRODUCT_VERSION=$cloudify_puppet_majorVersion
-					;;							 
-				*)
-					PRODUCT_VERSION=$core_tag_name	 
-			esac
-		fi
-
-		#PRODUCT_VERSION=`echo "$PRODUCT_VERSION" | sed -r 's/m/a/'`
-		DATE=`date +"%d/%m/%Y-%T"`
-		
-	  	echo '{' > VERSION
-	  	echo '    "version": "'$PRODUCT_VERSION'",' >> VERSION
-	  	echo '    "build": "'$BUILD_NUM'",' >> VERSION
-	  	echo '    "date": "'$DATE'",' >> VERSION
-	  	echo '    "commit": "'$REVISION'"' >> VERSION
-	  	echo '}' >> VERSION
-	  	
-	  	git add VERSION
-	  	git commit -m 'edit VERSION file by nightly build' VERSION
-	  	exit_on_error
-	  	#if [[ "$MILESTONE" == "ga" && "$RELEASE_BUILD" == "true" ]]
-		#then
-	  		#git push --force origin master
-			#exit_on_error
-		#else
-			#git push --force origin $VERSION_BRANCH_NAME
-			#exit_on_error	
-		#fi
-	  	
-  	popd
-done
+		git add -u .
+		git commit -m "Bump version to $MAJOR_VERSION.$MINOR_VERSION$MILESTONE / 1.1$MILESTONE"
+		git push origin master
+ 		git checkout $VERSION_BRANCH_NAME
+ 		exit_on_error
+ 	popd
+	
+done	  	
+  	
