@@ -29,7 +29,7 @@ import json
 from os import path
 
 
-PLUGIN_REPO_PATTERN = 'cloudify-.*-[(plugin)|(provider)]'
+PLUGIN_REPO_PATTERN = 'cloudify-.*-(plugin)|(provider)'
 CLOUDIFY_REPO_PATTERN = 'cloudify-.*'
 VERSION_PATTERN = "version=['|\"](.*)['|\"]"
 
