@@ -27,21 +27,17 @@ echo "PRODUCT_VERSION_FULL=$PRODUCT_VERSION_FULL"
 
 if [ "$PACK_CLI" == "yes" ]
 then
-	REPOS_LIST="cloudify-cli/cosmo_cli "
 	FULL_REPOS=$CLI_REPOS_LIST
 fi
 if [ "$PACK_CORE" == "yes" ]
 then
-	REPOS_LIST=$REPOS_LIST"cloudify-manager/rest-service/manager_rest cloudify-openstack-plugin/nova_plugin cloudify-puppet-plugin/puppet_plugin cloudify-chef-plugin/chef_plugin cloudify-bash-plugin/bash_runner "
 	FULL_REPOS=$FULL_REPOS" "$CORE_REPOS_LIST
 fi
 if [ "$PACK_UI" == "yes" ]
 then
-	REPOS_LIST=$REPOS_LIST"cosmo-ui"
 	FULL_REPOS=$FULL_REPOS" "$UI_REPOS_LIST
 fi
 
-echo "REPOS_LIST= $REPOS_LIST"
 echo "FULL_REPOS= $FULL_REPOS"
 
 echo "### Repositories list: $FULL_REPOS"
@@ -136,7 +132,7 @@ then
 fi
 
 python ./update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION$MILESTONE --plugins-version 1.1$MILESTONE --build-number $RELEASE_BUILD
-
+exit_on_error
 	  	
 echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
