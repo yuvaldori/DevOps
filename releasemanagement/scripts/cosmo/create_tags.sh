@@ -100,7 +100,7 @@ do
 		
 		echo "TAG_NAME=$TAG_NAME"
 		#git tag -d $TAG_NAME
-		git push origin :$TAG_NAME
+		#git push origin :$TAG_NAME
 		#git checkout $VERSION_BRANCH_NAME
         	git tag -f $TAG_NAME
 		git push origin tag $TAG_NAME

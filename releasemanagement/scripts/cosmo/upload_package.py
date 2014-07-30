@@ -83,7 +83,7 @@ cloudify_components_conf = packages.PACKAGES['cloudify-components']
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
 ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
-centos_agent_conf = packages.PACKAGES['cloudify-centos-agent']
+
 
 ## copy cloudify3 package
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
@@ -124,10 +124,11 @@ if PACK_CORE == "yes":
 	win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
 	
-	centos_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_conf['name']))
+	centos_agent_name="cloudify-centos-agent"
+	centos_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
 	centos_agent = ''.join(centos_agent)
 	print centos_agent
-	centos_agent_new_name='{0}_'.format(centos_agent_conf['name'])+PRODUCT_VERSION_FULL+'_amd64.deb'
+	centos_agent_new_name='{0}_'.format(centos_agent_name)+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(centos_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,centos_agent_new_name))
 	
 if PACK_CLI == "yes":
@@ -162,7 +163,7 @@ ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_con
 print ui_package
 ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
 print ubuntu_package
-centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_conf['name']))
+centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
 print centos_agent_package
 win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 print win_agent_package
@@ -258,6 +259,8 @@ for fname in filenames:
 		url_prefix="cloudify-linux32-cli: "
 	elif fname.startswith('cloudify-linux64-cli'):
 		url_prefix="cloudify-linux64-cli: "
+	elif fname.startswith('cloudify-centos-agent'):
+		url_prefix="cloudify-centos-agent: "
 		
 	if "trunk" in CONFIGURATION_PATH_NAME:				
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
