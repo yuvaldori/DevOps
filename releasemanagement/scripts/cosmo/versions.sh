@@ -54,12 +54,12 @@ do
  		fi		
  		git checkout -b $VERSION_BRANCH_NAME
  		exit_on_error
+ 		git checkout master
+		exit_on_error
  	popd
 	
 done
 
-git checkout master
-exit_on_error
 
 if [[ "$PACK_CORE" == "yes" ||  "$PACK_CLI" == "yes" ]]
 then
