@@ -44,8 +44,8 @@ def get_all_setup_files(repos_dir):
     for repo in dirs:
         setup_files = []
         for root, dirs, files in os.walk(path.join(repos_dir, repo)):
-            if 'test' in root:
-                continue
+            # if 'test' in root:
+            #     continue
             for f in files:
                 if f == 'setup.py':
                     setup_files.append(os.path.join(root, f))
@@ -77,7 +77,8 @@ def update_setup_file(args, repo, setup_file):
         matches = re.findall('[\'"](cloudify.*==.*)[\'"]', content)
         for m in matches:
             dep_name = m.split('==')[0]
-            new_dep = '{}=={}'.format(dep_name, cloudify_version)
+            new_dep_version = "{}".format(plugins_version if re.search(PLUGIN_REPO_PATTERN, dep_name) else cloudify_version)
+            new_dep = '{}=={}'.format(dep_name, new_dep_version)
             content = content.replace(m, new_dep)
             print '\t- {} -> {}'.format(m, new_dep)
 
