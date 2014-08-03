@@ -1,6 +1,6 @@
 #####################################################
 # 	installations for packaging server	          #
-#####################################################						
+#####################################################
 # apt-get update
 # make
 # python setup-tools python-dev fabric
@@ -22,11 +22,11 @@ from fabric.api import * #NOQA
 import packages
 from packman.packman import *  # NOQA
 
-#os.environ["PACK_COMPONENTS"]="yes" 
-#os.environ["PACK_CORE"]="yes" 
+#os.environ["PACK_COMPONENTS"]="yes"
+#os.environ["PACK_CORE"]="yes"
 #os.environ["PACK_UI"]="yes"
-#os.environ["BUILD_NUM"]="1-248" 
-#os.environ["PRODUCT_VERSION_FULL"]="3.0.0-m1-b1-248" 
+#os.environ["BUILD_NUM"]="1-248"
+#os.environ["PRODUCT_VERSION_FULL"]="3.0.0-m1-b1-248"
 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
@@ -68,13 +68,13 @@ if os.path.exists(PACKAGE_SOURCE_PATH):
 p = PythonHandler()
 
 if PACK_CORE == "yes":
-	
-	
+
+
 	print("*** packaging manager")
-	if os.path.exists(manager_conf['package_path']):	
+	if os.path.exists(manager_conf['package_path']):
 		shutil.rmtree(manager_conf['package_path'])
 
-	## prepares virtualenv and copies relevant files to manager virtualenv	
+	## prepares virtualenv and copies relevant files to manager virtualenv
 	do('pkm get -c manager')
 	## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-dsl-parser'), manager_conf['sources_path'])
@@ -89,13 +89,16 @@ if PACK_CORE == "yes":
 	manager_file = glob.glob(os.path.join('{0}'.format(manager_conf['package_path']), '{0}*.deb'.format(manager_conf['name'])))
 	manager_file = ''.join(manager_file)
 	print manager_file
-	os.rename(str(manager_file),'{0}/{1}'.format(manager_conf['package_path'],'manager_'+PRODUCT_VERSION+'_amd64.deb'))	
+	os.rename(str(manager_file),'{0}/{1}'.format(manager_conf['package_path'],'manager_'+PRODUCT_VERSION+'_amd64.deb'))
 
 	print("*** packaging celery")
-	if os.path.exists(celery_conf['package_path']):	
+	if os.path.exists(celery_conf['package_path']):
 		shutil.rmtree(celery_conf['package_path'])
 	do('pkm get -c celery')
 	## install celery with dependencies into celery virtualenv
+	r=p.pip('celery==3.0.24')
+	if r.return_code != 0:
+		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
@@ -118,7 +121,7 @@ if PACK_CORE == "yes":
 	##rename celery package
 	os.rename(celery_file,'{0}/{1}'.format(celery_conf['package_path'],'celery_'+PRODUCT_VERSION+'_amd64.deb'))
 
-	print("*** packaging cloudify-core")	
+	print("*** packaging cloudify-core")
 	if  manager_file and celery_file:
 		do('pkm pack -c cloudify-core')
 		cloudify_core_file = glob.glob(os.path.join('{0}'.format(cloudify_core_conf['package_path']), '{0}*.deb'.format(cloudify_core_conf['name'])))
@@ -130,13 +133,16 @@ if PACK_CORE == "yes":
 		print "Cannot pack cloudify-core because missing deb files"
 		sys.exit(1)
 
-	
+
 	print("*** packaging ubuntu-agent")
 	print(ubuntu_agent_conf['package_path'])
-	if os.path.exists(ubuntu_agent_conf['package_path']):	
+	if os.path.exists(ubuntu_agent_conf['package_path']):
 		shutil.rmtree(ubuntu_agent_conf['package_path'])
-	do('pkm get -c Ubuntu-agent')	
+	do('pkm get -c Ubuntu-agent')
 	## install linux_agent with dependencies into celery virtualenv
+	r=p.pip('celery==3.0.24')
+	if r.return_code != 0:
+		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
@@ -148,12 +154,12 @@ if PACK_CORE == "yes":
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/agent-installer'), ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
-		exit(1)	
+		exit(1)
 	##create tar file
 	do('pkm pack -c Ubuntu-agent')
 	##create deb file
 	do('pkm pack -c cloudify-ubuntu-agent')
-	ubuntu_agent_file = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH),'{0}*amd64.deb'.format(cloudify_ubuntu_agent_conf['name'])))		
+	ubuntu_agent_file = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH),'{0}*amd64.deb'.format(cloudify_ubuntu_agent_conf['name'])))
 	ubuntu_agent_file = ''.join(ubuntu_agent_file)
 	print "PACKAGE_SOURCE_PATH="+PACKAGE_SOURCE_PATH
 	print "ubuntu_agent_file="+ubuntu_agent_file
@@ -165,10 +171,10 @@ if PACK_CORE == "yes":
 	##rename ubuntu-agent package
 	os.rename(ubuntu_agent_file,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ubuntu-agent_'+PRODUCT_VERSION+'_amd64.deb'))
 	os.rename(ubuntu_agent_file32,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ubuntu-agent_'+PRODUCT_VERSION+'_x86_64.rpm'))
-	
+
 	print("*** packaging winsows-agent")
 	do('pkm pack -c cloudify-windows-agent')
-	
+
 if PACK_UI == "yes":
 
 	print("*** packaging ui")
@@ -179,8 +185,8 @@ if PACK_UI == "yes":
 	tar_ui_file = glob.glob(os.path.join(parent_dir+'/cosmo-ui/dist','cosmo-ui*.tgz'))
 	print tar_ui_file
 	shutil.copy(''.join(tar_ui_file),'{0}'.format(cloudify_ui_conf['sources_path']))
-	
-	if  tar_ui_file:		
+
+	if  tar_ui_file:
 		do('pkm pack -c cloudify-ui')
 		cloudify_ui_file = glob.glob(os.path.join('{0}'.format(cloudify_ui_conf['package_path']), '{0}*.deb'.format(cloudify_ui_conf['name'])))
 		cloudify_ui_file = ''.join(cloudify_ui_file)
