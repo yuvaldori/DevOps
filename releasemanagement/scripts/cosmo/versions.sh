@@ -111,24 +111,24 @@ then
 	sed -i "s|centos_agent_url:.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file
 	
 	
-	OS_PROVIDER_SHA_file="OS_PROVIDER.SHA"
-	rm -f $OS_PROVIDER_SHA_file
-        pushd cloudify-openstack-provider/cloudify_openstack
-        	git add $defaults_config_yaml_file_name $config_yaml_file_name
-		git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
-		OS_PROVIDER_SHA=$(git rev-parse HEAD) 
-		git push origin master
-	popd
-	CLI_SHA_file="CLI.SHA"
-	rm -f $CLI_SHA_file
-	pushd cloudify-cli/cloudify_simple_provider
-		git add $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
-		git commit -m 'replace urls in config yaml files' $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
-		CLI_SHA=$(git rev-parse HEAD)
-		git push origin master
-	popd
-	echo "$OS_PROVIDER_SHA" > $OS_PROVIDER_SHA_file
-	echo "$CLI_SHA" > $CLI_SHA_file
+	#OS_PROVIDER_SHA_file="OS_PROVIDER.SHA"
+	#rm -f $OS_PROVIDER_SHA_file
+        #pushd cloudify-openstack-provider/cloudify_openstack
+        #	git add $defaults_config_yaml_file_name $config_yaml_file_name
+	#	git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
+	#	OS_PROVIDER_SHA=$(git rev-parse HEAD) 
+	#	git push origin master
+	#popd
+	#CLI_SHA_file="CLI.SHA"
+	#rm -f $CLI_SHA_file
+	#pushd cloudify-cli/cloudify_simple_provider
+	#	git add $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
+	#	git commit -m 'replace urls in config yaml files' $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
+	#	CLI_SHA=$(git rev-parse HEAD)
+	#	git push origin master
+	#popd
+	#echo "$OS_PROVIDER_SHA" > $OS_PROVIDER_SHA_file
+	#echo "$CLI_SHA" > $CLI_SHA_file
 fi
 
 python ./update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION$MILESTONE --plugins-version 1.1$MILESTONE --build-number 7
