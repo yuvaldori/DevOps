@@ -22,6 +22,7 @@ echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
 echo "UI_REPOS_LIST=$UI_REPOS_LIST"
 echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
 echo "PRODUCT_VERSION_FULL=$PRODUCT_VERSION_FULL"
+echo "MAJOR_BUILD_NUM=$MAJOR_BUILD_NUM"
 
 
 if [ "$PACK_CLI" == "yes" ]
@@ -122,7 +123,7 @@ then
 	#echo "$CLI_SHA" > $CLI_SHA_file
 fi
 
-python ./update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION$MILESTONE --plugins-version 1.1$MILESTONE --build-number 7
+python ./update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION$MILESTONE --plugins-version 1.1$MILESTONE --build-number $MAJOR_BUILD_NUM
 exit_on_error
 	  	
 echo "### Repositories list: $FULL_REPOS"
