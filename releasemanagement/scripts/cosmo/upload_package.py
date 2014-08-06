@@ -102,6 +102,7 @@ PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
 #commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
 local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
+centos_agent_name="cloudify-centos-agent"
 
 #This will be removed when the pkg_components will be ready
 if PACK_COMPONENTS == "yes":
@@ -124,7 +125,6 @@ if PACK_CORE == "yes":
 	win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
 	
-	centos_agent_name="cloudify-centos-agent"
 	centos_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
 	centos_agent = ''.join(centos_agent)
 	print centos_agent
