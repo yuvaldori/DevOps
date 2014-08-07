@@ -42,11 +42,14 @@ do
 	else
 		if [ "${project}" == "cosmo-ui" ]; then 
 		  git clone "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
+		  exit_on_error
 		else
 		  git clone "https://opencm:${GIT_PWD}@github.com/cloudify-cosmo/${project}.git"
+		  exit_on_error
 		fi
 		pushd ${project}
 		git checkout master
+		exit_on_error
 	fi
 
 	git checkout -b ${BRANCH_NAME} ${TAG_NAME_TO_PREPARE_BRANCH_FROM} 
