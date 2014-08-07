@@ -24,7 +24,7 @@ if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$UI_REPOS_LIST
 fi
-if [[ "$PACK_UI" == "yes" || "$PACK_CORE" == "yes" ]]
+if [ "$PACK_UI" == "yes" ] || [ "$PACK_CORE" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$PACKAGER_REPOS_LIST
 fi
