@@ -41,9 +41,9 @@ do
 		git pull
 	else
 		if [ "${project}" == "cosmo-ui" ]; then 
-		  git clone "https://opencm:${GIT_PWD}@github.com/cloudify-cosmo/${project}.git"
-		else
 		  git clone "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
+		else
+		  git clone "https://opencm:${GIT_PWD}@github.com/cloudify-cosmo/${project}.git"
 		fi
 		pushd ${project}
 		git checkout master
