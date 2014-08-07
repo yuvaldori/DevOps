@@ -54,14 +54,14 @@ do
 		exit_on_error
 	fi
 
-	#git checkout -b ${BRANCH_NAME_FROM_TAG} ${TAG_NAME_TO_PREPARE_BRANCH_FROM} 
-	#exit_on_error
-	#git checkout ${BRANCH_NAME_FROM_TAG}  
-	#exit_on_error
+	git checkout -b ${BRANCH_NAME_FROM_TAG} ${TAG_NAME_TO_PREPARE_BRANCH_FROM} 
+	exit_on_error
+	git checkout ${BRANCH_NAME_FROM_TAG}  
+	exit_on_error
 
 	echo "working branch is `git branch`"
-	git push origin ${BRANCH_NAME_FROM_TAG}
-	exit_on_error
+	#git push origin ${BRANCH_NAME_FROM_TAG}
+	#exit_on_error
 	
 	popd
 done
