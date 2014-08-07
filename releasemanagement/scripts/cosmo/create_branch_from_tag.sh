@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 source generic_functions.sh
 GIT_PWD=$(cat params.sh | grep GIT_PWD= | awk -F'=' '{print $2}')
