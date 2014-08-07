@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/sh -x
 
 source generic_functions.sh
 GIT_PWD=$(cat params.sh | grep GIT_PWD= | awk -F'=' '{print $2}')
@@ -41,8 +41,8 @@ do
 		git pull
 	else
 		if [ "${project}" == "cosmo-ui" ]; then 
-		  echo "clone=https://opencm:${GIT_PWD}\@github.com/CloudifySource/${project}.git"
-		  git clone "https://opencm:${GIT_PWD}\@github.com/CloudifySource/${project}.git"
+		  echo "clone=https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
+		  git clone "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
 		 
 		  exit_on_error
 		else
