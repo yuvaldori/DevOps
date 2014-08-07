@@ -35,6 +35,7 @@ do
 		  git clone "https://opencm:${GIT_PWD}@github.com/cloudify-cosmo/${project}.git"
 		else
 		  git clone "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
+		fi
 		pushd ${project}
 		git checkout master
 	fi
