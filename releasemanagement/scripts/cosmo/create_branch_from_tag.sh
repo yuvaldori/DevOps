@@ -60,7 +60,7 @@ do
 	#exit_on_error
 
 	echo "working branch is `git branch`"
-	git push origin ${BRANCH_NAME}
+	git push origin ${BRANCH_NAME_FROM_TAG}
 	exit_on_error
 	
 	popd
