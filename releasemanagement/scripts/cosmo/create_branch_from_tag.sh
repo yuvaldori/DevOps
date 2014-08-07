@@ -42,7 +42,7 @@ do
 	else
 		if [ "${project}" == "cosmo-ui" ]; then 
 		  echo "clone=https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
-		  git clone "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
+		  git clone $(echo "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git" | tr -d '\r')
 		 
 		  exit_on_error
 		else
