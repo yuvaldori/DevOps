@@ -40,11 +40,13 @@ do
 	fi
 
 	git checkout -b ${BRANCH_NAME} ${TAG_NAME_TO_PREPARE_BRANCH_FROM} 
+	exit_on_error
 	git checkout ${BRANCH_NAME}  
+	exit_on_error
 
 	echo "working branch is `git branch`"
 	git push origin ${BRANCH_NAME}
-		
+	exit_on_error
 	
 	popd
 done
