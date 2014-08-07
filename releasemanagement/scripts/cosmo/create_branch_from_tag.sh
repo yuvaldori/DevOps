@@ -41,9 +41,9 @@ do
 		git pull
 	else
 		if [ "${project}" == "cosmo-ui" ]; then 
-		  #git clone "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
-		  echo "clone=https://opencm:$GIT_PWD@github.com/CloudifySource/${project}.git"
-		  git clone "https://opencm:$GIT_PWD@github.com/CloudifySource/${project}.git"
+		  echo "clone=https://opencm:${GIT_PWD}\@github.com/CloudifySource/${project}.git"
+		  git clone "https://opencm:${GIT_PWD}\@github.com/CloudifySource/${project}.git"
+		 
 		  exit_on_error
 		else
 		  git clone "https://opencm:${GIT_PWD}@github.com/cloudify-cosmo/${project}.git"
