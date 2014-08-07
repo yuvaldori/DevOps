@@ -3,6 +3,15 @@
 source generic_functions.sh
 GIT_PWD=$(cat params.sh | grep GIT_PWD= | awk -F'=' '{print $2}')
 
+echo "GIT_PWD=$GIT_PWD"
+echo "PACK_CORE=$PACK_CORE"
+echo "PACK_CLI=$PACK_CLI"
+echo "PACK_UI=$PACK_UI"
+echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
+echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
+echo "UI_REPOS_LIST=$UI_REPOS_LIST"
+echo "PACKAGER_REPOS_LIST=$PACKAGER_REPOS_LIST"
+
 if [ "$PACK_CORE" == "yes" ]
 then
 	REPOS_LIST=$CORE_REPOS_LIST
