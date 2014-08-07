@@ -11,6 +11,8 @@ echo "GIT_PWD=$GIT_PWD"
 #echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
 #echo "UI_REPOS_LIST=$UI_REPOS_LIST"
 #echo "PACKAGER_REPOS_LIST=$PACKAGER_REPOS_LIST"
+echo "TAG_NAME_TO_PREPARE_BRANCH_FROM=$TAG_NAME_TO_PREPARE_BRANCH_FROM"
+echo "BRANCH_NAME_FROM_TAG=$BRANCH_NAME_FROM_TAG"
 
 if [ "$PACK_CORE" == "yes" ]
 then
@@ -41,12 +43,10 @@ do
 		git pull
 	else
 		if [ "${project}" == "cosmo-ui" ]; then 
-		  echo "clone=https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git"
 		  git clone $(echo "https://opencm:${GIT_PWD}@github.com/CloudifySource/${project}.git" | tr -d '\r')
-		 
 		  exit_on_error
 		else
-		  git clone "https://opencm:${GIT_PWD}@github.com/cloudify-cosmo/${project}.git"
+		  git clone $(echo "https://opencm:${GIT_PWD}@github.com/cloudify-cosmo/${project}.git" | tr -d '\r')
 		  exit_on_error
 		fi
 		pushd ${project}
@@ -54,10 +54,10 @@ do
 		exit_on_error
 	fi
 
-	git checkout -b ${BRANCH_NAME} ${TAG_NAME_TO_PREPARE_BRANCH_FROM} 
-	exit_on_error
-	git checkout ${BRANCH_NAME}  
-	exit_on_error
+	#git checkout -b ${BRANCH_NAME_FROM_TAG} ${TAG_NAME_TO_PREPARE_BRANCH_FROM} 
+	#exit_on_error
+	#git checkout ${BRANCH_NAME_FROM_TAG}  
+	#exit_on_error
 
 	echo "working branch is `git branch`"
 	git push origin ${BRANCH_NAME}
