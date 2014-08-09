@@ -24,6 +24,9 @@ echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
 echo "PRODUCT_VERSION_FULL=$PRODUCT_VERSION_FULL"
 echo "MAJOR_BUILD_NUM=$MAJOR_BUILD_NUM"
 echo "BRANCH_NAME=$BRANCH_NAME"
+echo "PLUGIN_MINOR_VER=$PLUGIN_MINOR_VER"
+echo "PLUGIN_MAJOR_VER=$PLUGIN_MAJOR_VER"
+
 
 
 if [ "$PACK_CLI" == "yes" ]
@@ -124,7 +127,7 @@ then
 	#echo "$CLI_SHA" > $CLI_SHA_file
 fi
 
-python ./update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION$MILESTONE --plugins-version 1.1$MILESTONE --build-number $MAJOR_BUILD_NUM
+python ./update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION$SERVICEPACK_VERSION$MILESTONE --plugins-version $PLUGIN_MAJOR_VER.$PLUGIN_MINOR_VER.$MILESTONE --build-number $MAJOR_BUILD_NUM
 exit_on_error
 	  	
 echo "### Repositories list: $FULL_REPOS"
@@ -133,7 +136,7 @@ do
 	echo "### Processing repository: $r"
 	pushd $r
 		git add -u .
-		git commit -m "Bump version to $MAJOR_VERSION.$MINOR_VERSION$MILESTONE / 1.1$MILESTONE"
+		git commit -m "Bump version to $MAJOR_VERSION.$MINOR_VERSION$MILESTONE / $PLUGIN_MAJOR_VER.$PLUGIN_MINOR_VER$MILESTONE"
 		git push origin $BRANCH_NAME
  		git checkout $VERSION_BRANCH_NAME
  		exit_on_error
