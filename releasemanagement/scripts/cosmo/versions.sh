@@ -23,6 +23,7 @@ echo "UI_REPOS_LIST=$UI_REPOS_LIST"
 echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
 echo "PRODUCT_VERSION_FULL=$PRODUCT_VERSION_FULL"
 echo "MAJOR_BUILD_NUM=$MAJOR_BUILD_NUM"
+echo "BRANCH_NAME=$BRANCH_NAME"
 
 
 if [ "$PACK_CLI" == "yes" ]
@@ -54,7 +55,7 @@ do
  		fi		
  		git checkout -b $VERSION_BRANCH_NAME
  		exit_on_error
- 		git checkout master
+ 		git checkout $BRANCH_NAME
 		exit_on_error
  	popd
 	
@@ -109,7 +110,7 @@ then
         #	git add $defaults_config_yaml_file_name $config_yaml_file_name
 	#	git commit -m 'replace urls in config yaml files' $defaults_config_yaml_file_name $config_yaml_file_name
 	#	OS_PROVIDER_SHA=$(git rev-parse HEAD) 
-	#	git push origin master
+	#	git push origin $BRANCH_NAME
 	#popd
 	#CLI_SHA_file="CLI.SHA"
 	#rm -f $CLI_SHA_file
@@ -117,7 +118,7 @@ then
 	#	git add $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
 	#	git commit -m 'replace urls in config yaml files' $defaults_cli_config_yaml_file_name $config_cli_yaml_file_name
 	#	CLI_SHA=$(git rev-parse HEAD)
-	#	git push origin master
+	#	git push origin $BRANCH_NAME
 	#popd
 	#echo "$OS_PROVIDER_SHA" > $OS_PROVIDER_SHA_file
 	#echo "$CLI_SHA" > $CLI_SHA_file
@@ -133,7 +134,7 @@ do
 	pushd $r
 		git add -u .
 		git commit -m "Bump version to $MAJOR_VERSION.$MINOR_VERSION$MILESTONE / 1.1$MILESTONE"
-		git push origin master
+		git push origin $BRANCH_NAME
  		git checkout $VERSION_BRANCH_NAME
  		exit_on_error
  	popd
