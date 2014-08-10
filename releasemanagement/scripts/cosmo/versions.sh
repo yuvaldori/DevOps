@@ -26,7 +26,7 @@ echo "MAJOR_BUILD_NUM=$MAJOR_BUILD_NUM"
 echo "BRANCH_NAME=$BRANCH_NAME"
 echo "PLUGIN_MINOR_VER=$PLUGIN_MINOR_VER"
 echo "PLUGIN_MAJOR_VER=$PLUGIN_MAJOR_VER"
-
+echo "core_tag_name=$core_tag_name"
 
 
 if [ "$PACK_CLI" == "yes" ]
