@@ -134,13 +134,16 @@ def _validate_version(version):
     3.1-rc1
     3.1
     3.1-b1
+    3.0.1
     """
-    pattern = '(\d*\.\d)((rc|m|b)\d+)?$'
+    pattern = '((\d\.)*\d)((rc|m|b)\d+)?$'
     m = re.match(pattern, version)
     if not m:
         print 'Illegal version: {}'.format(version)
         sys.exit(1)
-    return m.group(1), m.group(2) if m.group(2) else ''
+    for i in range(0, len(m.groups())):
+        print 'g', i, m.group(i)
+    return m.group(1), m.group(3) if m.group(3) else ''
 
 
 def validate_arguments(args):
