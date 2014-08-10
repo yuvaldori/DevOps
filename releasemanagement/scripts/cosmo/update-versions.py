@@ -107,6 +107,7 @@ def update_version_file(args, version_file_relative_path):
     if not path.exists(version_file):
         print 'Version file not found at: {}'.format(version_file)
         print 'Skipping: {}'.format(version_file_relative_path)
+        return
     version = args.cloudify_version[0]
     if version.count('.') == 1:
         version += '.0'
