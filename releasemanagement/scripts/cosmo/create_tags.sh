@@ -13,7 +13,6 @@ function  exit_on_error {
 
 #PACK_CORE="yes"
 #PACK_UI="yes"
-#RELEASE_BUILD="true"
 #VERSION_BRANCH_NAME="temp_version"
 #BRANCH_NAME="develop"
 #cloudify_bash_majorVersion="1.0-rc1"
@@ -29,7 +28,6 @@ echo "PACK_CLI=$PACK_CLI"
 echo "PACK_CORE=$PACK_CORE"
 echo "PACK_UI=$PACK_UI"
 echo "BRANCH_NAME=$BRANCH_NAME"
-echo "RELEASE_BUILD=$RELEASE_BUILD"
 echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 echo "cloudify_bash_majorVersion=$cloudify_bash_majorVersion"
 echo "cloudify_chef_majorVersion=$cloudify_chef_majorVersion"
@@ -66,42 +64,36 @@ echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
-	if [ "$RELEASE_BUILD" == "false" ]
-	then
-		TAG_NAME="nightly"
-	else
-		case "$r" in
-			cloudify-bash-plugin)
-				TAG_NAME=$cloudify_bash_majorVersion
-				;;			 
-			cloudify-chef-plugin)
-				TAG_NAME=$cloudify_chef_majorVersion
-				;;			 
-			cloudify-openstack-plugin)
-				TAG_NAME=$cloudify_openstack_plugin_majorVersion
-				;;
-			cloudify-openstack-provider)
-				TAG_NAME=$cloudify_openstack_provider_majorVersion				
-				;;
-			cloudify-python-plugin)
-				TAG_NAME=$cloudify_python_majorVersion
-				;;
-			cloudify-puppet-plugin)
-				TAG_NAME=$cloudify_puppet_majorVersion
-				;;
-			cloudify-packager-ubuntu|packman|cloudify-packager-centos)	
-				TAG_NAME=$cloudify_packager_majorVersion
-				;;			 
-			*)
-				TAG_NAME=$core_tag_name	 
-		esac
-	fi
+	
+	case "$r" in
+		cloudify-bash-plugin)
+			TAG_NAME=$cloudify_bash_majorVersion
+			;;			 
+		cloudify-chef-plugin)
+			TAG_NAME=$cloudify_chef_majorVersion
+			;;			 
+		cloudify-openstack-plugin)
+			TAG_NAME=$cloudify_openstack_plugin_majorVersion
+			;;
+		cloudify-openstack-provider)
+			TAG_NAME=$cloudify_openstack_provider_majorVersion				
+			;;
+		cloudify-python-plugin)
+			TAG_NAME=$cloudify_python_majorVersion
+			;;
+		cloudify-puppet-plugin)
+			TAG_NAME=$cloudify_puppet_majorVersion
+			;;
+		cloudify-packager-ubuntu|packman|cloudify-packager-centos)	
+			TAG_NAME=$cloudify_packager_majorVersion
+			;;			 
+		*)
+			TAG_NAME=$core_tag_name	 
+	esac
+	
 	pushd $r
 		
 		echo "TAG_NAME=$TAG_NAME"
-		#git tag -d $TAG_NAME
-		#git push origin :$TAG_NAME
-		#git checkout $VERSION_BRANCH_NAME
         	git tag -f $TAG_NAME
 		git push origin tag $TAG_NAME
 		git checkout $BRANCH_NAME

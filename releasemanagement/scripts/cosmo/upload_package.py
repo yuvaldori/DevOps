@@ -45,7 +45,6 @@ PRODUCT_VERSION=os.environ["PRODUCT_VERSION"]
 PRODUCT_VERSION_FULL=os.environ["PRODUCT_VERSION_FULL"]
 CONFIGURATION_PATH_NAME=os.environ["CONFIGURATION_PATH_NAME"]
 MILESTONE=os.environ["MILESTONE"]
-RELEASE_BUILD=os.environ["RELEASE_BUILD"]
 
 print TARZAN_BUILDS 
 print PACK_COMPONENTS
@@ -58,7 +57,6 @@ print PRODUCT_VERSION
 print PRODUCT_VERSION_FULL
 print CONFIGURATION_PATH_NAME
 print MILESTONE
-print RELEASE_BUILD
 
 
 def mkdirp(directory):
@@ -91,10 +89,8 @@ if CONFIGURATION_NAME == "NightlyBuild":
 	PACKAGE_DEST_DIR="nightly"
 else:
 	PACKAGE_DEST_DIR="continuous"
-if MILESTONE == "ga" and RELEASE_BUILD == "true":
-	PACKAGE_DEST_BUILD_DIR=PRODUCT_VERSION+"/"+MILESTONE+"-RELEASE"
-else:
-	PACKAGE_DEST_BUILD_DIR=PRODUCT_VERSION+"/"+MILESTONE+"-"+BUILD_NUM
+
+PACKAGE_DEST_BUILD_DIR=PRODUCT_VERSION+"/"+MILESTONE+"-RELEASE"
 PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
@@ -102,6 +98,7 @@ PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
 #commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
 local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
+centos_agent_name="cloudify-centos-agent"
 
 #This will be removed when the pkg_components will be ready
 if PACK_COMPONENTS == "yes":
@@ -124,7 +121,6 @@ if PACK_CORE == "yes":
 	win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
 	
-	centos_agent_name="cloudify-centos-agent"
 	centos_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
 	centos_agent = ''.join(centos_agent)
 	print centos_agent
