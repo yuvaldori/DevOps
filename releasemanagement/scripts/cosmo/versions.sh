@@ -127,8 +127,8 @@ then
 	#echo "$CLI_SHA" > $CLI_SHA_file
 fi
 
-#python ./update-versions.py --repositories-dir . --cloudify-version $MAJOR_VERSION.$MINOR_VERSION.$SERVICEPACK_VERSION$MILESTONE --plugins-version $PLUGIN_MAJOR_VER.$PLUGIN_MINOR_VER.$MILESTONE --build-number $MAJOR_BUILD_NUM
-#exit_on_error
+python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $PLUGIN_MAJOR_VER.$PLUGIN_MINOR_VER$MILESTONE --build-number $MAJOR_BUILD_NUM
+exit_on_error
 	  	
 echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
