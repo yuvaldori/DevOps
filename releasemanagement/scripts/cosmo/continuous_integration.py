@@ -96,7 +96,7 @@ if PACK_CORE == "yes":
 		shutil.rmtree(celery_conf['package_path'])
 	do('pkm get -c celery')
 	## install celery with dependencies into celery virtualenv
-	r=p.pip('celery==3.0.24')
+	r=p.pip('celery==3.0.24', celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
@@ -140,7 +140,7 @@ if PACK_CORE == "yes":
 		shutil.rmtree(ubuntu_agent_conf['package_path'])
 	do('pkm get -c Ubuntu-agent')
 	## install linux_agent with dependencies into celery virtualenv
-	r=p.pip('celery==3.0.24')
+	r=p.pip('celery==3.0.24', ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), ubuntu_agent_conf['sources_path'])
