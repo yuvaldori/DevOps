@@ -27,6 +27,7 @@ echo "BRANCH_NAME=$BRANCH_NAME"
 echo "PLUGIN_MINOR_VER=$PLUGIN_MINOR_VER"
 echo "PLUGIN_MAJOR_VER=$PLUGIN_MAJOR_VER"
 echo "core_tag_name=$core_tag_name"
+echo "core_tag_name=$plugins_tag_name"
 
 
 if [ "$PACK_CLI" == "yes" ]
@@ -127,7 +128,7 @@ then
 	#echo "$CLI_SHA" > $CLI_SHA_file
 fi
 
-python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $PLUGIN_MAJOR_VER.$PLUGIN_MINOR_VER$MILESTONE --build-number $MAJOR_BUILD_NUM
+python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
 exit_on_error
 	  	
 echo "### Repositories list: $FULL_REPOS"
