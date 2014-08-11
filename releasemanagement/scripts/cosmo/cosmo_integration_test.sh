@@ -42,7 +42,8 @@ echo "### Installing protobuf using easy_install"
 easy_install protobuf
 
 REPOS_LIST="cloudify-dsl-parser cloudify-rest-client cloudify-plugins-common cloudify-cli \
-cloudify-manager/plugins/plugin-installer cloudify-manager/rest-service cloudify-bash-plugin"
+cloudify-manager/plugins/plugin-installer cloudify-manager/rest-service cloudify-manager/plugins/riemann-controller \
+cloudify-bash-plugin"
 
 for r in ${REPOS_LIST}
 do
