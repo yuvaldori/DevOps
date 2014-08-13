@@ -292,7 +292,7 @@ for fname in filenames:
 		full_key_name = os.path.join(PACKAGE_DEST_PATH, name_without_version)   	 	
 		key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read') 		
    		f5 = open(local_links_file_path, 'a')
-    		f5.write(url_prefix+"http://repository.cloudifysource.org/"+PACKAGE_DEST_PATH+"/"+name_without_version+"\n")
+    		f5.write(url_prefix+"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_PATH+"/"+name_without_version+"\n")
     		f5.close()
     		
 	bucket = conn.get_bucket("gigaspaces-repository-eu")
@@ -301,8 +301,8 @@ for fname in filenames:
 
 	print "uploaded file %s to S3" % fname
 
-	f2.write(url_prefix+"http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
-	f4.write(url_prefix+"http://repository.cloudifysource.org/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
+	f2.write(url_prefix+"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")
+	f4.write(url_prefix+"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_BUILD_PATH+"/"+fname+"\n")	
 	f2.close()
 	
 	f4.close()
