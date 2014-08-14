@@ -48,11 +48,6 @@ exit_on_error
 #s=`vagrant ssh linux32 -- ec2metadata | grep public-hostname | cut -f1 -d"." | cut -d" " -f2` ; s=${s#ec2-} ; ip_address=${s//-/.}
 #echo "ip_address="$ip_address
 
-#copy linux32 deb file
-#sudo chown tgrid -R /cloudify
-#scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
-#exit_on_error
-
-#vagrant destroy -f linux32
+vagrant destroy -f
 
 #SystemError:
