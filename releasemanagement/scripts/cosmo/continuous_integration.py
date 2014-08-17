@@ -204,3 +204,4 @@ if PACK_UI == "yes":
 
 
 
+local('sudo chown tgrid -R /opt',capture=False)
