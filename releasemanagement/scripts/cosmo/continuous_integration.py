@@ -111,6 +111,9 @@ if PACK_CORE == "yes":
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/agent-installer'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/riemann-controller'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/workflows'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
