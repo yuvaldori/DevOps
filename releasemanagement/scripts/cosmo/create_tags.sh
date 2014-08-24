@@ -42,6 +42,7 @@ echo "BUILD_NUM=$BUILD_NUM"
 echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
 echo "UI_REPOS_LIST=$UI_REPOS_LIST"
 echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
+echo "RELEASE_BUILD=$RELEASE_BUILD"
 
 
 if [ "$PACK_CORE" == "yes" ]
@@ -98,13 +99,16 @@ do
 		git push origin tag $TAG_NAME
 		git checkout $BRANCH_NAME
 		
-		if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
-	 	then
-	 		echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
-	 		git branch -D $VERSION_BRANCH_NAME
-	 		exit_on_error
-	 		git push origin --delete $VERSION_BRANCH_NAME
-	 	fi		
+		if [ "$RELEASE_BUILD" == "false" ]
+		then
+			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+	 		then
+	 			echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
+	 			git branch -D $VERSION_BRANCH_NAME
+	 			exit_on_error
+	 			git push origin --delete $VERSION_BRANCH_NAME
+	 		fi
+	 	fi
 
   	popd
 done
