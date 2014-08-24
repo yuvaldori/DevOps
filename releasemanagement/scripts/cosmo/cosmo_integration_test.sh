@@ -74,14 +74,6 @@ pushd cloudify-manager
 			exit $?
 		fi
 	popd
-	pushd plugins/riemann-controller
-		echo "### Installing manager-riemann-controller"
-		retry "pip install ."
-		if [ $? != 0 ]; then
-			echo "fail" > $fail_file
-			exit $?
-		fi
-	popd
 	
 
 	pushd tests
