@@ -16,7 +16,7 @@ function  exit_on_error {
 }
 echo "*** start a new container"
 
-sudo docker run -d cosmo_tests
+sudo docker run -d cosmo_itests
 exit_on_error
 echo "*** get container ID"
 ID=`sudo docker ps -l | cut -d " " -f1 | tail -n +2 | tr -d ' '`
