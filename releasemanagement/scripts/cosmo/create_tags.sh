@@ -95,6 +95,7 @@ do
 	pushd $r
 		
 		echo "TAG_NAME=$TAG_NAME"
+		VERSION_BRANCH_NAME=$TAG_NAME
         	git tag -f $TAG_NAME
         	exit_on_error
 		git push origin tag $TAG_NAME
