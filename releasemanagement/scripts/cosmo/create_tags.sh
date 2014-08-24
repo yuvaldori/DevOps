@@ -96,8 +96,11 @@ do
 		
 		echo "TAG_NAME=$TAG_NAME"
         	git tag -f $TAG_NAME
+        	exit_on_error
 		git push origin tag $TAG_NAME
+		exit_on_error
 		git checkout $BRANCH_NAME
+		exit_on_error
 		
 		if [ "$RELEASE_BUILD" == "false" ]
 		then
@@ -107,6 +110,7 @@ do
 	 			git branch -D $VERSION_BRANCH_NAME
 	 			exit_on_error
 	 			git push origin --delete $VERSION_BRANCH_NAME
+	 			exit_on_error
 	 		fi
 	 	fi
 
