@@ -181,11 +181,13 @@ do
 	pushd $r
 		git add -u .
 		git commit -m "Bump version to $MAJOR_VERSION.$MINOR_VERSION$MILESTONE / $PLUGIN_MAJOR_VER.$PLUGIN_MINOR_VER$MILESTONE"
-		if [[ `git branch -v -a | grep $VERSION_BRANCH_NAME` ]]
+		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
  		then
  			git push origin $VERSION_BRANCH_NAME
+ 			exit_on_error
  		else
  			git push origin $BRANCH_NAME
+ 			exit_on_error
  			git checkout $VERSION_BRANCH_NAME
  			exit_on_error
  		fi
