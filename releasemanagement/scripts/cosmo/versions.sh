@@ -17,7 +17,6 @@ echo "MAJOR_VERSION=$MAJOR_VERSION"
 echo "MINOR_VERSION=$MINOR_VERSION"
 echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
 echo "MILESTONE=$MILESTONE"
-echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
 echo "UI_REPOS_LIST=$UI_REPOS_LIST"
 echo "CLI_REPOS_LIST=$CLI_REPOS_LIST"
@@ -45,22 +44,66 @@ fi
 
 echo "FULL_REPOS= $FULL_REPOS"
 
+
 echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
+	case "$r" in
+		cloudify-bash-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_bash_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;			 
+		cloudify-chef-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_chef_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;			 
+		cloudify-openstack-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_openstack_plugin_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-openstack-provider)
+			#VERSION_BRANCH_NAME=$cloudify_openstack_provider_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-python-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_python_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-puppet-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_puppet_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager)	
+			#VERSION_BRANCH_NAME=$cloudify_packager_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;			 
+		*)
+			VERSION_BRANCH_NAME=$core_tag_name	 
+	esac
+	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
-		if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+		if [[ `git branch -v -a | grep $VERSION_BRANCH_NAME` ]]
  		then
- 			echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
- 			git branch -D $VERSION_BRANCH_NAME
+ 			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
+ 			#git branch -D $VERSION_BRANCH_NAME
+ 			#exit_on_error
+ 			#git push origin --delete $VERSION_BRANCH_NAME
+ 			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+ 			then
+ 				git checkout $VERSION_BRANCH_NAME
+ 				exit_on_error
+ 			else
+ 				git checkout -b $VERSION_BRANCH_NAME origin/$VERSION_BRANCH_NAME
+ 				exit_on_error
+ 			fi
+ 		else
+ 			git checkout -b $VERSION_BRANCH_NAME
  			exit_on_error
- 			git push origin --delete $VERSION_BRANCH_NAME
+ 			git checkout $BRANCH_NAME
+			exit_on_error
  		fi		
- 		git checkout -b $VERSION_BRANCH_NAME
- 		exit_on_error
- 		git checkout $BRANCH_NAME
-		exit_on_error
+ 		
  	popd
 	
 done
@@ -138,9 +181,15 @@ do
 	pushd $r
 		git add -u .
 		git commit -m "Bump version to $MAJOR_VERSION.$MINOR_VERSION$MILESTONE / $PLUGIN_MAJOR_VER.$PLUGIN_MINOR_VER$MILESTONE"
-		git push origin $BRANCH_NAME
- 		git checkout $VERSION_BRANCH_NAME
- 		exit_on_error
+		if [[ `git branch -v -a | grep $VERSION_BRANCH_NAME` ]]
+ 		then
+ 			git push origin $VERSION_BRANCH_NAME
+ 		else
+ 			git push origin $BRANCH_NAME
+ 			git checkout $VERSION_BRANCH_NAME
+ 			exit_on_error
+ 		fi
+		
  	popd
 	
 done	  	
