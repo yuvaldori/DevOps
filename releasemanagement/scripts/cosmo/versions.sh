@@ -83,7 +83,7 @@ do
 	esac
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
-		if [[ `git branch -v -a | grep $VERSION_BRANCH_NAME` ]]
+		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
  		then
  			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
  			#git branch -D $VERSION_BRANCH_NAME
