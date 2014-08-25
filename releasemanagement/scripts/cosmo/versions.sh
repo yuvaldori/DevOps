@@ -49,38 +49,7 @@ echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
-	case "$r" in
-		cloudify-bash-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_bash_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		cloudify-chef-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_chef_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		cloudify-openstack-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_openstack_plugin_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-openstack-provider)
-			#VERSION_BRANCH_NAME=$cloudify_openstack_provider_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-python-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_python_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-puppet-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_puppet_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager)	
-			#VERSION_BRANCH_NAME=$cloudify_packager_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		*)
-			VERSION_BRANCH_NAME=$core_tag_name	 
-	esac
+	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
@@ -178,38 +147,7 @@ echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
-	case "$r" in
-		cloudify-bash-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_bash_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		cloudify-chef-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_chef_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		cloudify-openstack-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_openstack_plugin_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-openstack-provider)
-			#VERSION_BRANCH_NAME=$cloudify_openstack_provider_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-python-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_python_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-puppet-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_puppet_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager)	
-			#VERSION_BRANCH_NAME=$cloudify_packager_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		*)
-			VERSION_BRANCH_NAME=$core_tag_name	 
-	esac
+	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
 		git add -u .
