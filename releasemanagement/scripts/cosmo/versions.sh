@@ -62,15 +62,20 @@ do
  			then
  				git checkout $VERSION_BRANCH_NAME
  				exit_on_error
+ 				git reset --hard origin/$VERSION_BRANCH_NAME
+ 				exit_on_error
  			else
  				git checkout -b $VERSION_BRANCH_NAME origin/$VERSION_BRANCH_NAME
  				exit_on_error
  			fi
+ 			
  		else
  			git checkout -b $VERSION_BRANCH_NAME
  			exit_on_error
  			git checkout $BRANCH_NAME
 			exit_on_error
+			git reset --hard origin/$BRANCH_NAME
+ 			exit_on_error
  		fi		
  		
  	popd
