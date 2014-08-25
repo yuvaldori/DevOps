@@ -41,3 +41,45 @@ function retry
       fi
    done
 }
+
+function get_version_name
+{
+	proj=$1
+	core_tag_name=$2
+	plugins_tag_name=$3
+
+	case "$proj" in
+		cloudify-bash-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_bash_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;			 
+		cloudify-chef-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_chef_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;			 
+		cloudify-openstack-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_openstack_plugin_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-openstack-provider)
+			#VERSION_BRANCH_NAME=$cloudify_openstack_provider_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-python-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_python_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-puppet-plugin)
+			#VERSION_BRANCH_NAME=$cloudify_puppet_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;
+		cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager)	
+			#VERSION_BRANCH_NAME=$cloudify_packager_majorVersion
+			VERSION_BRANCH_NAME=$plugins_tag_name
+			;;			 
+		*)
+			VERSION_BRANCH_NAME=$core_tag_name	 
+	esac
+
+	echo $VERSION_BRANCH_NAME
+}
