@@ -70,8 +70,8 @@ do
  			fi
  			
  		else
- 			git checkout -b $VERSION_BRANCH_NAME
- 			exit_on_error
+ 			#git checkout -b $VERSION_BRANCH_NAME
+ 			#exit_on_error
  			git checkout $BRANCH_NAME
 			exit_on_error
 			git reset --hard origin/$BRANCH_NAME
@@ -132,7 +132,7 @@ do
  		else
  			git push origin $BRANCH_NAME
  			exit_on_error
- 			git checkout $VERSION_BRANCH_NAME
+ 			git checkout -b $VERSION_BRANCH_NAME
  			exit_on_error
  		fi
 		
