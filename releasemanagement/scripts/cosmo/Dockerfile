@@ -9,7 +9,7 @@ FROM phusion/passenger-customizable:0.9.10
 # URLs
 #
 ENV PIP_URL https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py
-ENV RIE_URL http://aphyr.com/riemann/riemann_0.2.5_all.deb
+ENV RIE_URL http://aphyr.com/riemann/riemann_0.2.6_all.deb
 ENV RMQ_URL http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 ENV ELS_URL http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 
