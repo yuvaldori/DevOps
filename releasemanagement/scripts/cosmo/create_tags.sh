@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+source generic_functions.sh
+
 function  exit_on_error {
       status=$?
       echo "exit code="$status    
@@ -37,6 +39,7 @@ echo "cloudify_python_majorVersion=$cloudify_python_majorVersion"
 echo "cloudify_puppet_majorVersion=$cloudify_puppet_majorVersion"
 echo "cloudify_packager_majorVersion=$cloudify_packager_majorVersion"
 echo "core_tag_name=$core_tag_name"
+echo "plugins_tag_name=$plugins_tag_name"
 echo "PRODUCT_VERSION_FULL=$PRODUCT_VERSION_FULL"
 echo "BUILD_NUM=$BUILD_NUM"
 echo "CORE_REPOS_LIST=$CORE_REPOS_LIST"
@@ -66,32 +69,8 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	
-	case "$r" in
-		cloudify-bash-plugin)
-			TAG_NAME=$cloudify_bash_majorVersion
-			;;			 
-		cloudify-chef-plugin)
-			TAG_NAME=$cloudify_chef_majorVersion
-			;;			 
-		cloudify-openstack-plugin)
-			TAG_NAME=$cloudify_openstack_plugin_majorVersion
-			;;
-		cloudify-openstack-provider)
-			TAG_NAME=$cloudify_openstack_provider_majorVersion				
-			;;
-		cloudify-python-plugin)
-			TAG_NAME=$cloudify_python_majorVersion
-			;;
-		cloudify-puppet-plugin)
-			TAG_NAME=$cloudify_puppet_majorVersion
-			;;
-		cloudify-packager-ubuntu|packman|cloudify-packager-centos)	
-			TAG_NAME=$cloudify_packager_majorVersion
-			;;			 
-		*)
-			TAG_NAME=$core_tag_name	 
-	esac
-	
+	TAG_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
+
 	pushd $r
 		
 		echo "TAG_NAME=$TAG_NAME"
