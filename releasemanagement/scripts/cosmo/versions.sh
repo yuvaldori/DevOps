@@ -49,7 +49,7 @@ echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
-	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
+	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
@@ -120,7 +120,7 @@ echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
-	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
+	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
 		git add -u .
