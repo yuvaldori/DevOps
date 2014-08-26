@@ -79,11 +79,12 @@ do
         	exit_on_error
 		git push origin tag $TAG_NAME
 		exit_on_error
-		git checkout $BRANCH_NAME
-		exit_on_error
+		
 		
 		if [ "$RELEASE_BUILD" == "false" ]
 		then
+			git checkout $BRANCH_NAME
+			exit_on_error
 			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
 	 		then
 	 			echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
