@@ -27,7 +27,7 @@ echo "PLUGIN_MINOR_VER=$PLUGIN_MINOR_VER"
 echo "PLUGIN_MAJOR_VER=$PLUGIN_MAJOR_VER"
 echo "core_tag_name=$core_tag_name"
 echo "plugins_tag_name=$plugins_tag_name"
-
+echo "RELEASE_BUILD=$RELEASE_BUILD"
 
 if [ "$PACK_CLI" == "yes" ]
 then
@@ -52,7 +52,8 @@ do
 	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
-		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+		if [ "$RELEASE_BUILD" == "true" ]
  		then
  			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
  			#git branch -D $VERSION_BRANCH_NAME
@@ -125,7 +126,8 @@ do
 	pushd $r
 		git add -u .
 		git commit -m "Bump version to $VERSION_BRANCH_NAME"
-		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+		if [ "$RELEASE_BUILD" == "true" ]
  		then
  			git push origin $VERSION_BRANCH_NAME
  			exit_on_error
