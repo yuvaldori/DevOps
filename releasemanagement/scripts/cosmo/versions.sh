@@ -65,15 +65,16 @@ do
  				exit_on_error
  				git reset --hard origin/$VERSION_BRANCH_NAME
  				exit_on_error
+ 			elif [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+ 			then
+ 				git checkout -b $VERSION_BRANCH_NAME origin/$VERSION_BRANCH_NAME
+ 				exit_on_error
  			else
- 				#git checkout -b $VERSION_BRANCH_NAME origin/$VERSION_BRANCH_NAME
  				git checkout -b $VERSION_BRANCH_NAME
  				exit_on_error
  			fi
  			
  		else
- 			#git checkout -b $VERSION_BRANCH_NAME
- 			#exit_on_error
  			git checkout $BRANCH_NAME
 			exit_on_error
 			git reset --hard origin/$BRANCH_NAME
