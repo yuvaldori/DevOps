@@ -122,11 +122,12 @@ echo "### Repositories list: $FULL_REPOS"
 for r in ${FULL_REPOS}
 do
 	echo "### Processing repository: $r"
-	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
+	VERSION_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
+	VERSION_BRANCH_NAME=$VERSION_NAME"-build"
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	pushd $r
 		git add -u .
-		git commit -m "Bump version to $VERSION_BRANCH_NAME"
+		git commit -m "Bump version to $VERSION_NAME"
 		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
 		if [ "$RELEASE_BUILD" == "true" ]
  		then
