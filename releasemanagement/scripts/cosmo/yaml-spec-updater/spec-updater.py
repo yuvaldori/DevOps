@@ -104,7 +104,7 @@ def get_plugin_yaml_content(cloudify_version, template_file):
     loader = jinja2.FileSystemLoader(template_dir)
     env = jinja2.Environment(loader=loader)
     template = env.get_template(PLUGIN_TEMPLATE_FILE)
-    plugin_branch = get_version(template_dir).replace('m', 'a')
+    plugin_branch = get_version(template_dir).replace('a', 'm')
     result = template.render({
         'cloudify_version': cloudify_version,
         'plugin_branch': plugin_branch
