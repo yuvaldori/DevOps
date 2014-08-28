@@ -99,14 +99,12 @@ def parse_args():
     return repos_dir
 
 
-def get_plugin_yaml_content(cloudify_version, template_file, is_milestone):
+def get_plugin_yaml_content(cloudify_version, template_file):
     template_dir = os.path.dirname(template_file)
     loader = jinja2.FileSystemLoader(template_dir)
     env = jinja2.Environment(loader=loader)
     template = env.get_template(PLUGIN_TEMPLATE_FILE)
-    plugin_branch = 'master'
-    if not is_milestone:
-        plugin_branch = get_version(template_dir).replace('m', 'a')
+    plugin_branch = get_version(template_dir).replace('m', 'a')
     result = template.render({
         'cloudify_version': cloudify_version,
         'plugin_branch': plugin_branch
@@ -154,12 +152,7 @@ if __name__ == '__main__':
 
     keys, cloudify_version = generate_keys(repos_dir=repos_dir)
 
-    # is_milestone means that plugins would be installed from master branch.
-    # This is identified if for example 3.1a2 != 3.1, for GA (3.1==3.1)
-    # The tag would be used.
-    is_milestone = cloudify_version != extract_version_number(cloudify_version)
-
-    print '- Cloudify version is: {} [is_milestone={}]'.format(cloudify_version, is_milestone)
+    print '- Cloudify version is: {}'.format(cloudify_version)
 
     print '- The following keys will be updated:{}{}'.format(
         os.linesep, json.dumps(keys, indent=2))
@@ -175,7 +168,7 @@ if __name__ == '__main__':
             key.key = k
 
         if is_template(v):
-            content = get_plugin_yaml_content(cloudify_version, v, is_milestone)
+            content = get_plugin_yaml_content(cloudify_version, v)
         else:
             with open(v, 'r') as f:
                 content = f.read()
