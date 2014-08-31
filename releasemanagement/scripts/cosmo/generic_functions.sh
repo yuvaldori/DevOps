@@ -73,7 +73,7 @@ function get_version_name
 			#VERSION_BRANCH_NAME=$cloudify_puppet_majorVersion
 			VERSION_BRANCH_NAME=$plugins_tag_name
 			;;
-		cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager)	
+		cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager|cloudify-packer)	
 			#VERSION_BRANCH_NAME=$cloudify_packager_majorVersion
 			VERSION_BRANCH_NAME=$plugins_tag_name
 			;;			 
