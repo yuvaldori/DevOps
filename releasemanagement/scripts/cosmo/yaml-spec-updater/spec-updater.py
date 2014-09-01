@@ -19,8 +19,11 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
 
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+#AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+#AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_ACCESS_KEY_ID = params.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = params.AWS_SECRET_ACCESS_KEY
+
 
 BUCKET_NAME = 'getcloudify.org'
 VERSION_FILE = 'VERSION'
