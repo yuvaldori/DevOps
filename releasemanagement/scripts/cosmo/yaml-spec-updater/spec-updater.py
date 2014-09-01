@@ -12,7 +12,7 @@ import sys
 import json
 import urllib2
 import re
-
+import params
 import jinja2
 
 from boto.s3.connection import S3Connection
