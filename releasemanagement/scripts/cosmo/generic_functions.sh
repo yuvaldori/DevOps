@@ -21,6 +21,21 @@ function  get_product_version_for_npm {
 
 }
 
+function run_command 
+{
+  
+	status=256
+   
+  	echo "*** Running $1"      
+   	$1
+  	status=$?   
+    
+     	if [ $status != 0 ] ; then
+            echo "Failed with exit code $status"
+            exit $status
+      	fi   
+}
+
 function retry 
 {
    nTrys=0
