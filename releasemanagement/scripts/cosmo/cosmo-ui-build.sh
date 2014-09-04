@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../generic_functions
+source ../generic_functions.sh
 
 [ -d dist ] && sudo rm -rf dist
 [ -d node_modules ] && sudo rm -rf node_modules
