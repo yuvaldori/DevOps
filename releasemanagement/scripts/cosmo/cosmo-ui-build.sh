@@ -1,22 +1,6 @@
 #!/bin/bash
 
-source ../retry.sh
-
-function run_command 
-{
-  
-	status=256
-   
-  	echo "*** Running $1"      
-   	$1
-  	status=$?   
-    
-     	if [ $status != 0 ] ; then
-            echo "Failed with exit code $status"
-            exit $status
-      	fi   
-}
-
+source ../generic_functions
 
 [ -d dist ] && sudo rm -rf dist
 [ -d node_modules ] && sudo rm -rf node_modules
