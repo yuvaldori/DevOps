@@ -43,3 +43,7 @@ sed -i "s/.*SET REST_CLIENT_SHA=.*/SET REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $cent
 sed -i "s/.*SET COMMON_PLUGIN_SHA=.*/SET COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $centos_agent_fileName
 sed -i "s/.*SET MANAGER_SHA=.*/SET MANAGER_SHA=$MANAGER_SHA/g" $centos_agent_fileName
 sed -i "s/.*SET PACKMAN_SHA=.*/SET PACKMAN_SHA=$PACKMAN_SHA/g" $centos_agent_fileName
+
+components_fileName="  cloudify-packager-ubuntu/vagrant/cloudify-components/provision.sh"
+sed -i "s/.*SET PACKMAN_SHA=.*/SET PACKMAN_SHA=$PACKMAN_SHA/g" $components_fileName
+
