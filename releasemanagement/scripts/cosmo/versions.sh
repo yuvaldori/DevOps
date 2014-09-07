@@ -57,6 +57,12 @@ do
 	echo "### Processing repository: $r"
 	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
+	if [ "$BRANCH_NAME" = "grafana" ]
+	then
+		BRANCH_NAME=$GRAFANA_BRANCH_NAME	
+	fi
+	echo "BRANCH_NAME=$BRANCH_NAME"
+	
 	pushd $r
 		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
 		if [ "$RELEASE_BUILD" == "true" ]
