@@ -8,10 +8,11 @@ source ../generic_functions.sh
 sudo npm cache clean
 sudo bower cache clean
 
-retry "npm install"
+
 
 if [ $(basename `pwd`) = "cosmo-ui" ]
 then
+	retry "npm install"
 	retry "bower install -force"
 	retry "bower update -force"
 fi
