@@ -9,8 +9,12 @@ sudo npm cache clean
 sudo bower cache clean
 
 retry "npm install"
-retry "bower install -force"
-retry "bower update -force"
+
+if [ $(basename `pwd`) = "grafana" ]
+then
+	retry "bower install -force"
+	retry "bower update -force"
+fi
 
 run_command "grunt build"
 
