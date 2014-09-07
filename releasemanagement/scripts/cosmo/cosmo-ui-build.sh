@@ -10,7 +10,7 @@ sudo bower cache clean
 
 retry "npm install"
 
-if [ $(basename `pwd`) = "grafana" ]
+if [ $(basename `pwd`) = "cosmo-ui" ]
 then
 	retry "bower install -force"
 	retry "bower update -force"
