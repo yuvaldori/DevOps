@@ -6,6 +6,8 @@ source ../generic_functions.sh
 [ -d node_modules ] && sudo rm -rf node_modules
 
 fromdos ~/.npm/connect/2.7.11/package/package.json
+fromdos ~/.npm/ncp/0.4.2/package/package.json
+fromdos ~/.npm/underscore.string/2.2.1/package/package.json
 
 sudo npm cache clean
 sudo bower cache clean
