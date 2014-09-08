@@ -188,6 +188,9 @@ if PACK_UI == "yes":
 	tar_ui_file = glob.glob(os.path.join(parent_dir+'/cosmo-ui/dist','cosmo-ui*.tgz'))
 	print tar_ui_file
 	shutil.copy(''.join(tar_ui_file),'{0}'.format(cloudify_ui_conf['sources_path']))
+	tar_ui_grafana_file = glob.glob(os.path.join(parent_dir+'/cosmo-grafana/dist','grafana*.tgz'))
+	print tar_ui_grafana_file
+	shutil.copy(''.join(tar_ui_grafana_file),'{0}'.format(cloudify_ui_conf['sources_path']))
 
 	if  tar_ui_file:
 		do('pkm pack -c cloudify-ui')
