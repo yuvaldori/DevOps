@@ -20,7 +20,7 @@ fi
 
 run_command "grunt build"
 
-if [ $(basename `pwd`) = "grafana" ]
+if [ $(basename `pwd`) = "cosmo-grafana" ]
 then
 	cp -fp package.json dist
 fi
