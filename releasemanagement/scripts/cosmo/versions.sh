@@ -48,11 +48,11 @@ then
 	REPOS_LIST=$REPOS_LIST" "$PACKAGER_REPOS_LIST
 fi
 
-echo "FULL_REPOS= $FULL_REPOS"
+echo "REPOS_LIST= $REPOS_LIST"
 
 
-echo "### Repositories list: $FULL_REPOS"
-for r in ${FULL_REPOS}
+echo "### Repositories list: $REPOS_LIST"
+for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
@@ -136,8 +136,8 @@ fi
 python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
 exit_on_error
 	  	
-echo "### Repositories list: $FULL_REPOS"
-for r in ${FULL_REPOS}
+echo "### Repositories list: $REPOS_LIST"
+for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	VERSION_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
