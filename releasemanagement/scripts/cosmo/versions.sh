@@ -150,11 +150,9 @@ do
 		if [ "$RELEASE_BUILD" == "true" ]
  		then
  			git push origin $VERSION_BRANCH_NAME
- 			exit_on_error
+ 			#exit_on_error
  		else
  			git push origin $BRANCH_NAME
- 			exit_on_error
- 			#git checkout -b $VERSION_BRANCH_NAME
  			#exit_on_error
  		fi
 		
