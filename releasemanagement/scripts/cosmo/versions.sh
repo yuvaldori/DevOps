@@ -57,7 +57,7 @@ do
 	echo "### Processing repository: $r"
 	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
-	if [ "$r" = "cosmo-grafana" ]
+	if [ "$r" == "cosmo-grafana" ]
 	then
 		BRANCH_NAME=$GRAFANA_BRANCH_NAME	
 	fi
