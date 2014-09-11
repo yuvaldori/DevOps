@@ -59,9 +59,11 @@ do
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	if [ "$r" == "cosmo-grafana" ]
 	then
-		BRANCH_NAME=$GRAFANA_BRANCH_NAME	
+		BRANCHNAME=$GRAFANA_BRANCH_NAME
+	else
+		BRANCHNAME=$BRANCH_NAME
 	fi
-	echo "BRANCH_NAME=$BRANCH_NAME"
+	echo "BRANCHNAME=BRANCHNAME"
 	
 	pushd $r
 		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
@@ -89,9 +91,9 @@ do
  			fi
  			
  		else
- 			git checkout $BRANCH_NAME
+ 			git checkout $BRANCHNAME
 			exit_on_error
-			git reset --hard origin/$BRANCH_NAME
+			git reset --hard origin/$BRANCHNAME
  			exit_on_error
  		fi		
  		
@@ -143,6 +145,13 @@ do
 	VERSION_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
 	VERSION_BRANCH_NAME=$VERSION_NAME"-build"
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
+	if [ "$r" == "cosmo-grafana" ]
+	then
+		BRANCHNAME=$GRAFANA_BRANCH_NAME
+	else
+		BRANCHNAME=$BRANCH_NAME
+	fi
+	echo "BRANCHNAME=BRANCHNAME"
 	pushd $r
 		git add -u .
 		git commit -m "Bump version to $VERSION_NAME"
@@ -152,7 +161,7 @@ do
  			git push origin $VERSION_BRANCH_NAME
  			exit_on_error
  		else
- 			git push origin $BRANCH_NAME
+ 			git push origin $BRANCHNAME
  			exit_on_error
  		fi
 		
