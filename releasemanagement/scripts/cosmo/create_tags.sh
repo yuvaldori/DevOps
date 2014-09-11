@@ -85,7 +85,7 @@ do
         	git tag -f $TAG_NAME
         	exit_on_error
 		git push origin tag $TAG_NAME
-		#exit_on_error
+		exit_on_error
 		
 		
 		#if [ "$RELEASE_BUILD" == "false" ]
