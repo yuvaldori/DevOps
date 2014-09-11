@@ -66,6 +66,12 @@ do
 	echo "BRANCHNAME=$BRANCHNAME"
 	
 	pushd $r
+	
+		git checkout $BRANCHNAME
+		exit_on_error
+		git reset --hard origin/$BRANCHNAME
+ 		exit_on_error
+ 		
 		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
 		if [ "$RELEASE_BUILD" == "true" ]
  		then
@@ -89,12 +95,7 @@ do
  				git checkout -b $VERSION_BRANCH_NAME
  				exit_on_error
  			fi
- 			
- 		else
- 			git checkout $BRANCHNAME
-			exit_on_error
-			git reset --hard origin/$BRANCHNAME
- 			exit_on_error
+ 		
  		fi		
  		
  	popd
