@@ -49,5 +49,6 @@ exit_on_error
 #echo "ip_address="$ip_address
 
 vagrant destroy -f
+exit_on_error
 
 #SystemError:
