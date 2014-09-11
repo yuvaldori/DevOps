@@ -63,7 +63,7 @@ do
 	else
 		BRANCHNAME=$BRANCH_NAME
 	fi
-	echo "BRANCHNAME=BRANCHNAME"
+	echo "BRANCHNAME=$BRANCHNAME"
 	
 	pushd $r
 		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
@@ -151,7 +151,7 @@ do
 	else
 		BRANCHNAME=$BRANCH_NAME
 	fi
-	echo "BRANCHNAME=BRANCHNAME"
+	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
 		git add -u .
 		git commit -m "Bump version to $VERSION_NAME"
