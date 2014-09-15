@@ -112,5 +112,5 @@ function get_version_name
 	esac
 
 	echo $VERSION_BRANCH_NAME
-	echo $VERSION_BRANCH_NAME > VERSION_BRANCH_NAME
+	
 }
