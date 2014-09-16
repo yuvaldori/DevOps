@@ -36,7 +36,7 @@ for repo,sha in d.items():
 		branch_name=branch_name,
 		timeout_min=1)
 		for key,value in jobs_state.items():
-			print(key, ":", value)
+			#print(key, ":", value)
 			if value=='passed':
 				print key + ' passed'
 			else:
