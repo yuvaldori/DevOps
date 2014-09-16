@@ -7,23 +7,20 @@ import yoci.travis.functional_api
 
 
 
-
+fail_repo=""
 fail_file="cosmo_unit_tests_fail.log"
-branch_name=os.environ["BRANCH_NAME"]
+if os.path.exists(fail_file):
+    os.remove(fail_file)
+
 tests_repos_sha_list=os.environ["TESTS_REPO_SHA_LIST"]
 print "tests_repos_sha_list="+tests_repos_sha_list
 
+branch_name=os.environ["BRANCH_NAME"]
+
+
+
 
 d = json.loads(tests_repos_sha_list)
-
-current_dir=os.path.dirname(os.path.realpath(__file__))
-print("current dir: "+current_dir)
-parent_dir=os.path.abspath('..')
-print("root dir: "+parent_dir)
-fail_repo=""
-
-#sudo pip install -e current_dir
-
 
 for repo,sha in d.items():
 	print repo
@@ -41,7 +38,7 @@ for repo,sha in d.items():
 		branch_name=branch_name,
 		timeout_min=1)
 		for key,value in jobs_state.items():
-			#print(key, ":", value)
+			print(key, ":", value)
 			if value=='passed':
 				print key + ' passed'
 			else:
