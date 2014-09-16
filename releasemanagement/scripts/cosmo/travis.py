@@ -8,7 +8,7 @@ import yoci.travis.functional_api
 fail_file="cosmo_unit_tests_fail.log"
 
 branch_name=os.environ["BRANCH_NAME"]
-tests_repos_sha_list=os.environ["TESTS_REPO_SHA_LIST"]
+tests_repos_sha_list=str(os.environ["TESTS_REPO_SHA_LIST"])
 print "tests_repos_sha_list="+tests_repos_sha_list
 #defauly_config_file_path=os.environ["DEFAULT_CONFIG_FILE_PATH"]
 
