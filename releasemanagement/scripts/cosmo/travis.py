@@ -5,18 +5,18 @@ os.environ["DEFAULT_CONFIG_FILE_PATH"]="yoci/config.yml"
 import json
 import yoci.travis.functional_api
 
-
-
-fail_repo=""
-fail_file="cosmo_unit_tests_fail.log"
-if os.path.exists(fail_file):
-    os.remove(fail_file)
+fail_repos=""
+utests_fail_file="unit_tests_failure.log"
+itests_fail_file="i_tests_failure.log"
+if os.path.exists(utests_fail_file):
+    os.remove(utests_fail_file)
+if os.path.exists(itests_fail_file):
+    os.remove(itests_fail_file)
 
 tests_repos_sha_list=os.environ["TESTS_REPO_SHA_LIST"]
 print "tests_repos_sha_list="+tests_repos_sha_list
 
 branch_name=os.environ["BRANCH_NAME"]
-
 
 
 
@@ -30,8 +30,6 @@ for repo,sha in d.items():
 	else:
 		parent_repo='cloudify-cosmo/'
 	try:
-	
-		
 
 		jobs_state = yoci.travis.functional_api.get_jobs_status(sha,
 		parent_repo+repo,
@@ -43,14 +41,21 @@ for repo,sha in d.items():
 				print key + ' passed'
 			else:
 				print key + ' failed'
-				fail_repo=fail_repo+','+repo						
+				if repo == "cloudify-manager" and "run-integration-tests" in key:
+					print 'integration tests failed'
+					f1 = open(itests_fail_file, 'w')
+					f1.write("failed")
+					f1.close()
+				elif repo not in fail_repos:
+					fail_repos=fail_repos+','+repo
+				
 		
 	except RuntimeError:
 		print 'Exception'
-		fail_repo=fail_repo+','+repo		
+		fail_repos=fail_repos+','+repo		
 
-if fail_repo:
-	print 'fail_repo='+fail_repo
-	f1 = open(fail_file, 'w')
-	f1.write(fail_repo)
+if fail_repos:
+	print 'fail_repos='+fail_repos
+	f1 = open(utests_fail_file, 'w')
+	f1.write(fail_repos)
 	f1.close()
