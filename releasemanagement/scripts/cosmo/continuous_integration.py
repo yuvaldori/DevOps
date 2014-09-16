@@ -76,6 +76,9 @@ if PACK_CORE == "yes":
 
 	## prepares virtualenv and copies relevant files to manager virtualenv
 	do('pkm get -c manager')
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-amqp-influxdb'), manager_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
 	## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-dsl-parser'), manager_conf['sources_path'])
 	if r.return_code != 0:
