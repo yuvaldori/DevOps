@@ -31,7 +31,7 @@ for repo,sha in d.items():
 	if release_build == "true":
 		get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, a, b)],stdout = subprocess.PIPE).communicate()[0]
 		branch_name=get_name.rstrip()+"_build"
-	print "branch_name="branch_name
+	print "branch_name="+branch_name
 	
 	if repo == 'cosmo-ui':
 		parent_repo='CloudifySource/'
