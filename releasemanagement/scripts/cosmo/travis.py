@@ -1,8 +1,9 @@
 import os
+import json
+import subprocess
 
 os.environ["DEFAULT_CONFIG_FILE_PATH"]="yoci/config.yml"
 
-import json
 import yoci.travis.functional_api
 
 fail_repos=""
@@ -17,7 +18,9 @@ tests_repos_sha_list=os.environ["TESTS_REPO_SHA_LIST"]
 print "tests_repos_sha_list="+tests_repos_sha_list
 
 branch_name=os.environ["BRANCH_NAME"]
-
+release_build=os.environ["RELEASE_BUILD"]
+core_branch_name=os.environ["RELEASE_CORE_BRANCH_NAME"]
+plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
 
 
 d = json.loads(tests_repos_sha_list)
@@ -25,6 +28,11 @@ d = json.loads(tests_repos_sha_list)
 for repo,sha in d.items():
 	print repo
 	print sha
+	if release_build == "true":
+		get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, a, b)],stdout = subprocess.PIPE).communicate()[0]
+		branch_name=get_name.rstrip()+"_build"
+	print "branch_name="branch_name
+	
 	if repo == 'cosmo-ui':
 		parent_repo='CloudifySource/'
 	else:
