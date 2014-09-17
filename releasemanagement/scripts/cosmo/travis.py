@@ -46,9 +46,9 @@ for repo,sha in d.items():
 		for key,value in jobs_state.items():
 			#print(key, ":", value)
 			if value=='passed':
-				print key + ' passed'
+				print key + ' test_passed'
 			else:
-				print key + ' failed'
+				print key + ' test_failed'
 				if repo == "cloudify-manager" and "run-integration-tests" in key:
 					print 'integration tests failed'
 					f1 = open(itests_fail_file, 'w')
