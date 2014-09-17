@@ -54,6 +54,16 @@ do
 	svn diff $LOCAL_TRUNK_DIR/$dir >> $LOG_FILE
 done
 
+#C++ replace version in docs
+find . -type f -not \( -name .svn -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' -o -name '*.config' |
+while read fname
+do	
+	
+	grep "${MAJOR_OLD}\.${MINOR_OLD}" "$fname" && echo "$fname" >> test.log
+	sed -i "s/${MAJOR_OLD}\.${MINOR_OLD}/${MAJOR_NEW}\.${MINOR_NEW}/g" "$fname"
+	
+done
+
 #echo "*** Check-in changes to svn ***" >> $LOG_FILE
 #for dir in $dirs
 #do
