@@ -56,7 +56,7 @@ for repo,sha in d.items():
 				elif repo not in fail_repos:
 					fail_repos=fail_repos+','+repo
 					print key + ' failure'
-				else
+				else:
 					print key + ' failure'
 				
 		
