@@ -48,7 +48,6 @@ for repo,sha in d.items():
 			if value=='passed':
 				print key + ' success'
 			else:
-				print key + ' failure'
 				if repo == "cloudify-manager" and "run-integration-tests" in key:
 					print 'integration tests failed'
 					f1 = open(itests_fail_file, 'w')
@@ -56,6 +55,9 @@ for repo,sha in d.items():
 					f1.close()
 				elif repo not in fail_repos:
 					fail_repos=fail_repos+','+repo
+					print key + ' failure'
+				else
+					print key + ' failure'
 				
 		
 	except RuntimeError:
