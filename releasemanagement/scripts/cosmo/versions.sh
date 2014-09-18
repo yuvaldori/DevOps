@@ -165,7 +165,9 @@ do
  			git push origin $BRANCHNAME
  			exit_on_error
  			git checkout -b $VERSION_BRANCH_NAME
+ 			exit_on_error
  			git push origin $VERSION_BRANCH_NAME
+ 			exit_on_error
  			
  		fi
  		sha=$(git rev-parse HEAD)
