@@ -166,9 +166,18 @@ do
  			exit_on_error
  			git checkout -b $VERSION_BRANCH_NAME
  			git push origin $VERSION_BRANCH_NAME
+ 			
+ 		fi
+ 		sha=$(git rev-parse HEAD)
+ 		if [[ -z "$repo_names_sha" ]];then
+ 			repo_names_sha='[ "'$r'":"'$sha'"'	
+ 		else
+ 			repo_names_sha=$repo_names_sha',"'$r'":"'$sha'"'
  		fi
 		
  	popd
 	
-done	  	
+done
+repo_names_sha=$repo_names_sha' ]'
+echo $repo_names_sha > repo_names_sha
   	
