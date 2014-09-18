@@ -164,6 +164,8 @@ do
  		else
  			git push origin $BRANCHNAME
  			exit_on_error
+ 			git checkout -b $VERSION_BRANCH_NAME
+ 			git push origin $VERSION_BRANCH_NAME
  		fi
 		
  	popd
