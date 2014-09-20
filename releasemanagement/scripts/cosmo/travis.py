@@ -35,7 +35,7 @@ for repo,sha in d.items():
 	print repo
 	print sha
 	if repo in travis_repos:
-		get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, a, b)],stdout = subprocess.PIPE).communicate()[0]
+		get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
 		branch_name=get_name.rstrip()+"_build"
 		print "branch_name="+branch_name
 	
