@@ -15,6 +15,11 @@ if os.path.exists(itests_fail_file):
     os.remove(itests_fail_file)
 
 tests_repos_sha_list=os.environ["TESTS_REPO_SHA_LIST"]
+for i in tests_repos_sha_list:
+	if i == "[":
+		tests_repos_sha_list=tests_repos_sha_list.replace(i,"{")
+	if i == "]":
+		tests_repos_sha_list=tests_repos_sha_list.replace(i,"}")
 print "tests_repos_sha_list="+tests_repos_sha_list
 
 branch_name=os.environ["BRANCH_NAME"]
