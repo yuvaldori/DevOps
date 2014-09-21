@@ -77,11 +77,13 @@ do
 	echo "### Processing repository: $r"
 	
 	TAG_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
-
+	VERSION_BRANCH_NAME=$TAG_NAME"-build"
+	
 	pushd $r
 		
 		echo "TAG_NAME=$TAG_NAME"
-		#VERSION_BRANCH_NAME=$TAG_NAME"-build"
+		echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
+		
         	git tag -f $TAG_NAME
         	exit_on_error
 		git push -f origin tag $TAG_NAME
@@ -91,11 +93,14 @@ do
 		then
 			git checkout $BRANCH_NAME
 			exit_on_error
-				if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
 	 		then
 	 			echo "deleting nightly build branch"
 	 			git branch -D $VERSION_BRANCH_NAME
 	 			exit_on_error
+	 		fi
+	 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+	 		then
 	 			git push origin --delete $VERSION_BRANCH_NAME
 	 			exit_on_error
 	 		fi
