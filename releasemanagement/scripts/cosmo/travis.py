@@ -47,7 +47,7 @@ for repo,sha in d.items():
 
 			jobs_state = yoci.travis.functional_api.get_jobs_status(sha,
 			parent_repo+repo,
-			branch_name=,
+			branch_name='',
 			timeout_min=1)
 			for key,value in jobs_state.items():
 				#print(key, ":", value)
