@@ -67,7 +67,7 @@ do
  		
  		if [ "$RELEASE_BUILD" == "false" ]
 		then
-			# deleting nightly build branch if exist
+			echo "deleting $r nightly build branch if exist"
 			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
 	 		then
 	 			git branch -D $VERSION_BRANCH_NAME
@@ -168,7 +168,7 @@ do
  		else
  			git push origin $BRANCHNAME
  			exit_on_error
- 			git checkout -b -f $VERSION_BRANCH_NAME
+ 			git checkout -b $VERSION_BRANCH_NAME
  			exit_on_error
  			git push origin $VERSION_BRANCH_NAME
  			exit_on_error
