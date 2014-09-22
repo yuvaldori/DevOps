@@ -32,9 +32,9 @@ travis_repos=['cloudify-rest-client','cloudify-dsl-parser','cloudify-plugins-com
 d = json.loads(tests_repos_sha_list)
 
 for repo,sha in d.items():
-	print repo
-	print sha
 	if repo in travis_repos:
+		print repo
+		print sha
 		get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
 		branch_name=get_name.rstrip()+"-build"
 		print "branch_name="+branch_name
