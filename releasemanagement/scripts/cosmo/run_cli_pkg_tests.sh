@@ -3,6 +3,18 @@
 source ../../credentials.sh
 source ../../generic_functions.sh
 
+function exit_on_error {
+      status=$?
+      echo "exit code="$status    
+      if [ $status != 0 ] ; then
+         	echo "Failed (exit code $status)" 
+		vagrant destroy -f
+		exit_on_error
+		exit 1
+      fi
+
+}
+
 #WIN_CLI_PKG=http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-windows-cli.exe
 #LINUX64_CLI_PKG=http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-linux64-cli_amd64.deb
 #LINUX32_CLI_PKG=http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-linux32-cli_i386.deb
