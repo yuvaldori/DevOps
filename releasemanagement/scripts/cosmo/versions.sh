@@ -65,9 +65,20 @@ do
 		git reset --hard origin/$BRANCHNAME
  		exit_on_error
  		
-		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
-		if [ "$RELEASE_BUILD" == "true" ]
- 		then
+ 		if [ "$RELEASE_BUILD" == "false" ]
+		then
+			# deleting nightly build branch if exist
+			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+	 		then
+	 			git branch -D $VERSION_BRANCH_NAME
+	 			exit_on_error
+	 		fi
+	 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+	 		then
+	 			git push origin --delete $VERSION_BRANCH_NAME
+	 			exit_on_error
+	 		fi
+	 	else
  			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
  			#git branch -D $VERSION_BRANCH_NAME
  			#exit_on_error
@@ -157,7 +168,7 @@ do
  		else
  			git push origin $BRANCHNAME
  			exit_on_error
- 			git checkout -b $VERSION_BRANCH_NAME
+ 			git checkout -b -f $VERSION_BRANCH_NAME
  			exit_on_error
  			git push origin $VERSION_BRANCH_NAME
  			exit_on_error
