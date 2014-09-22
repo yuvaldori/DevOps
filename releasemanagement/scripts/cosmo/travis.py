@@ -48,7 +48,7 @@ for repo,sha in d.items():
 			jobs_state = yoci.travis.functional_api.get_jobs_status(sha,
 			parent_repo+repo,
 			branch_name=branch_name,
-			timeout_min=15)
+			timeout_min=30)
 			for key,value in jobs_state.items():
 				#print(key, ":", value)
 				if value=='passed':
