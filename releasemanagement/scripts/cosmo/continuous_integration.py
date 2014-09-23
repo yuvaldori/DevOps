@@ -149,10 +149,16 @@ if PACK_CORE == "yes":
 	r=p.pip('celery==3.0.24', ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
+	r=p.pip('pyzmq==14.3.1', ubuntu_agent_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-plugins-common'), ubuntu_agent_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/cloudify-script-plugin'), ubuntu_agent_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/plugins/plugin-installer'), ubuntu_agent_conf['sources_path'])
