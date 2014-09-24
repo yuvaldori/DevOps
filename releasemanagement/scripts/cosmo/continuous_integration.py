@@ -59,10 +59,10 @@ cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 
 
-PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
+'''PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 if os.path.exists(PACKAGE_SOURCE_PATH):
 	#local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
-	shutil.rmtree(PACKAGE_SOURCE_PATH)
+	shutil.rmtree(PACKAGE_SOURCE_PATH)'''
 
 
 p = PythonHandler()
