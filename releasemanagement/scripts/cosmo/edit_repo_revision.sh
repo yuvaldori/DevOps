@@ -49,17 +49,18 @@ sed -i "s/.*SET MANAGER_SHA=.*/SET MANAGER_SHA=$MANAGER_SHA/g" $win_agent_fileNa
 #exit_on_error
 sed -i "s/.*SET SCRIPTS_PLUGIN_SHA=.*/SET SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $win_agent_fileName
 
-centos_agent_fileName="  cloudify-packager-centos/vagrant/centos-agent/provision.sh"
-sed -i "s/.*SET REST_CLIENT_SHA=.*/SET REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $centos_agent_fileName
+centos_agent_fileName="cloudify-packager-centos/vagrant/centos-agent/provision.sh"
+ubuntu_agent_fileName="cloudify-packager-ubuntu/vagrant/ubuntu-agent/provision.sh"
+sed -i "s/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
 #exit_on_error
-sed -i "s/.*SET COMMON_PLUGIN_SHA=.*/SET COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $centos_agent_fileName
+sed -i "s/.*COMMON_PLUGIN_SHA=.*/COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
 #exit_on_error
-sed -i "s/.*SET MANAGER_SHA=.*/SET MANAGER_SHA=$MANAGER_SHA/g" $centos_agent_fileName
+sed -i "s/.*MANAGER_SHA=.*/MANAGER_SHA=$MANAGER_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
 #exit_on_error
-sed -i "s/.*SET PACKMAN_SHA=.*/SET PACKMAN_SHA=$PACKMAN_SHA/g" $centos_agent_fileName
+sed -i "s/.*PACKMAN_SHA=.*/PACKMAN_SHA=$PACKMAN_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
 #exit_on_error
-sed -i "s/.*SET SCRIPTS_PLUGIN_SHA=.*/SET SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $win_agent_fileName
+sed -i "s/.*SCRIPTS_PLUGIN_SHA=.*/SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
 
 components_fileName="  cloudify-packager-ubuntu/vagrant/cloudify-components/provision.sh"
-sed -i "s/.*SET PACKMAN_SHA=.*/SET PACKMAN_SHA=$PACKMAN_SHA/g" $components_fileName
+sed -i "s/.*PACKMAN_SHA=.*/PACKMAN_SHA=$PACKMAN_SHA/g" $components_fileName
 #exit_on_error
