@@ -99,6 +99,7 @@ PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 #commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
 local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 centos_agent_name="cloudify-centos-agent"
+ubuntu_agent_name="cloudify-ubuntu-agent"
 
 #This will be removed when the pkg_components will be ready
 if PACK_COMPONENTS == "yes":
@@ -111,7 +112,7 @@ if PACK_COMPONENTS == "yes":
 	components_new_name=cloudify_components_conf['name']+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(components,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 
-if PACK_CORE == "yes":
+if PACK_AGENT == "yes":
 	#print "copy 3rd parties deb from /packages folder"
 	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
@@ -126,6 +127,12 @@ if PACK_CORE == "yes":
 	print centos_agent
 	centos_agent_new_name='{0}_'.format(centos_agent_name)+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(centos_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,centos_agent_new_name))
+	
+	ubuntu_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_name))
+	ubuntu_agent = ''.join(ubuntu_agent)
+	print ubuntu_agent
+	ubuntu_agent_new_name='{0}_'.format(ubuntu_agent_name)+PRODUCT_VERSION_FULL+'_amd64.deb'
+	os.rename(ubuntu_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_new_name))
 	
 if PACK_CLI == "yes":
 	print "rename cli packages"
@@ -157,7 +164,7 @@ core_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_core
 print core_package
 ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_conf['name']))
 print ui_package
-ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_conf['name']))
+ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_name))
 print ubuntu_package
 centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
 print centos_agent_package
@@ -182,17 +189,22 @@ if PACK_COMPONENTS == "yes":
 		print "*** components package file is missing ***"
 		exit(1)
 if PACK_CORE == "yes":	
-	if core_package and ubuntu_package and win_agent_package and centos_agent_package:
+	if core_package:
 		a=core_package[0].split("/")		
 		filenames.append(a[2])
-		b=ubuntu_package[0].split("/")		
-		filenames.append(b[2])
-		c=win_agent_package[0].split("/")		
-		filenames.append(c[2])
-		d=centos_agent_package[0].split("/")		
-		filenames.append(d[2])
 	else:
-		print "*** core packages files are missing ***"
+		print "*** core packages file is missing ***"
+		exit(1)
+if PACK_AGENT == "yes":	
+	if ubuntu_package and win_agent_package and centos_agent_package:
+		a=ubuntu_package[0].split("/")		
+		filenames.append(a[2])
+		b=win_agent_package[0].split("/")		
+		filenames.append(b[2])
+		c=centos_agent_package[0].split("/")		
+		filenames.append(c[2])
+	else:
+		print "*** agent packages files are missing ***"
 		exit(1)
 if PACK_CLI == "yes":	
 	if cli_linux32_package and cli_linux64_package and cli_win_package:
