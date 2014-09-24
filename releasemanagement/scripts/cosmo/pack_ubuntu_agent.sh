@@ -14,7 +14,7 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		#vagrant destroy -f centos            
+		#vagrant destroy -f ubuntu            
 		exit 1
       fi
 
@@ -25,14 +25,14 @@ sudo chown tgrid -R /cloudify
 rm -f /cloudify/cloudify-ubuntu-agent*
 
 
-##destroy centos vm if exit
-vagrant destroy -f centos
+##destroy ubuntu vm if exit
+vagrant destroy -f ubuntu
 
-vagrant up centos --provider=aws
+vagrant up ubuntu --provider=aws
 exit_on_error
 
 ##get guest ip address
-ip_address=`vagrant ssh-config centos | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+ip_address=`vagrant ssh-config ubuntu | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
 ##copy ubuntu deb file
@@ -41,4 +41,4 @@ sudo chown tgrid -R /cloudify
 scp -i ~/.ssh/aws/vagrant_build.pem root@$ip_address:/cloudify/*.deb /cloudify
 exit_on_error
 
-vagrant destroy -f centos
+vagrant destroy -f ubuntu
