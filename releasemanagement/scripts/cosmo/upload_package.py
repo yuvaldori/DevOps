@@ -37,6 +37,7 @@ from boto.s3.connection import S3Connection
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
+PACK_AGENT=os.environ["PACK_AGENT"]
 PACK_UI=os.environ["PACK_UI"]
 PACK_CLI=os.environ["PACK_CLI"]
 BUILD_NUM=os.environ["BUILD_NUM"]
