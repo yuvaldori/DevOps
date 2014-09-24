@@ -184,8 +184,8 @@ if PACK_CORE == "yes":
 	os.rename(ubuntu_agent_file,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ubuntu-agent_'+PRODUCT_VERSION+'_amd64.deb'))
 	os.rename(ubuntu_agent_file32,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ubuntu-agent_'+PRODUCT_VERSION+'_x86_64.rpm'))
 	'''
-	print("*** packaging winsows-agent")
-	do('pkm pack -c cloudify-windows-agent')
+print("*** packaging winsows-agent")
+do('pkm pack -c cloudify-windows-agent')
 
 if PACK_UI == "yes":
 
