@@ -23,6 +23,8 @@ echo "plugins_tag_name=$plugins_tag_name"
 echo "RELEASE_BUILD=$RELEASE_BUILD"
 echo "PACKAGER_REPOS_LIST=$PACKAGER_REPOS_LIST"
 
+#removing /cloudify folder
+rm -rf /cloudify
 
 if [ "$PACK_CORE" == "yes" ]
 then
