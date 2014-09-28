@@ -49,7 +49,7 @@ echo "RELEASE_BUILD=$RELEASE_BUILD"
 echo "PACKAGER_REPOS_LIST=$PACKAGER_REPOS_LIST"
 
 
-if [ "$PACK_CORE" == "yes" ]
+if [ "$PACK_CORE" == "yes" ] || [ "$PACK_AGENT" == "yes" ]
 then
 	REPOS_LIST=$CORE_REPOS_LIST
 fi
@@ -61,7 +61,7 @@ if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$UI_REPOS_LIST
 fi
-if [ "$PACK_CORE" == "yes" ] || [ "$PACK_UI" == "yes" ]
+if [ "$PACK_CORE" == "yes" ] || [ "$PACK_UI" == "yes" ] || [ "$PACK_AGENT" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$PACKAGER_REPOS_LIST
 fi
