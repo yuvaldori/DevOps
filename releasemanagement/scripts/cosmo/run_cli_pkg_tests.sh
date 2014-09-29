@@ -63,4 +63,18 @@ exit_on_error
 vagrant destroy -f
 exit_on_error
 
+mkdir junit_reports
+##get guest ip address
+ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+echo "linux32 ip_address="$ip_address
+scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/vagrant/nosetests.xml junit_reports
+
+ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+echo "linux64 ip_address="$ip_address
+scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/vagrant/nosetests.xml junit_reports
+
+ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+echo "windows ip_address="$ip_address
+sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports
+
 #SystemError:
