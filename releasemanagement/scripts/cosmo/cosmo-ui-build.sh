@@ -16,8 +16,8 @@ retry "npm install"
 
 if [ $(basename `pwd`) = "cosmo-ui" ]
 then
-	retry "bower install -force"
-	retry "bower update -force"
+	retry "bower install -f"
+	retry "bower update -f"
 fi
 
 run_command "grunt build"
