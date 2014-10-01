@@ -24,6 +24,8 @@ function exit_on_error_copy_destroy {
 		sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports/nosetests_windows.xml
 
 		vagrant destroy -f
+		exit_on_error
+		
 		exit 1
       fi
 
