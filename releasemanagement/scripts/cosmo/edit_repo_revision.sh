@@ -51,7 +51,7 @@ sed -i "s/.*SET MANAGER_SHA=.*/SET MANAGER_SHA=$MANAGER_SHA/g" $win_agent_fileNa
 sed -i "s/.*SET SCRIPTS_PLUGIN_SHA=.*/SET SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $win_agent_fileName
 sed -i "s/.*SET DIAMOND_PLUGIN_SHA=.*/SET DIAMOND_PLUGIN_SHA=$DIAMOND_PLUGIN_SHA/g" $win_agent_fileName
 
-centos_agent_fileName="cloudify-packager-centos/vagrant/centos-agent/provision.sh"
+centos_agent_fileName="cloudify-packager-ubuntu/vagrant/centos-agent/provision.sh"
 ubuntu_agent_fileName="cloudify-packager-ubuntu/vagrant/ubuntu-agent/provision.sh"
 sed -i "s/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
 #exit_on_error
