@@ -6,7 +6,7 @@ DSL_SHA=$(echo $DSL_SHA)
 REST_CLIENT_SHA=$(echo $REST_CLIENT_SHA)
 CLI_SHA=$(echo $CLI_SHA)
 OS_PROVIDER_SHA=$(echo $OS_PROVIDER_SHA)
-PLUGIN_COMMON_SHA=$(echo $PLUGIN_COMMON_SHA)
+COMMON_PLUGIN_SHA=$(echo $COMMON_PLUGIN_SHA)
 PACKMAN_SHA=$(echo $PACKMAN_SHA)
 MANAGER_SHA=$(echo $MANAGER_SHA)
 SCRIPTS_PLUGIN_SHA=$(echo $SCRIPTS_PLUGIN_SHA)
@@ -44,7 +44,7 @@ sed -i "s/.*SET OS_PROVIDER_SHA=.*/SET OS_PROVIDER_SHA=$OS_PROVIDER_SHA/g" $win_
 win_agent_fileName="cloudify-packager-ubuntu/vagrant/windows-agent/provision.bat"
 sed -i "s/.*SET REST_CLIENT_SHA=.*/SET REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $win_agent_fileName
 #exit_on_error
-sed -i "s/.*SET PLUGIN_COMMON_SHA=.*/SET PLUGIN_COMMON_SHA=$PLUGIN_COMMON_SHA/g" $win_agent_fileName
+sed -i "s/.*SET COMMON_PLUGIN_SHA=.*/SET COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $win_agent_fileName
 #exit_on_error
 sed -i "s/.*SET MANAGER_SHA=.*/SET MANAGER_SHA=$MANAGER_SHA/g" $win_agent_fileName
 #exit_on_error
