@@ -26,7 +26,7 @@ branch_name=os.environ["BRANCH_NAME"]
 release_build=os.environ["RELEASE_BUILD"]
 core_branch_name=os.environ["RELEASE_CORE_BRANCH_NAME"]
 plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
-travis_repos=['cloudify-rest-client','cloudify-dsl-parser','cloudify-plugins-common','cloudify-cli','cloudify-manager','cloudify-bash-plugin','cloudify-chef-plugin','cloudify-fabric-plugin','cloudify-openstack-plugin','cloudify-script-plugin']
+travis_repos=['cloudify-rest-client','cloudify-dsl-parser','cloudify-plugins-common','cloudify-cli','cloudify-manager','cloudify-fabric-plugin','cloudify-openstack-plugin','cloudify-script-plugin']
 
 
 d = json.loads(tests_repos_sha_list)
