@@ -157,7 +157,6 @@ popd
 version-control -p $plugins_tag_name -c $core_tag_name -r $MILESTONE -b . -f version-tool/config/config.yaml -v
 echo "### version tool - end"
 
-exclude_repos="devops getcloudify-org"	  	
 echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
 do
@@ -173,22 +172,24 @@ do
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
-		git add -u .
-		git commit -m "Bump version to $VERSION_NAME"
-		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
-		if [ "$RELEASE_BUILD" == "true" ]
- 		then
- 			git push origin $VERSION_BRANCH_NAME
- 			exit_on_error
- 		else
- 			git push origin $BRANCHNAME
- 			exit_on_error
- 			git checkout -b $VERSION_BRANCH_NAME
- 			exit_on_error
- 			git push origin $VERSION_BRANCH_NAME
- 			exit_on_error
- 			
- 		fi
+		if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
+			git add -u .
+			git commit -m "Bump version to $VERSION_NAME"
+			#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+			if [ "$RELEASE_BUILD" == "true" ]
+	 		then
+	 			git push origin $VERSION_BRANCH_NAME
+	 			exit_on_error
+	 		else
+	 			git push origin $BRANCHNAME
+	 			exit_on_error
+	 			git checkout -b $VERSION_BRANCH_NAME
+	 			exit_on_error
+	 			git push origin $VERSION_BRANCH_NAME
+	 			exit_on_error
+	 			
+	 		fi
+	 	fi
  		sha=$(git rev-parse HEAD)
  		if [[ -z "$repo_names_sha" ]];then
  			repo_names_sha='[ "'$r'":"'$sha'"'	
