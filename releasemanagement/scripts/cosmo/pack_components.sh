@@ -35,6 +35,7 @@ echo "ip_address="$ip_address
 #echo "ip_address="$ip_address
 
 #copy components deb file
+ssh-keygen -f "/export/tgrid/.ssh/known_hosts" -R $ip_address
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
 scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify
