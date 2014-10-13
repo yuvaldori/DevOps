@@ -142,8 +142,21 @@ then
 	
 fi
 
-python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
+#python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
 #exit_on_error
+echo "### version tool"
+m -rf version_tool_env
+virtualenv version_tool_env
+source version_tool_env/bin/activate
+pushd repex
+ pip install .
+popd
+pushd version-tool
+ pip install .
+popd
+version-control -p $plugins_tag_name -c $core_tag_name -r $MILESTONE -b . -f version-tool/config/config.yaml -v
+echo "### version tool - end"
+
 exclude_repos="devops getcloudify-org"	  	
 echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
