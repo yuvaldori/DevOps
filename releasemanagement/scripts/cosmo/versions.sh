@@ -144,7 +144,7 @@ fi
 
 python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
 #exit_on_error
-	  	
+exclude_repos="devops getcloudify-org"	  	
 echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
 do
