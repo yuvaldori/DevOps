@@ -154,7 +154,7 @@ popd
 pushd version-tool
  pip install .
 popd
-version-control -p 1.1 -c 3.1 -r $MILESTONE -b . -f version-tool/config/config.yaml -v
+version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/config.yaml -v
 echo "### version tool - end"
 
 echo "### Repositories list: $REPOS_LIST"
