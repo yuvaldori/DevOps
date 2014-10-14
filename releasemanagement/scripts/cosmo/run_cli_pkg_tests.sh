@@ -3,6 +3,23 @@
 source ../../credentials.sh
 source ../../generic_functions.sh
 
+function copy_reports_files {
+	##get guest ip address
+	ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+	echo "linux32 ip_address="$ip_address
+	scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
+	exit_on_error
+	ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+	echo "linux64 ip_address="$ip_address
+	scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux64.xml
+	exit_on_error
+	ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+	echo "windows ip_address="$ip_address
+	sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports/nosetests_windows.xml
+	exit_on_error
+	
+}
+	
 
 function exit_on_error_copy_destroy {
       status=$?
@@ -10,19 +27,7 @@ function exit_on_error_copy_destroy {
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
          	
-         	##get guest ip address
-		ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-		echo "linux32 ip_address="$ip_address
-		scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
-		
-		ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-		echo "linux64 ip_address="$ip_address
-		scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux64.xml
-		
-		ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-		echo "windows ip_address="$ip_address
-		sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports/nosetests_windows.xml
-
+         	copy_reports_files
 		vagrant destroy -f
 		exit_on_error
 		
@@ -73,19 +78,7 @@ vagrant up --provider=aws
 exit_on_error_copy_destroy
 
 mkdir junit_reports
-##get guest ip address
-ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-echo "linux32 ip_address="$ip_address
-scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
-exit_on_error
-ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-echo "linux64 ip_address="$ip_address
-scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux64.xml
-exit_on_error
-ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-echo "windows ip_address="$ip_address
-sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports/nosetests_windows.xml
-exit_on_error
+copy_reports_files
 
 vagrant destroy -f
 exit_on_error
