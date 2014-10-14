@@ -3,19 +3,29 @@
 source ../../credentials.sh
 source ../../generic_functions.sh
 
+function exit_on_error {
+	status=$?
+	echo "exit code="$status
+	if [ $status != 0 ] ; then
+	echo "Failed (exit code $status)"
+	vagrant destroy -f
+	exit 1
+	fi
+}
+
 function copy_reports_files {
 	##get guest ip address
 	ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 	echo "linux32 ip_address="$ip_address
-	scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
+	scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
 	exit_on_error
 	ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 	echo "linux64 ip_address="$ip_address
-	scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux64.xml
+	scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux64.xml
 	exit_on_error
 	ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 	echo "windows ip_address="$ip_address
-	sshpass -p 'abcd1234!!' scp -p Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports/nosetests_windows.xml
+	sshpass -p 'abcd1234!!' scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports/nosetests_windows.xml
 	exit_on_error
 	
 }
