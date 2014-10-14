@@ -72,7 +72,7 @@ def generate_keys(repos_dir='.'):
 
     keys = {
         'spec/cloudify/{}/types.yaml'.format(
-            extract_version_number(cloudify_types_version)): cloudify_types_file
+            cloudify_types_version.replace('a', 'm')): cloudify_types_file
     }
 
     dirs = [x for x in os.walk(repos_dir).next()[1] if x.endswith('-plugin')]
@@ -82,7 +82,7 @@ def generate_keys(repos_dir='.'):
                                    PLUGIN_TEMPLATE_FILE)
         if os.path.exists(plugin_file):
             name = str(plugin_dir).replace('cloudify-', '')
-            plugin_version = extract_version_number(get_version(os.path.join(repos_dir, plugin_dir)))
+            plugin_version = get_version(os.path.join(repos_dir, plugin_dir)).replace('a', 'm')
             uri = 'spec/{}/{}/plugin.yaml'.format(name, plugin_version)
             keys[uri] = plugin_file
     return keys, cloudify_types_version
