@@ -182,11 +182,11 @@ do
 	 			exit_on_error
 	 		else
 	 			git push origin $BRANCHNAME
-	 			exit_on_error
+	 			#exit_on_error
 	 			git checkout -b $VERSION_BRANCH_NAME
-	 			exit_on_error
+	 			#exit_on_error
 	 			git push origin $VERSION_BRANCH_NAME
-	 			exit_on_error
+	 			#exit_on_error
 	 			
 	 		fi
 	 	fi
