@@ -1,4 +1,10 @@
 #!/bin/bash
+
+#sudo add-apt-repository ppa:chris-lea/node.js 
+#sudo apt-get update
+#sudo apt-get -y install nodejs
+#sudo npm install -g bower
+
 source generic_functions.sh
 branch_names=()
 git fetch -v --dry-run >fetch.output 2>&1
