@@ -4,6 +4,7 @@ source ../generic_functions.sh
 
 [ -d dist ] && sudo rm -rf dist
 [ -d node_modules ] && sudo rm -rf node_modules
+[ -d app/bower_components ] && rm -rf app/bower_components
 
 fromdos ~/.npm/connect/2.7.11/package/package.json
 fromdos ~/.npm/ncp/0.4.2/package/package.json
