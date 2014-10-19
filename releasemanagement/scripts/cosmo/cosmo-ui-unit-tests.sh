@@ -26,7 +26,7 @@ then
       branch_names+=($(echo $line | awk '{ print $2 }'))
     fi
   done
-
+print 'branch_names=${branch_names[@]}'
 
   for branch in "${branch_names[@]}"
   do
