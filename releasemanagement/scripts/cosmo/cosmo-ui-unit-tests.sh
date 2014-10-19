@@ -9,11 +9,12 @@ source generic_functions.sh
 branch_names=()
 git fetch -v --dry-run >fetch.output 2>&1
 IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'From https'))
+print 'list=${my_array[@]}'
 if [[ $list ]]
 then
   for line in "${list[@]}"
   do
-    echo $line
+    echo line=$line
     if [[ $line =~ '[new branch]' ]]
     then
       #echo "[new branch]"
