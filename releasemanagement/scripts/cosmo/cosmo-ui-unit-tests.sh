@@ -58,10 +58,10 @@ IFS=$'\n'; echo "branch_names=${branch_names[@]}"
     #retry "bower install -f"
     #retry "bower update -f"
     #run_command "grunt test"
- "sudo npm install"
- "bower install -f"
- "bower update -f"
- "grunt test"
+ sudo npm install
+ bower install -f
+ bower update -f
+ grunt test
   done
 else
   echo "Everything up-to-date"
