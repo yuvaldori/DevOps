@@ -30,7 +30,7 @@ function retry
 
 branch_names=()
 git fetch -v --dry-run >fetch.output 2>&1
-IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'From https')) ; echo 'list=${list[*]}'
+IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'From https')) ; echo "list=${list[@]}"
 if [[ $list ]]
 then
   for line in "${list[@]}"
@@ -47,7 +47,7 @@ then
       branch_names+=($(echo $line | awk '{ print $2 }'))
     fi
   done
-IFS=$'\n'; echo 'branch_names=${branch_names[*]}'
+IFS=$'\n'; echo "branch_names=${branch_names[@]}"
 
   for branch in "${branch_names[@]}"
   do
