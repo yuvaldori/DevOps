@@ -28,14 +28,9 @@ done
 for branch in "${branch_names[@]}"
 do
   git checkout $branch
-  fromdos ~/.npm/connect/2.7.11/package/package.json
-  fromdos ~/.npm/ncp/0.4.2/package/package.json
-  fromdos ~/.npm/underscore.string/2.2.1/package/package.json
-  sudo npm cache clean
-  sudo bower cache clean  
-
-  retry "npm install"
-  #bower install -f
+  sudo rm -rf node_modules/ 
+  rm -rf app/bower_components/
+  retry "sudo npm install"
   retry "bower install -f"
   retry "bower update -f"
   run_command "grunt test"
