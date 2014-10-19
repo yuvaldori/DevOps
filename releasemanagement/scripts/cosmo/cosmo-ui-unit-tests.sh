@@ -27,6 +27,7 @@ done
 for branch in "${branch_names[@]}"
 do
   git checkout $branch
+  bower install -f
   retry "bower install -f"
   retry "bower update -f"
   run_command "grunt test"
