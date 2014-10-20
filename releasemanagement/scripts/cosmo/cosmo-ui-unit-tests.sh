@@ -22,7 +22,9 @@ then
       branch_names+=($(echo $line | awk '{ print $2 }'))
     fi
   done
-IFS=$'\n'; echo "branch_names=${branch_names[@]}"
+  
+  IFS=$'\n'; echo "branch_names=${branch_names[@]}"
+  unset IFS
 
   for branch in "${branch_names[@]}"
   do
