@@ -10,6 +10,8 @@ source generic_functions.sh
 branch_names=()
 git fetch -v --dry-run >fetch.output 2>&1
 IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'From https')) ; echo "list=${list[@]}"
+unset IFS
+
 if [[ $list ]]
 then
   for line in "${list[@]}"
@@ -35,11 +37,8 @@ then
     retry "bower install -f"
     retry "bower update -f"
     run_command "grunt test"
- #sudo npm install
- #bower install -f
- #bower update -f
- #grunt test
   done
+  
 else
   echo "Everything up-to-date"
 fi
