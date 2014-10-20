@@ -14,6 +14,10 @@ unset IFS
 
 if [[ $list ]]
 then
+  
+  sudo npm cache clean
+  sudo bower cache clean
+
   for line in "${list[@]}"
   do
     echo line=$line
