@@ -54,14 +54,14 @@ IFS=$'\n'; echo "branch_names=${branch_names[@]}"
     git checkout $branch
     sudo rm -rf node_modules/ 
     rm -rf app/bower_components/
-    #retry "sudo npm install"
-    #retry "bower install -f"
-    #retry "bower update -f"
-    #run_command "grunt test"
- sudo npm install
- bower install -f
- bower update -f
- grunt test
+    retry "sudo npm install"
+    retry "bower install -f"
+    retry "bower update -f"
+    run_command "grunt test"
+ #sudo npm install
+ #bower install -f
+ #bower update -f
+ #grunt test
   done
 else
   echo "Everything up-to-date"
