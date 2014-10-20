@@ -45,7 +45,9 @@ then
     run_command "grunt test"
   done
   
+  git pull
+  
 else
-  echo "Everything up-to-date"
+  echo "***Everything up-to-date***"
 fi
   
