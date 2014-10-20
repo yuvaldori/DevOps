@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 #sudo add-apt-repository ppa:chris-lea/node.js 
 #sudo apt-get update
