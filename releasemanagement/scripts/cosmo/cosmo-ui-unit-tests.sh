@@ -43,9 +43,8 @@ then
     retry "bower install -f"
     retry "bower update -f"
     run_command "grunt test"
+    git pull
   done
-  
-  git pull
   
 else
   echo "***Everything up-to-date***"
