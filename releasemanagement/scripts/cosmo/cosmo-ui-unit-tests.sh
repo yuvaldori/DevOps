@@ -8,10 +8,10 @@
 source generic_functions.sh
 
 branch_names=()
-
+git checkout master
 git fetch -v --dry-run > fetch.output 2>&1
 
-IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-upload-pack' | grep -v 'From https')) ; echo "list=${list[@]}"
+IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-upload-pack' | grep -v 'From https')) ; echo "***list=${list[@]}"
 unset IFS
 
 if [[ $list ]]
@@ -31,7 +31,7 @@ then
     fi
   done
   
-  IFS=$'\n'; echo "branch_names=${branch_names[@]}"
+  IFS=$'\n'; echo "***branch_names=${branch_names[@]}"
   unset IFS
 
   for branch in "${branch_names[@]}"
@@ -43,8 +43,8 @@ then
     retry "bower install -f"
     retry "bower update -f"
     run_command "grunt test"
-    git pull
   done
+  git checkout master
   git pull
 else
   echo "***Everything up-to-date***"
