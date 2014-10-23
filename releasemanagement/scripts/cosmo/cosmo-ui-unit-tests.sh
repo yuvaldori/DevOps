@@ -14,6 +14,9 @@ git fetch -v --dry-run > fetch.output 2>&1
 IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-upload-pack' | grep -v 'From https')) ; echo "***list=${list[@]}"
 unset IFS
 
+git checkout master
+git pull
+  
 if [[ $list ]]
 then
   
@@ -44,8 +47,6 @@ then
     retry "bower update -f"
     run_command "grunt test"
   done
-  git checkout master
-  git pull
 else
   echo "***Everything up-to-date***"
 fi
