@@ -19,7 +19,7 @@ git pull
   
 if [[ $list ]]
 then
-  
+  echo "yes" > send.email
   sudo npm cache clean
   sudo bower cache clean
 
@@ -48,6 +48,7 @@ then
     run_command "grunt test"
   done
 else
+  echo "no" > send.email
   echo "***Everything up-to-date***"
 fi
   
