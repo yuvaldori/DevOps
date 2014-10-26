@@ -17,8 +17,8 @@ unset IFS
 git checkout master
 git pull
 
-rm -f send.email
-
+[ -f send.email ] && rm -f send.email
+ 
 if [[ $list ]]
 then
   echo "yes" > send.email
