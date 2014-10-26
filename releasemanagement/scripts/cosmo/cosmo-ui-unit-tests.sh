@@ -16,7 +16,9 @@ unset IFS
 
 git checkout master
 git pull
-  
+
+rm -f send.email
+
 if [[ $list ]]
 then
   echo "yes" > send.email
@@ -48,7 +50,6 @@ then
     run_command "grunt test"
   done
 else
-  echo "no" > send.email
   echo "***Everything up-to-date***"
 fi
   
