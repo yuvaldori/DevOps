@@ -190,8 +190,8 @@ do
 		 			exit_on_error
 		 		fi
 		 	fi
-		 	# create build branch and push branch to github
-		 	if [ "$RELEASE_BUILD" == "false" ]
+		 	# create build branch in nightly
+		 	if [ "$RELEASE_BUILD" == "false"  && "$run_unit_integration_tests" == "yes" ]
 		 	then
 		 		git checkout -b $VERSION_BRANCH_NAME
 		 		exit_on_error
