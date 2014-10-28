@@ -18,7 +18,7 @@ then
     for line in "${list[@]}"
     do
       echo "***line=$line"
-      if [[ $line =~ '\[new branch]\' ]]
+      if [[ $line =~ '\[new branch\]' ]]
       then
         branch_names+=($(echo $line | awk '{ print $4 }'))
       else
