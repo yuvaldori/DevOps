@@ -22,6 +22,8 @@ echo "core_tag_name=$core_tag_name"
 echo "plugins_tag_name=$plugins_tag_name"
 echo "RELEASE_BUILD=$RELEASE_BUILD"
 echo "PACKAGER_REPOS_LIST=$PACKAGER_REPOS_LIST"
+echo "run_unit_integration_tests=$run_unit_integration_tests"
+
 
 #removing /cloudify folder
 rm -rf /cloudify
@@ -191,7 +193,7 @@ do
 		 		fi
 		 	fi
 		 	# create build branch in nightly
-		 	if [ "$RELEASE_BUILD" == "false"  && "$run_unit_integration_tests" == "yes" ]
+		 	if [[ "$RELEASE_BUILD" == "false"  && "$run_unit_integration_tests" == "yes" ]]
 		 	then
 		 		git checkout -b $VERSION_BRANCH_NAME
 		 		exit_on_error
