@@ -13,27 +13,33 @@ git pull
 
 if [[ $list ]]
 then
-echo "yes" > send.email
-sudo npm cache clean
-sudo bower cache clean
-for line in "${list[@]}"
-  do
-    echo line=$line
-  if [[ $line =~ '[new branch]' ]]
-  then
-    branch_names+=($(echo $line | awk '{ print $4 }'))
-  else
-    commit=($(echo $line | awk '{ print $1 }')) 
-    echo '***commit=$commit'
-    echo "files=$(git show --name-only $commit | grep 'core/\|openspaces/')"
-    if [[ $(git show --name-only $commit | grep 'core/\|openspaces/') ]]
-    then
-      branch_names+=($(echo $line | awk '{ print $2 }'))
-    fi
-  fi
-done
-IFS=$'\n'; echo "***branch_names=${branch_names[@]}"
-unset IFS
+    #echo "yes" > send.email
+
+    for line in "${list[@]}"
+    do
+      echo "***line=$line"
+      if [[ $line =~ '\[new branch]\' ]]
+      then
+        branch_names+=($(echo $line | awk '{ print $4 }'))
+      else
+        commit=($(echo $line | awk '{ print $1 }')) 
+        echo "***commit=$commit"
+        echo "***files=$(git show --name-only $commit)"
+        if [[ $(git show --name-only $commit | grep 'core/\|openspaces/') ]]
+        then
+          branch_names+=($(echo $line | awk '{ print $2 }'))
+        else
+          echo "### Everything up-to-date"
+        fi
+      fi
+    done
+    IFS=$'\n'; echo "***branch_names=${branch_names[@]}"
+    unset IFS
+else
+    echo "### Everything up-to-date"
+fi
+
+
 
 #for branch in "${branch_names[@]}"
 #do
@@ -42,4 +48,4 @@ unset IFS
 #else
 #  echo "***Everything up-to-date***"
 #fi
-echo "***Done***"
+echo "### Done"
