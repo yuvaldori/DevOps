@@ -27,12 +27,12 @@ then
 
   for line in "${list[@]}"
   do
-    echo line=$line
-    if [[ $line =~ '[new branch]' ]]
+    echo "***line=$line"
+    if [[ "$line" =~ "\[new branch\]" ]]
     then
-      branch_names+=($(echo $line | awk '{ print $4 }'))
+      branch_names+=($(echo "$line" | awk '{ print $4 }'))
     else
-      branch_names+=($(echo $line | awk '{ print $2 }'))
+      branch_names+=($(echo "$line" | awk '{ print $2 }'))
     fi
   done
   
