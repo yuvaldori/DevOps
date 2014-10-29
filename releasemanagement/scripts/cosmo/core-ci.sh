@@ -39,17 +39,13 @@ then
     IFS=$'\n'; echo "***branch_names=${branch_names[@]}"
     echo "${branch_names[@]}" > branch.names
     unset IFS
+    for branch in "${branch_names[@]}"
+    do
+      git checkout $branch
+    done
 else
     echo "### Everything up-to-date"
 fi
 
 
-
-#for branch in "${branch_names[@]}"
-#do
-#  git checkout $branch
-#done
-#else
-#  echo "***Everything up-to-date***"
-#fi
 echo "### Done"
