@@ -36,6 +36,7 @@ then
       fi
     done
     IFS=$'\n'; echo "***branch_names=${branch_names[@]}"
+    echo "${branch_names[@]}" > branch.names
     unset IFS
 else
     echo "### Everything up-to-date"
