@@ -42,6 +42,13 @@ then
     for branch in "${branch_names[@]}"
     do
       git checkout $branch
+      pushd core/tools
+        ant -f quickbuild.xml update_platform_version
+        #build runtimes
+        ant test_all
+        #build openspaces
+        ant -f quickbuild.xml prepare_openspaces
+      popd
     done
 else
     echo "### Everything up-to-date"
