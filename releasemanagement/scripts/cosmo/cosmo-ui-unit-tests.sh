@@ -18,7 +18,8 @@ git checkout master
 git pull
 
 [ -f send.email ] && rm -f send.email
- 
+[ -f branch.names ] && rm -f branch.names
+
 if [[ $list ]]
 then
   echo "yes" > send.email
@@ -37,6 +38,7 @@ then
   done
   
   IFS=$'\n'; echo "***branch_names=${branch_names[@]}"
+  echo "${branch_names[@]}" > branch.names
   unset IFS
 
   for branch in "${branch_names[@]}"
