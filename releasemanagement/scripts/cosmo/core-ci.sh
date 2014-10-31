@@ -43,11 +43,10 @@ then
     do
       git checkout $branch
       pushd core/tools
-        ant -f quickbuild.xml update_platform_version
-        #build runtimes
-        ant test_all
-        #build openspaces
-        ant -f quickbuild.xml prepare_openspaces
+        #build runtimes and openspaces
+        ant -f quickbuild.xml ciCompilation
+        #run unit tests
+        ant -f ciTests
       popd
     done
 else
