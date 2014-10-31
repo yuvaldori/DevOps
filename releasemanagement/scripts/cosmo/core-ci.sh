@@ -21,7 +21,7 @@ then
       echo "***line=$line"
       if [[ "$line" =~ "\[new branch\]" ]]
       then
-        branch_names+=$(echo "$line" | awk '{ print $4 }')
+        branch_names+=$(echo "$line" | awk '{ print $4 }')" "
       else
         commit=$(echo "$line" | awk '{ print $1 }')
         echo "***commit=$commit"
