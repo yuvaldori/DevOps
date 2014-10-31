@@ -28,8 +28,6 @@ then
         echo "***files=$(git show --name-only $commit)"
         if [[ $(git show --name-only $commit | grep 'core/\|openspaces/') ]]
         then
-          echo "***line=$line"
-          echo "***branch_names=$branch_names"
           branch_names+=$(echo "$line" | awk '{ print $2 }')
         else
           echo "### Everything up-to-date"
