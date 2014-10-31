@@ -43,14 +43,14 @@ then
     do
       echo "JAVA_HOME=$JAVA_HOME"
       export JAVA_HOME=$JAVA_HOME
-      ant_params='-Dnew.build.number="$new.build.number"'
+      ant_params='-Dnew.build.number="$new.build.number" -Dbuild.type="$build.type" -Dgs.product.version="$gs.product.version" -Dtgrid.suite.target-jvm="$tgrid.suite.target-jvm" -DbuildDate-jvm="$buildDate" -Dcvs.root="$cvs.root" -Dgs.internal.systems.not.available="$gs.internal.systems.not.available -Dbuild.qa.suite.type="$build.qa.suite.type" -Dtgrid.suite.factory-class="$tgrid.suite.factory-class" '
       git checkout $branch
       pushd core/tools
         #build runtimes and openspaces
         echo "ant -f quickbuild.xml ciCompilation $ant_params"
         ant -f quickbuild.xml ciCompilation $ant_params
         #run unit tests
-        ant -f ciTests $ant_params
+        ant -f quickbuild.xml ciTests $ant_params
       popd
     done
 else
