@@ -41,10 +41,14 @@ then
     unset IFS
     for branch in "${branch_names[@]}"
     do
+      echo "JAVA_HOME=$JAVA_HOME"
+      export JAVA_HOME=$JAVA_HOME
+      ant_params='-Dnew.build.number="$new.build.number"'
       git checkout $branch
       pushd core/tools
         #build runtimes and openspaces
-        ant -f quickbuild.xml ciCompilation
+        echo "ant -f quickbuild.xml ciCompilation $ant_params"
+        ant -f quickbuild.xml ciCompilation $ant-params
         #run unit tests
         ant -f ciTests
       popd
