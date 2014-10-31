@@ -48,9 +48,9 @@ then
       pushd core/tools
         #build runtimes and openspaces
         echo "ant -f quickbuild.xml ciCompilation $ant_params"
-        ant -f quickbuild.xml ciCompilation $ant-params
+        ant -f quickbuild.xml ciCompilation $ant_params
         #run unit tests
-        ant -f ciTests
+        ant -f ciTests $ant_params
       popd
     done
 else
