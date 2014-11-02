@@ -63,5 +63,9 @@ else
     echo "### Everything up-to-date"
 fi
 
+git checkout master
+git clean -df
+git reset --hard origin/master  
+git pull
 
 echo "### Done"
