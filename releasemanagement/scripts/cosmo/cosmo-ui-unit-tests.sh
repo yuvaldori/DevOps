@@ -6,6 +6,7 @@
 #sudo npm install -g bower
 
 source generic_functions.sh
+source params.sh
 
 branch_names=()
 git checkout master
@@ -13,7 +14,7 @@ git checkout master
 git fetch -v --dry-run
 if [ $? != 0 ] ; then
   rm -rf cosmo-ui/
-  git clone https://github.com/CloudifySource/cosmo-ui.git
+  git clone https://opencm:${GIT_PWD}@github.com/CloudifySource/cosmo-ui.git
 fi
 
 git fetch -v --dry-run > fetch.output 2>&1
