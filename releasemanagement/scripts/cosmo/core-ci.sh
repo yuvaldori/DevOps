@@ -4,6 +4,7 @@ source ../generic_functions.sh
 source ../params.sh
 
 echo "new.build.number=$new.build.number"
+echo "build.type=$build.type"
 
 branch_names=()
 git checkout master
