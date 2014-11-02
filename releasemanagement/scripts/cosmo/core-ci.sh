@@ -29,14 +29,14 @@ then
       echo "***line=$line"
       if [[ "$line" =~ "\[new branch\]" ]]
       then
-        branch_names+=" "$(echo "$line" | awk '{ print $4 }')
+        branch_names+=$(echo "$line" | awk '{ print $4 }')
       else
         commit=$(echo "$line" | awk '{ print $1 }')
         echo "***commit=$commit"
         echo "***files=$(git show --name-only $commit)"
         if [[ $(git show --name-only $commit | grep 'core/\|openspaces/') ]]
         then
-          branch_names+=" "$(echo "$line" | awk '{ print $2 }')
+          branch_names+=$(echo "$line" | awk '{ print $2 }')
         else
           echo "### Everything up-to-date"
         fi
