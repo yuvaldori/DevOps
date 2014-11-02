@@ -23,8 +23,6 @@ IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-u
 unset IFS
 
 git checkout master
-git clean -df
-git reset --hard origin/master
 git pull
 
 [ -f send.email ] && rm -f send.email
@@ -64,4 +62,9 @@ then
 else
   echo "***Everything up-to-date***"
 fi
-  
+
+git checkout master
+git clean -df
+git reset --hard origin/master  
+git pull
+
