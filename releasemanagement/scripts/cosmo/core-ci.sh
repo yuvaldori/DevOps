@@ -4,7 +4,7 @@ source generic_functions.sh
 branch_names=()
 git checkout master
 git fetch -v --dry-run > fetch.output 2>&1
-IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-upload-pack' | grep -v 'From https')) ; echo "***list=${list[@]}"
+IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-upload-pack' | grep -v 'From https' | grep -v 'error:')) ; echo "***list=${list[@]}"
 unset IFS
 git checkout master
 git pull
