@@ -9,7 +9,7 @@ git checkout master
 git fetch -v --dry-run
 if [ $? != 0 ] ; then
     rm -rf cosmo-ui/
-    git clone https://github.com/Gigaspaces/xap.git
+    git clone https://opencm:${GIT_PWD}@github.com/Gigaspaces/xap.git
 fi
 
 git fetch -v --dry-run > fetch.output 2>&1
