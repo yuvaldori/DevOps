@@ -1,6 +1,8 @@
 #!/bin/bash -x
 
-source generic_functions.sh
+source ../generic_functions.sh
+source ../params.sh
+
 branch_names=()
 git checkout master
 
