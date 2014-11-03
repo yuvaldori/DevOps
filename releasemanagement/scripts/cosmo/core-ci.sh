@@ -63,6 +63,7 @@ fi
 echo "### Clean environment"
 git checkout master
 git clean -df
-
+git reset --hard origin/master  
+#git pull
 
 echo "### Done"
