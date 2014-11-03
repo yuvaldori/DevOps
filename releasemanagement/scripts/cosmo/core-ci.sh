@@ -47,10 +47,13 @@ then
       git checkout $branch
       pushd core/tools
         #build runtimes and openspaces
-        echo "ant -f quickbuild.xml ciCompilation $ant_params"
+        echo "### Starting ciCompilation"
         ant -f quickbuild.xml ciCompilation $ant_params
+        echo "### ciCompilation Done"
         #run unit tests
+        echo "### Starting ciTests"
         ant -f quickbuild.xml ciTests $ant_params
+        echo "### ciTests Done"
       popd
     done
 else
