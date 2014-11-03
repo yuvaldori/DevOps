@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 source ../generic_functions.sh
 source ../params.sh
