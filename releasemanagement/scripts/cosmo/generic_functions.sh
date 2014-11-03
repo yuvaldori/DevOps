@@ -1,3 +1,13 @@
+function pre_git_pull {
+    git fetch -v --dry-run
+    if [ $? != 0 ] ; then
+      pushd ../
+        rm -rf $1
+        git clone $2
+      popd
+    fi
+}
+
 function  exit_on_error {
       status=$?
       echo "exit code="$status    
