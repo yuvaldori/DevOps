@@ -17,6 +17,7 @@ function copy_reports_files {
 	##get guest ip address
 	ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 	echo "linux32 ip_address="$ip_address
+	echo "copying report to "$PWD"/junit_reports/nosetests_linux32.xml"
 	scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
 	exit_on_error
 	ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
@@ -87,7 +88,9 @@ vagrant destroy -f
 vagrant up --provider=aws
 exit_on_error_copy_destroy
 
+echo "creating dir junit_report in "$PWD 
 mkdir junit_reports
+echo "copying report files"
 copy_reports_files
 
 vagrant destroy -f
