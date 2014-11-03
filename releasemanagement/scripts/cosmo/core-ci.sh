@@ -3,17 +3,8 @@
 source ../generic_functions.sh
 source ../params.sh
 
-echo "new_build_number=$new_build_number"
-echo "build_type=$build_type"
-
 branch_names=()
 git checkout master
-
-git fetch -v --dry-run
-if [ $? != 0 ] ; then
-    rm -rf xap/
-    git clone https://opencm:${GIT_PWD}@github.com/Gigaspaces/xap.git
-fi
 
 git fetch -v --dry-run > fetch.output 2>&1
 IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-upload-pack' | grep -v 'From https' | grep -v 'error:')) ; echo "***list=${list[@]}"
