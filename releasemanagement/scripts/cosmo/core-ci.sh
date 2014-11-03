@@ -23,7 +23,7 @@ git pull
 
 [ -f send.email ] && rm -f send.email
 [ -f branch.names ] && rm -f branch.names
-
+ant_params="-Dnew.build.number=$new_build_number -Dbuild.type=$build_type -Dgs.product.version=$gs.product.version -Dtgrid.suite.target-jvm=$tgrid.suite.target-jvm -DbuildDate-jvm=$buildDate -Dcvs.root=$cvs.root -Dgs.internal.systems.not.available=$gs.internal.systems.not.available -Dbuild.qa.suite.type=$build.qa.suite.type -Dtgrid.suite.factory-class=$tgrid.suite.factory-class -Dtgrid.suite.launcher-class=$tgrid.suite.launcher-class -Dpermutation.file.path=$permutation.file.path -Dbuild.qa.suite.version=$build.qa.suite.version -Dtgrid.suite.custom.includepackage=$tgrid.suite.custom.includepackage -Dtgrid.suite.custome.excludepackage=$tgrid.suite.custome.excludepackage -Dtgrid.suite.custom.jvmargs=$tgrid.suite.custom.jvmargs -Djvm.size.args=$jvm.size.args -Dmilestone=$milestone -Dbuild.gs.version=$build.gs.version -Dsvn.revision=$svn.revision -Drelease.build=$release.build -Dsvnant.repository.user=$svnant.repository.user -Dsvnant.repository.passwd=$svnant.repository.passwd -Dput.user=$put.user -Dpublish.package.to.S3=$publish.package.to.S3 -Ds3.publish.folder=$s3.publish.folder -Dpublish.jars.to.S3=$publish.jars.to.S3 -Dmaven.repo.local=$maven.repo.local -Dbuild.timestamp=$build.timestamp -Ds3.dev.and.packages.publish.folder=$s3.dev.and.packages.publish.folder"
 if [[ $list ]]
 then
     echo "yes" > send.email
