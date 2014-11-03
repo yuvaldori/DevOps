@@ -11,7 +11,7 @@ git checkout master
 
 git fetch -v --dry-run
 if [ $? != 0 ] ; then
-    rm -rf cosmo-ui/
+    rm -rf xap/
     git clone https://opencm:${GIT_PWD}@github.com/Gigaspaces/xap.git
 fi
 
