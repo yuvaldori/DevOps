@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 #sudo add-apt-repository ppa:chris-lea/node.js 
 #sudo apt-get update
@@ -11,12 +11,6 @@ source params.sh
 branch_names=()
 git checkout master
 
-git fetch -v --dry-run
-if [ $? != 0 ] ; then
-  rm -rf cosmo-ui/
-  git clone https://opencm:${GIT_PWD}@github.com/CloudifySource/cosmo-ui.git
-fi
-
 git fetch -v --dry-run > fetch.output 2>&1
 
 IFS=$'\n'; list=($(cat fetch.output | grep -v 'up to date' | grep -v 'POST git-upload-pack' | grep -v 'From https' | grep -v 'error:')) ; echo "***list=${list[@]}"
@@ -25,12 +19,12 @@ unset IFS
 git checkout master
 git pull
 
-[ -f send.email ] && rm -f send.email
-[ -f branch.names ] && rm -f branch.names
+[ -f ../send.email ] && rm -f ../send.email
+[ -f ../branch.names ] && rm -f ../branch.names
 
 if [[ $list ]]
 then
-  echo "yes" > send.email
+  echo "yes" > ../send.email
   sudo npm cache clean
   sudo bower cache clean
 
@@ -46,11 +40,12 @@ then
   done
   
   IFS=$'\n'; echo "***branch_names=${branch_names[@]}"
-  echo "${branch_names[@]}" > branch.names
+  echo "${branch_names[@]}" > ../branch.names
   unset IFS
 
   for branch in "${branch_names[@]}"
   do
+    echo "### Starting tests on $branch"
     git checkout $branch
     sudo rm -rf node_modules/ 
     rm -rf app/bower_components/
@@ -58,13 +53,16 @@ then
     retry "bower install -f"
     retry "bower update -f"
     run_command "grunt test"
+    echo "### Done tests on $branch"
   done
 else
   echo "***Everything up-to-date***"
 fi
 
+echo "### Clean environment"
 git checkout master
 git clean -df
 git reset --hard origin/master  
-git pull
+#git pull
 
+echo "### Done"
