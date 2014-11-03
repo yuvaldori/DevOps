@@ -1,10 +1,12 @@
 function pre_git_pull {
+    pushd $1
     git fetch -v --dry-run
     if [ $? != 0 ] ; then
-      pushd ../
-        rm -rf $1
+      	popd
+      	rm -rf $1
         git clone $2
-      popd
+    else
+    	popd
     fi
 }
 
