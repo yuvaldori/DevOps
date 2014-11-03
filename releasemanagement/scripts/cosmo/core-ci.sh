@@ -3,8 +3,8 @@
 source ../generic_functions.sh
 source ../params.sh
 
-echo 'new.build.number=$new.build.number'
-echo 'build.type=$build.type'
+echo "new_build_number=$new_build_number"
+echo "build_type=$build_type"
 
 branch_names=()
 git checkout master
