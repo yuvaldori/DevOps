@@ -28,7 +28,7 @@ then
         commit=$(echo "$line" | awk '{ print $1 }')
         echo "***commit=$commit"
         echo "***files=$(git show --name-only $commit)"
-        if [[ $(git show --name-only $commit | grep 'core/\|openspaces/\|tests/') ]]
+        if [[ $(git show --name-only $commit | grep 'core/\|openspaces/\|tests/\|tf/') ]]
         then
           branch_names+=($(echo "$line" | awk '{ print $2 }'))
           echo "yes" > ../send.email
