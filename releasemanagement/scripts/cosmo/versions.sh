@@ -34,7 +34,7 @@ then
 fi
 if [ "$PACK_CLI" == "yes" ]
 then
-	REPOS_LIST=$REPOS_LIST" "$CLI_REPOS_LIST
+	REPOS_LIST=$REPOS_LIST" "$CLI_REPOS_LIST" "$CORE_REPOS_LIST
 fi
 if [ "$PACK_UI" == "yes" ]
 then
