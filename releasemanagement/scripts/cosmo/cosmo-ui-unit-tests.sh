@@ -5,8 +5,8 @@
 #sudo apt-get -y install nodejs
 #sudo npm install -g bower
 
-source generic_functions.sh
-source params.sh
+source ../generic_functions.sh
+source ../params.sh
 
 branch_names=()
 git checkout master
