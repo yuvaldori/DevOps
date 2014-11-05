@@ -47,8 +47,11 @@ then
   do
     echo "### Starting tests on $branch"
     git checkout $branch
-    sudo rm -rf node_modules/ 
-    rm -rf app/bower_components/
+    
+    [ -d dist ] && sudo rm -rf dist
+    [ -d node_modules ] && sudo rm -rf node_modules
+    [ -d app/bower_components ] && rm -rf app/bower_components
+
     retry "sudo npm install"
     retry "bower install -f"
     retry "bower update -f"
