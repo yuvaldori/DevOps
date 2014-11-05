@@ -19,6 +19,7 @@ if [ $(basename `pwd`) = "cosmo-ui" ]
 then
 	retry "bower install -f"
 	retry "bower update -f"
+	#grunt including tests
 	run_command "grunt --no-color"
 fi
 
