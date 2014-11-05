@@ -21,7 +21,8 @@ then
 	retry "bower update -f"
 fi
 
-run_command "grunt build"
+#run_command "grunt build"
+run_command "grunt"
 
 if [ $(basename `pwd`) = "cosmo-grafana" ]
 then
