@@ -55,7 +55,7 @@ then
     retry "sudo npm install"
     retry "bower install -f"
     retry "bower update -f"
-    run_command "grunt test"
+    run_command "grunt test --no-color"
     echo "### Done tests on $branch"
   done
 else
