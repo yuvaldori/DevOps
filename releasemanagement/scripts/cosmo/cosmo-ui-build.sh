@@ -22,7 +22,7 @@ then
 fi
 
 #run_command "grunt build"
-run_command "grunt"
+run_command "grunt --no-color"
 
 if [ $(basename `pwd`) = "cosmo-grafana" ]
 then
