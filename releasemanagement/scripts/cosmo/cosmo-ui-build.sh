@@ -19,13 +19,13 @@ if [ $(basename `pwd`) = "cosmo-ui" ]
 then
 	retry "bower install -f"
 	retry "bower update -f"
+	run_command "grunt --no-color"
 fi
 
-#run_command "grunt build"
-run_command "grunt --no-color"
 
 if [ $(basename `pwd`) = "cosmo-grafana" ]
 then
+	run_command "grunt build"
 	cp -fp package.json dist
 fi
 
