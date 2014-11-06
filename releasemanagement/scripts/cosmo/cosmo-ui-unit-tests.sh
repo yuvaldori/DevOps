@@ -21,6 +21,8 @@ git pull
 
 [ -f ../send.email ] && rm -f ../send.email
 [ -f ../branch.names ] && rm -f ../branch.names
+[ -d ../tests_resultss ] && rm -rf ../tests_results
+
 
 if [[ $list ]]
 then
@@ -56,6 +58,7 @@ then
     retry "bower install -f"
     retry "bower update -f"
     run_command "grunt test --no-color"
+    mkdir -p ../tests_results
     echo "### Done tests on $branch"
   done
 else
