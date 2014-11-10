@@ -98,7 +98,7 @@ do
  			elif [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
  			then
  				git checkout -b $VERSION_BRANCH_NAME origin/$VERSION_BRANCH_NAME
- 				#exit_on_error
+ 				exit_on_error
  				git reset --hard origin/$VERSION_BRANCH_NAME
  				exit_on_error
  			else
@@ -199,7 +199,7 @@ do
 	 	if [[ "$RELEASE_BUILD" == "false"  && "$run_unit_integration_tests" == "yes" ]]
 	 	then
 	 		git checkout -b $VERSION_BRANCH_NAME
-	 		exit_on_error
+	 		#exit_on_error
 	 		git push origin $VERSION_BRANCH_NAME
 	 		exit_on_error
 	 	fi
