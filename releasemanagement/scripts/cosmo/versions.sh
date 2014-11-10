@@ -79,6 +79,8 @@ do
 	 		fi
 	 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
 	 		then
+	 			#git branch -d -r origin/$VERSION_BRANCH_NAME
+	 			#exit_on_error
 	 			git push origin --delete $VERSION_BRANCH_NAME
 	 			exit_on_error
 	 		fi
