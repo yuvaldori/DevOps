@@ -77,7 +77,7 @@ do
 	 			git branch -D $VERSION_BRANCH_NAME
 	 			exit_on_error
 	 		fi
-	 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+	 		if [[ `git branch -r | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
 	 		then
 	 			#git branch -d -r origin/$VERSION_BRANCH_NAME
 	 			#exit_on_error
@@ -95,7 +95,7 @@ do
  				exit_on_error
  				git reset --hard origin/$VERSION_BRANCH_NAME
  				#exit_on_error
- 			elif [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+ 			elif [[ `git branch -r | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
  			then
  				git checkout -b $VERSION_BRANCH_NAME origin/$VERSION_BRANCH_NAME
  				exit_on_error
@@ -184,7 +184,7 @@ do
 			#if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
 			#then
 				git commit -m "Bump version to $VERSION_NAME"
-				#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+				#if [[ `git branch -r | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
 				if [ "$RELEASE_BUILD" == "true" ]
 		 		then
 		 			git push origin $VERSION_BRANCH_NAME
