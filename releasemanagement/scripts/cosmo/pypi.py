@@ -1,6 +1,6 @@
 import os
 import sys
-import shutil, errno
+#import shutil, errno
 from fabric.api import * #NOQA
 
 os.environ["DEFAULT_CONFIG_FILE_PATH"]="yoci/config.yml"
@@ -43,7 +43,7 @@ for repo in repo_list:
         sha=local('git rev-parse HEAD',capture=False)
         print sha
         try:
-                jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=1)
+                jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=60)
                 for key,value in jobs_state.items():
                         ##print(key, ":", value)
                         if value=='passed':
