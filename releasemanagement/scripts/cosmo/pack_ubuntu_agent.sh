@@ -7,7 +7,7 @@
 #####################################################################
 
 source ../../../credentials.sh
-
+source /etc/environment
 
 function  exit_on_error {
       status=$?
