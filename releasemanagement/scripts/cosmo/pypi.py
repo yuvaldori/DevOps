@@ -34,7 +34,7 @@ os.chdir(parent_dir)
 print os.getcwd()
 
 for repo in repo_list:
-        print repo
+        print "### Processing repository: {0}".format(repo)
         os.chdir(repo)
         remove_pypi_release_branch()
         local('git checkout -b {0} {1}'.format(pypi_branch_name,core_branch_name),capture=False)
@@ -44,7 +44,7 @@ for repo in repo_list:
         os.chdir(os.path.abspath('..'))
         
 for repo in repo_list:
-        print repo
+        print "### Run tests for repository: {0}".format(repo)
         os.chdir(repo)
         try:
                 jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=60)
