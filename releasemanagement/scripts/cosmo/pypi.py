@@ -37,11 +37,15 @@ for repo in repo_list:
         print repo
         os.chdir(repo)
         remove_pypi_release_branch()
-
         local('git checkout -b {0} {1}'.format(pypi_branch_name,core_branch_name),capture=False)
         local('git push origin {0}'.format(pypi_branch_name),capture=False)
         sha=local('git rev-parse HEAD',capture=False)
         print sha
+        os.chdir(os.path.abspath('..'))
+        
+for repo in repo_list:
+        print repo
+        os.chdir(repo)
         try:
                 jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=60)
                 for key,value in jobs_state.items():
