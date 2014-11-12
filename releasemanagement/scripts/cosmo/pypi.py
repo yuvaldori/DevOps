@@ -47,7 +47,7 @@ for repo in repo_list:
         print "### Run tests for repository: {0}".format(repo)
         os.chdir(repo)
         try:
-                jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=60)
+                jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=180)
                 for key,value in jobs_state.items():
                         ##print(key, ":", value)
                         if value=='passed':
