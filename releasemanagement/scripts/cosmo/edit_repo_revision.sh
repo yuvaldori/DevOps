@@ -13,6 +13,7 @@ SCRIPTS_PLUGIN_SHA=$(echo $SCRIPTS_PLUGIN_SHA)
 DIAMOND_PLUGIN_SHA=$(echo $DIAMOND_PLUGIN_SHA)
 OS_PLUGIN_SHA=$(echo $OS_PLUGIN_SHA)
 FABRIC_PLUGIN_SHA=$(echo $FABRIC_PLUGIN_SHA)
+SCRIPTS_PLUGIN_SHA=$(echo $SCRIPTS_PLUGIN_SHA)
 
 
 echo "DSL_SHA=$DSL_SHA"
@@ -25,6 +26,8 @@ echo "SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA"
 echo "DIAMOND_PLUGIN_SHA=$DIAMOND_PLUGIN_SHA"
 echo "OS_PLUGIN_SHA=$OS_PLUGIN_SHA"
 echo "FABRIC_PLUGIN_SHA=$FABRIC_PLUGIN_SHA"
+echo "SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA"
+
 
 #edit the revision number in linux/provision.sh
 fileName="cloudify-cli-packager/vagrant/linux/provision.sh"
@@ -39,6 +42,8 @@ sed -i "s/.*OS_PROVIDER_SHA=.*/OS_PROVIDER_SHA=$OS_PROVIDER_SHA/g" $fileName
 sed -i "s/.*COMMON_PLUGIN_SHA=.*/COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $fileName
 sed -i "s/.*OS_PLUGIN_SHA=.*/OS_PLUGIN_SHA=$OS_PLUGIN_SHA/g" $fileName
 sed -i "s/.*FABRIC_PLUGIN_SHA=.*/FABRIC_PLUGIN_SHA=$FABRIC_PLUGIN_SHA/g" $fileName
+sed -i "s/.*SCRIPTS_PLUGIN_SHA=.*/SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $fileName
+
 
 win_fileName="cloudify-cli-packager/vagrant/windows/provision.bat"
 sed -i "s/.*SET DSL_SHA=.*/SET DSL_SHA=$DSL_SHA/g" $win_fileName
@@ -52,7 +57,7 @@ sed -i "s/.*SET OS_PROVIDER_SHA=.*/SET OS_PROVIDER_SHA=$OS_PROVIDER_SHA/g" $win_
 sed -i "s/.*SET COMMON_PLUGIN_SHA=.*/SET COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $win_fileName
 sed -i "s/.*SET OS_PLUGIN_SHA=.*/SET OS_PLUGIN_SHA=$OS_PLUGIN_SHA/g" $win_fileName
 sed -i "s/.*SET FABRIC_PLUGIN_SHA=.*/SET FABRIC_PLUGIN_SHA=$FABRIC_PLUGIN_SHA/g" $win_fileName
-
+sed -i "s/.*SET SCRIPTS_PLUGIN_SHA=.*/SET SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $win_fileName
 
 win_agent_fileName="cloudify-packager-ubuntu/vagrant/windows-agent/provision.bat"
 sed -i "s/.*SET REST_CLIENT_SHA=.*/SET REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $win_agent_fileName
