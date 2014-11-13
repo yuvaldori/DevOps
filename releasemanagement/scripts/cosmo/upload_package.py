@@ -126,15 +126,7 @@ if PACK_AGENT == "yes":
 	ubuntu_agent_trusty_name = ubuntu_agent_trusty_conf.name
 	ubuntu_agent_precise_name = ubuntu_agent_trusty_conf.name
 	
-	ubuntu_trusty_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_trusty_name))
-	print ubuntu_trusty_package
-	ubuntu_precise_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_precise_name))
-	print ubuntu_precise_package
 	
-	centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_final_name))
-	print centos_agent_package
-	win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
-	print win_agent_package
 	#print "copy 3rd parties deb from /packages folder"
 	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
@@ -165,6 +157,15 @@ if PACK_AGENT == "yes":
 	print ubuntu_agent
 	ubuntu_agent_new_name='{0}_'.format(ubuntu_agent_precise_name)+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(ubuntu_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_new_name))
+	
+	ubuntu_trusty_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_trusty_name))
+	print ubuntu_trusty_package
+	ubuntu_precise_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_precise_name))
+	print ubuntu_precise_package
+	centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_final_name))
+	print centos_agent_package
+	win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+	print win_agent_package
 	
 if PACK_CLI == "yes":
 	print "rename cli packages"
