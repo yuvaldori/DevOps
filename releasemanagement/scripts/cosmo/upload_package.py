@@ -78,10 +78,7 @@ print("current dir: "+current_dir)
 parent_dir=os.path.abspath('..')
 print("root dir: "+parent_dir)
 
-cloudify_components_conf = packages.PACKAGES['cloudify-components']
-cloudify_core_conf = packages.PACKAGES['cloudify-core']
-cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
-ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
+
 
 
 ## copy cloudify3 package
@@ -104,6 +101,7 @@ ubuntu_agent_name="cloudify-ubuntu-agent"
 
 #This will be removed when the pkg_components will be ready
 if PACK_COMPONENTS == "yes":
+	cloudify_components_conf = packages.PACKAGES['cloudify-components']
 	#print "copy 3rd parties deb from /packages folder"
 	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
@@ -112,6 +110,10 @@ if PACK_COMPONENTS == "yes":
 	print components
 	components_new_name=cloudify_components_conf['name']+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(components,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
+	
+	print "check that components_package deb files exist in /cloudify folder"
+	components_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
+	print components_package
 
 if PACK_AGENT == "yes":
 	#print "copy 3rd parties deb from /packages folder"
@@ -155,30 +157,35 @@ if PACK_CLI == "yes":
 	cli_win = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), 'CloudifyCLI*.exe'))
 	cli_win = ''.join(cli_win)
 	print cli_win
-	os.rename(cli_win,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))		
+	os.rename(cli_win,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,cli_win_new_name))
+	
+	cli_linux32_package = glob.glob('{0}/cloudify-linux32-cli*_i386.deb'.format(PACKAGE_SOURCE_PATH))
+	print cli_linux32_package
+	cli_linux64_package = glob.glob('{0}/cloudify-linux64-cli*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+	print cli_linux64_package
+	cli_win_package = glob.glob('{0}/cloudify-windows-cli*.exe'.format(PACKAGE_SOURCE_PATH))
+	print cli_win_package
 
+if PACK_CORE == "yes":
+	cloudify_core_conf = packages.PACKAGES['cloudify-core']
+	core_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_core_conf['name']))
+	print core_package
 
-print "check that all deb files exist in /cloudify folder"
-components_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
-print components_package
-core_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_core_conf['name']))
-print core_package
-ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_conf['name']))
-print ui_package
-ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_name))
-print ubuntu_package
-centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
-print centos_agent_package
-win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
-print win_agent_package
-cli_linux32_package = glob.glob('{0}/cloudify-linux32-cli*_i386.deb'.format(PACKAGE_SOURCE_PATH))
-print cli_linux32_package
-cli_linux64_package = glob.glob('{0}/cloudify-linux64-cli*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
-print cli_linux64_package
-cli_win_package = glob.glob('{0}/cloudify-windows-cli*.exe'.format(PACKAGE_SOURCE_PATH))
-print cli_win_package
+if PACK_UI == "yes":
+	cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
+	ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_conf['name']))
+	print ui_package
 
-
+if PACK_AGENT == "yes":
+	ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
+	ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_name))
+	print ubuntu_package
+	centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
+	print centos_agent_package
+	win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+	print win_agent_package
+	
+	
 filenames=[]
 
 
