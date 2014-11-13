@@ -117,14 +117,14 @@ if PACK_COMPONENTS == "yes":
 
 if PACK_AGENT == "yes":
 	centos_final_agent_conf = packages.PACKAGES['cloudify-centos-final-agent']
-	centos_agent_final_name = centos_final_agent_conf.name
+	centos_agent_final_name = centos_final_agent_conf'[name']
 	#centos_agent_name="cloudify-centos-agent"
 	#ubuntu_agent_name="cloudify-ubuntu-agent"
 
 	ubuntu_agent_trusty_conf = packages.PACKAGES['cloudify-ubuntu-trusty-agent']
 	ubuntu_agent_precise_conf = packages.PACKAGES['cloudify-ubuntu-precise-agent']
-	ubuntu_agent_trusty_name = ubuntu_agent_trusty_conf.name
-	ubuntu_agent_precise_name = ubuntu_agent_trusty_conf.name
+	ubuntu_agent_trusty_name = ubuntu_agent_trusty_conf['name']
+	ubuntu_agent_precise_name = ubuntu_agent_trusty_conf['name']
 	
 	
 	#print "copy 3rd parties deb from /packages folder"
