@@ -94,9 +94,10 @@ PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
 
 #commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
+cloudify_core_conf = packages.PACKAGES['cloudify-core']
+PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
-centos_agent_name="cloudify-centos-agent"
-ubuntu_agent_name="cloudify-ubuntu-agent"
+
 
 #This will be removed when the pkg_components will be ready
 if PACK_COMPONENTS == "yes":
@@ -115,22 +116,34 @@ if PACK_COMPONENTS == "yes":
 	print components_package
 
 if PACK_AGENT == "yes":
+	centos_agent_name="cloudify-centos-agent"
+	ubuntu_agent_name="cloudify-ubuntu-agent"
+	ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
+	##ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_name))
+	##print ubuntu_package
+	##centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
+	##print centos_agent_package
+	##win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+	##print win_agent_package
 	#print "copy 3rd parties deb from /packages folder"
 	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 	win_agent = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
+	print win_agent
 	win_agent = ''.join(win_agent)
 	print win_agent
 	win_agent_new_name='cloudify-windows-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(win_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,win_agent_new_name))
 	
 	centos_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
+	print centos_agent
 	centos_agent = ''.join(centos_agent)
 	print centos_agent
 	centos_agent_new_name='{0}_'.format(centos_agent_name)+PRODUCT_VERSION_FULL+'_amd64.deb'
 	os.rename(centos_agent,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,centos_agent_new_name))
 	
 	ubuntu_agent = glob.glob('{0}/{1}_*_amd64.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_name))
+	print ubuntu_agent
 	ubuntu_agent = ''.join(ubuntu_agent)
 	print ubuntu_agent
 	ubuntu_agent_new_name='{0}_'.format(ubuntu_agent_name)+PRODUCT_VERSION_FULL+'_amd64.deb'
@@ -166,8 +179,6 @@ if PACK_CLI == "yes":
 	print cli_win_package
 
 if PACK_CORE == "yes":
-	cloudify_core_conf = packages.PACKAGES['cloudify-core']
-	PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 	core_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_core_conf['name']))
 	print core_package
 
@@ -176,15 +187,7 @@ if PACK_UI == "yes":
 	ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_conf['name']))
 	print ui_package
 
-if PACK_AGENT == "yes":
-	ubuntu_agent_conf = packages.PACKAGES['cloudify-ubuntu-agent']
-	ubuntu_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,ubuntu_agent_name))
-	print ubuntu_package
-	centos_agent_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,centos_agent_name))
-	print centos_agent_package
-	win_agent_package = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
-	print win_agent_package
-	
+
 	
 filenames=[]
 
