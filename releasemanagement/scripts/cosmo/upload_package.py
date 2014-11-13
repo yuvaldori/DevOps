@@ -82,7 +82,6 @@ print("root dir: "+parent_dir)
 
 
 ## copy cloudify3 package
-PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 if CONFIGURATION_NAME == "NightlyBuild":
 	PACKAGE_DEST_DIR="nightly"
 else:
@@ -168,6 +167,7 @@ if PACK_CLI == "yes":
 
 if PACK_CORE == "yes":
 	cloudify_core_conf = packages.PACKAGES['cloudify-core']
+	PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 	core_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_core_conf['name']))
 	print core_package
 
