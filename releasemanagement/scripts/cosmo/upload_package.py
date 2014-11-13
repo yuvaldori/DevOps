@@ -22,19 +22,19 @@ import glob
 import params
 from boto.s3.connection import S3Connection
 
-TARZAN_BUILDS="/export/builds/cloudify3"
-PACK_COMPONENTS="yes"
-PACK_CORE="yes"
-PACK_AGENT="yes"
-PACK_UI="yes"
-PACK_CLI="yes"
-BUILD_NUM="1-20"
-CONFIGURATION_NAME="NightlyBuild"
-PRODUCT_VERSION="3.0.0"
-PRODUCT_VERSION_FULL="3.0.0-m1-b1-20"
-CONFIGURATION_PATH_NAME="root/cosmo/master/CI/NightlyBuild"
+#TARZAN_BUILDS="/export/builds/cloudify3"
+#PACK_COMPONENTS="yes"
+#PACK_CORE="yes"
+#PACK_AGENT="yes"
+#PACK_UI="yes"
+#PACK_CLI="yes"
+#BUILD_NUM="1-20"
+#CONFIGURATION_NAME="NightlyBuild"
+#PRODUCT_VERSION="3.0.0"
+#PRODUCT_VERSION_FULL="3.0.0-m1-b1-20"
+#CONFIGURATION_PATH_NAME="root/cosmo/master/CI/NightlyBuild"
 #CONFIGURATION_PATH_NAME="root/cosmo/branch/CI/NightlyBuild"
-MILESTONE="rc"
+#MILESTONE="rc"
 
 
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
