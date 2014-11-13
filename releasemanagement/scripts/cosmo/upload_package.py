@@ -117,7 +117,7 @@ if PACK_COMPONENTS == "yes":
 
 if PACK_AGENT == "yes":
 	centos_final_agent_conf = packages.PACKAGES['cloudify-centos-final-agent']
-	centos_agent_final_name = centos_final_agent_conf'[name']
+	centos_agent_final_name = centos_final_agent_conf['name']
 	#centos_agent_name="cloudify-centos-agent"
 	#ubuntu_agent_name="cloudify-ubuntu-agent"
 
