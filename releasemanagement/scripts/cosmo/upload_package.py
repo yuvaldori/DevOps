@@ -22,17 +22,20 @@ import glob
 import params
 from boto.s3.connection import S3Connection
 
-#os.environ["TARZAN_BUILDS"]="/export/builds/cloudify3"
-#os.environ["PACK_COMPONENTS"]="no" 
-#os.environ["PACK_CORE"]="yes" 
-#os.environ["PACK_UI"]="yes"
-#os.environ["PACK_CLI"]="yes"
-#os.environ["BUILD_NUM"]="1-20"  
-#os.environ["CONFIGURATION_NAME"]="NightlyBuild" 
-#os.environ["PRODUCT_VERSION"]="3.0.0" 
-#os.environ["PRODUCT_VERSION_FULL"]="3.0.0-m1-b1-20" 
-#os.environ["CONFIGURATION_PATH_NAME"]="root/cosmo/trunk/CI/NightlyBuild"
-#os.environ["CONFIGURATION_PATH_NAME"]="root/cosmo/branch/CI/NightlyBuild"
+TARZAN_BUILDS="/export/builds/cloudify3"
+PACK_COMPONENTS="yes"
+PACK_CORE="yes"
+PACK_AGENT="yes"
+PACK_UI="yes"
+PACK_CLI="yes"
+BUILD_NUM="1-20"
+CONFIGURATION_NAME="NightlyBuild"
+PRODUCT_VERSION="3.0.0"
+PRODUCT_VERSION_FULL="3.0.0-m1-b1-20"
+CONFIGURATION_PATH_NAME="root/cosmo/master/CI/NightlyBuild"
+#CONFIGURATION_PATH_NAME="root/cosmo/branch/CI/NightlyBuild"
+MILESTONE="rc"
+
 
 TARZAN_BUILDS=os.environ["TARZAN_BUILDS"] 
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
@@ -79,8 +82,6 @@ parent_dir=os.path.abspath('..')
 print("root dir: "+parent_dir)
 
 
-
-
 ## copy cloudify3 package
 if CONFIGURATION_NAME == "NightlyBuild":
 	PACKAGE_DEST_DIR="nightly"
@@ -92,7 +93,6 @@ PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
 
-
 #commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
@@ -102,9 +102,6 @@ local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 #This will be removed when the pkg_components will be ready
 if PACK_COMPONENTS == "yes":
 	cloudify_components_conf = packages.PACKAGES['cloudify-components']
-	#print "copy 3rd parties deb from /packages folder"
-	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
-	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 	components = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
 	components = ''.join(components)
 	print components
@@ -118,18 +115,12 @@ if PACK_COMPONENTS == "yes":
 if PACK_AGENT == "yes":
 	centos_final_agent_conf = packages.PACKAGES['cloudify-centos-final-agent']
 	centos_agent_final_name = centos_final_agent_conf['name']
-	#centos_agent_name="cloudify-centos-agent"
-	#ubuntu_agent_name="cloudify-ubuntu-agent"
-
+	
 	ubuntu_agent_trusty_conf = packages.PACKAGES['cloudify-ubuntu-trusty-agent']
 	ubuntu_agent_precise_conf = packages.PACKAGES['cloudify-ubuntu-precise-agent']
 	ubuntu_agent_trusty_name = ubuntu_agent_trusty_conf['name']
-	ubuntu_agent_precise_name = ubuntu_agent_trusty_conf['name']
+	ubuntu_agent_precise_name = ubuntu_agent_precise_conf['name']
 	
-	
-	#print "copy 3rd parties deb from /packages folder"
-	#components_new_name='cloudify-components_'+PRODUCT_VERSION_FULL+'_amd64.deb'
-	#shutil.copyfile('/packages/cloudify-components_3.0.0_amd64.deb','{0}/{1}'.format(PACKAGE_SOURCE_PATH,components_new_name))
 	win_agent = glob.glob('{0}/cloudify-windows-agent_*_amd64.deb'.format(PACKAGE_SOURCE_PATH))
 	print win_agent
 	win_agent = ''.join(win_agent)
@@ -204,7 +195,6 @@ if PACK_UI == "yes":
 	cloudify_ui_conf = packages.PACKAGES['cloudify-ui']
 	ui_package = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_ui_conf['name']))
 	print ui_package
-
 
 	
 filenames=[]
@@ -301,7 +291,7 @@ for fname in filenames:
 	elif fname.startswith('cloudify-centos-agent'):
 		url_prefix="cloudify-centos-agent: "
 		
-	if "trunk" in CONFIGURATION_PATH_NAME:				
+	if "master" in CONFIGURATION_PATH_NAME:				
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
 		#Removing the version from packge name for nightly and continuous folders
 		if fname.endswith(".exe"):
@@ -330,7 +320,7 @@ for fname in filenames:
 	print "uploaded file %s to Tarzan" % fname
 
 	print "uploading nightly packages to S3"
-	if "trunk" in CONFIGURATION_PATH_NAME:
+	if "master" in CONFIGURATION_PATH_NAME:
 		bucket = conn.get_bucket("gigaspaces-repository-eu")
 		full_key_name = os.path.join(PACKAGE_DEST_PATH, name_without_version)   	 	
 		key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read') 		
