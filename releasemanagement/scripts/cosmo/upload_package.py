@@ -218,12 +218,12 @@ if PACK_AGENT == "yes":
 	if ubuntu_trusty_package and ubuntu_precise_package and win_agent_package and centos_agent_package:
 		a=ubuntu_trusty_package[0].split("/")		
 		filenames.append(a[2])
-		b=win_agent_package[0].split("/")		
+		b=ubuntu_precise_package[0].split("/")		
 		filenames.append(b[2])
 		c=centos_agent_package[0].split("/")		
 		filenames.append(c[2])
-		d=ubuntu_precise_package[0].split("/")		
-		filenames.append(c[2])
+		d=win_agent_package[0].split("/")		
+		filenames.append(d[2])
 	else:
 		print "*** agent packages files are missing ***"
 		exit(1)
@@ -278,7 +278,7 @@ for fname in filenames:
 		url_prefix="cloudify_core_package_url: "
 	elif fname.startswith('cloudify-ui'):
 		url_prefix="cloudify_ui_package_url: "
-	elif fname.startswith('cloudify-ubuntu-agent'):
+	elif fname.startswith('cloudify-ubuntu-precise-agent'):
 		url_prefix="cloudify_ubuntu_agent_url: "
 	elif fname.startswith('cloudify-windows-agent'):
 		url_prefix="cloudify_windows_agent_url: "
@@ -288,7 +288,7 @@ for fname in filenames:
 		url_prefix="cloudify-linux32-cli: "
 	elif fname.startswith('cloudify-linux64-cli'):
 		url_prefix="cloudify-linux64-cli: "
-	elif fname.startswith('cloudify-centos-agent'):
+	elif fname.startswith('cloudify-centos-final-agent'):
 		url_prefix="cloudify-centos-agent: "
 		
 	if "master" in CONFIGURATION_PATH_NAME:				
