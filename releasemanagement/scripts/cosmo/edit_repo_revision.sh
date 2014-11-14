@@ -68,17 +68,18 @@ sed -i "s/.*SET SCRIPTS_PLUGIN_SHA=.*/SET SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA
 sed -i "s/.*SET DIAMOND_PLUGIN_SHA=.*/SET DIAMOND_PLUGIN_SHA=$DIAMOND_PLUGIN_SHA/g" $win_agent_fileName
 
 centos_agent_fileName="cloudify-packager-ubuntu/vagrant/centos-agent/provision.sh"
-ubuntu_agent_fileName="cloudify-packager-ubuntu/vagrant/ubuntu-agent/provision.sh"
-sed -i "s/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
+ubuntu_agent_p_fileName="cloudify-packager-ubuntu/vagrant/ubuntu-precise-agent/provision.sh"
+ubuntu_agent_t_fileName="cloudify-packager-ubuntu/vagrant/ubuntu-trusty-agent/provision.sh"
+sed -i "s/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName
 #exit_on_error
-sed -i "s/.*COMMON_PLUGIN_SHA=.*/COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
+sed -i "s/.*COMMON_PLUGIN_SHA=.*/COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName
 #exit_on_error
-sed -i "s/.*MANAGER_SHA=.*/MANAGER_SHA=$MANAGER_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
+sed -i "s/.*MANAGER_SHA=.*/MANAGER_SHA=$MANAGER_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName
 #exit_on_error
-sed -i "s/.*PACKMAN_SHA=.*/PACKMAN_SHA=$PACKMAN_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
+sed -i "s/.*PACKMAN_SHA=.*/PACKMAN_SHA=$PACKMAN_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName
 #exit_on_error
-sed -i "s/.*SCRIPTS_PLUGIN_SHA=.*/SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
-sed -i "s/.*DIAMOND_PLUGIN_SHA=.*/DIAMOND_PLUGIN_SHA=$DIAMOND_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_fileName
+sed -i "s/.*SCRIPTS_PLUGIN_SHA=.*/SCRIPTS_PLUGIN_SHA=$SCRIPTS_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName
+sed -i "s/.*DIAMOND_PLUGIN_SHA=.*/DIAMOND_PLUGIN_SHA=$DIAMOND_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName
 
 components_fileName="  cloudify-packager-ubuntu/vagrant/cloudify-components/provision.sh"
 sed -i "s/.*PACKMAN_SHA=.*/PACKMAN_SHA=$PACKMAN_SHA/g" $components_fileName
