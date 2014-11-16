@@ -82,7 +82,10 @@ do
 	 			#git branch -d -r origin/$VERSION_BRANCH_NAME
 	 			#exit_on_error
 	 			git push origin --delete $VERSION_BRANCH_NAME
-	 			exit_on_error
+	 			if [ $? != 0 ] ; then
+			         	git fetch origin --prune
+			         	exit_on_error
+			      	fi
 	 		fi
 	 	else
  			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
