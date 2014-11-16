@@ -1,5 +1,5 @@
 #!/bin/bash -x
-
+BRANCH_NAME_FOR_TEST=$(echo $BRANCH_NAME_FOR_TEST)
 echo "BRANCH_NAME_FOR_TEST=$BRANCH_NAME_FOR_TEST"
 
 for dir in `pwd`/*/
@@ -10,7 +10,7 @@ do
 	then	
 		echo "### Processing repository: $repo"
 		pushd $repo
-			if [[ `git branch -r | grep origin/$BRANCH_NAME_FOR_TEST` ]]
+			if [ -n "$BRANCH_NAME_FOR_TEST" ] && [[ `git branch -r | grep origin/$BRANCH_NAME_FOR_TEST` ]]
 	 		then
 				if [[ `git branch | grep $BRANCH_NAME_FOR_TEST` ]] 
 				then
