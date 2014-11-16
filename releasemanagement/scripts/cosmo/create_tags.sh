@@ -102,7 +102,7 @@ do
 	 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
 	 		then
 	 			git push origin --delete $VERSION_BRANCH_NAME
-	 			#exit_on_error
+	 			exit_on_error
 	 			#In case of failure:
 	 			#git remote prune origin --dry-run (shows you what would be deleted)
 	 			#git fetch origin --prune (remove deleted branches)
