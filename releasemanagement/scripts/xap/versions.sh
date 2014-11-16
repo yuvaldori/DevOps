@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-echo "BRANCH_NAME_FOR_TEST=$BRANCH_NAME_FOR_TEST_FOR_TEST"
+echo "BRANCH_NAME_FOR_TEST=$BRANCH_NAME_FOR_TEST"
 
 for dir in `pwd`/*/
     do
