@@ -133,6 +133,8 @@ then
 	blueprints_openstack_yaml_file=cloudify-manager-blueprints/openstack/openstack.yaml
 	blueprints_simple_yaml_file=cloudify-manager-blueprints/simple/simple.yaml
 	
+	system_tests_file=cloudify-system-tests/suites/system_tests.sh
+	
 	ui_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE"-RELEASE/cloudify-ui_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	core_package_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE/cloudify-core_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	ubuntu_agent_url="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE/cloudify-ubuntu-precise-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
@@ -148,6 +150,8 @@ then
 	sed -i "s|windows_agent_url:.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file
 	sed -i "s|centos_agent_url:.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_cli_config_yaml_file $config_cli_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file
 	
+	sed -i "s|BRANCH_NAME_CORE=\${BRANCH_NAME_CORE=.*|BRANCH_NAME_CORE=\${BRANCH_NAME_CORE='$core_tag_name'}|" $system_tests_file
+	sed -i "s|BRANCH_NAME_PLUGINS=\${BRANCH_NAME_PLUGINS=.*|BRANCH_NAME_PLUGINS=\${BRANCH_NAME_PLUGINS='$plugins_tag_name'}|" $system_tests_file
 	
 fi
 
