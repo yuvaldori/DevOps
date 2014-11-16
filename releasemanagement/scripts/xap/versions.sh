@@ -25,6 +25,7 @@ for dir in `pwd`/*/
 				git checkout master
 				git reset --hard origin/master
 			fi
+			git pull
 		popd
 	fi
     done
