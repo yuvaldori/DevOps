@@ -28,9 +28,9 @@ do
 			git pull
 			sha=$(git rev-parse HEAD)
 	 		if [[ -z "$repo_names_sha" ]];then
-	 			repo_names_sha='[ "'$r'":"'$sha'"'	
+	 			repo_names_sha='[ "'$repo'":"'$sha'"'	
 	 		else
-	 			repo_names_sha=$repo_names_sha',"'$r'":"'$sha'"'
+	 			repo_names_sha=$repo_names_sha',"'$repo'":"'$sha'"'
 	 		fi
 		popd
 	fi
