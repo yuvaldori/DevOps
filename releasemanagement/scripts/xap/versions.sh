@@ -3,7 +3,7 @@
 echo "BRANCH_NAME_FOR_TEST=$BRANCH_NAME_FOR_TEST"
 
 for dir in `pwd`/*/
-    do
+do
         dir=${dir%*/}
         repo=${dir##*/}
 	if [ "$repo" != "examples" ]
@@ -26,7 +26,14 @@ for dir in `pwd`/*/
 				git reset --hard origin/master
 			fi
 			git pull
+			sha=$(git rev-parse HEAD)
+	 		if [[ -z "$repo_names_sha" ]];then
+	 			repo_names_sha='[ "'$r'":"'$sha'"'	
+	 		else
+	 			repo_names_sha=$repo_names_sha',"'$r'":"'$sha'"'
+	 		fi
 		popd
 	fi
-    done
-
+done
+repo_names_sha=$repo_names_sha' ]'
+echo $repo_names_sha > repo_names_sha
