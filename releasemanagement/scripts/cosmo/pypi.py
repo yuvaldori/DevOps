@@ -44,7 +44,7 @@ for repo in repo_list:
 for repo in repo_list:
         print "### Run tests for repository: {0}".format(repo)
         os.chdir(repo)
-        sha=local('git rev-parse HEAD',capture=False)
+        sha=local('git rev-parse HEAD',capture=True)
         print sha
         try:
                 jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=180)
