@@ -165,6 +165,10 @@ pushd version-tool
  pip install .
 popd
 version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/config.yaml -v
+if [ "$RELEASE_BUILD" == "true" ]
+then
+	version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/release-config.yaml -v
+fi
 echo "### version tool - end"
 
 echo "### Repositories list: $REPOS_LIST"
