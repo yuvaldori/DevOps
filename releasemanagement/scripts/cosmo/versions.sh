@@ -189,10 +189,10 @@ do
 		if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
 			git add -u .
 			# push versions to master/build-branch 
-			if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
-			then
+			#if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
+			#then
 				git commit -m "Bump version to $VERSION_NAME"
-				#if [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
+				
 				if [ "$RELEASE_BUILD" == "true" ]
 		 		then
 		 			git push origin $VERSION_BRANCH_NAME
@@ -201,7 +201,7 @@ do
 		 			git push origin $BRANCHNAME
 		 			exit_on_error
 		 		fi
-		 	fi
+		 	#fi
 		 	
 		 	#if [[ "$RELEASE_BUILD" == "true" && !`git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
 		 	#then
