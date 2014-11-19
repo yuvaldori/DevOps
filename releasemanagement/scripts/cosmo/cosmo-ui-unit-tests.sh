@@ -59,6 +59,7 @@ then
     retry "bower update -f"
     run_command "grunt test --no-color"
     mkdir -p ../tests_results
+    cp -f test-results.xml ../tests_results
     echo "### Done tests on $branch"
   done
 else
