@@ -75,53 +75,61 @@ function get_version_name
 	core_tag_name=$2
 	plugins_tag_name=$3
 
-	case "$proj" in
-		cloudify-bash-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_bash_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		cloudify-chef-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_chef_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;			 
-		cloudify-openstack-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_openstack_plugin_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-openstack-provider)
-			#VERSION_BRANCH_NAME=$cloudify_openstack_provider_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-python-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_python_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-puppet-plugin)
-			#VERSION_BRANCH_NAME=$cloudify_puppet_majorVersion
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-script-plugin)
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-libcloud-plugin)
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-libcloud-provider)
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-fabric-plugin)
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		cloudify-diamond-plugin)
-			VERSION_BRANCH_NAME=$plugins_tag_name
-			;;
-		#cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager|cloudify-packer)	
-			#VERSION_BRANCH_NAME=$cloudify_packager_majorVersion
-		#	VERSION_BRANCH_NAME=$plugins_tag_name
-		#	;;			 
-		*)
-			VERSION_BRANCH_NAME=$core_tag_name	 
-	esac
+	#case "$proj" in
+		#cloudify-bash-plugin)
+			##VERSION_BRANCH_NAME=$cloudify_bash_majorVersion
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;			 
+		#cloudify-chef-plugin)
+			##VERSION_BRANCH_NAME=$cloudify_chef_majorVersion
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;			 
+		#cloudify-openstack-plugin)
+			##VERSION_BRANCH_NAME=$cloudify_openstack_plugin_majorVersion
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-openstack-provider)
+			##VERSION_BRANCH_NAME=$cloudify_openstack_provider_majorVersion
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-python-plugin)
+			##VERSION_BRANCH_NAME=$cloudify_python_majorVersion
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-puppet-plugin)
+			##VERSION_BRANCH_NAME=$cloudify_puppet_majorVersion
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-script-plugin)
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-libcloud-plugin)
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-libcloud-provider)
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-fabric-plugin)
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		#cloudify-diamond-plugin)
+			#VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;
+		##cloudify-packager-ubuntu|packman|cloudify-packager-centos|cloudify-cli-packager|cloudify-packer)	
+			##VERSION_BRANCH_NAME=$cloudify_packager_majorVersion
+			##VERSION_BRANCH_NAME=$plugins_tag_name
+			#;;			 
+		#*)
+			#VERSION_BRANCH_NAME=$core_tag_name	 
+	
+	#esac
+	
+	if [[ "$proj" == *-plugin ]]
+	then
+	    VERSION_BRANCH_NAME=$plugins_tag_name
+	else
+	    VERSION_BRANCH_NAME=$core_tag_name
+	fi
 
 	echo $VERSION_BRANCH_NAME
 	
