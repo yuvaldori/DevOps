@@ -39,6 +39,7 @@ for repo in repo_list:
         #get tag name
         get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
 	tag_name=get_name.rstrip()
+	print "current_location="+os.getcwd()
 	print "tag_name="+tag_name
         
         os.chdir(repo)
