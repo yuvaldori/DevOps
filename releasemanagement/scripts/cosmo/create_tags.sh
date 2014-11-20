@@ -84,8 +84,14 @@ do
 		echo "TAG_NAME=$TAG_NAME"
 		echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 		
+		# recreate tag locally
         	git tag -f $TAG_NAME
         	exit_on_error
+        	# delete existing tag from remote
+        	#git push --delete origin tag
+        	git push origin :refs/tags/$TAG_NAME
+        	exit_on_error
+        	# push tag to remote
 		git push -f origin tag $TAG_NAME
 		exit_on_error
 		
