@@ -23,11 +23,10 @@ def remove_pypi_release_branch():
 core_branch_name=os.environ["RELEASE_CORE_BRANCH_NAME"]
 print "core_branch_name="+core_branch_name
 #core_branch_name='3.1rc1'
-travis_repos=['cloudify-rest-client','cloudify-dsl-parser','cloudify-plugins-common','cloudify-cli','cloudify-manager','cloudify-fabric-plugin','cloudify-openstack-plugin','cloudify-script-plugin']
 pypi_branch_name='pypi-release'
 parent_repo='cloudify-cosmo/'
 fail_repos=""
-repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client']
+repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin']
 parent_dir=os.path.abspath('..')
 print("root dir: "+parent_dir)
 os.chdir(parent_dir)
