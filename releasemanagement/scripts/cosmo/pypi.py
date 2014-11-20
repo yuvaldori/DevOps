@@ -1,6 +1,6 @@
 import os
 import sys
-#import shutil, errno
+import subprocess
 from fabric.api import * #NOQA
 
 os.environ["DEFAULT_CONFIG_FILE_PATH"]="yoci/config.yml"
@@ -23,6 +23,8 @@ def remove_pypi_release_branch():
 core_branch_name=os.environ["RELEASE_CORE_BRANCH_NAME"]
 print "core_branch_name="+core_branch_name
 #core_branch_name='3.1rc1'
+plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
+
 pypi_branch_name='pypi-release'
 parent_repo='cloudify-cosmo/'
 fail_repos=""
@@ -36,7 +38,11 @@ for repo in repo_list:
         print "### Processing repository: {0}".format(repo)
         os.chdir(repo)
         remove_pypi_release_branch()
-        local('git checkout -b {0} {1}'.format(pypi_branch_name,core_branch_name),capture=False)
+        #get tag name
+        get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
+	tag_name=get_name.rstrip()
+	print "tag_name="+tag_name
+        local('git checkout -b {0} {1}'.format(pypi_branch_name,tag_name),capture=False)
         local('git push origin {0}'.format(pypi_branch_name),capture=False)
         os.chdir(os.path.abspath('..'))
         
@@ -45,6 +51,7 @@ for repo in repo_list:
         os.chdir(repo)
         sha=local('git rev-parse HEAD',capture=True)
         print sha
+        
         try:
                 jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=180)
                 for key,value in jobs_state.items():
