@@ -164,7 +164,7 @@ popd
 pushd version-tool
  pip install .
 popd
-if [ "$MILESTONE" == "ga"]
+if [ "$MILESTONE" == "ga" ]
 then
 	version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -b . -f version-tool/config/config.yaml -v
 else	
