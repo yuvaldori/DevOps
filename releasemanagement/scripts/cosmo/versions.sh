@@ -164,7 +164,13 @@ popd
 pushd version-tool
  pip install .
 popd
-version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/config.yaml -v
+if [ "$MILESTONE" == "ga"]
+then
+	version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -b . -f version-tool/config/config.yaml -v
+else	
+	version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/config.yaml -v
+fi
+
 if [ "$RELEASE_BUILD" == "true" ]
 then
 	version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/release-config.yaml -v
