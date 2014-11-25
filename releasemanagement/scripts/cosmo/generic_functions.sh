@@ -124,7 +124,7 @@ function get_version_name
 	
 	#esac
 	
-	if [[ "$proj" == *-plugin ]]
+	if [[ "$proj" == *-plugin ]] || [[ "$proj" == *-provider ]]
 	then
 	    VERSION_BRANCH_NAME=$plugins_tag_name
 	else
