@@ -75,6 +75,8 @@ sudo apt-get -y install unzip
 unzip 0.6.1_linux_amd64.zip -d ~/packer
 add to PATH ~/packer
 
+#travis
+pip install requests
 
 #quickbuild
 sudo apt-get update
