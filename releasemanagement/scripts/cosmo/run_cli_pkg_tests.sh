@@ -49,14 +49,6 @@ function exit_on_error_copy_destroy {
 
 }
 
-#WIN_CLI_PKG=http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-windows-cli.exe
-#LINUX64_CLI_PKG=http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-linux64-cli_amd64.deb
-#LINUX32_CLI_PKG=http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/nightly/cloudify-linux32-cli_i386.deb
-#HP_USER=hpcloud@gigaspaces.com
-#HP_PWD=GS-bu1ld
-#HP_TENANT=hpcloud@gigaspaces.com
-#HP_AUTH_URL=https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/
-
 #copy cli packages to files/deb32|deb64|exe folders
 pushd files/exe
 	wget $WIN_CLI_PKG
