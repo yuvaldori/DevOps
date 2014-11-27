@@ -42,9 +42,6 @@ for repo in repo_list:
         get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
 	tag_name=get_name.rstrip()
 
-	#### need to remove in ga
-	tag_name=tag_name+"-build"
-	
 	print "current_location="+os.getcwd()
 	print "tag_name="+tag_name
         os.chdir(os.path.abspath('..'))
