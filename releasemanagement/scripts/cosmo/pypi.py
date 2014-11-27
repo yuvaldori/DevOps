@@ -28,8 +28,8 @@ plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
 pypi_branch_name='pypi-release'
 parent_repo='cloudify-cosmo/'
 fail_repos=""
-#repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin']
-repo_list=['cloudify-script-plugin']
+repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin','cloudify-openstack-plugin']
+
 parent_dir=os.path.abspath('..')
 print("root dir: "+parent_dir)
 os.chdir(parent_dir)
@@ -41,6 +41,10 @@ for repo in repo_list:
         os.chdir('yo-ci')
         get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
 	tag_name=get_name.rstrip()
+
+	#### need to remove in ga
+	tag_name=tag_name+"-build"
+	
 	print "current_location="+os.getcwd()
 	print "tag_name="+tag_name
         os.chdir(os.path.abspath('..'))
@@ -51,7 +55,7 @@ for repo in repo_list:
         local('git push origin {0}'.format(pypi_branch_name),capture=False)
         os.chdir(os.path.abspath('..'))
         
-for repo in repo_list:
+'''for repo in repo_list:
         print "### Run tests for repository: {0}".format(repo)
         os.chdir(repo)
         sha=local('git rev-parse HEAD',capture=True)
@@ -75,4 +79,4 @@ for repo in repo_list:
                 remove_pypi_release_branch()
 
         remove_pypi_release_branch()
-        os.chdir(os.path.abspath('..'))
+        os.chdir(os.path.abspath('..'))'''
