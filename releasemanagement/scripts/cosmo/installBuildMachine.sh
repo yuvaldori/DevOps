@@ -39,7 +39,7 @@ gem install compass
 
       # install prereqs
       sudo apt-get install -y vim make &&
-      ##sudo apt-get install -y rubygems &&
+      sudo apt-get install -y rubygems &&
 *** to install fpm on root and not on user tgrid (sudo su ; gem install fpm --no-ri --no-rdoc)
       gem install fpm --no-ri --no-rdoc &&
       sudo apt-get -y purge ##pip
