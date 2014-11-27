@@ -1,0 +1,6 @@
+build64A
+0 2 * * * find /opt/buildserver/publish/builds -name "*" -mtime +14 -exec rm -rf  {} \;
+0 3 * * * find /opt/buildserver/quickbuild-4.0.40/workspace -name "*" -type f -mtime +3 -exec rm -rf  {} \;
+0 4 * * * find /dev/shm/quickbuild/workspace -name "*" -type f -mtime +3 -exec rm -rf  {} \;
+0 5 * * * /opt/scripts/s3/s3clean.sh > "/opt/scripts/s3/`date +\%Y\%m\%d`-s3clean.txt"
+0 7 * * 5 rm -rfv /tmp/LocalMavenRepos/* > "/opt/scripts/LocalMavenRepos/`date +%Y-%m-%d`-LocalMavenRepos.txt"
