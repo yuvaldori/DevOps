@@ -52,7 +52,7 @@ for repo in repo_list:
         local('git push origin {0}'.format(pypi_branch_name),capture=False)
         os.chdir(os.path.abspath('..'))
         
-'''for repo in repo_list:
+for repo in repo_list:
         print "### Run tests for repository: {0}".format(repo)
         os.chdir(repo)
         sha=local('git rev-parse HEAD',capture=True)
@@ -76,4 +76,4 @@ for repo in repo_list:
                 remove_pypi_release_branch()
 
         remove_pypi_release_branch()
-        os.chdir(os.path.abspath('..'))'''
+        os.chdir(os.path.abspath('..'))
