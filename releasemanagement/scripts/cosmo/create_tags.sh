@@ -95,28 +95,28 @@ do
 		git push -f origin tag $TAG_NAME
 		exit_on_error
 		
-		if [ "$RELEASE_BUILD" == "false" ]
-		then
-			git checkout $BRANCH_NAME
-			exit_on_error
-			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
-	 		then
-	 			echo "deleting nightly build branch"
-	 			git branch -D $VERSION_BRANCH_NAME
-	 			exit_on_error
-	 		fi
-	 		if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
-	 		then
-	 			git push origin --delete $VERSION_BRANCH_NAME
-	 			if [ $? != 0 ] ; then
-			         	git fetch origin --prune
-			         	exit_on_error
-			      	fi
+		#if [ "$RELEASE_BUILD" == "false" ]
+		#then
+			#git checkout $BRANCH_NAME
+			#exit_on_error
+			#if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+	 		#then
+	 			#echo "deleting nightly build branch"
+	 			#git branch -D $VERSION_BRANCH_NAME
+	 			#exit_on_error
+	 		#fi
+	 		#if [[ `git branch -v -a | grep remotes/origin/$VERSION_BRANCH_NAME` ]]
+	 		#then
+	 			#git push origin --delete $VERSION_BRANCH_NAME
+	 			#if [ $? != 0 ] ; then
+			         	#git fetch origin --prune
+			         	#exit_on_error
+			      	#fi
 	 			#In case of failure:
-	 			#git remote prune origin --dry-run (shows you what would be deleted)
-	 			#git fetch origin --prune (remove deleted branches)
-	 		fi
-	 	fi
+	 			##git remote prune origin --dry-run (shows you what would be deleted)
+	 			##git fetch origin --prune (remove deleted branches)
+	 		#fi
+	 	#fi
 
   	popd
 done
