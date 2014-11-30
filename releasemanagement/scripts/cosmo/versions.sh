@@ -64,30 +64,35 @@ do
 	
 	pushd $r
 	
+		git pull origin
+		exit_on_error
 		git checkout $BRANCHNAME
 		exit_on_error
 		git reset --hard origin/$BRANCHNAME
  		exit_on_error
+ 		git clean -df .
+ 		exit_on_error
  		
- 		if [ "$RELEASE_BUILD" == "false" ]
-		then
-			echo "deleting $r nightly build branch if exist"
-			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
-	 		then
-	 			git branch -D $VERSION_BRANCH_NAME
-	 			exit_on_error
-	 		fi
-	 		if [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
-	 		then
-	 			#git branch -d -r origin/$VERSION_BRANCH_NAME
+ 		#if [ "$RELEASE_BUILD" == "false" ]
+		#then#
+			#echo "deleting $r nightly build branch if exist"
+			#if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
+	 		#then
+	 			#git branch -D $VERSION_BRANCH_NAME
 	 			#exit_on_error
-	 			git push origin --delete $VERSION_BRANCH_NAME
-	 			if [ $? != 0 ] ; then
-			         	git fetch origin --prune
-			         	exit_on_error
-			      	fi
-	 		fi
-	 	else
+	 		#fi
+	 		#if [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
+	 		#then
+	 			##git branch -d -r origin/$VERSION_BRANCH_NAME
+	 			##exit_on_error
+	 			#git push origin --delete $VERSION_BRANCH_NAME
+	 			#if [ $? != 0 ] ; then
+			         	#git fetch origin --prune
+			         	#exit_on_error
+			      	#fi
+	 		#fi
+	 	#else
+	 	if [ "$RELEASE_BUILD" == "true" ]
  			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
  			#git branch -D $VERSION_BRANCH_NAME
  			#exit_on_error
@@ -108,7 +113,6 @@ do
  				git checkout -b $VERSION_BRANCH_NAME
  				exit_on_error
  			fi
- 		
  		fi		
  		
  	popd
