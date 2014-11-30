@@ -64,7 +64,7 @@ do
 	
 	pushd $r
 	
-		git pull origin
+		git pull
 		exit_on_error
 		git checkout $BRANCHNAME
 		exit_on_error
