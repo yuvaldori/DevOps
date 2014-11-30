@@ -216,14 +216,14 @@ do
 		 	#fi
 		 	
 		fi
-	 	# create build branch in nightly
-	 	if [[ "$RELEASE_BUILD" == "false"  && "$run_unit_integration_tests" == "yes" ]]
-	 	then
-	 		git checkout -b $VERSION_BRANCH_NAME
+	 	# create build branch in nightly - no need to create build branch on nightly travis step waits on tags
+	 	#if [[ "$RELEASE_BUILD" == "false"  && "$run_unit_integration_tests" == "yes" ]]
+	 	#then
+	 		#git checkout -b $VERSION_BRANCH_NAME
 	 		#exit_on_error
-	 		git push origin $VERSION_BRANCH_NAME
-	 		exit_on_error
-	 	fi
+	 		#git push origin $VERSION_BRANCH_NAME
+	 		#exit_on_error
+	 	#fi
 	 
  		sha=$(git rev-parse HEAD)
  		if [[ -z "$repo_names_sha" ]];then
