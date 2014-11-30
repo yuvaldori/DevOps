@@ -64,9 +64,10 @@ do
 	
 	pushd $r
 	
-		git pull
-		exit_on_error
+		
 		git checkout $BRANCHNAME
+		exit_on_error
+		git pull
 		exit_on_error
 		git reset --hard origin/$BRANCHNAME
  		exit_on_error
