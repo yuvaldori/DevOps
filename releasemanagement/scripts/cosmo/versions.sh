@@ -71,8 +71,8 @@ do
 		exit_on_error
 		git reset --hard origin/$BRANCHNAME
  		exit_on_error
- 		git clean -df .
- 		exit_on_error
+ 		#git clean -df .
+ 		#exit_on_error
  		
  		#if [ "$RELEASE_BUILD" == "false" ]
 		#then#
