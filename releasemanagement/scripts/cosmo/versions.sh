@@ -93,6 +93,7 @@ do
 	 		#fi
 	 	#else
 	 	if [ "$RELEASE_BUILD" == "true" ]
+	 	then
  			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
  			#git branch -D $VERSION_BRANCH_NAME
  			#exit_on_error
