@@ -226,7 +226,7 @@ if PACK_COMPONENTS == "yes":
 		a=components_package[0].split("/")		
 		filenames.append(a[2]) 
 	
-else:
+	else:
 		print "*** components package file is missing ***"
 		exit(1)
 if PACK_CORE == "yes":	
