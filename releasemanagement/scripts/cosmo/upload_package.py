@@ -49,6 +49,8 @@ PRODUCT_VERSION=os.environ["PRODUCT_VERSION"]
 PRODUCT_VERSION_FULL=os.environ["PRODUCT_VERSION_FULL"]
 CONFIGURATION_PATH_NAME=os.environ["CONFIGURATION_PATH_NAME"]
 MILESTONE=os.environ["MILESTONE"]
+CREATE_DOCKER_IMAGES=os.environ["CREATE_DOCKER_IMAGES"]
+
 
 print TARZAN_BUILDS 
 print PACK_COMPONENTS
@@ -75,6 +77,15 @@ def copy_dir(src,dst):
 def remove_file(filename):
 	if os.path.isfile(filename):	
 		os.remove(filename)
+		
+def rename_packages(file_before_rename,new_file_name):
+	file = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), file_before_rename))
+	file = ''.join(file)
+	print "From rename_packages"+file
+	os.rename(file,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,new_file_name))
+	return (glob.glob('{0}/{1}'.format(PACKAGE_SOURCE_PATH,new_file_name)))
+
+	
 
 current_dir=os.path.dirname(os.path.realpath(__file__))
 print("current dir: "+current_dir)
@@ -99,7 +110,9 @@ PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 
 
-#This will be removed when the pkg_components will be ready
+if CREATE_DOCKER_IMAGES == "yes":
+	docker_image=rename_packages('cloudify-docker_*.tar','cloudify-docker_'+PRODUCT_VERSION_FULL+'.tar')
+	docker_image_data=rename_packages('cloudify-docker-data_*.tar','cloudify-docker-data'+PRODUCT_VERSION_FULL+'.tar')
 if PACK_COMPONENTS == "yes":
 	cloudify_components_conf = packages.PACKAGES['cloudify-components']
 	components = glob.glob('{0}/{1}*.deb'.format(PACKAGE_SOURCE_PATH,cloudify_components_conf['name']))
@@ -199,12 +212,21 @@ if PACK_UI == "yes":
 	
 filenames=[]
 
-
+if CREATE_DOCKER_IMAGES == "yes":
+	if docker_image and docker_image_data:
+		a=docker_image[0].split("/")		
+		filenames.append(a[2])
+		b=docker_image_data[0].split("/")		
+		filenames.append(b[2])
+	else:
+		print "*** docker_image files are missing ***"
+		exit(1)
 if PACK_COMPONENTS == "yes":
 	if components_package:
 		a=components_package[0].split("/")		
 		filenames.append(a[2]) 
-	else:
+	
+else:
 		print "*** components package file is missing ***"
 		exit(1)
 if PACK_CORE == "yes":	
@@ -290,6 +312,10 @@ for fname in filenames:
 		url_prefix="cloudify-linux64-cli: "
 	elif fname.startswith('cloudify-centos-final-agent'):
 		url_prefix="cloudify-centos-agent: "
+	elif fname.startswith('cloudify-docker'):
+		url_prefix="cloudify-docker: "
+	elif fname.startswith('cloudify-docker-data'):
+		url_prefix="cloudify-docker-data: "
 		
 	if "master" in CONFIGURATION_PATH_NAME:				
 		mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
