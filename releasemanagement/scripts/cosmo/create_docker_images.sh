@@ -27,6 +27,8 @@ build_image()
 
 build_images()
 { 
+  #sudo docker rmi -f $(sudo docker images | grep  'cloudify' | awk {'print $3'})
+  #sudo docker rmi -f $(sudo docker images | grep  'data' | awk {'print $3'})
   echo "###Building cloudify stack image"
   build_image $cloudify_packager_dir/docker cloudify:latest
   echo "###Building cloudify data image"
@@ -35,12 +37,10 @@ build_images()
 
 start_and_export_containers()
 {
-  sudo docker rmi -f $(sudo docker images | grep  'cloudify' | awk {'print $3'})
-  sudo docker rmi -f $(sudo docker images | grep  'data' | awk {'print $3'})
-  
+  sudo docker ps -a | grep 'data' | awk '{print $1}' | xargs --no-run-if-empty sudo docker rm -f
+  sudo docker ps -a | grep 'cloudify' | awk '{print $1}' | xargs --no-run-if-empty sudo docker rm -f
   sudo docker run -t --name=cloudify -d cloudify:latest /bin/bash
   sudo docker run -t -d --name data data /bin/bash
-  
   sudo docker export cloudify > /cloudify/cloudify-docker_.tar
   sudo docker export data > /cloudify/cloudify-docker-data_.tar
 }
