@@ -37,8 +37,8 @@ start_and_export_containers()
 {
   sudo docker run -t --name=cloudify -d cloudify:latest /bin/bash
   sudo docker run -t -d --name data data /bin/bash
-  sudo docker export cloudify > /cloudify/cloudify_docker
-  sudo docker export data > /cloudify/cloudify_docker_data
+  sudo docker export cloudify > /cloudify/cloudify-docker_.tar
+  sudo docker export data > /cloudify/cloudify-docker-data_.tar
 }
 
 main() 
