@@ -146,8 +146,8 @@ then
 	centos_agent_url=$url_prefix"/cloudify-centos-final-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	windows_agent_url=$url_prefix"/cloudify-windows-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	components_package_url=$url_prefix"/cloudify-components_"$PRODUCT_VERSION_FULL"_amd64.deb"
-	docker_url=$url_prefix"/cloudify_docker_"$PRODUCT_VERSION_FULL".tar"
-	docker_data_url=$url_prefix"/cloudify_docker_data_"$PRODUCT_VERSION_FULL".tar"
+	docker_url=$url_prefix"/cloudify-docker_"$PRODUCT_VERSION_FULL".tar"
+	docker_data_url=$url_prefix"/cloudify-docker-data_"$PRODUCT_VERSION_FULL".tar"
 	
 	
 	sed -i "s|components_package_url:.*|components_package_url: $(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
