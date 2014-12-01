@@ -69,11 +69,12 @@ sed -i "s|.*path = ../files/deb32/.*|path = ../files/deb32/`basename $LINUX32_CL
 
 
 #edit account info in cloudify-config.yaml
-yaml_fileName="files/openstack/cloudify-config.yaml"
-sed -i "s|.*username:.*|    username: $HP_USER|g" $yaml_fileName
-sed -i "s|.*password:.*|    password: $HP_PWD|g" $yaml_fileName
-sed -i "s|.*tenant_name:.*|    tenant_name: $HP_TENANT|g" $yaml_fileName
-sed -i "s|.*auth_url:.*|    auth_url: $HP_AUTH_URL|g" $yaml_fileName
+fileName="files/openstack/inputs.json.template"
+
+sed -i 's|"keystone_username":.*|    "keystone_username": "$HP_USER",|g' $fileName
+sed -i 's|"keystone_password":.*|    "keystone_password": "$HP_PWD",|g' $fileName
+sed -i 's|"keystone_tenant_name":.*|    "keystone_tenant_name": "$HP_TENANT",|g' $fileName
+sed -i 's|"keystone_url":.*|    "keystone_url": "$HP_AUTH_URL",|g' $fileName
 
 #destroy vms if exit
 vagrant destroy -f
