@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 source ../../credentials.sh
 source ../../generic_functions.sh
