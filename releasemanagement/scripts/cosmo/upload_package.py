@@ -300,7 +300,8 @@ for fname in filenames:
 		url_prefix="cloudify_core_package_url: "
 	elif fname.startswith('cloudify-ui'):
 		url_prefix="cloudify_ui_package_url: "
-	elif fname.startswith('cloudify-ubuntu-precise-agent'):
+	#elif fname.startswith('cloudify-ubuntu-precise-agent'):
+	elif fname.startswith('cloudify-ubuntu-agent'):
 		url_prefix="cloudify_ubuntu_agent_url: "
 	elif fname.startswith('cloudify-windows-agent'):
 		url_prefix="cloudify_windows_agent_url: "
