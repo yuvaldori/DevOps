@@ -24,6 +24,7 @@ do
 			#exit_on_error
 		else
 			git checkout $BRANCH_NAME
+			git pull
 			git reset --hard origin/$BRANCH_NAME
 		fi
 		git pull
