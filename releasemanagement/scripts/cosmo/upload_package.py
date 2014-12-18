@@ -126,6 +126,10 @@ if PACK_COMPONENTS == "yes":
 	print components_package
 
 if PACK_AGENT == "yes":
+	ubuntu_agent_merge=rename_packages('cloudify-trusty-agent_*.deb','cloudify-ubuntu-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb')
+    	#file_name=get_file_name_from_path(ubuntu_agent)
+    	#filenames.append(file_name)
+
 	centos_final_agent_conf = packages.PACKAGES['cloudify-centos-final-agent']
 	centos_agent_final_name = centos_final_agent_conf['name']
 	
@@ -246,6 +250,8 @@ if PACK_AGENT == "yes":
 		filenames.append(c[2])
 		d=win_agent_package[0].split("/")		
 		filenames.append(d[2])
+		e=ubuntu_agent_merge[0].split("/")		
+		filenames.append(e[2])
 	else:
 		print "*** agent packages files are missing ***"
 		exit(1)
