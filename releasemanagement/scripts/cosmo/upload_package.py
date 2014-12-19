@@ -95,7 +95,7 @@ PACKAGE_DEST_BUILD_DIR=PRODUCT_VERSION+"/"+MILESTONE+"-RELEASE"
 PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
-commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
+#commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
 cloudify_core_conf = packages.PACKAGES['cloudify-core']
 PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
 
