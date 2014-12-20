@@ -251,7 +251,7 @@ def main():
 		filenames.append(file_name)
 		
 		ubuntu_agent_merge=rename_packages('cloudify-trusty-agent_*.deb','cloudify-ubuntu-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb')
-        	file_name=get_file_name_from_path(ubuntu_agent)
+        	file_name=get_file_name_from_path(ubuntu_agent_merge)
         	filenames.append(file_name)
 
 		windows_agent_conf = packages.PACKAGES['cloudify-windows-agent']
