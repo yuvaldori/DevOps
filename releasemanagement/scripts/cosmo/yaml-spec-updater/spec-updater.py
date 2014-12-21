@@ -27,7 +27,7 @@ AWS_SECRET_ACCESS_KEY = params.AWS_SECRET_ACCESS_KEY
 
 BUCKET_NAME = 'getcloudify.org'
 VERSION_FILE = 'VERSION'
-PLUGIN_TEMPLATE_FILE = 'plugin.yaml.template'
+PLUGIN_TEMPLATE_FILE = 'plugin.yaml'
 
 
 def extract_version_number(v):
