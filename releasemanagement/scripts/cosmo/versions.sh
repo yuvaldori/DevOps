@@ -29,6 +29,7 @@ echo "run_unit_integration_tests=$run_unit_integration_tests"
 rm -rf /cloudify
 
 if [ "$PACK_CORE" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
+then
 	REPOS_LIST=$CORE_REPOS_LIST
 fi
 if [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
