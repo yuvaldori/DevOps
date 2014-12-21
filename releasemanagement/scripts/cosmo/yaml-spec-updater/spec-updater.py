@@ -170,10 +170,13 @@ if __name__ == '__main__':
             key = Key(bucket)
             key.key = k
 
-        if is_template(v):
-            content = get_plugin_yaml_content(cloudify_version, v)
-        else:
-            with open(v, 'r') as f:
+        #if is_template(v):
+            #content = get_plugin_yaml_content(cloudify_version, v)
+        #else:
+            #with open(v, 'r') as f:
+                #content = f.read()
+                
+        with open(v, 'r') as f:
                 content = f.read()
 
         try:
