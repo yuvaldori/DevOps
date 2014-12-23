@@ -26,10 +26,8 @@ if [ "$PACK_UI" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$UI_REPOS_LIST
 fi
-if [ "$PACK_UI" == "yes" ] || [ "$PACK_CORE" == "yes" ]
-then
-	REPOS_LIST=$REPOS_LIST" "$PACKAGER_REPOS_LIST
-fi
+REPOS_LIST=$REPOS_LIST" "$PACKAGER_REPOS_LIST
+
 
 echo "REPOS_LIST=$REPOS_LIST"
 
@@ -52,6 +50,15 @@ do
 		pushd ${project}
 		git checkout master
 		exit_on_error
+	fi
+	
+	if [[ "$project" == *-plugin ]] || [[ "$project" == *-provider ]]
+	then
+	    TAG_NAME_TO_PREPARE_BRANCH_FROM=$plugins_tag_name
+	    BRANCH_NAME_FROM_TAG=
+	else
+	    TAG_NAME_TO_PREPARE_BRANCH_FROM=$core_tag_name
+	    BRANCH_NAME_FROM_TAG=
 	fi
 
 	git checkout -b ${BRANCH_NAME_FROM_TAG} ${TAG_NAME_TO_PREPARE_BRANCH_FROM} 
