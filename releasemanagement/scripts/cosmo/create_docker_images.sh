@@ -2,6 +2,7 @@
 #vagrant plugin install vagrant-aws (0.4.1)                         #
 #vagrant plugin install unf                                         #
 #####################################################################
+#!/bin/bash
 
 source ../../../credentials.sh
 source /etc/environment
