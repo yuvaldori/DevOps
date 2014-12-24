@@ -44,6 +44,7 @@ PACK_AGENT=os.environ["PACK_AGENT"]
 PACK_UI=os.environ["PACK_UI"]
 PACK_CLI=os.environ["PACK_CLI"]
 CREATE_DOCKER_IMAGES=os.environ["CREATE_DOCKER_IMAGES"]
+CREATE_VAGRANT_BOX=os.environ["CREATE_VAGRANT_BOX"]
 BUILD_NUM=os.environ["BUILD_NUM"]
 CONFIGURATION_NAME=os.environ["CONFIGURATION_NAME"]
 PRODUCT_VERSION=os.environ["PRODUCT_VERSION"]
@@ -289,10 +290,10 @@ def main():
 		file_name=get_file_name_from_path(ui)
 		filenames.append(file_name)
 
-
-	#virtalbox=rename_packages('*.box','cloudify-virtualbox_'+PRODUCT_VERSION_FULL+'.box')
-	#file_name=get_file_name_from_path(virtalbox)
-	#filenames.append(file_name)
+	if CREATE_VAGRANT_BOX == "yes":
+		file_name=get_file_name_from_path(rename_packages('*.box','cloudify-virtualbox_'+PRODUCT_VERSION_FULL+'.box'))
+		filenames.append(file_name)
+		filenames.append('Vagrantfile')
 
 	print filenames
 	upload_file_list_to_s3(filenames)
