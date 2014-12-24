@@ -3,7 +3,7 @@
 source ../../ec2dev_credentials.sh
 source /etc/environment
 
-#python nightly-builder.py
+python nightly-builder.py
 
 sudo chown tgrid -R /cloudify
 pushd /cloudify
