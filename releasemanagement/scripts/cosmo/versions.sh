@@ -34,7 +34,7 @@ if [ "$PACK_CORE" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$PACK_CLI" == "
 then
 	REPOS_LIST=$CORE_REPOS_LIST
 fi
-if [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
+if [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$CLI_REPOS_LIST
 fi
