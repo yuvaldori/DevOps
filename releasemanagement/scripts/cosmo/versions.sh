@@ -6,6 +6,8 @@ source generic_functions.sh
 echo "PACK_CLI=$PACK_CLI"
 echo "PACK_CORE=$PACK_CORE"
 echo "PACK_UI=$PACK_UI"
+echo "CREATE_VAGRANT_BOX=$CREATE_VAGRANT_BOX"
+echo "CREATE_DOCKER_IMAGES=$CREATE_DOCKER_IMAGES"
 echo "MAJOR_VERSION=$MAJOR_VERSION"
 echo "MINOR_VERSION=$MINOR_VERSION"
 echo "SERVICEPACK_VERSION=$SERVICEPACK_VERSION"
@@ -122,7 +124,7 @@ do
 done
 
 
-if [[ "$PACK_CORE" == "yes" ||  "$PACK_CLI" == "yes" ]]
+if [[ "$PACK_CORE" == "yes" ||  "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_IMAGES" == "yes" ]]
 then
 	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
 	config_yaml_file_name="cloudify-config.yaml"
@@ -137,7 +139,9 @@ then
 	blueprints_simple_yaml_file="cloudify-manager-blueprints/simple/simple.yaml"
 	blueprints_nova_net_yaml_file="cloudify-manager-blueprints/openstack-nova-net/openstack.yaml"
 	
-	system_tests_file=cloudify-system-tests/suites/system_tests.sh
+	system_tests_file="cloudify-system-tests/suites/system_tests.sh"
+	
+	docker_file="cloudify-packager/docker/vars.py"
 	
 	url_prefix="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE"
 	ui_package_url=$url_prefix"/cloudify-ui_"$PRODUCT_VERSION_FULL"_amd64.deb"
@@ -154,9 +158,9 @@ then
 	sed -i "s|components_package_url:.*|components_package_url: $(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
 	sed -i "s|core_package_url:.*|core_package_url: $(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
 	sed -i "s|ui_package_url:.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
-	sed -i "s|ubuntu_agent_url:.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
-	sed -i "s|windows_agent_url:.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
-	sed -i "s|centos_agent_url:.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
+	sed -i "s|ubuntu_agent_url:.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $docker_file
+	sed -i "s|windows_agent_url:.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $docker_file
+	sed -i "s|centos_agent_url:.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $docker_file
 	sed -i "s|docker_url:.*|docker_url: $(echo ${docker_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
 	sed -i "s|docker_data_url:.*|docker_data_url: $(echo ${docker_data_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
 	
