@@ -245,8 +245,8 @@ def main():
 		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_precise_name+'*.deb',ubuntu_agent_precise_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
-        	#file_name=get_file_name_from_path(rename_packages('cloudify-trusty-agent_*.deb','cloudify-ubuntu-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
-        	#filenames.append(file_name)
+        	file_name=get_file_name_from_path(rename_packages('cloudify-trusty-agent_*.deb','cloudify-ubuntu-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
+        	filenames.append(file_name)
 
 		windows_agent_conf = packages.PACKAGES['cloudify-windows-agent']
 		windows_agent_name = windows_agent_conf['name']
