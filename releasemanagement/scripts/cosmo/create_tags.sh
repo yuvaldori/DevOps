@@ -87,10 +87,12 @@ do
 		# recreate tag locally
         	git tag -f $TAG_NAME
         	exit_on_error
+        	
         	# delete existing tag from remote
-        	#git push --delete origin tag
-        	git push origin :refs/tags/$TAG_NAME
-        	exit_on_error
+        	##git push --delete origin tag
+        	#git push origin :refs/tags/$TAG_NAME
+        	#exit_on_error
+        	
         	# push tag to remote
 		git push -f origin tag $TAG_NAME
 		exit_on_error
