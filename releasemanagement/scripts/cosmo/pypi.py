@@ -12,6 +12,7 @@ def remove_pypi_release_branch():
         print "remove_pypi_release_branch"
         print os.getcwd()
         local('git checkout master',capture=False)
+        local('git pull',capture=False)
         with settings(warn_only=True):
                 result=local('git branch | grep {0}'.format(pypi_branch_name,capture=False))
                 if result.return_code == 0:
@@ -26,7 +27,6 @@ print "core_branch_name="+core_branch_name
 #core_branch_name='3.1rc1'
 plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
 
-#pypi_branch_name='pypi-release'
 parent_repo='cloudify-cosmo/'
 fail_repos=""
 #repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin','cloudify-diamond-plugin']
@@ -49,7 +49,10 @@ for repo in repo_list:
         os.chdir(os.path.abspath('..'))
         
         os.chdir(repo)
+        #Remove pypi_release_branch if exist
         remove_pypi_release_branch()
+        local('git checkout master',capture=False)
+        local('git pull',capture=False)
         local('git checkout -b {0} {1}'.format(pypi_branch_name,tag_name),capture=False)
         local('git push origin {0}'.format(pypi_branch_name),capture=False)
         os.chdir(os.path.abspath('..'))
