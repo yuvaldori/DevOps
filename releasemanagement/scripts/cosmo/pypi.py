@@ -28,7 +28,7 @@ plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
 pypi_branch_name='pypi-release'
 parent_repo='cloudify-cosmo/'
 fail_repos=""
-repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin']
+repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin','cloudify-diamond-plugin']
 
 parent_dir=os.path.abspath('..')
 print("root dir: "+parent_dir)
