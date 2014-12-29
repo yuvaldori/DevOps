@@ -51,6 +51,9 @@ PRODUCT_VERSION=os.environ["PRODUCT_VERSION"]
 PRODUCT_VERSION_FULL=os.environ["PRODUCT_VERSION_FULL"]
 CONFIGURATION_PATH_NAME=os.environ["CONFIGURATION_PATH_NAME"]
 MILESTONE=os.environ["MILESTONE"]
+agent_merge=os.environ["agent_merge"]
+
+
 USER="tgrid"
 
 
@@ -245,13 +248,14 @@ def main():
 		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_precise_name+'*.deb',ubuntu_agent_precise_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
-        	file_name=get_file_name_from_path(rename_packages('cloudify-trusty-agent_*.deb','cloudify-ubuntu-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
-        	filenames.append(file_name)
-
 		windows_agent_conf = packages.PACKAGES['cloudify-windows-agent']
 		windows_agent_name = windows_agent_conf['name']
 		file_name=get_file_name_from_path(rename_packages(windows_agent_name+'*.deb',windows_agent_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
+		
+	if agent_merge == "yes":
+        	file_name=get_file_name_from_path(rename_packages('cloudify-trusty-agent_*.deb','cloudify-ubuntu-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
+        	filenames.append(file_name)
 
 	if PACK_CLI == "yes":
 		cli_linux32_name='cloudify-linux32-cli'
