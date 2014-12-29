@@ -88,10 +88,10 @@ do
         	git tag -f $TAG_NAME
         	exit_on_error
         	
-        	# delete existing tag from remote
+        	# delete existing tag from remote - we must delete the old tag in order to make travis to run the tests on tags.
         	##git push --delete origin tag
-        	#git push origin :refs/tags/$TAG_NAME
-        	#exit_on_error
+        	git push origin :refs/tags/$TAG_NAME
+        	exit_on_error
         	
         	# push tag to remote
 		git push -f origin tag $TAG_NAME
