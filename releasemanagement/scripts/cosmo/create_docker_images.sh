@@ -32,6 +32,7 @@ exit_on_error
 ##get guest ip address
 ip_address=`vagrant ssh-config ubuntu | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
+ssh-keygen -f "/export/tgrid/.ssh/known_hosts" -R $ip_address
 
 ##copy tar files
 sudo mkdir -p /cloudify
