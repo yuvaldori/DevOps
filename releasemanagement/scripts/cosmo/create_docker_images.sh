@@ -13,7 +13,7 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		#vagrant destroy -f ubuntu            
+		vagrant destroy -f ubuntu            
 		exit 1
       fi
 
