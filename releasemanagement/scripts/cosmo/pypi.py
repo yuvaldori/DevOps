@@ -12,9 +12,7 @@ import yoci.travis.functional_api
 core_branch_name=os.environ["RELEASE_CORE_BRANCH_NAME"]
 plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
 parent_repo='cloudify-cosmo/'
-fail_repos=""
-#repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin','cloudify-diamond-plugin','cloudify-agent-packager']
-repo_list=['cloudify-diamond-plugin']
+repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin','cloudify-diamond-plugin','cloudify-agent-packager']
 
 
 def remove_pypi_release_branch():
@@ -37,6 +35,7 @@ def main():
 	print("root dir: "+parent_dir)
 	os.chdir(parent_dir)
 	print os.getcwd()
+	fail_repos=""
 
 	for repo in repo_list:
         	print "### Create pypi branch for repository: {0}".format(repo)
