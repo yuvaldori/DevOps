@@ -194,7 +194,7 @@ if PACK_UI == "yes":
 	#shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(cloudify_ui_conf['sources_path']))
 	#pkg_cloudify_ui()
 
-	tar_ui_file = glob.glob(os.path.join(parent_dir+'/cosmo-ui/dist','cosmo-ui*.tgz'))
+	tar_ui_file = glob.glob(os.path.join(parent_dir+'/cloudify-ui/dist','cosmo-ui*.tgz'))
 	print tar_ui_file
 	shutil.copy(''.join(tar_ui_file),'{0}'.format(cloudify_ui_conf['sources_path']))
 	tar_ui_grafana_file = glob.glob(os.path.join(parent_dir+'/cosmo-grafana/dist','grafana*.tgz'))
