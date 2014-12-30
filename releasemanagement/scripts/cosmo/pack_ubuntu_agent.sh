@@ -42,3 +42,4 @@ scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify
 exit_on_error
 
 vagrant destroy -f ubuntu
+ssh-keygen -f "/export/tgrid/.ssh/known_hosts" -R $ip_address
