@@ -51,8 +51,7 @@ def main():
         	os.chdir(repo)
         	#Remove pypi_release_branch if exist
         	remove_pypi_release_branch()
-		local('git checkout master',capture=False)
-        	local('git pull',capture=False)
+        	local('git pull origin master',capture=False)
         	local('git checkout -b {0} {1}'.format(pypi_branch_name,tag_name),capture=False)
         	local('git push origin {0}'.format(pypi_branch_name),capture=False)
         	os.chdir(os.path.abspath('..'))
