@@ -160,8 +160,7 @@ def upload_file_list_to_s3(filenames):
 				url_prefix="cloudify-centos-agent: "
 			elif fname.startswith('cloudify-docker'):
 				url_prefix="cloudify-docker: "
-			elif fname.startswith('cloudify-docker-data'):
-				url_prefix="cloudify-docker-data: "
+			
 
 			print "uploading nightly packages to tarzan"
 			if "master" in CONFIGURATION_PATH_NAME:
@@ -223,8 +222,8 @@ def main():
 		file_name=get_file_name_from_path(rename_packages('coudify-docker_*.tar','cloudify-docker_'+PRODUCT_VERSION_FULL+'.tar'))
 		filenames.append(file_name)
 
-		file_name=get_file_name_from_path(rename_packages('cloudify-docker-data_*.tar','cloudify-docker-data_'+PRODUCT_VERSION_FULL+'.tar'))
-		filenames.append(file_name)
+		#file_name=get_file_name_from_path(rename_packages('cloudify-docker-data_*.tar','cloudify-docker-data_'+PRODUCT_VERSION_FULL+'.tar'))
+		#filenames.append(file_name)
 
 	if PACK_COMPONENTS == "yes":
 		cloudify_components_conf = packages.PACKAGES['cloudify-components']
