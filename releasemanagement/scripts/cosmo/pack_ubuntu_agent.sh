@@ -38,8 +38,8 @@ echo "ip_address="$ip_address
 ##copy ubuntu deb file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify
 exit_on_error
 
 vagrant destroy -f ubuntu
-ssh-keygen -f "/export/tgrid/.ssh/known_hosts" -R $ip_address
+
