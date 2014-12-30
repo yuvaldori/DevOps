@@ -258,13 +258,13 @@ def main():
         	filenames.append(file_name)
 
 	if PACK_CLI == "yes":
-		cli_linux32_name='cloudify-linux32-cli'
-		file_name=get_file_name_from_path(rename_packages('cfy_*_i386.deb',cli_linux32_name+'_'+PRODUCT_VERSION_FULL+'_i386.deb'))
-		filenames.append(file_name)
+		#cli_linux32_name='cloudify-linux32-cli'
+		#file_name=get_file_name_from_path(rename_packages('cfy_*_i386.deb',cli_linux32_name+'_'+PRODUCT_VERSION_FULL+'_i386.deb'))
+		#filenames.append(file_name)
 
-		cli_linux64_name='cloudify-linux64-cli'
-		file_name=get_file_name_from_path(rename_packages('cfy_*_amd64.deb',cli_linux64_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
-		filenames.append(file_name)
+		#cli_linux64_name='cloudify-linux64-cli'
+		#file_name=get_file_name_from_path(rename_packages('cfy_*_amd64.deb',cli_linux64_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
+		#filenames.append(file_name)
 
 		cli_win_name='cloudify-windows-cli'
 		file_name=get_file_name_from_path(rename_packages('CloudifyCLI*.exe',cli_win_name+'_'+PRODUCT_VERSION_FULL+'.exe'))
