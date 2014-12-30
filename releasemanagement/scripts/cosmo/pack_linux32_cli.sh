@@ -38,7 +38,7 @@ echo "ip_address="$ip_address
 
 #copy linux32 deb file
 sudo chown tgrid -R /cloudify
-scp -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:~/cloudify-cli-packager/pyinstaller/*.deb /cloudify
 exit_on_error
 
 vagrant destroy -f linux32
