@@ -15,7 +15,7 @@ sudo bower cache clean
 
 retry "npm install"
 
-if [ $(basename `pwd`) = "cosmo-ui" ]
+if [ $(basename `pwd`) = "cloudify-ui" ]
 then
 	retry "bower install -f"
 	retry "bower update -f"
@@ -31,7 +31,7 @@ then
 fi
 
 pushd dist
-	if [ $(basename `pwd`) = "cosmo-ui" ]
+	if [ $(basename `pwd`) = "cloudify-ui" ]
 	then
 		echo '{' > views/versionDetails.html
 		echo '    "revision": "'$REVISION'",' >> views/versionDetails.html
