@@ -159,12 +159,17 @@ then
 	
 	sed -i "s|components_package_url.*|components_package_url: $(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere
 	sed -i "s|core_package_url.*|core_package_url: $(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere
-	sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $docker_file $blueprints_vsphere
-	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $docker_file $blueprints_vsphere
-	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $docker_file $blueprints_vsphere
-	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $docker_file $blueprints_vsphere
+	sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere
+	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere
+	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere
+	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere
 	sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
 	sed -i "s|docker_data_url.*|docker_data_url: $(echo ${docker_data_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
+	#edit json file
+	sed -i "s|\"ubuntu_agent_url\":.*|\"ubuntu_agent_url\": \"$(echo ${ubuntu_agent_url})\",|g" $docker_file
+	sed -i "s|\"centos_agent_url\":.*|\"centos_agent_url\": \"$(echo ${centos_agent_url})\",|g" $dock$docker_fileer_file
+	sed -i "s|\"windows_agent_url\":.*|\"windows_agent_url\": \"$(echo ${windows_agent_url})\",|g" $docker_file
+	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
 	
 	sed -i "s|BRANCH_NAME_CORE=\${BRANCH_NAME_CORE=.*|BRANCH_NAME_CORE=\${BRANCH_NAME_CORE='$core_tag_name'}|" $system_tests_file
 	sed -i "s|BRANCH_NAME_PLUGINS=\${BRANCH_NAME_PLUGINS=.*|BRANCH_NAME_PLUGINS=\${BRANCH_NAME_PLUGINS='$plugins_tag_name'}|" $system_tests_file
