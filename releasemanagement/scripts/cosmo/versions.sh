@@ -76,25 +76,7 @@ do
  		#git clean -df .
  		#exit_on_error
  		
- 		#if [ "$RELEASE_BUILD" == "false" ]
-		#then#
-			#echo "deleting $r nightly build branch if exist"
-			#if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
-	 		#then
-	 			#git branch -D $VERSION_BRANCH_NAME
-	 			#exit_on_error
-	 		#fi
-	 		#if [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
-	 		#then
-	 			##git branch -d -r origin/$VERSION_BRANCH_NAME
-	 			##exit_on_error
-	 			#git push origin --delete $VERSION_BRANCH_NAME
-	 			#if [ $? != 0 ] ; then
-			         	#git fetch origin --prune
-			         	#exit_on_error
-			      	#fi
-	 		#fi
-	 	#else
+ 		
 	 	if [ "$RELEASE_BUILD" == "true" ]
 	 	then
  			#echo "Branch named $VERSION_BRANCH_NAME already exists, deleting it"
@@ -221,7 +203,7 @@ do
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
-		if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
+		#if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
 			git add -u .
 			# push versions to master/build-branch 
 			#if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
@@ -238,22 +220,9 @@ do
 		 		fi
 		 	#fi
 		 	
-		 	#if [[ "$RELEASE_BUILD" == "true" && !`git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
-		 	#then
-		 	#	git push origin $VERSION_BRANCH_NAME
-		 	#	exit_on_error
-		 	#fi
 		 	
-		fi
-	 	# create build branch in nightly - no need to create build branch on nightly travis step waits on tags
-	 	#if [[ "$RELEASE_BUILD" == "false"  && "$run_unit_integration_tests" == "yes" ]]
-	 	#then
-	 		#git checkout -b $VERSION_BRANCH_NAME
-	 		#exit_on_error
-	 		#git push origin $VERSION_BRANCH_NAME
-	 		#exit_on_error
-	 	#fi
-	 
+		#fi
+	 	
  		sha=$(git rev-parse HEAD)
  		if [[ -z "$repo_names_sha" ]];then
  			repo_names_sha='[ "'$r'":"'$sha'"'	
