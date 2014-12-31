@@ -167,7 +167,7 @@ then
 	sed -i "s|docker_data_url.*|docker_data_url: $(echo ${docker_data_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
 	#edit json file
 	sed -i "s|\"ubuntu_agent_url\":.*|\"ubuntu_agent_url\": \"$(echo ${ubuntu_agent_url})\",|g" $docker_file
-	sed -i "s|\"centos_agent_url\":.*|\"centos_agent_url\": \"$(echo ${centos_agent_url})\",|g" $dock$docker_fileer_file
+	sed -i "s|\"centos_agent_url\":.*|\"centos_agent_url\": \"$(echo ${centos_agent_url})\",|g" $docker_file
 	sed -i "s|\"windows_agent_url\":.*|\"windows_agent_url\": \"$(echo ${windows_agent_url})\",|g" $docker_file
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
 	
