@@ -14,6 +14,7 @@ DIAMOND_PLUGIN_SHA=$(echo $DIAMOND_PLUGIN_SHA)
 OS_PLUGIN_SHA=$(echo $OS_PLUGIN_SHA)
 FABRIC_PLUGIN_SHA=$(echo $FABRIC_PLUGIN_SHA)
 MANAGER_BLUEPRINTS_SHA=$(echo $MANAGER_BLUEPRINTS_SHA)
+PACKAGER_SHA=$(echo $PACKAGER_SHA)
 
 echo "DSL_SHA=$DSL_SHA"
 echo "REST_CLIENT_SHA=$REST_CLIENT_SHA"
@@ -26,6 +27,7 @@ echo "DIAMOND_PLUGIN_SHA=$DIAMOND_PLUGIN_SHA"
 echo "OS_PLUGIN_SHA=$OS_PLUGIN_SHA"
 echo "FABRIC_PLUGIN_SHA=$FABRIC_PLUGIN_SHA"
 echo "MANAGER_BLUEPRINTS_SHA=$MANAGER_BLUEPRINTS_SHA"
+echo "PACKAGER_SHA=$PACKAGER_SHA"
 echo "cloudify_packager_dir=$cloudify_packager_dir"
 
 #edit the revision number in linux/provision.sh
@@ -53,6 +55,7 @@ centos_agent_fileName="$cloudify_packager_dir/vagrant/centos-agent/provision.sh"
 ubuntu_agent_p_fileName="$cloudify_packager_dir/vagrant/ubuntu-precise-agent/provision.sh"
 ubuntu_agent_t_fileName="$cloudify_packager_dir/vagrant/ubuntu-trusty-agent/provision.sh"
 vbox_fileName="$cloudify_packager_dir/image-builder/provision/common.sh"
+docker_file="$cloudify_packager_dir/vagrant/docker_images/provision.sh"
 sed -i "s/.*REST_CLIENT_SHA=.*/REST_CLIENT_SHA=$REST_CLIENT_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName $fileName $vbox_fileName
 sed -i "s/.*COMMON_PLUGIN_SHA=.*/COMMON_PLUGIN_SHA=$COMMON_PLUGIN_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName $fileName $vbox_fileName
 sed -i "s/.*MANAGER_SHA=.*/MANAGER_SHA=$MANAGER_SHA/g" $centos_agent_fileName $ubuntu_agent_p_fileName $ubuntu_agent_t_fileName
@@ -65,5 +68,6 @@ sed -i "s/.*OS_PROVIDER_SHA=.*/OS_PROVIDER_SHA=$OS_PROVIDER_SHA/g" $fileName
 sed -i "s/.*OS_PLUGIN_SHA=.*/OS_PLUGIN_SHA=$OS_PLUGIN_SHA/g" $fileName
 sed -i "s/.*FABRIC_PLUGIN_SHA=.*/FABRIC_PLUGIN_SHA=$FABRIC_PLUGIN_SHA/g" $fileName
 sed -i "s/.*MANAGER_BLUEPRINTS_SHA=.*/MANAGER_BLUEPRINTS_SHA=$MANAGER_BLUEPRINTS_SHA/g" $vbox_fileName
+sed -i "s/.*PACKAGER_SHA=.*/PACKAGER_SHA=$PACKAGER_SHA/g" $docker_file
 
 
