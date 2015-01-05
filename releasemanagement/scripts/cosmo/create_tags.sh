@@ -49,11 +49,11 @@ echo "RELEASE_BUILD=$RELEASE_BUILD"
 echo "PACKAGER_REPOS_LIST=$PACKAGER_REPOS_LIST"
 
 
-if [ "$PACK_CORE" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
+if [ "$PACK_CORE" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
 then
 	REPOS_LIST=$CORE_REPOS_LIST
 fi
-if [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
+if [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$CLI_REPOS_LIST
 fi
@@ -61,7 +61,7 @@ if [ "$PACK_UI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$UI_REPOS_LIST
 fi
-if [ "$PACK_CORE" == "yes" ] || [ "$PACK_UI" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
+if [ "$PACK_CORE" == "yes" ] || [ "$PACK_UI" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$PACKAGER_REPOS_LIST
 fi
