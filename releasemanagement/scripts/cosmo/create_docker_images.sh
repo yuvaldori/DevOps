@@ -40,4 +40,4 @@ sudo chown tgrid -R /cloudify
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/tmp/*.tar /cloudify
 exit_on_error
 
-#vagrant destroy -f ubuntu
+vagrant destroy -f ubuntu
