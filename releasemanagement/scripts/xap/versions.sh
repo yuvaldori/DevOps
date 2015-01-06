@@ -57,6 +57,8 @@ do
  			else
  				git checkout -b $VERSION_BRANCH_NAME
  				exit_on_error
+ 				git push origin $VERSION_BRANCH_NAME
+		 		exit_on_error
  			fi
 		fi
 		sha=$(git rev-parse HEAD)
