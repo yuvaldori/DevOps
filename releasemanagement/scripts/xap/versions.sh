@@ -22,7 +22,7 @@ do
 		
 	echo "### Processing repository: $repo"
 	pushd $repo
-		git pull
+		git pull origin master
 		
 		if [ -n "$BRANCH_NAME_FOR_TEST" ] && [[ `git branch -r | grep origin/$BRANCH_NAME_FOR_TEST` ]]
 		then
