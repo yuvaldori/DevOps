@@ -7,6 +7,6 @@
   		
   	echo "### Processing repository: $repo"
   	pushd $repo
-  	  [ -d ".git" ] && git clean -dfx
+  	  [ -d ".git" ] && git clean -df
     popd
   done
