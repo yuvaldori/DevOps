@@ -25,8 +25,8 @@ do
                         if [[ `git branch -r | grep origin/$build_branch` ]]
                         then
                             echo "Removing $build_branch"
-                            #git push origin --delete
-                            #exit_on_error
+                            git push origin --delete
+                            exit_on_error
                         fi
                 done
             fi
