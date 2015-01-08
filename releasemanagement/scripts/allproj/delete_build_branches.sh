@@ -5,7 +5,7 @@ function  exit_on_error {
     echo "exit code="$status    
     if [ $status != 0 ] ; then
         echo "Failed (exit code $status)" 
-                    exit 1
+        exit 1
     fi
 
 }
