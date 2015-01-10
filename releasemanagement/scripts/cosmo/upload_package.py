@@ -68,6 +68,7 @@ print PRODUCT_VERSION
 print PRODUCT_VERSION_FULL
 print CONFIGURATION_PATH_NAME
 print MILESTONE
+print agent_merge
 
 
 def mkdirp(directory):
