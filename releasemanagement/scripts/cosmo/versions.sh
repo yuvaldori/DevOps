@@ -123,8 +123,6 @@ then
 	
 	blueprints_vsphere="cloudify-vsphere-plugin/manager_blueprint/vsphere.yaml"
 	
-	system_tests_file="cloudify-system-tests/suites/system_tests.sh"
-	
 	docker_file="cloudify-packager/docker/vars.py"
 	
 	url_prefix="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE"
@@ -149,9 +147,6 @@ then
 	sed -i "s|docker_data_url.*|docker_data_url: $(echo ${docker_data_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file
 	#edit json file
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
-	
-	sed -i "s|BRANCH_NAME_CORE=\${BRANCH_NAME_CORE=.*|BRANCH_NAME_CORE=\${BRANCH_NAME_CORE='$core_tag_name'}|" $system_tests_file
-	sed -i "s|BRANCH_NAME_PLUGINS=\${BRANCH_NAME_PLUGINS=.*|BRANCH_NAME_PLUGINS=\${BRANCH_NAME_PLUGINS='$plugins_tag_name'}|" $system_tests_file
 	
 fi
 
