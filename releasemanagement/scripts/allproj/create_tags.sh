@@ -19,12 +19,12 @@ do
     echo "### Processing repository: $r"
     pushd $r
 		
-		# recreate tag locally
-    git tag -f $TAG_NAME
-    exit_on_error
+	# recreate tag locally
+    	git tag -f $TAG_NAME
+    	exit_on_error
       	
-    # push tag to remote
-		git push -f origin tag $TAG_NAME
-		exit_on_error
-	popd
+    	# push tag to remote
+    	git push -f origin tag $TAG_NAME
+    	exit_on_error
+    popd
 done
