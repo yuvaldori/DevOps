@@ -167,7 +167,8 @@ def upload_file_list_to_s3(filenames):
 			if "master" in CONFIGURATION_PATH_NAME:
 				mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR)
 				#Removing the version from packge name for nightly and continuous folders
-				if fname.endswith(".exe"):
+				extensions = ('.exe','.tar','.box')
+                                if fname.endswith(extensions):
 					name_without_version=fname.replace("_"+PRODUCT_VERSION_FULL,'')
 				else:
 					name_without_version=fname.replace(PRODUCT_VERSION_FULL+"_",'')
