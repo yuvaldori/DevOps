@@ -124,6 +124,10 @@ remove_file(local_links_file_path)
 
 local('sudo chown {0} -R {1}'.format(USER,PACKAGE_SOURCE_PATH),capture=False)
 
+def replace_url(file_name,file_path):
+	local('sed -i "s|config.vm.box =.*|config.vm.box = {0}|g" Vagrantfile'.format(file_name),capture=False)
+	local('sed -i "s|config.vm.box_url =.*|config.vm.box_url = {0}{1}|g" Vagrantfile'.format(file_path,file_name),capture=False)
+
 def rename_packages(file_before_rename,new_file_name):
 	file = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), file_before_rename))
 	file = ''.join(file)
@@ -172,6 +176,9 @@ def upload_file_list_to_s3(filenames):
 					name_without_version=fname.replace("_"+PRODUCT_VERSION_FULL,'')
 				else:
 					name_without_version=fname.replace(PRODUCT_VERSION_FULL+"_",'')
+				if fname.startswith('cloudify-virtualbox'):
+					replace_url(name_without_version,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/")	
+					shutil.copyfile(PACKAGE_SOURCE_PATH+"/Vagrantfile",TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/Vagrantfile")
 				shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/"+name_without_version)
 				print "uploaded file %s to Tarzan" % name_without_version
 				f = open(TARZAN_BUILDS+'/'+PACKAGE_DEST_DIR+'/build.num', 'wb')
@@ -180,6 +187,9 @@ def upload_file_list_to_s3(filenames):
 
 			print "uploading release packages to tarzan"
 			mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
+			if fname.startswith('cloudify-virtualbox'):
+				replace_url(fname,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/")	
+				shutil.copyfile(PACKAGE_SOURCE_PATH+"/Vagrantfile",TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/Vagrantfile")
 			shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
 			print "uploaded file %s to Tarzan" % fname
 			
@@ -287,7 +297,7 @@ def main():
 	if CREATE_VAGRANT_BOX == "yes":
 		file_name=get_file_name_from_path(rename_packages('*.box','cloudify-virtualbox_'+PRODUCT_VERSION_FULL+'.box'))
 		filenames.append(file_name)
-		filenames.append('Vagrantfile')
+		#filenames.append('Vagrantfile')
 
 	print filenames
 	upload_file_list_to_s3(filenames)
