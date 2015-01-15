@@ -212,7 +212,7 @@ def upload_file_list_to_s3(filenames):
 				if fname.startswith('cloudify-virtualbox'):
 					replace_url(name_without_version,"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_PATH+"/")
 					full_vagrantfile_key_name = os.path.join(PACKAGE_DEST_PATH, 'Vagrantfile')
-					key = bucket.new_key(full_vagrantfile_key_name).set_contents_from_filename(fname, policy='public-read')
+					key = bucket.new_key(full_vagrantfile_key_name).set_contents_from_filename('Vagrantfile', policy='public-read')
 				full_key_name = os.path.join(PACKAGE_DEST_PATH, name_without_version)
 				key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
 				print "uploaded file %s to S3" % name_without_version
@@ -225,7 +225,7 @@ def upload_file_list_to_s3(filenames):
 			if fname.startswith('cloudify-virtualbox'):
 					replace_url(name_without_version,"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_BUILD_PATH+"/")
 					full_vagrantfile_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, 'Vagrantfile')
-					key = bucket.new_key(full_vagrantfile_key_name).set_contents_from_filename(fname, policy='public-read')
+					key = bucket.new_key(full_vagrantfile_key_name).set_contents_from_filename('Vagrantfile', policy='public-read')
 			full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, fname)
 			key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
 			print "uploaded file %s to S3" % fname
