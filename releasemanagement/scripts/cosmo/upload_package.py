@@ -223,7 +223,7 @@ def upload_file_list_to_s3(filenames):
 			print "uploading release packages to S3"
 			bucket = conn.get_bucket("gigaspaces-repository-eu")
 			if fname.startswith('cloudify-virtualbox'):
-					replace_url(name_without_version,"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_BUILD_PATH+"/")
+					replace_url(fname,"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_BUILD_PATH+"/")
 					full_vagrantfile_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, 'Vagrantfile')
 					key = bucket.new_key(full_vagrantfile_key_name).set_contents_from_filename('Vagrantfile', policy='public-read')
 			full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, fname)
