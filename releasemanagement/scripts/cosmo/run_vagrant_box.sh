@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../../credentials.sh
+source ../../ec2dev_credentials.sh
 source /etc/environment
 
 python nightly-builder.py
