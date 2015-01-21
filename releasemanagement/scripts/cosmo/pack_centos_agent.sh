@@ -38,7 +38,7 @@ echo "ip_address="$ip_address
 ##copy centos deb file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem root@$ip_address:/cloudify/*.deb /cloudify
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem root@$ip_address:/cloudify/*.deb /cloudify
 exit_on_error
 
 vagrant destroy -f centos
