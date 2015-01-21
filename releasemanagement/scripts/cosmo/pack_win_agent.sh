@@ -41,7 +41,7 @@ sudo rm -rf /agents/windows-agent
 sudo mkdir -p /agents/windows-agent
 sudo chown tgrid -R /agents/windows-agent
 #sshpass -p 'abcd1234!!' scp -p vagrant@$ip_address:/home/vagrant/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI-3.0.exe /cloudify
-scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem Administrator@$ip_address:/cygdrive/c/Cloudify.exe /agents/windows-agent
+scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem Administrator@$ip_address:/cygdrive/c/Cloudify.exe /agents/windows-agent
 exit_on_error
 
 vagrant destroy -f
