@@ -8,7 +8,7 @@ def send_email(sender,receivers):
 	To: {1}
 	Subject: Travis tests report
 	
-	fail_repos={3}.
+	fail_repos={2}.
 	""".format(sender,receivers,fail_repos)
 	
 	try:
