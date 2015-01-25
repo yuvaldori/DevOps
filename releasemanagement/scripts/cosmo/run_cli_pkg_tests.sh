@@ -15,17 +15,17 @@ function exit_on_error {
 
 function copy_reports_files {
 	##get guest ip address
-	ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-	echo "linux32 ip_address="$ip_address
-	echo "creating dir junit_report in "$PWD 
-	mkdir junit_reports
-	echo "copying report to "$PWD"/junit_reports/nosetests_linux32.xml"
-	scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
-	exit_on_error
-	ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-	echo "linux64 ip_address="$ip_address
-	scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux64.xml
-	exit_on_error
+	#ip_address=`vagrant ssh-config linux32 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+	#echo "linux32 ip_address="$ip_address
+	#echo "creating dir junit_report in "$PWD 
+	#mkdir junit_reports
+	#echo "copying report to "$PWD"/junit_reports/nosetests_linux32.xml"
+	#scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux32.xml
+	#exit_on_error
+	#ip_address=`vagrant ssh-config linux64 | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+	#echo "linux64 ip_address="$ip_address
+	#scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/home/ubuntu/nosetests.xml junit_reports/nosetests_linux64.xml
+	#exit_on_error
 	ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 	echo "windows ip_address="$ip_address
 	sshpass -p 'abcd1234!!' scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null Administrator@$ip_address:/home/Administrator/nosetests.xml junit_reports/nosetests_windows.xml
@@ -53,19 +53,19 @@ function exit_on_error_copy_destroy {
 pushd files/exe
 	wget $WIN_CLI_PKG
 popd
-pushd files/deb64
-	wget $LINUX64_CLI_PKG
-popd
-pushd files/deb32
-	wget $LINUX32_CLI_PKG
-popd
+#pushd files/deb64
+#	wget $LINUX64_CLI_PKG
+#popd
+#pushd files/deb32
+#	wget $LINUX32_CLI_PKG
+#popd
 
 
 #edit packages info in settings.ini
 ini_fileName="scripts/settings.ini"
 sed -i "s|.*path = ../files/exe/.*|path = ../files/exe/`basename $WIN_CLI_PKG`|g" $ini_fileName
-sed -i "s|.*path = ../files/deb64/.*|path = ../files/deb64/`basename $LINUX64_CLI_PKG`|g" $ini_fileName
-sed -i "s|.*path = ../files/deb32/.*|path = ../files/deb32/`basename $LINUX32_CLI_PKG`|g" $ini_fileName
+#sed -i "s|.*path = ../files/deb64/.*|path = ../files/deb64/`basename $LINUX64_CLI_PKG`|g" $ini_fileName
+#sed -i "s|.*path = ../files/deb32/.*|path = ../files/deb32/`basename $LINUX32_CLI_PKG`|g" $ini_fileName
 
 
 #edit account info in cloudify-config.yaml
@@ -77,14 +77,14 @@ sed -i "s|\"keystone_url\":.*|\"keystone_url\": \"$(echo ${HP_AUTH_URL})\",|g" $
 
 
 #destroy vms if exit
-vagrant destroy -f
+vagrant destroy -f windows
 
 
-vagrant up --provider=aws
+vagrant up windows --provider=aws
 exit_on_error_copy_destroy
 
 copy_reports_files
 
-vagrant destroy -f
+vagrant destroy -f windows
 exit_on_error
 #SystemError:
