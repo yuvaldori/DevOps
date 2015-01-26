@@ -99,7 +99,7 @@ if PACK_CORE == "yes":
 		shutil.rmtree(celery_conf['package_path'])
 	do('pkm get -c celery')
 	## install celery with dependencies into celery virtualenv
-	r=p.pip('celery==3.0.24', celery_conf['sources_path'])
+	r=p.pip('celery==3.1.17', celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
