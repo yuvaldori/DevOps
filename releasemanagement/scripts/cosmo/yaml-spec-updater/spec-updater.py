@@ -17,7 +17,7 @@ import jinja2
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
-
+from fabric.api import * #NOQA
 
 #AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 #AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
@@ -131,6 +131,15 @@ def verify_key_content(url, expected_content):
             'Spec: {} does not contain expected content'.format(url))
 
 
+def download_vsphere_plugin():
+    vsphere_tar_file='cloudify-vsphere-plugin.tar.gz'
+    os.remove(vsphere_tar_file) if os.path.exists(vsphere_tar_file) else None 
+    ver=os.path.basename(os.path.dirname(k))
+    local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/cloudify-vsphere-plugin/archive/{1}.tar.gz > {2}'.format(params.OPENCM_PWD,ver,vsphere_tar_file),capture=False)
+    new_key = bucket.new_key(k.replace(os.path.basename(k),vsphere_tar_file)).set_contents_from_filename(vsphere_tar_file, policy='public-read')
+    print 'download_vsphere_plugin key = '.format(new_key)
+    
+    
 if __name__ == '__main__':
 
     print '-- Cloudify spec yaml files S3 updater --'
@@ -198,7 +207,10 @@ if __name__ == '__main__':
         verify_key_content(url, content)
 
         print '- Key: {} was updated with contents of: {}'.format(k, v)
-
+        
+        if "vsphere-plugin" in k:
+             download_vsphere_plugin()
+             
     print '- Done!'
     print '- Updated URLs:'
     print '- {}'.format(json.dumps(updated_urls))
