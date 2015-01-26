@@ -136,7 +136,7 @@ def download_vsphere_plugin():
     os.remove(vsphere_tar_file) if os.path.exists(vsphere_tar_file) else None 
     ver=os.path.basename(os.path.dirname(k))
     local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/cloudify-vsphere-plugin/archive/{1}.tar.gz > {2}'.format(params.OPENCM_PWD,ver,vsphere_tar_file),capture=False)
-    new_key = bucket.new_key(k.replace(os.path.basename(k),vsphere_tar_file)).set_contents_from_filename(vsphere_tar_file, policy='public-read')
+    new_key = bucket.new_key(k.replace(os.path.basename(k),vsphere_tar_file)).set_contents_from_filename(vsphere_tar_file, policy=None)
     print 'download_vsphere_plugin key = {0}'.format(new_key)
     
     
