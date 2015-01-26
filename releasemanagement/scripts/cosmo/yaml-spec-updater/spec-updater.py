@@ -137,7 +137,7 @@ def download_vsphere_plugin():
     ver=os.path.basename(os.path.dirname(k))
     local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/cloudify-vsphere-plugin/archive/{1}.tar.gz > {2}'.format(params.OPENCM_PWD,ver,vsphere_tar_file),capture=False)
     new_key = bucket.new_key(k.replace(os.path.basename(k),vsphere_tar_file)).set_contents_from_filename(vsphere_tar_file, policy='public-read')
-    print 'download_vsphere_plugin key = '.format(new_key)
+    print 'download_vsphere_plugin key = {0}'.format(new_key)
     
     
 if __name__ == '__main__':
@@ -208,8 +208,8 @@ if __name__ == '__main__':
 
         print '- Key: {} was updated with contents of: {}'.format(k, v)
         
-        if "vsphere-plugin" in k:
-             download_vsphere_plugin()
+        #if "vsphere-plugin" in k:
+             #download_vsphere_plugin()
              
     print '- Done!'
     print '- Updated URLs:'
