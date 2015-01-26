@@ -123,6 +123,7 @@ then
 	blueprints_vsphere="cloudify-vsphere-plugin/manager_blueprint/vsphere.yaml"
 	blueprints_softlayer="cloudify-manager-blueprints/softlayer/softlayer.yaml"
 	blueprints_docker="cloudify-manager-blueprints/openstack-docker/openstack-docker.yaml"
+	blueprints_simple_docker="cloudify-manager-blueprints/simple/simple-docker.yaml"
 	docker_file="cloudify-packager/docker/vars.py"
 	
 	url_prefix="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE"
@@ -140,10 +141,10 @@ then
 	sed -i "s|components_package_url.*|components_package_url: $(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer
 	sed -i "s|core_package_url.*|core_package_url: $(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer
 	sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer
-	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker
-	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker
-	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker
-	sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_docker
+	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
+	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
+	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
+	sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_docker $blueprints_simple_docker
 	#edit json file
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
 	
