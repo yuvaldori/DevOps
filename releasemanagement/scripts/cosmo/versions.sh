@@ -186,6 +186,7 @@ do
 	echo "### Processing repository: $r"
 	VERSION_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
 	VERSION_BRANCH_NAME=$VERSION_NAME"-build"
+	TAG_NAME=$VERSION_NAME
 	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	if [ "$r" == "cosmo-grafana" ]
 	then
@@ -195,25 +196,39 @@ do
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
-		#if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
-			git add -u .
-			# push versions to master/build-branch 
-			#if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
-			#then
-				git commit -m "Bump version to $VERSION_NAME"
-				
-				if [ "$RELEASE_BUILD" == "true" ]
-		 		then
-		 			git push origin $VERSION_BRANCH_NAME
-		 			exit_on_error
-		 		else
-		 			git push origin $BRANCHNAME
-		 			exit_on_error
-		 		fi
-		 	#fi
-		 	
-		 	
-		#fi
+	#if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
+	        #commit changes
+		git add -u .
+		# push versions to master/build-branch 
+		#if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
+		#then
+		git commit -m "Bump version to $VERSION_NAME"
+		
+		if [ "$RELEASE_BUILD" == "true" ]
+ 		then
+ 			git push origin $VERSION_BRANCH_NAME
+ 			exit_on_error
+ 		else
+ 			git push origin $BRANCHNAME
+ 			exit_on_error
+ 		fi
+		
+		echo "TAG_NAME=$TAG_NAME"
+		# recreate tag locally
+		git tag -d $TAG_NAME
+		exit_on_error
+		
+        	git tag -f $TAG_NAME
+        	exit_on_error
+        	
+        	# delete existing tag from remote - we must delete the old tag in order to make travis to run the tests on tags.
+        	##git push --delete origin tag
+        	git push origin :refs/tags/$TAG_NAME
+        	exit_on_error
+        	
+        	# push tag to remote
+		git push -f origin tag $TAG_NAME
+		exit_on_error
 	 	
  		sha=$(git rev-parse HEAD)
  		if [[ -z "$repo_names_sha" ]];then
@@ -227,4 +242,3 @@ do
 done
 repo_names_sha=$repo_names_sha' ]'
 echo $repo_names_sha > repo_names_sha
-  	
