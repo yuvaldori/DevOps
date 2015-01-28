@@ -87,6 +87,9 @@ do
 		echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 		
 		# recreate tag locally
+        	git tag -d $TAG_NAME
+		exit_on_error
+		
         	git tag -f $TAG_NAME
         	exit_on_error
         	
