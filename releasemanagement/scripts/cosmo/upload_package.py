@@ -177,7 +177,7 @@ def upload_file_list_to_s3(filenames):
 				else:
 					name_without_version=fname.replace(PRODUCT_VERSION_FULL+"_",'')
 				if fname.startswith('cloudify-virtualbox'):
-					replace_url(name_without_version,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/")	
+					replace_url(name_without_version,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_DIR+"/")	
 					shutil.copyfile(PACKAGE_SOURCE_PATH+"/Vagrantfile",TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/Vagrantfile")
 				shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_DIR+"/"+name_without_version)
 				print "uploaded file %s to Tarzan" % name_without_version
@@ -188,7 +188,7 @@ def upload_file_list_to_s3(filenames):
 			print "uploading release packages to tarzan"
 			mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
 			if fname.startswith('cloudify-virtualbox'):
-				replace_url(fname,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/")	
+				replace_url(fname,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/)	
 				shutil.copyfile(PACKAGE_SOURCE_PATH+"/Vagrantfile",TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/Vagrantfile")
 			shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
 			print "uploaded file %s to Tarzan" % fname
