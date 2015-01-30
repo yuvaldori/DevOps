@@ -188,7 +188,7 @@ def upload_file_list_to_s3(filenames):
 			print "uploading release packages to tarzan"
 			mkdirp(TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR)
 			if fname.startswith('cloudify-virtualbox'):
-				replace_url(fname,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/)	
+				replace_url(fname,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/")	
 				shutil.copyfile(PACKAGE_SOURCE_PATH+"/Vagrantfile",TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/Vagrantfile")
 			shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
 			print "uploaded file %s to Tarzan" % fname
