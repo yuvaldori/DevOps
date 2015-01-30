@@ -3,13 +3,18 @@ import json
 import subprocess
 import smtplib
 
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+
+
 def send_email(sender,receivers):
-	message = """From: {0}
-	To: {1}
-	Subject: Travis tests report
-	
-	fail_repos={2}.
-	""".format(sender,receivers,fail_repos)
+	msg = MIMEMultipart()
+    	msg['From'] = sender
+    	msg['To'] = receivers
+    	msg['Subject'] = "Travis tests report from Nigthly build"
+    	body = "fail tests = {0}".format(fail_repos)
+    	msg.attach(MIMEText(body, 'plain'))
+    	message = msg.as_string()
 	
 	try:
 	   smtpObj = smtplib.SMTP('192.168.10.6')
