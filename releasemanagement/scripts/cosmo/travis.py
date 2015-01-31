@@ -97,7 +97,7 @@ for repo,sha in d.items():
 if fail_repos:
 	print 'fail_repos='+fail_repos
 	#send_email('quickbuild@build64A.gspaces.com','limor@gigaspaces.com')
-	send_email('limor@gigaspaces.com','limor@gigaspaces.com')
+	send_email('limor@gigaspaces.com','rnd_cosmo@gigaspaces.com')
 	f1 = open(utests_fail_file, 'w')
 	f1.write(fail_repos)
 	f1.close()
