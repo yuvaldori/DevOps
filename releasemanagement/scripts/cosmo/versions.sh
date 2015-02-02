@@ -165,8 +165,10 @@ popd
 if [ "$MILESTONE" == "ga" ]
 then
 	version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -b . -f version-tool/config/config.yaml -v
+	exit_on_error
 else	
 	version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/config.yaml -v
+	exit_on_error
 fi
 
 if [ "$RELEASE_BUILD" == "true" ]
