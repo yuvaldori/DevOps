@@ -102,4 +102,4 @@ if fail_repos:
 	f1.write(fail_repos)
 	f1.close()
 
-send_email('limor@gigaspaces.com','limor@gigaspaces.com')
+
