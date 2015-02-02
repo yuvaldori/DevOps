@@ -125,8 +125,12 @@ remove_file(local_links_file_path)
 local('sudo chown {0} -R {1}'.format(USER,PACKAGE_SOURCE_PATH),capture=False)
 
 def replace_url(file_name,file_path):
-	local('sed -i "s|config.vm.box =.*|config.vm.box = {0}|g" Vagrantfile'.format(file_name),capture=False)
-	local('sed -i "s|config.vm.box_url =.*|config.vm.box_url = {0}{1}|g" Vagrantfile'.format(file_path,file_name),capture=False)
+	for line in fileinput.input('Vagrantfile', inplace=1):
+        	if "config.vm.box =" in line:
+            		line = "config.vm.box = \"{0}\"\n".format(file_name)
+        	elif "config.vm.box_url =" in line:
+            		line = "config.vm.box_url = \"{0}{1}\"\n".format(file_path,file_name)
+        	sys.stdout.write(line)
 
 def rename_packages(file_before_rename,new_file_name):
 	file = glob.glob(os.path.join('{0}'.format(PACKAGE_SOURCE_PATH), file_before_rename))
