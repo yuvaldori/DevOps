@@ -18,6 +18,7 @@ DOTNETDOC_LINK=dotnetdocs${API_DOC_VERSION}
 CPPDOC_LINK=cppdocs${API_DOC_VERSION}
 SCALADOC_LINK=scaladocs${API_DOC_VERSION}
 MONGOEDSDOC_LINK=mongoeds-docs${API_DOC_VERSION}
+CASSANDRA_LINK=cassandra-docs${API_DOC_VERSION}
 
 # DOCS DIRS
 JAVA_DOCS_DIR=${XAP_DIR}/docs/xap-javadoc 
@@ -25,6 +26,7 @@ DOTNET_DOCS_DIR=${XAP_DIR}/dotnet/docs
 CPP_DOCS_DIR=${XAP_DIR}/cpp/docs/html
 SCALA_DOCS_DIR=${XAP_DIR}/docs/scaladocs
 MONGOEDS_DOCS_DIR=${XAP_DIR}/docs/mongoeds-docs
+CASSANDRA_DOCS_DIR=${XAP_DIR}/docs/cassandra-docs
 
 cp ${XAP_EA_DIR}/${XAP_RELEASE_VERSION}/${MILESTONE}/${XAP_ZIP_FILENAME} ${DOC_DIR}
 
@@ -47,7 +49,7 @@ pushd ${DOC_DIR}
 	###### CPP API #####
 	cp -R ${DOC_DIR}//gigaspaces-xap-premium-9.6.2-ga/cpp  ${XAP_DIR} 
 	pushd ${XAP_DIR}/cpp
-		find .  -name '*.html' -exec sed -i "s/XAP 9.6/XAP ${MAJOR_NEW}.${MINOR_NEW}/g" '{}' \; 
+		find .  -name '*.html' -exec sed -i "s/XAP 9.7/XAP ${MAJOR_NEW}.${MINOR_NEW}/g" '{}' \; 
 	popd
 
 	###### SCALA API ######	
@@ -57,8 +59,14 @@ pushd ${DOC_DIR}
 	mkdir  ${MONGOEDS_DOCS_DIR}	
 	unzip -d ${MONGOEDS_DOCS_DIR} ${XAP_DIR}/docs/mongo-datasource.zip
 
+	###### CASSANDRA API #####
+	if [ -f ${XAP_DIR}/docs/xap-cassandra.zip ]; then
+		mkdir  ${CASSANDRA_DOCS_DIR}	
+		unzip -d ${CASSANDRA_DOCS_DIR} ${XAP_DIR}/docs/xap-cassandra.zip
+	fi
+
 	###### REMOVE LINKS ######
-	rm ${JAVADOC_LINK} ${DOTNETDOC_LINK} ${CPPDOC_LINK} ${SCALADOC_LINK} ${MONGOEDSDOC_LINK}
+	rm ${JAVADOC_LINK} ${DOTNETDOC_LINK} ${CPPDOC_LINK} ${SCALADOC_LINK} ${MONGOEDSDOC_LINK} ${CASSANDRA_LINK}
 
 	###### CREATE LINKS ######
 	ln -s ${JAVA_DOCS_DIR} ${JAVADOC_LINK}
@@ -66,6 +74,9 @@ pushd ${DOC_DIR}
 	ln -s ${CPP_DOCS_DIR} ${CPPDOC_LINK}
 	ln -s ${SCALA_DOCS_DIR} ${SCALADOC_LINK}
 	ln -s ${MONGOEDS_DOCS_DIR} ${MONGOEDSDOC_LINK}
+	if [ -f ${XAP_DIR}/docs/xap-cassandra.zip ]; then
+		ln -s ${CASSANDRA_DOCS_DIR} ${CASSANDRA_LINK}
+	fi
 
 
 popd
