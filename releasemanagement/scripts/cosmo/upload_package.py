@@ -16,10 +16,12 @@ import commands
 import sys
 import os
 import shutil, errno
-from fabric.api import * #NOQA
 import packages
 import glob
 import params
+import fileinput
+
+from fabric.api import * #NOQA
 from boto.s3.connection import S3Connection
 
 #TARZAN_BUILDS="/export/builds/cloudify3"
