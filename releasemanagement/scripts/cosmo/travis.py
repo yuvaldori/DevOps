@@ -95,6 +95,7 @@ for repo,sha in d.items():
 			fail_repos=fail_repos+','+repo		
 
 if fail_repos:
+	fail_repos = fail_repos.replace(",", "")
 	print 'fail_repos='+fail_repos
 	#send_email('quickbuild@build64A.gspaces.com','limor@gigaspaces.com')
 	send_email('limor@gigaspaces.com','rnd_cosmo@gigaspaces.com')
