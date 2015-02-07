@@ -12,7 +12,7 @@ def send_email(sender,receivers):
     	msg['From'] = sender
     	msg['To'] = receivers
     	msg['Subject'] = "Travis tests report from Nigthly build"
-    	body = "fail tests = {0}".format(fail_repos)
+    	body = "Fail tests: {0}".format(fail_repos)
     	msg.attach(MIMEText(body, 'plain'))
     	message = msg.as_string()
 	
