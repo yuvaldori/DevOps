@@ -21,7 +21,7 @@ def send_email(sender,receivers,body):
 	msg = MIMEMultipart()
     	msg['From'] = sender
     	msg['To'] = receivers
-    	msg['Subject'] = "Signed url"
+    	msg['Subject'] = "Signed S3 url"
     	body = body
     	msg.attach(MIMEText(body, 'plain'))
     	message = msg.as_string()
@@ -48,7 +48,7 @@ def download_private_plugin(repo):
     os.environ["bucket"]=BUCKET_NAME
     os.environ["object"]=OBJECT
     sign_url=local('{0}/s3sign_url.sh'.format(scripts_path),capture=False)
-    #send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
+    send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
 
 if __name__ == '__main__':
 
