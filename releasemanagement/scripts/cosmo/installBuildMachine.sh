@@ -87,3 +87,45 @@ tar -xvzf buildagent.tar.gz
 edit buildagent/bin/agent.sh RUN_AS=tgrid
 sudo ./agent.sh install
 sudo service quickbuild start
+
+#s3cmd
+sudo apt-get install s3cmd
+s3cmd --configure
+
+'''
+Enter new values or accept defaults in brackets with Enter.
+Refer to user manual for detailed description of all options.
+
+Access key and Secret key are your identifiers for Amazon S3
+Access Key: **xxxxxxxxxxxxxxxxxxxxxx**
+Secret Key: **xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx**
+
+Encryption password is used to protect your files from reading
+by unauthorized persons while in transfer to S3
+Encryption password: **[make up a password here; you don't have to remember it]**
+Path to GPG program [/usr/bin/gpg]: **[Hit enter]**
+
+When using secure HTTPS protocol all communication with Amazon S3
+servers is protected from 3rd party eavesdropping. This method is
+slower than plain HTTP and can't be used if you're behind a proxy
+Use HTTPS protocol [No]: **Yes**
+
+New settings:
+  Access Key: xxxxxxxxxxxxxxxxxxxxxx
+  Secret Key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  Encryption password: xxxxxxxxxx
+  Path to GPG program: /usr/bin/gpg
+  Use HTTPS protocol: True
+  HTTP Proxy server name:
+  HTTP Proxy server port: 0
+
+Test access with supplied credentials? [Y/n] **Y**
+Please wait, attempting to list all buckets...
+Success. Your access key and secret key worked fine :-)
+
+Now verifying that encryption works...
+Success. Encryption and decryption worked fine :-)
+
+Save settings? [y/N] **y**
+Configuration saved to '/root/.s3cfg'
+'''
