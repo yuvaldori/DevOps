@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # 1-hour expiration
 ts_exp=$((`date +%s` + 3600))
 
