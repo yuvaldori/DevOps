@@ -2,9 +2,11 @@ import os
 import sys
 import params
 import subprocess
+import smtplib
 
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 from boto.s3.connection import S3Connection
-#from boto.s3.key import Key
 from fabric.api import * #NOQA
 
 #set variables
@@ -14,6 +16,22 @@ AWS_ACCESS_KEY_ID = params.AWS_KEY
 AWS_SECRET_ACCESS_KEY = params.AWS_SECRET
 scripts_path = 'devops/releasemanagement/scripts/allproj'
 
+
+def send_email(sender,receivers,body):
+	msg = MIMEMultipart()
+    	msg['From'] = sender
+    	msg['To'] = receivers
+    	msg['Subject'] = "Signed url"
+    	body = body
+    	msg.attach(MIMEText(body, 'plain'))
+    	message = msg.as_string()
+	try:
+	   smtpObj = smtplib.SMTP('192.168.10.6')
+	   smtpObj.sendmail(sender, receivers, message)
+	   print "Successfully sent email"
+	except SMTPException:
+	   print "Error: unable to send email"
+	   
 def download_private_plugin(repo):
     BUCKET_NAME=repo
     tar_file='{0}.tar.gz'.format(repo)
@@ -29,8 +47,8 @@ def download_private_plugin(repo):
     #print 'download_plugin key = {0}'.format(new_key)
     os.environ["bucket"]=BUCKET_NAME
     os.environ["object"]=OBJECT
-    local('{0}/s3sign_url.sh'.format(scripts_path),capture=False)
-    
+    sign_url=local('{0}/s3sign_url.sh'.format(scripts_path),capture=False)
+    #send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
 
 if __name__ == '__main__':
 
