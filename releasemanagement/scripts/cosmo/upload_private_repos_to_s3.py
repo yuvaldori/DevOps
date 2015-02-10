@@ -48,6 +48,7 @@ def download_private_plugin(repo):
     os.environ["bucket"]=BUCKET_NAME
     os.environ["object"]=OBJECT
     sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
+    print sign_url
     send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
 
 if __name__ == '__main__':
