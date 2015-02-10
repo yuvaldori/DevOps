@@ -49,7 +49,7 @@ def download_private_plugin(repo):
     os.environ["object"]=OBJECT
     local('sign_url=$({0}/s3sign_url.sh)'.format(scripts_path),capture=False)
     #print 'sign_url={0}'.format(sign_url)
-    send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
+    #send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
 
 if __name__ == '__main__':
 
