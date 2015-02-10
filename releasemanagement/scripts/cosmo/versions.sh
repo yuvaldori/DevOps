@@ -85,9 +85,11 @@ do
  			#git push origin --delete $VERSION_BRANCH_NAME
  			if [[ `git branch | grep $VERSION_BRANCH_NAME` ]]
  			then
- 				git checkout $VERSION_BRANCH_NAME
- 				exit_on_error
- 				git reset --hard origin/$VERSION_BRANCH_NAME
+ 				#git checkout $VERSION_BRANCH_NAME
+ 				#exit_on_error
+ 				#git reset --hard origin/$VERSION_BRANCH_NAME
+ 				#exit_on_error
+ 				git branch -D $VERSION_BRANCH_NAME
  				exit_on_error
  			elif [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
  			then
