@@ -200,23 +200,23 @@ do
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
-	#if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
-	        #commit changes
-		git add -u .
-		# push versions to master/build-branch 
-		#if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
-		#then
-		git commit -m "Bump version to $VERSION_NAME"
+		if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
+	        	#commit changes
+			git add -u .
+			# push versions to master/build-branch 
+			#if [[ ! $(git status | grep 'nothing to commit') && ! $(git status | grep 'nothing added to commit') ]]
+			#then
+			git commit -m "Bump version to $VERSION_NAME"
 		
-		if [ "$RELEASE_BUILD" == "true" ]
- 		then
- 			git push origin $VERSION_BRANCH_NAME
- 			exit_on_error
- 		else
- 			git push origin $BRANCHNAME
- 			exit_on_error
- 		fi
-		
+			if [ "$RELEASE_BUILD" == "true" ]
+ 			then
+ 				git push origin $VERSION_BRANCH_NAME
+ 				exit_on_error
+ 			else
+ 				git push origin $BRANCHNAME
+ 				exit_on_error
+ 			fi
+		fi
 		echo "TAG_NAME=$TAG_NAME"
 		# recreate tag locally
 		git tag -d $TAG_NAME
