@@ -95,11 +95,14 @@ for repo,sha in d.items():
 			fail_repos=fail_repos+','+repo		
 
 if fail_repos:
-	fail_repos = fail_repos.replace(",", "")
+	if fail_repos.startswith(','):
+		fail_repos=fail_repos[1:]
+	if fail_repos.startswith(','):
+		fail_repos=fail_repos[:-1]
 	print 'fail_repos='+fail_repos
 	#send_email('quickbuild@build64A.gspaces.com','limor@gigaspaces.com')
-	send_email('limor@gigaspaces.com','rnd_cosmo@gigaspaces.com')
-	#send_email('limor@gigaspaces.com','limor@gigaspaces.com')
+	#send_email('limor@gigaspaces.com','rnd_cosmo@gigaspaces.com')
+	send_email('limor@gigaspaces.com','limor@gigaspaces.com')
 	f1 = open(utests_fail_file, 'w')
 	f1.write(fail_repos)
 	f1.close()
