@@ -21,4 +21,4 @@ fi
 base_url="https://$bucket.s3.amazonaws.com/$object"
 params="AWSAccessKeyId=$s3_access_key&Expires=$ts_exp&Signature=$sig"
 echo "$base_url?$params"
-return "$base_url?$params"
+
