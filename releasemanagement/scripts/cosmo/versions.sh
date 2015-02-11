@@ -220,7 +220,7 @@ do
 		echo "TAG_NAME=$TAG_NAME"
 		# recreate tag locally
 		git tag -d $TAG_NAME
-		exit_on_error
+		#exit_on_error
 		
         	git tag -f $TAG_NAME
         	exit_on_error
