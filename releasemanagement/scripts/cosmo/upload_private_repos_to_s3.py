@@ -56,7 +56,7 @@ if __name__ == '__main__':
         print '- AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY environment variables are not set'
         sys.exit(1)
     conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-    BUCKET_NAME="cloudify-private-repository"
+    BUCKET_NAME="cloudify-private-repositories"
     os.environ["s3_access_key"]=params.AWS_KEY
     
     download_private_plugin('cloudify-vsphere-plugin')
