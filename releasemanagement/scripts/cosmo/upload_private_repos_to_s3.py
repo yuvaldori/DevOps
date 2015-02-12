@@ -57,7 +57,7 @@ if __name__ == '__main__':
         sys.exit(1)
     conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     BUCKET_NAME="cloudify-private-repositories"
-    os.environ["s3_access_key"]=params.AWS_KEY
+    os.environ["s3_access_key"]=params.AWS_AUTO_KEY_ID
     
     download_private_plugin('cloudify-vsphere-plugin')
     
