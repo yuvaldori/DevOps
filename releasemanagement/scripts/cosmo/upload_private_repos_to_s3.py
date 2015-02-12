@@ -33,13 +33,12 @@ def send_email(sender,receivers,body):
 	   print "Error: unable to send email"
 	   
 def download_private_plugin(repo):
-    BUCKET_NAME=repo
     tar_file='{0}.tar.gz'.format(repo)
     os.remove(tar_file) if os.path.exists(tar_file) else None 
     #ver=os.path.basename(os.path.dirname(k))
     get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
     ver=get_name.rstrip()
-    OBJECT='{0}/{1}'.format(ver,tar_file)
+    OBJECT='{0}/{1}/{2}'.format(repo,ver,tar_file)
     local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
     bucket = conn.get_bucket(BUCKET_NAME)
     #new_key = bucket.new_key(k.replace(os.path.basename(k),vsphere_tar_file)).set_contents_from_filename(vsphere_tar_file, policy=None)
@@ -57,7 +56,7 @@ if __name__ == '__main__':
         print '- AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY environment variables are not set'
         sys.exit(1)
     conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-    
+    BUCKET_NAME="cloudify-private-repository"
     os.environ["s3_access_key"]=params.AWS_KEY
     
     download_private_plugin('cloudify-vsphere-plugin')
