@@ -1,8 +1,5 @@
-import commands
 import sys
 import os
-import shutil, errno
-from fabric.api import * #NOQA
 import glob
 import params
 from boto.s3.connection import S3Connection
