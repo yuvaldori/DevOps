@@ -31,7 +31,7 @@ def upload_file_to_s3(source_file,dest_file):
     source_file = ''.join(source_file)
     full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, '{0}_{1}.{2}'.format(dest_file.split(".", 1)[0],PRODUCT_VERSION_FULL,dest_file.split(".", 1)[1]))
     key = bucket.new_key(full_key_name).set_contents_from_filename(source_file, policy='public-read')
-    print 'uploaded file {0} to S3 location {1}'.foramt(source_file,full_key_name)
+    print 'uploaded file {0} to S3 location {1}'.format(source_file,full_key_name)
 
 if __name__ == '__main__':
 
