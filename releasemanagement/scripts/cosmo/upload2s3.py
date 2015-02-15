@@ -1,7 +1,7 @@
 import sys
 import os
 import glob
-import params
+#import params
 from boto.s3.connection import S3Connection
 
 #FILES_LIST="*.tar.gz:cludify-centos-agent.tar.gz,*.tar.gz:cludify-ubuntu-agent.tar.gz"
@@ -15,11 +15,15 @@ BUILD_NUM=os.environ["BUILD_NUM"]
 #PACKAGE_SOURCE_PATH="/tmp"
 PACKAGE_SOURCE_PATH=os.environ["PACKAGE_SOURCE_PATH"]
 
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+#AWS_ACCESS_KEY_ID = params.AWS_KEY
+#AWS_SECRET_ACCESS_KEY = params.AWS_SECRET
+
 PRODUCT_VERSION_FULL=PRODUCT_VERSION+"-"+MILESTONE+"-"+BUILD_NUM
 PACKAGE_DEST_BUILD_DIR=PRODUCT_VERSION+"/"+MILESTONE+"-RELEASE"
 PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
-AWS_ACCESS_KEY_ID = params.AWS_KEY
-AWS_SECRET_ACCESS_KEY = params.AWS_SECRET
+
 
 def upload_file_to_s3(source_file,dest_file):
     #os.chdir( PACKAGE_SOURCE_PATH )
