@@ -16,7 +16,6 @@ AWS_ACCESS_KEY_ID = params.AWS_KEY
 AWS_SECRET_KEY = params.AWS_SECRET
 DUMMY_AWS_ACCESS_KEY_ID = params.AWS_AUTO_KEY_ID
 DUMMY_AWS_SECRET_KEY = params.AWS_AUTO_SECRET_KEY
-scripts_path = 'devops/releasemanagement/scripts/allproj'
 
 
 def send_email(sender,receivers,body):
@@ -35,32 +34,25 @@ def send_email(sender,receivers,body):
 	   print "Error: unable to send email"
 
 def generate_signed_url():
-	#boto.set_stream_logger('boto')
-	#s3 = boto.connect_s3()
-	#conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_KEY)
 	bucket = sign_conn.get_bucket(BUCKET_NAME)
 	key = bucket.get_key(OBJECT)
-	url = key.generate_url(3600)
+	url = key.generate_url(86400)
 	return url
 	   
 def download_private_plugin(repo):
-    tar_file='{0}.tar.gz'.format(repo)
-    os.remove(tar_file) if os.path.exists(tar_file) else None 
-    #ver=os.path.basename(os.path.dirname(k))
-    get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0] 
-    ver=get_name.rstrip()
-    OBJECT='{0}/{1}/{2}'.format(repo,ver,tar_file)
-    local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
-    bucket = conn.get_bucket(BUCKET_NAME)
-    #new_key = bucket.new_key(k.replace(os.path.basename(k),vsphere_tar_file)).set_contents_from_filename(vsphere_tar_file, policy=None)
-    new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
-    #print 'download_plugin key = {0}'.format(new_key)
-    os.environ["bucket"]=BUCKET_NAME
-    os.environ["object"]=OBJECT
-    #sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
-    sign_url=generate_signed_url()
-    print sign_url
-    send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
+    	tar_file='{0}.tar.gz'.format(repo)
+    	os.remove(tar_file) if os.path.exists(tar_file) else None 
+    	#ver=os.path.basename(os.path.dirname(k))
+    	get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0] 
+    	ver=get_name.rstrip()
+    	OBJECT='{0}/{1}/{2}'.format(repo,ver,tar_file)
+    	local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
+    	bucket = conn.get_bucket(BUCKET_NAME)
+    	new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
+       	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
+    	sign_url=generate_signed_url()
+    	print sign_url
+    	send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
 
 if __name__ == '__main__':
 
@@ -73,7 +65,6 @@ if __name__ == '__main__':
         sys.exit(1)
     sign_conn = S3Connection(DUMMY_AWS_ACCESS_KEY_ID, DUMMY_AWS_SECRET_KEY)
     BUCKET_NAME="cloudify-private-repositories"
-    #os.environ["s3_access_key"]=params.AWS_AUTO_KEY_ID
     
     download_private_plugin('cloudify-vsphere-plugin')
     
