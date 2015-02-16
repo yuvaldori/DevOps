@@ -33,7 +33,7 @@ def send_email(sender,receivers,body):
 	except SMTPException:
 	   print "Error: unable to send email"
 
-def generate_signed_url():
+def generate_signed_url(OBJECT):
 	bucket = sign_conn.get_bucket(BUCKET_NAME)
 	key = bucket.get_key(OBJECT)
 	url = key.generate_url(86400)
@@ -50,7 +50,7 @@ def download_private_plugin(repo):
     	bucket = conn.get_bucket(BUCKET_NAME)
     	new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
        	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
-    	sign_url=generate_signed_url()
+    	sign_url=generate_signed_url(OBJECT)
     	print sign_url
     	send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
 
