@@ -34,7 +34,7 @@ def send_email(sender,receivers,body):
 	except SMTPException:
 	   print "Error: unable to send email"
 
-def generate_signed_url:
+def generate_signed_url():
 	#boto.set_stream_logger('boto')
 	#s3 = boto.connect_s3()
 	#conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_KEY)
