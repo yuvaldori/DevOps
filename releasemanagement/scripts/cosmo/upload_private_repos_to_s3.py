@@ -36,7 +36,8 @@ def send_email(sender,receivers,body):
 def generate_signed_url(OBJECT):
 	bucket = sign_conn.get_bucket(BUCKET_NAME)
 	key = bucket.get_key(OBJECT)
-	url = key.generate_url(86400)
+	# 36 hours
+	url = key.generate_url(129600)
 	return url
 	   
 def download_private_plugin(repo):
