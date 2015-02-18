@@ -16,7 +16,7 @@ BUILD_NUM=os.environ["BUILD_NUM"]
 PACKAGE_SOURCE_PATH=os.environ["PACKAGE_SOURCE_PATH"]
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_ACCESS_KEY = os.environ['AWS_ACCESS_KEY']
 #AWS_ACCESS_KEY_ID = params.AWS_KEY
 #AWS_SECRET_ACCESS_KEY = params.AWS_SECRET
 
@@ -36,10 +36,10 @@ def upload_file_to_s3(source_file,dest_file):
 if __name__ == '__main__':
 
     BACKET_NAME="gigaspaces-repository-eu"
-    if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
-        print '- AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY environment variables are not set'
+    if not AWS_ACCESS_KEY_ID or not AWS_ACCESS_KEY:
+        print '- AWS_ACCESS_KEY_ID / AWS_ACCESS_KEY environment variables are not set'
         sys.exit(1)
-    conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_ACCESS_KEY)
     bucket = conn.get_bucket(BACKET_NAME)
 
     files=[x.strip() for x in FILES_LIST.split(",")]
