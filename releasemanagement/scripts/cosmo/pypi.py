@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+import shutil
 from fabric.api import * #NOQA
 
 os.environ["DEFAULT_CONFIG_FILE_PATH"]="yoci/config.yml"
@@ -14,6 +15,20 @@ plugins_branch_name=os.environ["RELEASE_PLUGINS_BRANCH_NAME"]
 parent_repo='cloudify-cosmo/'
 repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin','cloudify-diamond-plugin','cloudify-agent-packager']
 
+def test():
+	print "### Creating virtualenv"
+	shutil.rmtree('env')
+	local('virtualenv env',capture=False)
+	os.chdir('env')
+	print "### Activating virtualenv"
+	local('source env/bin/activate',capture=False)
+	print "### Install modules from pypi" 
+	modules = ['cloudify', 'cloudify-diamond-plugin', 'pip install --pre cloudify-agent-packager']
+	for module in modules:
+	local('pip install --pre {0}'.format(module),capture=False)
+	for module in modules:
+	local('pip show {0} | grep Version:'.format(module),capture=False)
+	local('rm -rf env',capture=False)
 
 def remove_pypi_release_branch():
         print "remove_pypi_release_branch"
@@ -29,7 +44,7 @@ def remove_pypi_release_branch():
                         local('git push origin --delete {0}'.format(pypi_branch_name),capture=False)
 
 
-def main():
+if __name__ == '__main__':
 
 	parent_dir=os.path.abspath('..')
 	print("root dir: "+parent_dir)
@@ -83,4 +98,4 @@ def main():
 	        remove_pypi_release_branch()
 	        os.chdir(os.path.abspath('..'))
 	       
-main()
+	test()
