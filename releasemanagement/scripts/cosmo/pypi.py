@@ -23,11 +23,11 @@ def test():
 	print "### Activating virtualenv"
 	local('source env/bin/activate',capture=False)
 	print "### Install modules from pypi" 
-	modules = ['cloudify', 'cloudify-diamond-plugin', 'pip install --pre cloudify-agent-packager']
+	modules = ['cloudify', 'cloudify-diamond-plugin', 'cloudify-agent-packager']
 	for module in modules:
-	local('pip install --pre {0}'.format(module),capture=False)
+		local('pip install --pre {0}'.format(module),capture=False)
 	for module in modules:
-	local('pip show {0} | grep Version:'.format(module),capture=False)
+		local('pip show {0} | grep Version:'.format(module),capture=False)
 	local('rm -rf env',capture=False)
 
 def remove_pypi_release_branch():
