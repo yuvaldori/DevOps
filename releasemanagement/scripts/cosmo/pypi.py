@@ -17,7 +17,8 @@ repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloud
 
 def test():
 	print "### Creating virtualenv"
-	shutil.rmtree('env')
+	if os.path.exists('env'):
+		shutil.rmtree('env')
 	local('virtualenv env',capture=False)
 	os.chdir('env')
 	print "### Activating virtualenv"
@@ -28,7 +29,8 @@ def test():
 		local('pip install --pre {0}'.format(module),capture=False)
 	for module in modules:
 		local('pip show {0} | grep Version:'.format(module),capture=False)
-	local('rm -rf env',capture=False)
+	if os.path.exists('env'):
+		shutil.rmtree('env')
 
 def remove_pypi_release_branch():
         print "remove_pypi_release_branch"
