@@ -48,56 +48,56 @@ def remove_pypi_release_branch():
 
 if __name__ == '__main__':
 
-'''	parent_dir=os.path.abspath('..')
-	print("root dir: "+parent_dir)
-	os.chdir(parent_dir)
-	print os.getcwd()
-	fail_repos=""
+	# parent_dir=os.path.abspath('..')
+	# print("root dir: "+parent_dir)
+	# os.chdir(parent_dir)
+	# print os.getcwd()
+	# fail_repos=""
 
-	for repo in repo_list:
-        	print "### Create pypi branch for repository: {0}".format(repo)
-        	#get tag name
-        	os.chdir('yo-ci')
-        	get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
-		tag_name=get_name.rstrip()
+	# for repo in repo_list:
+ #       	print "### Create pypi branch for repository: {0}".format(repo)
+ #       	#get tag name
+ #       	os.chdir('yo-ci')
+ #       	get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0]
+	# 	tag_name=get_name.rstrip()
 
-		print "current_location="+os.getcwd()
-		print "tag_name="+tag_name
-        	os.chdir(os.path.abspath('..'))
+	# 	print "current_location="+os.getcwd()
+	# 	print "tag_name="+tag_name
+ #       	os.chdir(os.path.abspath('..'))
         
-        	os.chdir(repo)
-        	#Remove pypi_release_branch if exist
-        	remove_pypi_release_branch()
-        	local('git pull origin master',capture=False)
-        	local('git reset --hard origin/master',capture=False)
-        	local('git checkout -b {0} {1}'.format(pypi_branch_name,tag_name),capture=False)
-        	local('git push origin {0}'.format(pypi_branch_name),capture=False)
-        	os.chdir(os.path.abspath('..'))
+ #       	os.chdir(repo)
+ #       	#Remove pypi_release_branch if exist
+ #       	remove_pypi_release_branch()
+ #       	local('git pull origin master',capture=False)
+ #       	local('git reset --hard origin/master',capture=False)
+ #       	local('git checkout -b {0} {1}'.format(pypi_branch_name,tag_name),capture=False)
+ #       	local('git push origin {0}'.format(pypi_branch_name),capture=False)
+ #       	os.chdir(os.path.abspath('..'))
         
-	for repo in repo_list:
-        	print "### Run tests for repository: {0}".format(repo)
-        	os.chdir(repo)
-        	sha=local('git rev-parse HEAD',capture=True)
-		print sha
+	# for repo in repo_list:
+ #       	print "### Run tests for repository: {0}".format(repo)
+ #       	os.chdir(repo)
+ #       	sha=local('git rev-parse HEAD',capture=True)
+	# 	print sha
         
-	        try:
-	                jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=180)
-	                for key,value in jobs_state.items():
-	                        ##print(key, ":", value)
-	                        if value=='passed':
-	                                print key + ' success'
-	                        else:
-	                                if repo not in fail_repos:
-	                                        fail_repos=fail_repos+','+repo
-	                                        print key + ' failure'
-	                                else:
-	                                        print key + ' failure'
-	        except RuntimeError:
-	                print 'Exception'
-	                fail_repos=fail_repos+','+repo
-	                remove_pypi_release_branch()
+	#         try:
+	#                 jobs_state = yoci.travis.functional_api.get_jobs_status(sha,parent_repo+repo,branch_name=pypi_branch_name,timeout_min=180)
+	#                 for key,value in jobs_state.items():
+	#                         ##print(key, ":", value)
+	#                         if value=='passed':
+	#                                 print key + ' success'
+	#                         else:
+	#                                 if repo not in fail_repos:
+	#                                         fail_repos=fail_repos+','+repo
+	#                                         print key + ' failure'
+	#                                 else:
+	#                                         print key + ' failure'
+	#         except RuntimeError:
+	#                 print 'Exception'
+	#                 fail_repos=fail_repos+','+repo
+	#                 remove_pypi_release_branch()
 	
-	        remove_pypi_release_branch()
-	        os.chdir(os.path.abspath('..'))
-'''	       
+	#         remove_pypi_release_branch()
+	#         os.chdir(os.path.abspath('..'))
+	       
 	test()
