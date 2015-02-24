@@ -48,7 +48,7 @@ def remove_pypi_release_branch():
 
 if __name__ == '__main__':
 
-	parent_dir=os.path.abspath('..')
+'''	parent_dir=os.path.abspath('..')
 	print("root dir: "+parent_dir)
 	os.chdir(parent_dir)
 	print os.getcwd()
@@ -99,5 +99,5 @@ if __name__ == '__main__':
 	
 	        remove_pypi_release_branch()
 	        os.chdir(os.path.abspath('..'))
-	       
+'''	       
 	test()
