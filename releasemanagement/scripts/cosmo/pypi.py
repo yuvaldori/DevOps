@@ -22,7 +22,7 @@ def test():
 	local('virtualenv env',capture=False)
 	os.chdir('env')
 	print "### Activating virtualenv"
-	local('source bin/activate',capture=False)
+	local('source bin/activate',capture=True)
 	print "### Install modules from pypi" 
 	modules = ['cloudify', 'cloudify-diamond-plugin', 'cloudify-agent-packager']
 	for module in modules:
