@@ -16,21 +16,23 @@ parent_repo='cloudify-cosmo/'
 repo_list=['cloudify-cli','cloudify-plugins-common','cloudify-dsl-parser','cloudify-rest-client','cloudify-script-plugin','cloudify-diamond-plugin','cloudify-agent-packager']
 
 def test():
-	print "### Creating virtualenv"
-	if os.path.exists('env'):
-		shutil.rmtree('env')
-	local('virtualenv env',capture=False)
-	os.chdir('env')
-	print "### Activating virtualenv"
-	local('source bin/activate',capture=True)
-	print "### Install modules from pypi" 
-	modules = ['cloudify', 'cloudify-diamond-plugin', 'cloudify-agent-packager']
-	for module in modules:
-		local('pip install --pre {0}'.format(module),capture=False)
-	for module in modules:
-		local('pip show {0} | grep Version:'.format(module),capture=False)
-	if os.path.exists('env'):
-		shutil.rmtree('env')
+        print "### Creating virtualenv"
+        if os.path.exists('env'):
+                shutil.rmtree('env')
+        os.system('virtualenv env')
+        os.chdir('env')
+        print "### Activating virtualenv"
+        os.system('. bin/activate')
+        print "### Install modules from pypi"
+        modules = ['cloudify', 'cloudify-diamond-plugin', 'cloudify-agent-packager']
+        for module in modules:
+                os.system('pip install --pre {0}'.format(module))
+        for module in repo_list:
+                print '{0} -'.format(module)
+                os.system('pip show {0} | grep Version:'.format(module))
+        if os.path.exists('env'):
+                shutil.rmtree('env')
+
 
 def remove_pypi_release_branch():
         print "remove_pypi_release_branch"
