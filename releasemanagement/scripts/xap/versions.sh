@@ -2,7 +2,7 @@
 BRANCH_NAME_FOR_TEST=$(echo $BRANCH_NAME_FOR_TEST)
 echo "BRANCH_NAME_FOR_TEST=$BRANCH_NAME_FOR_TEST"
 echo "BRANCH_NAME=$BRANCH_NAME"
-VERSION_BRANCH_NAME="$gs_product_version$milestone-build"
+#VERSION_BRANCH_NAME="$gs_product_version$milestone-build"
 echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 
 function  exit_on_error {
