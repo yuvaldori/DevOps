@@ -20,7 +20,8 @@ do
         dir=${dir%*/}
         repo=${dir##*/}
         
-        if [ "$repo" != "examples" ]
+        #if [ "$repo" != "examples" ]
+        if [["$repo" == "xap-mule" ]]
 	then
 		echo "### Processing repository: $repo"
 		pushd $repo
@@ -40,4 +41,5 @@ do
 				exit_on_error
 			fi
 		popd
+	fi
 done
