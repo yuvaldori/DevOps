@@ -21,7 +21,7 @@ do
         repo=${dir##*/}
         
         #if [ "$repo" != "examples" ]
-        if [["$repo" == "xap-mule" ]]
+        if [[ "$repo" == "xap-mule" ]]
 	then
 		echo "### Processing repository: $repo"
 		pushd $repo
