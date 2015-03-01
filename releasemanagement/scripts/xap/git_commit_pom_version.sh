@@ -31,10 +31,10 @@ do
 			then
 				 git push origin $BRANCH_NAME_FOR_TEST
 				 exit_on_error
-			elif [ "$RELEASE_BUILD" == "true" ]
+			elif [ "$RELEASE_BUILD" == "true" ] && [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
 		 	then
-	 				git push origin $VERSION_BRANCH_NAME
-			 		exit_on_error
+	 			git push origin $VERSION_BRANCH_NAME
+			 	exit_on_error
 			else
 				git push origin $BRANCH_NAME
 				exit_on_error
