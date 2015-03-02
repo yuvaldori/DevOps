@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 import shutil
+import pip
 from fabric.api import * #NOQA
 
 os.environ["DEFAULT_CONFIG_FILE_PATH"]="yoci/config.yml"
@@ -26,10 +27,10 @@ def test():
         print "### Install modules from pypi"
         modules = ['cloudify', 'cloudify-diamond-plugin', 'cloudify-agent-packager']
         for module in modules:
-                os.system('pip install --pre {0}'.format(module))
+                pip.main(['install', '--pre', '{0}'.format(module)]) 
         for module in repo_list:
                 print '{0} -'.format(module)
-                os.system('pip show {0} | grep Version:'.format(module))
+                pip.main(['show', '{0} | grep Version:'.format(module)])
         if os.path.exists('env'):
                 shutil.rmtree('env')
 
