@@ -1,5 +1,5 @@
 #!/bin/bash -x
-BRANCH_NAME_FOR_TEST=$(echo $BRANCH_NAME_FOR_TEST)
+#BRANCH_NAME_FOR_TEST=$(echo $BRANCH_NAME_FOR_TEST)
 echo "BRANCH_NAME_FOR_TEST=$BRANCH_NAME_FOR_TEST"
 echo "BRANCH_NAME=$BRANCH_NAME"
 #VERSION_BRANCH_NAME="$gs_product_version$milestone-build"
@@ -23,7 +23,7 @@ do
         repo=${dir##*/}
         
         #if [ "$repo" != "examples" ]
-        if [[ "$repo" == "xap-mule" ]]
+        if [ "$repo" == "mule" ]
 	then
 		echo "### Processing repository: $repo"
 		pushd $repo
