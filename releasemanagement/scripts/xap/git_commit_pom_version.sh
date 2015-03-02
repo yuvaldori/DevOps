@@ -15,6 +15,8 @@ function  exit_on_error {
 
 }
 
+echo "current dir = `pwd`"
+
 for dir in `pwd`/*/
 do
         dir=${dir%*/}
