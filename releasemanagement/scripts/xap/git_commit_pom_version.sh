@@ -26,8 +26,8 @@ do
         dir=${dir%*/}
         repo=${dir##*/}
         
-        #if [ "$repo" != "examples" ]
-        if [ "$repo" == "mule" ]
+        if [ "$repo" != "examples" ]
+        #if [ "$repo" == "mule" ]
 	then
 		echo "### Processing repository: $repo"
 		pushd $repo
