@@ -1,6 +1,7 @@
 #!/bin/bash -x
 BRANCH_NAME_FOR_TEST=$(echo $BRANCH_NAME_FOR_TEST)
 if [ -z "$BRANCH_NAME_FOR_TEST" ]; then
+    echo "BRANCH_NAME_FOR_TEST is empty"
     BRANCH_NAME_FOR_TEST=""
 fi
 echo "BRANCH_NAME_FOR_TEST=$BRANCH_NAME_FOR_TEST"
@@ -33,11 +34,11 @@ do
 			git add -u \*pom.xml
 			git commit -m 'Bump version' \*pom.xml
 			
-			if [ -n "$BRANCH_NAME_FOR_TEST" ] && [[ `git branch -r | grep origin/$BRANCH_NAME_FOR_TEST` ]]
-			then
-				 git push origin $BRANCH_NAME_FOR_TEST
-				 exit_on_error
-			elif [ "$RELEASE_BUILD" == "true" ] && [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
+			#if [ -n "$BRANCH_NAME_FOR_TEST" ] && [[ `git branch -r | grep origin/$BRANCH_NAME_FOR_TEST` ]]
+			#then
+			#	 git push origin $BRANCH_NAME_FOR_TEST
+			#	 exit_on_error
+			if [ "$RELEASE_BUILD" == "true" ] && [[ `git branch -r | grep origin/$VERSION_BRANCH_NAME` ]]
 		 	then
 	 			git push origin $VERSION_BRANCH_NAME
 			 	exit_on_error
