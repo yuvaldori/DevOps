@@ -53,7 +53,7 @@ def download_private_plugin(repo):
        	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
     	sign_url=generate_signed_url(OBJECT)
     	print sign_url
-    	send_email('limor@gigaspaces.com','s3signedurl@gigaspaces.flowdock.com',sign_url,repo)
+    	send_email('quickbuild@build64A.gspaces.com','s3signedurl@gigaspaces.flowdock.com',sign_url,repo)
 
 if __name__ == '__main__':
 
