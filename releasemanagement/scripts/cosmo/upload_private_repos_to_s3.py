@@ -53,7 +53,7 @@ def download_private_plugin(repo):
        	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
     	sign_url=generate_signed_url(OBJECT)
     	print sign_url
-    	send_email('limor@gigaspaces.com','limor@gigaspaces.com',sign_url)
+    	send_email('limor@gigaspaces.com','s3signedurl@gigaspaces.flowdock.com',sign_url)
 
 if __name__ == '__main__':
 
@@ -67,6 +67,8 @@ if __name__ == '__main__':
     sign_conn = S3Connection(DUMMY_AWS_ACCESS_KEY_ID, DUMMY_AWS_SECRET_KEY)
     BUCKET_NAME="cloudify-private-repositories"
     
-    download_private_plugin('cloudify-vsphere-plugin')
+    repo_list=['cloudify-vsphere-plugin','cloudify-softlayer-plugin']
+    for repo in repo_list:
+    	download_private_plugin(repo)
     
   
