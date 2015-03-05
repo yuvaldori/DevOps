@@ -22,7 +22,7 @@ def send_email(sender,receivers,body,repo):
 	msg = MIMEMultipart()
     	msg['From'] = sender
     	msg['To'] = receivers
-    	msg['Subject'] = "{0} S3 Signed Url".foramt(repo)
+    	msg['Subject'] = "{0} S3 Signed Url".format(repo)
     	body = body
     	msg.attach(MIMEText(body, 'plain'))
     	message = msg.as_string()
