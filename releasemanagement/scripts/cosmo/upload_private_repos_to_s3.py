@@ -18,11 +18,11 @@ DUMMY_AWS_ACCESS_KEY_ID = params.AWS_AUTO_KEY_ID
 DUMMY_AWS_SECRET_KEY = params.AWS_AUTO_SECRET_KEY
 
 
-def send_email(sender,receivers,body):
+def send_email(sender,receivers,body,repo):
 	msg = MIMEMultipart()
     	msg['From'] = sender
     	msg['To'] = receivers
-    	msg['Subject'] = "Signed S3 url"
+    	msg['Subject'] = "{0} S3 Signed Url".foramt(repo)
     	body = body
     	msg.attach(MIMEText(body, 'plain'))
     	message = msg.as_string()
@@ -53,7 +53,7 @@ def download_private_plugin(repo):
        	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
     	sign_url=generate_signed_url(OBJECT)
     	print sign_url
-    	send_email('limor@gigaspaces.com','s3signedurl@gigaspaces.flowdock.com',sign_url)
+    	send_email('limor@gigaspaces.com','s3signedurl@gigaspaces.flowdock.com',sign_url,repo)
 
 if __name__ == '__main__':
 
