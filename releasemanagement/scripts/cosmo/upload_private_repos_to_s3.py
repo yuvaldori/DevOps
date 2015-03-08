@@ -39,9 +39,9 @@ def generate_signed_url(OBJECT):
 	# 36 hours
 	url = key.generate_url(129600)
 	return url
-	   
-def download_private_plugin(repo):
-    	tar_file='{0}.tar.gz'.format(repo)
+	
+def upload_repo_to_s3(repo):
+	tar_file='{0}.tar.gz'.format(repo)
     	os.remove(tar_file) if os.path.exists(tar_file) else None 
     	#ver=os.path.basename(os.path.dirname(k))
     	get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0] 
@@ -50,13 +50,18 @@ def download_private_plugin(repo):
     	local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
     	bucket = conn.get_bucket(BUCKET_NAME)
     	new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
+    	
+def private_repos(repo):
+    	upload_repo_to_s3(repo)
        	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
     	sign_url=generate_signed_url(OBJECT)
     	print sign_url
     	send_email('quickbuild@build64A.gspaces.com','s3signedurl@gigaspaces.flowdock.com',sign_url,repo)
 
+def public_repos(repo):
+    	upload_repo_to_s3(repo)	
+       	
 if __name__ == '__main__':
-
     if not AWS_ACCESS_KEY_ID or not AWS_SECRET_KEY:
         print '- AWS_ACCESS_KEY_ID / AWS_SECRET_KEY environment variables are not set'
         sys.exit(1)
@@ -65,10 +70,16 @@ if __name__ == '__main__':
         print '- DUMMY_AWS_ACCESS_KEY_ID / DUMMY_AWS_SECRET_KEY environment variables are not set'
         sys.exit(1)
     sign_conn = S3Connection(DUMMY_AWS_ACCESS_KEY_ID, DUMMY_AWS_SECRET_KEY)
-    BUCKET_NAME="cloudify-private-repositories"
+    
     
     repo_list=['cloudify-vsphere-plugin','cloudify-softlayer-plugin']
+    BUCKET_NAME="cloudify-private-repositories"
     for repo in repo_list:
-    	download_private_plugin(repo)
+    	private_repos(repo)
+    
+    repo_list=['cloudify-cli']
+    BUCKET_NAME="cloudify-public-repositories"
+    for repo in repo_list:
+    	public_repos(repo)
     
   
