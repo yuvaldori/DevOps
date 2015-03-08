@@ -49,7 +49,7 @@ def upload_repo_to_s3(repo,repo_type):
     	OBJECT='{0}/{1}/{2}'.format(repo,ver,tar_file)
     	local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
     	bucket = conn.get_bucket(BUCKET_NAME)
-    	if repo_type = 'private':
+    	if repo_type == 'private':
     		new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
     	else:
     		new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy='public-read')
