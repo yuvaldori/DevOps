@@ -22,7 +22,7 @@ function  exit_on_error {
 
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-rm -f /cloudify/cloudify-ubuntu-agent*
+#rm -f /cloudify/cloudify-ubuntu-agent*
 
 
 ##destroy ubuntu vm if exit
