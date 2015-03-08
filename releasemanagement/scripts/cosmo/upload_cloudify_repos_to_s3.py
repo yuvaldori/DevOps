@@ -40,7 +40,7 @@ def generate_signed_url(OBJECT):
 	url = key.generate_url(129600)
 	return url
 	
-def upload_repo_to_s3(repo):
+def upload_repo_to_s3(repo,repo_type):
 	tar_file='{0}.tar.gz'.format(repo)
     	os.remove(tar_file) if os.path.exists(tar_file) else None 
     	#ver=os.path.basename(os.path.dirname(k))
@@ -49,18 +49,21 @@ def upload_repo_to_s3(repo):
     	OBJECT='{0}/{1}/{2}'.format(repo,ver,tar_file)
     	local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
     	bucket = conn.get_bucket(BUCKET_NAME)
-    	new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
+    	if repo_type = 'private':
+    		new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
+    	else:
+    		new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy='public-read')
     	return OBJECT
     	
 def private_repos(repo):
-    	OBJECT = upload_repo_to_s3(repo)
+    	OBJECT = upload_repo_to_s3(repo,'private')
        	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
     	sign_url=generate_signed_url(OBJECT)
     	print sign_url
     	send_email('quickbuild@build64A.gspaces.com','s3signedurl@gigaspaces.flowdock.com',sign_url,repo)
 
 def public_repos(repo):
-    	upload_repo_to_s3(repo)	
+    	upload_repo_to_s3(repo,'public')	
        	
 if __name__ == '__main__':
     if not AWS_ACCESS_KEY_ID or not AWS_SECRET_KEY:
