@@ -50,9 +50,10 @@ def upload_repo_to_s3(repo):
     	local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
     	bucket = conn.get_bucket(BUCKET_NAME)
     	new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
+    	return OBJECT
     	
 def private_repos(repo):
-    	upload_repo_to_s3(repo)
+    	OBJECT = upload_repo_to_s3(repo)
        	#sign_url=subprocess.Popen(['bash', '-c', '{0}/s3sign_url.sh'.format(scripts_path)],stdout = subprocess.PIPE).communicate()[0]
     	sign_url=generate_signed_url(OBJECT)
     	print sign_url
