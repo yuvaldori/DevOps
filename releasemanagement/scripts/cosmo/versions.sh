@@ -127,6 +127,7 @@ then
 	blueprints_docker="cloudify-manager-blueprints/openstack-docker/openstack-docker.yaml"
 	blueprints_simple_docker="cloudify-manager-blueprints/simple/simple-docker.yaml"
 	docker_file="cloudify-packager/docker/vars.py"
+	docker_file_tmp="cloudify-packager/docker/ubuntu_agent/scripts/install_packman.sh"
 	
 	url_prefix="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE"
 	ui_package_url=$url_prefix"/cloudify-ui_"$PRODUCT_VERSION_FULL"_amd64.deb"
