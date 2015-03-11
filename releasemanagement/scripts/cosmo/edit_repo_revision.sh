@@ -15,6 +15,9 @@ OS_PLUGIN_SHA=$(echo $OS_PLUGIN_SHA)
 FABRIC_PLUGIN_SHA=$(echo $FABRIC_PLUGIN_SHA)
 MANAGER_BLUEPRINTS_SHA=$(echo $MANAGER_BLUEPRINTS_SHA)
 PACKAGER_SHA=$(echo $PACKAGER_SHA)
+core_tag_name=$(echo $core_tag_name)
+plugins_tag_name=$(echo $plugins_tag_name)
+
 
 echo "DSL_SHA=$DSL_SHA"
 echo "REST_CLIENT_SHA=$REST_CLIENT_SHA"
@@ -29,7 +32,8 @@ echo "FABRIC_PLUGIN_SHA=$FABRIC_PLUGIN_SHA"
 echo "MANAGER_BLUEPRINTS_SHA=$MANAGER_BLUEPRINTS_SHA"
 echo "PACKAGER_SHA=$PACKAGER_SHA"
 echo "cloudify_packager_dir=$cloudify_packager_dir"
-
+echo "core_tag_name=$core_tag_name"
+echo "plugins_tag_name=$plugins_tag_name"
 #edit the revision number in linux/provision.sh
 
 win_fileName="cloudify-cli-packager/vagrant/windows/provision.bat"
@@ -70,4 +74,7 @@ sed -i "s/.*FABRIC_PLUGIN_SHA=.*/FABRIC_PLUGIN_SHA=$FABRIC_PLUGIN_SHA/g" $fileNa
 sed -i "s/.*MANAGER_BLUEPRINTS_SHA=.*/MANAGER_BLUEPRINTS_SHA=$MANAGER_BLUEPRINTS_SHA/g" $vbox_fileName
 sed -i "s/.*PACKAGER_SHA=.*/PACKAGER_SHA=$PACKAGER_SHA/g" $docker_file
 
+debian_agent_file="cloudify-packager/vagrant/debian-jessie-agent/provision.sh"
+sed -i "s/.*core_tag_name=.*/core_tag_name=$core_tag_name/g" $debian_agent_file
+sed -i "s/.*plugins_tag_name=.*/plugins_tag_name=$plugins_tag_name/g" $debian_agent_file
 
