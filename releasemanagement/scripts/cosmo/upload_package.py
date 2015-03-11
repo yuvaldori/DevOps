@@ -275,9 +275,9 @@ def main():
 		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_precise_name+'*.deb',ubuntu_agent_precise_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
-		debian-jessie-agent_conf = packages.PACKAGES['cloudify-debian-jessie-agent']
-		debian-jessie-agent_name = debian-jessie-agent_conf['name']
-		file_name=get_file_name_from_path(rename_packages(debian-jessie-agent_name+'*.deb',debian-jessie-agent_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
+		#debian-jessie-agent_conf = packages.PACKAGES['cloudify-debian-jessie-agent']
+		#debian-jessie-agent_name = debian-jessie-agent_conf['name']
+		file_name=get_file_name_from_path(rename_packages('cloudify-debian-jessie-agent*.deb','cloudify-debian-jessie-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
 		windows_agent_conf = packages.PACKAGES['cloudify-windows-agent']
