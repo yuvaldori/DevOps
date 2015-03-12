@@ -102,6 +102,9 @@ if PACK_CORE == "yes":
 	r=p.pip('celery==3.1.17', celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
+	r=p.pip('{0}/'.format(parent_dir + '/flask-securest'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
