@@ -83,6 +83,10 @@ if PACK_CORE == "yes":
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-dsl-parser'), manager_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
+	## install flask-securest
+	r=p.pip('{0}/'.format(parent_dir + '/flask-securest'), celery_conf['sources_path'])
+	if r.return_code != 0:
+		exit(1)
 	## install manager with dependencies into manager virtualenv
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/rest-service'), manager_conf['sources_path'])
 	if r.return_code != 0:
@@ -100,9 +104,6 @@ if PACK_CORE == "yes":
 	do('pkm get -c celery')
 	## install celery with dependencies into celery virtualenv
 	r=p.pip('celery==3.1.17', celery_conf['sources_path'])
-	if r.return_code != 0:
-		exit(1)
-	r=p.pip('{0}/'.format(parent_dir + '/flask-securest'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-rest-client'), celery_conf['sources_path'])
