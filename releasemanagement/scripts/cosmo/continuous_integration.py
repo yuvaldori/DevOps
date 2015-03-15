@@ -79,14 +79,17 @@ if PACK_CORE == "yes":
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-amqp-influxdb'), manager_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
+	print("install dsl-parser")
 	## install dsl-parser with dependencies into manager virtualenv (installing before manager-rest so manager-rest will not install it as dependency)
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-dsl-parser'), manager_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
+	print("install flask-securest")
 	## install flask-securest
 	r=p.pip('{0}/'.format(parent_dir + '/flask-securest'), celery_conf['sources_path'])
 	if r.return_code != 0:
 		exit(1)
+	print("install manager/rest-service")
 	## install manager with dependencies into manager virtualenv
 	r=p.pip('{0}/'.format(parent_dir + '/cloudify-manager/rest-service'), manager_conf['sources_path'])
 	if r.return_code != 0:
