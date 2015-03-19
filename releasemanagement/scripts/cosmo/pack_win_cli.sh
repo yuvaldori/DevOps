@@ -41,6 +41,9 @@ echo "ip_address="$ip_address
 ##copy windows exe file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
+
+echo "sshpass -p '$WINDOWS_PASS' scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+Administrator@$ip_address:/home/Administrator/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI*.exe /cloudify"
 sshpass -p '$WINDOWS_PASS' scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null Administrator@$ip_address:/home/Administrator/cloudify-cli-packager/packaging/windows/inno/Output/CloudifyCLI*.exe /cloudify
 
 exit_on_error
