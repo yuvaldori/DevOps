@@ -159,9 +159,9 @@ echo "### version tool"
 rm -rf version_tool_env
 virtualenv version_tool_env
 source version_tool_env/bin/activate
-pushd repex
- pip install .
-popd
+
+pip install repex==0.1.0
+
 pushd version-tool
  pip install .
 popd
