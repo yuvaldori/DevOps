@@ -201,7 +201,7 @@ do
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
-		if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
+		#if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
 	        	#commit changes
 			git add -u .
 			# push versions to master/build-branch 
@@ -217,7 +217,7 @@ do
  				git push origin $BRANCHNAME
  				exit_on_error
  			fi
-		fi
+		#fi
 		echo "TAG_NAME=$TAG_NAME"
 		# recreate tag locally
 		git tag -d $TAG_NAME
