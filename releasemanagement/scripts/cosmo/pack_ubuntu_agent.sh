@@ -26,7 +26,7 @@ sudo chown tgrid -R /cloudify
 
 
 ##destroy ubuntu vm if exit
-vagrant destroy -f ubuntu
+vagrant destroy -f ubuntu_trusty_aws
 
 vagrant up ubuntu_trusty_aws --provider=aws
 exit_on_error
@@ -41,5 +41,5 @@ sudo chown tgrid -R /cloudify
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify
 exit_on_error
 
-vagrant destroy -f ubuntu
+vagrant destroy -f ubuntu_trusty_aws
 
