@@ -41,4 +41,4 @@ sudo chown tgrid -R /cloudify
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_centos_build.pem root@$ip_address:/cloudify/*.deb /cloudify
 exit_on_error
 
-vagrant destroy -f centos
+vagrant destroy -f centos_final_aws
