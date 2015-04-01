@@ -28,11 +28,11 @@ sudo chown tgrid -R /cloudify
 ##destroy ubuntu vm if exit
 vagrant destroy -f ubuntu
 
-vagrant up ubuntu --provider=aws
+vagrant up ubuntu_trusty_aws --provider=aws
 exit_on_error
 
 ##get guest ip address
-ip_address=`vagrant ssh-config ubuntu | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+ip_address=`vagrant ssh-config ubuntu_trusty_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
 ##copy ubuntu deb file
