@@ -26,7 +26,7 @@ rm -f /cloudify/cloudify-centos-agent*
 
 
 ##destroy centos vm if exit
-vagrant destroy -f centos
+vagrant destroy -f centos_final_aws
 
 vagrant up centos_final_aws --provider=aws
 exit_on_error
