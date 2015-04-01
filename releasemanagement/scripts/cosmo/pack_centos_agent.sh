@@ -14,7 +14,7 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		vagrant destroy -f centos            
+		vagrant destroy -f centos_final_aws            
 		exit 1
       fi
 
@@ -25,7 +25,7 @@ sudo chown tgrid -R /cloudify
 rm -f /cloudify/cloudify-centos-agent*
 
 
-##destroy centos vm if exit
+##destroy vm if exit
 vagrant destroy -f centos_final_aws
 
 vagrant up centos_final_aws --provider=aws
@@ -35,7 +35,7 @@ exit_on_error
 ip_address=`vagrant ssh-config centos_final_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
-##copy centos deb file
+##copy deb file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_centos_build.pem root@$ip_address:/cloudify/*.deb /cloudify
