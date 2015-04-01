@@ -25,13 +25,13 @@ sudo chown tgrid -R /cloudify
 
 
 ##destroy ubuntu vm if exit
-vagrant destroy -f ubuntu
+vagrant destroy -f debian_jessie_aws
 
 vagrant up ubuntu --provider=aws
 exit_on_error
 
 ##get guest ip address
-ip_address=`vagrant ssh-config ubuntu | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+ip_address=`vagrant ssh-config debian_jessie_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
 ##copy deb file
@@ -40,4 +40,4 @@ sudo chown tgrid -R /cloudify
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem admin@$ip_address:/cloudify/*.deb /cloudify
 exit_on_error
 
-vagrant destroy -f ubuntu
+vagrant destroy -f debian_jessie_aws
