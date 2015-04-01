@@ -96,13 +96,8 @@ if PACK_UI == "yes":
 		print cloudify_ui_file
 		##rename cloudify-ui package
 		os.rename(cloudify_ui_file,'{0}/{1}'.format(PACKAGE_SOURCE_PATH,'cloudify-ui_'+PRODUCT_VERSION+'_amd64.deb'))
-
-
-
-
-
-
-
-
-
+	else:
+		print "Cannot pack cloudify-ui because missing tar files"
+		sys.exit(1)
+		
 local('sudo chown tgrid -R /opt',capture=False)
