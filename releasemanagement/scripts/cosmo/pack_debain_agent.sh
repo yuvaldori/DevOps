@@ -14,7 +14,7 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		vagrant destroy -f ubuntu            
+		vagrant destroy -f debian_jessie_aws            
 		exit 1
       fi
 
@@ -24,10 +24,10 @@ sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
 
 
-##destroy ubuntu vm if exit
+##destroy vm if exit
 vagrant destroy -f debian_jessie_aws
 
-vagrant up ubuntu --provider=aws
+vagrant up debian_jessie_aws --provider=aws
 exit_on_error
 
 ##get guest ip address
