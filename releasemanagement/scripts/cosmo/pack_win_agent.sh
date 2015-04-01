@@ -25,14 +25,14 @@ rm -f /cloudify/Cloudify.exe
 
 
 ##destroy windows vm if exit
-vagrant destroy -f
+vagrant destroy -f windows_aws
 
 
-vagrant up --provider=aws
+vagrant up windows_aws --provider=aws
 exit_on_error
 
 ##get guest ip address
-ip_address=`vagrant ssh-config windows | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+ip_address=`vagrant ssh-config windows_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
 ##copy windows exe file
@@ -44,4 +44,4 @@ sudo chown tgrid -R /agents/windows-agent
 scp -p -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/windows_agent_packager.pem Administrator@$ip_address:/cygdrive/c/Cloudify.exe /agents/windows-agent
 exit_on_error
 
-vagrant destroy -f
+vagrant destroy -f windows_aws
