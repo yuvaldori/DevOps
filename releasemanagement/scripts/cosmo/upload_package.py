@@ -16,7 +16,7 @@ import commands
 import sys
 import os
 import shutil, errno
-import packages
+#import packages
 import glob
 import params
 import fileinput
@@ -103,8 +103,8 @@ PACKAGE_DEST_PATH="org/cloudify3/"+PACKAGE_DEST_DIR
 PACKAGE_DEST_BUILD_PATH="org/cloudify3/"+PACKAGE_DEST_BUILD_DIR
 
 #commands.getoutput('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH))
-cloudify_core_conf = packages.PACKAGES['cloudify-core']
-PACKAGE_SOURCE_PATH='{0}'.format(cloudify_core_conf['package_path'])
+#cloudify_core_conf = packages.PACKAGES['cloudify-core']
+PACKAGE_SOURCE_PATH='{0}'.format("/cloudify")
 
 tarzan_links_file='nightly-tarzan.links'
 tarzan_links_file_path=TARZAN_BUILDS+'/'+PACKAGE_DEST_BUILD_DIR+'/'+tarzan_links_file
@@ -252,26 +252,23 @@ def main():
 
 		#file_name=get_file_name_from_path(rename_packages('cloudify-docker-data_*.tar','cloudify-docker-data_'+PRODUCT_VERSION_FULL+'.tar'))
 		#filenames.append(file_name)
-
-	if PACK_COMPONENTS == "yes":
-		cloudify_components_conf = packages.PACKAGES['cloudify-components']
-		cloudify_components_name = cloudify_components_conf['name']
-		file_name=get_file_name_from_path(rename_packages(cloudify_components_name+'*.deb',cloudify_components_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
-		filenames.append(file_name)
-
+	
 	if PACK_AGENT == "yes":
-		centos_agent_final_conf = packages.PACKAGES['cloudify-centos-final-agent']
-		centos_agent_final_name = centos_agent_final_conf['name']
+		#centos_agent_final_conf = packages.PACKAGES['cloudify-centos-final-agent']
+		#centos_agent_final_name = centos_agent_final_conf['name']
+		centos_agent_final_name = "cloudify-centos-final-agent"
 		file_name=get_file_name_from_path(rename_packages(centos_agent_final_name+'*.deb',centos_agent_final_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 
-		ubuntu_agent_trusty_conf = packages.PACKAGES['cloudify-ubuntu-trusty-agent']
-		ubuntu_agent_trusty_name = ubuntu_agent_trusty_conf['name']
+		#ubuntu_agent_trusty_conf = packages.PACKAGES['cloudify-ubuntu-trusty-agent']
+		#ubuntu_agent_trusty_name = ubuntu_agent_trusty_conf['name']
+		ubuntu_agent_trusty_name = "cloudify-ubuntu-trusty-agent"
 		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_trusty_name+'*.deb',ubuntu_agent_trusty_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 
-		ubuntu_agent_precise_conf = packages.PACKAGES['cloudify-ubuntu-precise-agent']
-		ubuntu_agent_precise_name = ubuntu_agent_precise_conf['name']
+		#ubuntu_agent_precise_conf = packages.PACKAGES['cloudify-ubuntu-precise-agent']
+		#ubuntu_agent_precise_name = ubuntu_agent_precise_conf['name']
+		ubuntu_agent_precise_name = "cloudify-ubuntu-precise-agent"
 		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_precise_name+'*.deb',ubuntu_agent_precise_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
@@ -280,8 +277,9 @@ def main():
 		file_name=get_file_name_from_path(rename_packages('cloudify-debian-jessie-agent*.deb','cloudify-debian-jessie-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
-		windows_agent_conf = packages.PACKAGES['cloudify-windows-agent']
-		windows_agent_name = windows_agent_conf['name']
+		#windows_agent_conf = packages.PACKAGES['cloudify-windows-agent']
+		#windows_agent_name = windows_agent_conf['name']
+		windows_agent_name = "cloudify-windows-agent"
 		file_name=get_file_name_from_path(rename_packages(windows_agent_name+'*.deb',windows_agent_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
@@ -302,14 +300,10 @@ def main():
 		file_name=get_file_name_from_path(rename_packages('CloudifyCLI*.exe',cli_win_name+'_'+PRODUCT_VERSION_FULL+'.exe'))
 		filenames.append(file_name)
 
-	if PACK_CORE == "yes":
-		core_name = cloudify_core_conf['name']
-		file_name=get_file_name_from_path(rename_packages(core_name+'*.deb',core_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
-		filenames.append(file_name)
-
 	if PACK_UI == "yes":
-		ui_conf = packages.PACKAGES['cloudify-ui']
-		ui_name = ui_conf['name']
+		#ui_conf = packages.PACKAGES['cloudify-ui']
+		#ui_name = ui_conf['name']
+		ui_name = "cloudify-ui"
 		file_name=get_file_name_from_path(rename_packages(ui_name+'*.deb',ui_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 
