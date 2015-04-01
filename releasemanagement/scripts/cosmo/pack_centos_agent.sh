@@ -28,11 +28,11 @@ rm -f /cloudify/cloudify-centos-agent*
 ##destroy centos vm if exit
 vagrant destroy -f centos
 
-vagrant up centos --provider=aws
+vagrant up centos_final_aws --provider=aws
 exit_on_error
 
 ##get guest ip address
-ip_address=`vagrant ssh-config centos | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
+ip_address=`vagrant ssh-config centos_final_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
 echo "ip_address="$ip_address
 
 ##copy centos deb file
