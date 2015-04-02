@@ -25,6 +25,7 @@ from packman.packman import *  # NOQA
 #os.environ["BUILD_NUM"]="1-248"
 #os.environ["PRODUCT_VERSION_FULL"]="3.0.0-m1-b1-248"
 
+PACK_AGENT=os.environ["PACK_AGENT"]
 PACK_COMPONENTS=os.environ["PACK_COMPONENTS"]
 PACK_CORE=os.environ["PACK_CORE"]
 PACK_UI=os.environ["PACK_UI"]
@@ -36,6 +37,7 @@ print PACK_CORE
 print PACK_UI
 print BUILD_NUM
 print PRODUCT_VERSION
+print PACK_AGENT
 
 def copy_dir(src,dst):
     if os.path.exists(dst):
@@ -62,13 +64,14 @@ PACKAGE_SOURCE_PATH="/cloudify"
 	#local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 	shutil.rmtree(PACKAGE_SOURCE_PATH)'''
 
-print("*** packaging winsows-agent")
-local('pkm pack -c cloudify-windows-agent',capture=False)
+if PACK_AGENT == "yes":
+	print("*** packaging winsows-agent")
+	local('sudo pkm pack -c cloudify-windows-agent',capture=False)
 
 if PACK_UI == "yes":
 
 	print("*** packaging ui")
-	local('pkm get -c cloudify-ui',capture=False)
+	local('sudo pkm get -c cloudify-ui',capture=False)
 	#shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(cloudify_ui_conf['sources_path']))
 	#pkg_cloudify_ui()
         #cloudify_ui_source_path=cloudify_ui_conf['sources_path']
@@ -87,7 +90,7 @@ if PACK_UI == "yes":
 	shutil.copy(''.join(tar_ui_grafana_file),'{0}'.format(cloudify_ui_source_path))
 
 	if  tar_ui_file:
-		local('pkm pack -c cloudify-ui',capture=False)
+		local('sudo pkm pack -c cloudify-ui',capture=False)
 		cloudify_ui_file = glob.glob(os.path.join('{0}'.format(cloudify_ui_package_path), '{0}*.deb'.format(cloudify_ui_name)))
 		cloudify_ui_file = ''.join(cloudify_ui_file)
 		print cloudify_ui_file
