@@ -108,7 +108,7 @@ do
 done
 
 
-if [[ "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_IMAGES" == "yes" ]]
+if [[ "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_IMAGES" == "yes"  ||  "$PACK_AGENT" == "yes" ]]
 then
 	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
 	config_yaml_file_name="cloudify-config.yaml"
@@ -152,13 +152,11 @@ then
 	#edit json file
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
 	
-fi
-
-if [ "$PACK_AGENT" == "yes" ]
-then
+	
 	docker_ubuntu_merge_file="cloudify-packager/docker/ubuntu_agent/scripts/install_packman.sh"
 	sed -i "s|.*cloudify-ubuntu-trusty-agent.*|curl $(echo ${ubuntu_agent_trusty_url}) --create-dirs -o /opt/tmp/manager/ubuntu_precise_agent.deb \&\& \\\|" $docker_ubuntu_merge_file
 	sed -i "s|.*cloudify-ubuntu-precise-agent.*|curl $(echo ${ubuntu_agent_precise_url}) --create-dirs -o /opt/tmp/manager/ubuntu_precise_agent.deb \&\& \\\|" $docker_ubuntu_merge_file
+	
 fi
 
 #python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
