@@ -30,7 +30,7 @@ echo "run_unit_integration_tests=$run_unit_integration_tests"
 #removing /cloudify folder
 rm -rf /cloudify
 
-if [ "$PACK_CORE" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
+if [ "$PACK_AGENT" == "yes" ] || [ "$PACK_CLI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
 then
 	REPOS_LIST=$CORE_REPOS_LIST
 fi
@@ -42,7 +42,7 @@ if [ "$PACK_UI" == "yes" ] || [ "$yaml_spec_updater" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$UI_REPOS_LIST
 fi
-if [ "$PACK_CORE" == "yes" ] || [ "$PACK_UI" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
+if [ "$PACK_UI" == "yes" ] || [ "$PACK_AGENT" == "yes" ] || [ "$yaml_spec_updater" == "yes" ] || [ "$CREATE_VAGRANT_BOX" == "yes" ] || [ "$CREATE_DOCKER_IMAGES" == "yes" ]
 then
 	REPOS_LIST=$REPOS_LIST" "$PACKAGER_REPOS_LIST
 fi
@@ -108,7 +108,7 @@ do
 done
 
 
-if [[ "$PACK_CORE" == "yes" ||  "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_IMAGES" == "yes" ]]
+if [[ "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_IMAGES" == "yes" ]]
 then
 	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
 	config_yaml_file_name="cloudify-config.yaml"
@@ -147,7 +147,7 @@ then
 	sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer
 	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
 	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
-	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
+  	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
 	sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_docker $blueprints_simple_docker $blueprints_softlayer $config_libcloud_yaml_file $defaults_libcloud_config_yaml_file $config_yaml_file $defaults_config_yaml_file
 	#edit json file
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
