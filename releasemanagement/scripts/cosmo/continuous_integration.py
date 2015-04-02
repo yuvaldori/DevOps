@@ -62,9 +62,6 @@ PACKAGE_SOURCE_PATH="/cloudify"
 	#local('sudo chown tgrid -R {0}'.format(PACKAGE_SOURCE_PATH),capture=False)
 	shutil.rmtree(PACKAGE_SOURCE_PATH)'''
 
-
-p = PythonHandler()
-
 print("*** packaging winsows-agent")
 do('pkm pack -c cloudify-windows-agent')
 
