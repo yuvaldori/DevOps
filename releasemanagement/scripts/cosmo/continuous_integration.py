@@ -63,12 +63,12 @@ PACKAGE_SOURCE_PATH="/cloudify"
 	shutil.rmtree(PACKAGE_SOURCE_PATH)'''
 
 print("*** packaging winsows-agent")
-do('pkm pack -c cloudify-windows-agent')
+local('pkm pack -c cloudify-windows-agent',capture=False)
 
 if PACK_UI == "yes":
 
 	print("*** packaging ui")
-	do('pkm get -c cloudify-ui')
+	local('pkm get -c cloudify-ui',capture=False)
 	#shutil.copyfile(parent_dir+"/cosmo-ui/dist/cosmo-ui-1.0.0.tgz", "{0}/cosmo-ui-1.0.0.tgz".format(cloudify_ui_conf['sources_path']))
 	#pkg_cloudify_ui()
         #cloudify_ui_source_path=cloudify_ui_conf['sources_path']
@@ -87,7 +87,7 @@ if PACK_UI == "yes":
 	shutil.copy(''.join(tar_ui_grafana_file),'{0}'.format(cloudify_ui_source_path))
 
 	if  tar_ui_file:
-		do('pkm pack -c cloudify-ui')
+		local('pkm pack -c cloudify-ui',capture=False)
 		cloudify_ui_file = glob.glob(os.path.join('{0}'.format(cloudify_ui_package_path), '{0}*.deb'.format(cloudify_ui_name)))
 		cloudify_ui_file = ''.join(cloudify_ui_file)
 		print cloudify_ui_file
@@ -97,4 +97,4 @@ if PACK_UI == "yes":
 		print "Cannot pack cloudify-ui because missing tar files"
 		sys.exit(1)
 		
-local('sudo chown tgrid -R /opt',capture=False)
+local('chown tgrid -R /opt',capture=False)
