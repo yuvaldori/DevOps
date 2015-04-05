@@ -42,7 +42,7 @@ sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify_tmp
 exit_on_error
-mv /cloudify_tmp/cloudify-ubuntu-trusty-agent*.deb cloudify-ubuntu-trusty-commercial-agent.deb
+mv /cloudify_tmp/cloudify-ubuntu-trusty-agent*.deb /cloudify_tmp/cloudify-ubuntu-trusty-commercial-agent.deb
 exit_on_error
 cp /cloudify_tmp/cloudify-ubuntu-trusty-commercial-agent.deb /cloudify
 exit_on_error
