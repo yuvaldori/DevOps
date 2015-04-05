@@ -154,7 +154,7 @@ then
 	
 	
 	docker_ubuntu_merge_file="cloudify-packager/docker/ubuntu_agent/scripts/install_packman.sh"
-	sed -i "s|.*cloudify-ubuntu-trusty-agent.*|curl $(echo ${ubuntu_agent_trusty_url}) --create-dirs -o /opt/tmp/manager/ubuntu_precise_agent.deb \&\& \\\|" $docker_ubuntu_merge_file
+	sed -i "s|.*cloudify-ubuntu-trusty-agent.*|curl $(echo ${ubuntu_agent_trusty_url}) --create-dirs -o /opt/tmp/manager/ubuntu_trusty_agent.deb \&\& \\\|" $docker_ubuntu_merge_file
 	sed -i "s|.*cloudify-ubuntu-precise-agent.*|curl $(echo ${ubuntu_agent_precise_url}) --create-dirs -o /opt/tmp/manager/ubuntu_precise_agent.deb \&\& \\\|" $docker_ubuntu_merge_file
 	
 fi
