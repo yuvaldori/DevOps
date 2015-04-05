@@ -13,7 +13,7 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		vagrant destroy -f ubuntu            
+		#vagrant destroy -f ubuntu            
 		exit 1
       fi
 
@@ -24,7 +24,7 @@ sudo chown tgrid -R /cloudify
 
 
 ##destroy ubuntu vm if exit
-vagrant destroy -f ubuntu
+#vagrant destroy -f ubuntu
 
 vagrant up ubuntu --provider=aws
 exit_on_error
@@ -40,4 +40,4 @@ sudo chown tgrid -R /cloudify
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/tmp/*.tar /cloudify
 exit_on_error
 
-vagrant destroy -f ubuntu
+#vagrant destroy -f ubuntu
