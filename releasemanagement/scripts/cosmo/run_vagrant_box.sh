@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../../credentials.sh
+source ../../../credentials.sh
 source /etc/environment
 
 function  exit_on_error {
