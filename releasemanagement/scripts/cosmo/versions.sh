@@ -166,7 +166,7 @@ rm -rf version_tool_env
 virtualenv version_tool_env
 source version_tool_env/bin/activate
 
-pip install repex==0.1.0
+pip install repex==0.1.1
 
 pushd version-tool
  pip install .
