@@ -14,7 +14,7 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		#vagrant destroy -f ubuntu_trusty_commercial_aws            
+		vagrant destroy -f ubuntu_trusty_commercial_aws            
 		exit 1
       fi
 
@@ -22,11 +22,13 @@ function  exit_on_error {
 
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
+sudo mkdir -p /cloudify_tmp
+sudo chown tgrid -R /cloudify_tmp
 #rm -f /cloudify/cloudify-ubuntu-agent*
 
 
 ##destroy ubuntu vm if exit
-#vagrant destroy -f ubuntu_trusty_commercial_aws
+vagrant destroy -f ubuntu_trusty_commercial_aws
 
 vagrant up ubuntu_trusty_commercial_aws --provider=aws
 exit_on_error
@@ -38,7 +40,11 @@ echo "ip_address="$ip_address
 ##copy ubuntu deb file
 sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify_tmp
+exit_on_error
+mv /cloudify_tmp/cloudify-ubuntu-trusty-agent*.deb cloudify-ubuntu-trusty-commercial-agent.deb
+exit_on_error
+cp /cloudify_tmp/cloudify-ubuntu-trusty-commercial-agent.deb /cloudify
 exit_on_error
 
-#vagrant destroy -f ubuntu_trusty_commercial_aws
+vagrant destroy -f ubuntu_trusty_commercial_aws
