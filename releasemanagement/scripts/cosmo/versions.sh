@@ -112,44 +112,36 @@ if [[ "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_
 then
 	defaults_config_yaml_file_name="cloudify-config.defaults.yaml"
 	config_yaml_file_name="cloudify-config.yaml"
-	
 	defaults_config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$defaults_config_yaml_file_name
 	config_yaml_file="cloudify-openstack-provider/cloudify_openstack/"$config_yaml_file_name
-	
 	defaults_libcloud_config_yaml_file="cloudify-libcloud-provider/cloudify_libcloud/"$defaults_config_yaml_file_name
 	config_libcloud_yaml_file="cloudify-libcloud-provider/cloudify_libcloud/"$config_yaml_file_name
 	
-	blueprints_openstack_yaml_file="cloudify-manager-blueprints/openstack/openstack.yaml"
-	blueprints_simple_yaml_file="cloudify-manager-blueprints/simple/simple.yaml"
-	blueprints_nova_net_yaml_file="cloudify-manager-blueprints/openstack-nova-net/openstack.yaml"
-	blueprints_vsphere="cloudify-vsphere-plugin/manager_blueprint/vsphere.yaml"
-	blueprints_softlayer="cloudify-manager-blueprints/softlayer/softlayer.yaml"
-	blueprints_docker="cloudify-manager-blueprints/openstack-docker/openstack-docker.yaml"
-	blueprints_simple_docker="cloudify-manager-blueprints/simple/simple-docker.yaml"
-	docker_file="cloudify-packager/docker/vars.py"
-	docker_file_tmp="cloudify-packager/docker/ubuntu_agent/scripts/install_packman.sh"
+	blueprints_aws_ec2_yaml="cloudify-manager-blueprints/aws-ec2/aws-ec2-manager-blueprint.yaml"
+	blueprints_cloudstack_yaml="cloudify-manager-blueprints/cloudstack/cloudstack-manager-blueprint.yaml"
+	blueprints_nova_net_yaml="cloudify-manager-blueprints/openstack-nova-net/openstack-nova-net-manager-blueprint.yaml"
+	blueprints_openstack_yaml="cloudify-manager-blueprints/openstack/openstack-manager-blueprint.yaml"
+	blueprints_simple_yaml="cloudify-manager-blueprints/simple/simple-manager-blueprint.yaml"
+	blueprints_softlayer_yaml="cloudify-manager-blueprints/softlayer/softlayer-manager-blueprint.yaml"
+	blueprints_vsphere_yaml="cloudify-vsphere-plugin/manager_blueprint/vsphere-manager-blueprint.yaml"
 	
 	url_prefix="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE"
 	ui_package_url=$url_prefix"/cloudify-ui_"$PRODUCT_VERSION_FULL"_amd64.deb"
-	core_package_url=$url_prefix"/cloudify-core_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	ubuntu_agent_precise_url=$url_prefix"/cloudify-ubuntu-precise-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	ubuntu_agent_trusty_url=$url_prefix"/cloudify-ubuntu-trusty-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	ubuntu_agent_url=$url_prefix"/cloudify-ubuntu-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	centos_agent_url=$url_prefix"/cloudify-centos-final-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	windows_agent_url=$url_prefix"/cloudify-windows-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
-	components_package_url=$url_prefix"/cloudify-components_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	docker_url=$url_prefix"/cloudify-docker_"$PRODUCT_VERSION_FULL".tar"
 	
+	#sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+  	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+	sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
 	
-	
-	sed -i "s|components_package_url.*|components_package_url: $(echo ${components_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer
-	sed -i "s|core_package_url.*|core_package_url: $(echo ${core_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer
-	sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer
-	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
-	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
-  	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_vsphere $blueprints_softlayer $blueprints_docker $blueprints_simple_docker
-	sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $blueprints_openstack_yaml_file $blueprints_simple_yaml_file $blueprints_nova_net_yaml_file $blueprints_docker $blueprints_simple_docker $blueprints_softlayer $config_libcloud_yaml_file $defaults_libcloud_config_yaml_file $config_yaml_file $defaults_config_yaml_file
 	#edit json file
+	docker_file="cloudify-packager/docker/vars.py"
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
 	
 	
