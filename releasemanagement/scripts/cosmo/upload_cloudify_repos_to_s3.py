@@ -76,7 +76,7 @@ if __name__ == '__main__':
     sign_conn = S3Connection(DUMMY_AWS_ACCESS_KEY_ID, DUMMY_AWS_SECRET_KEY)
     
     
-    repo_list=['cloudify-vsphere-plugin','cloudify-softlayer-plugin']
+    repo_list=['cloudify-vsphere-plugin','cloudify-softlayer-plugin','cloudify-watchdog']
     BUCKET_NAME="cloudify-private-repositories"
     for repo in repo_list:
     	private_repos(repo)
