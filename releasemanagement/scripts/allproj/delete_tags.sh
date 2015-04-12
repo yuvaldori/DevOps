@@ -27,8 +27,8 @@ do
                         if [[ `git tag | grep $tagname` ]]
                         then
                             echo "Removing $tagname"
-                            git tag -d tagname
-                            git push origin :tagname
+                            git tag -d $tagname
+                            git push origin :$tagname
                             exit_on_error
                         fi
                 done
