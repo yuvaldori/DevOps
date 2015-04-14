@@ -227,7 +227,7 @@ do
 		git push -f origin tag $TAG_NAME
 		exit_on_error
 	 	
- 		sha=$(git rev-parse HEAD)
+ 		sha="$(git rev-parse $TAG_NAME)"
  		if [[ -z "$repo_names_sha" ]];then
  			repo_names_sha='[ "'$r'":"'$sha'"'	
  		else
