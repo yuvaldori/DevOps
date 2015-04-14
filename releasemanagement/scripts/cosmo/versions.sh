@@ -233,6 +233,23 @@ do
  		else
  			repo_names_sha=$repo_names_sha',"'$r'":"'$sha'"'
  		fi
+ 		
+ 		echo "updating VERSION file (cloudify-cli/cloudify-ui)"
+ 		if [ "$r" == "cloudify-cli" ] || [ "$r" == "cloudify-ui" ]
+		then
+		        if [ "$r" == "cloudify-cli" ]
+		        then
+		                pushd cloudify_cli
+		        fi
+		        sed -i "s|\"date\":.*|\"date\": \"$(date +%Y-%m-%dT%H:%M:%S)\",|g" VERSION
+		        sed -i "s|\"build\":.*|\"build\": \"$(echo ${MAJOR_BUILD_NUM})\",|g" VERSION
+		        sed -i "s|\"commit\":.*|\"commit\": \"$(echo ${sha})\",|g" VERSION
+		        if [ "$r" == "cloudify-cli" ]
+		        then
+		                popd
+		        fi
+		fi
+
 		
  	popd
 	
