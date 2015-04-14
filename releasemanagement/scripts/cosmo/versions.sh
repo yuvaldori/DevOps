@@ -242,8 +242,8 @@ do
 		                pushd cloudify_cli
 		        fi
 		        sed -i "s|\"date\":.*|\"date\": \"$(date +%Y-%m-%dT%H:%M:%S)\",|g" VERSION
-		        sed -i "s|\"build\":.*|\"build\": \"$(echo ${MAJOR_BUILD_NUM})\",|g" VERSION
 		        sed -i "s|\"commit\":.*|\"commit\": \"$(echo ${sha})\",|g" VERSION
+		        sed -i "s|\"build\":.*|\"build\": \"$(echo ${MAJOR_BUILD_NUM})\"|g" VERSION
 		        if [ "$r" == "cloudify-cli" ]
 		        then
 		                popd
