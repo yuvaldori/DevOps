@@ -280,4 +280,4 @@ echo '    "patch_version":""' >> $metadata_file
 echo '    "creation_date":"'$(date +%Y-%m-%dT%H:%M:%S)'"' >> $metadata_file
 echo '}' >> $metadata_file
 
-cp $metadata_file  cloudify-packager/docker/utils
+cp $metadata_file  cloudify-packager/docker/metadata
