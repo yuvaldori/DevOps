@@ -255,16 +255,16 @@ do
 		        fi
 		fi
 		
-		echo "Updating metadata file"
-		echo '    "$(echo ${r})":' >> $metadata_file
+		echo "Updating metadata file named $metadata_file"
+		echo '    "'$r'":' >> $metadata_file
 		if [ "$RELEASE_BUILD" == "true" ]
  		then
- 			echo '        "branch_name":"$(echo ${VERSION_BRANCH_NAME})"' >> $metadata_file
+ 			echo '        "branch_name":"'$VERSION_BRANCH_NAME'"' >> $metadata_file
  		else
- 			echo '        "branch_name":"$(echo ${BRANCHNAME})"' >> $metadata_file
+ 			echo '        "branch_name":"'$BRANCHNAME'"' >> $metadata_file
  		fi
-		echo '        "version":"$(echo ${TAG_NAME})"' >> $metadata_file
-		echo '        "sha_id":"$(echo ${sha})"' >> $metadata_file
+		echo '        "version":"'$TAG_NAME'"' >> $metadata_file
+		echo '        "sha_id":"'$sha'"' >> $metadata_file
 		
 
 		
@@ -274,8 +274,8 @@ done
 repo_names_sha=$repo_names_sha' ]'
 echo $repo_names_sha > repo_names_sha
 
-echo '    "build":"$(echo ${MAJOR_BUILD_NUM})"' >> $metadata_file
-echo '    "cloudify_version":"$(echo ${core_tag_name})"' >> $metadata_file
+echo '    "build":"'$MAJOR_BUILD_NUM'"' >> $metadata_file
+echo '    "cloudify_version":"'$core_tag_name'"' >> $metadata_file
 echo '    "patch_version":""' >> $metadata_file
-echo '    "creation_date":"$(date +%Y-%m-%dT%H:%M:%S)"' >> $metadata_file
+echo '    "creation_date":"'$(date +%Y-%m-%dT%H:%M:%S)'"' >> $metadata_file
 echo '}' >> $metadata_file
