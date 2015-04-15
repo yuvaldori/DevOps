@@ -279,3 +279,5 @@ echo '    "cloudify_version":"'$core_tag_name'"' >> $metadata_file
 echo '    "patch_version":""' >> $metadata_file
 echo '    "creation_date":"'$(date +%Y-%m-%dT%H:%M:%S)'"' >> $metadata_file
 echo '}' >> $metadata_file
+
+cp -p $metadata_file  cloudify-packager/docker/utils
