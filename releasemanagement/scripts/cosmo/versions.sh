@@ -256,15 +256,15 @@ do
 		fi
 		
 		echo "Updating metadata file named $metadata_file"
-		echo '    "'$r'":' >> $metadata_file
+		echo '    "'$r'":' >> ../$metadata_file
 		if [ "$RELEASE_BUILD" == "true" ]
  		then
- 			echo '        "branch_name":"'$VERSION_BRANCH_NAME'"' >> $metadata_file
+ 			echo '        "branch_name":"'$VERSION_BRANCH_NAME'"' >> ../$metadata_file
  		else
- 			echo '        "branch_name":"'$BRANCHNAME'"' >> $metadata_file
+ 			echo '        "branch_name":"'$BRANCHNAME'"' >> ../$metadata_file
  		fi
-		echo '        "version":"'$TAG_NAME'"' >> $metadata_file
-		echo '        "sha_id":"'$sha'"' >> $metadata_file
+		echo '        "version":"'$TAG_NAME'"' >> ../$metadata_file
+		echo '        "sha_id":"'$sha'"' >> ../$metadata_file
 		
 
 		
