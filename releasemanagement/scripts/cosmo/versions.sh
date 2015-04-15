@@ -179,6 +179,10 @@ echo "### version tool - end"
 echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
 do
+	echo "Creating metadata file"
+        metadata_file="metadata.json"
+	echo '{' > $metadata_file
+	
 	echo "### Processing repository: $r"
 	VERSION_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)
 	VERSION_BRANCH_NAME=$VERSION_NAME"-build"
@@ -234,7 +238,7 @@ do
  			repo_names_sha=$repo_names_sha',"'$r'":"'$sha'"'
  		fi
  		
- 		echo "updating VERSION file (cloudify-cli/cloudify-ui)"
+ 		echo "Updating VERSION file (cloudify-cli/cloudify-ui)"
  		if [ "$r" == "cloudify-cli" ] || [ "$r" == "cloudify-ui" ]
 		then
 		        if [ "$r" == "cloudify-cli" ]
@@ -249,6 +253,18 @@ do
 		                popd
 		        fi
 		fi
+		
+		echo "Updating metadata file"
+		echo '    "$r":' >> $metadata_file
+		if [ "$RELEASE_BUILD" == "true" ]
+ 		then
+ 			echo '        "branch_name":"$VERSION_BRANCH_NAME"' >> $metadata_file
+ 		else
+ 			echo '        "branch_name":"$BRANCHNAME"' >> $metadata_file
+ 		fi
+		echo '        "version":"$TAG_NAME"' >> $metadata_file
+		echo '        "sha_id":"$sha"' >> $metadata_file
+		
 
 		
  	popd
@@ -256,3 +272,9 @@ do
 done
 repo_names_sha=$repo_names_sha' ]'
 echo $repo_names_sha > repo_names_sha
+
+echo '    "build":"$MAJOR_BUILD_NUM"' >> $metadata_file
+echo '    "cloudify_version":"$core_tag_name"' >> $metadata_file
+echo '    "patch_version":""' >> $metadata_file
+echo '    "creation_date":"$(date +%Y-%m-%dT%H:%M:%S)"' >> $metadata_file
+echo "}" >> $metadata_file
