@@ -312,8 +312,8 @@ def main():
 		file_name=get_file_name_from_path(rename_packages('CloudifyCLI*.exe',cli_win_name+'_'+PRODUCT_VERSION_FULL+'.exe'))
 		filenames.append(file_name)
 		
-		shutil.copy2('package-configuration/linux-cli/get_cloudify.py', PACKAGE_SOURCE_PATH)
-		filenames.append('get_cloudify.py')
+		shutil.copy2('package-configuration/linux-cli/get-cloudify.py', PACKAGE_SOURCE_PATH)
+		filenames.append('get-cloudify.py')
 		
 	if PACK_UI == "yes":
 		#ui_conf = packages.PACKAGES['cloudify-ui']
