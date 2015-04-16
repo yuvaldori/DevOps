@@ -295,6 +295,9 @@ def main():
 	if agent_merge == "yes":
         	file_name=get_file_name_from_path(rename_packages('cloudify-trusty-agent_*.deb','cloudify-ubuntu-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
         	filenames.append(file_name)
+        	file_name=get_file_name_from_path(rename_packages('cloudify-trusty-agent-commercial_.deb','cloudify-ubuntu-commercial-agent_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
+        	filenames.append(file_name)
+        	 
 
 	if PACK_CLI == "yes":
 		#cli_linux32_name='cloudify-linux32-cli'
