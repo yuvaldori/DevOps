@@ -46,9 +46,9 @@ do
 	grep "\/xap${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/\/xap${MAJOR_OLD}${MINOR_OLD}/xap${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
 	#C++ replace version in docs
-	echo "*** replace <version> ***" >> $LOG_FILE
-	grep "${MAJOR_OLD}\.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
-	sed -i "s/${MAJOR_OLD}\.${MINOR_OLD}/${MAJOR_NEW}\.${MINOR_NEW}/g" "$fname"
+	#echo "*** replace <version> ***" >> $LOG_FILE
+	#grep "${MAJOR_OLD}\.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
+	#sed -i "s/${MAJOR_OLD}\.${MINOR_OLD}/${MAJOR_NEW}\.${MINOR_NEW}/g" "$fname"
 done
 
 echo "*** Display git diff ***" >> $LOG_FILE
