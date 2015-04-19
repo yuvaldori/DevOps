@@ -29,7 +29,7 @@ do
 done
 
 echo "*** Update Documentation links with new wiki space ***" >> $LOG_FILE
-find . -type f -not \( -name .git -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' -o -name '*.config' |
+find . -type f -not \( -name .git -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.sh' -o -name '*.config' |
 while read fname
 do
 	echo "*** replace display\<version> ***" >> $LOG_FILE
