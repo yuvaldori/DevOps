@@ -14,7 +14,7 @@ LOG_FILE=./update_xml_docs.log
 MAJOR_OLD=10
 MINOR_OLD=0
 MAJOR_NEW=10
-MINOR_NEW=2
+MINOR_NEW=1
 
 echo "*** start ***" > $LOG_FILE
 
