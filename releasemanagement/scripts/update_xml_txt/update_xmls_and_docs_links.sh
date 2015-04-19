@@ -1,29 +1,25 @@
-LOCAL_TRUNK_DIR=/tmp/update_xml_docs
-#LOCAL_TRUNK_DIR=/d/tmp/update_xml_docs
-LOG_FILE=$LOCAL_TRUNK_DIR/update_xml_docs.log
-MAJOR_OLD=9
-MINOR_OLD=5
-MAJOR_NEW=9
-MINOR_NEW=7
+#!/bin/bash
+
+function exit_on_error {
+    status=$?
+    echo "exit code="$status    
+    if [ $status != 0 ] ; then
+        echo "Failed (exit code $status)" 
+        #exit 1
+    fi
+
+}
+
+LOG_FILE=./update_xml_docs.log
+MAJOR_OLD=10
+MINOR_OLD=0
+MAJOR_NEW=10
+MINOR_NEW=2
 
 echo "*** start ***" > $LOG_FILE
 
-mkdir -p $LOCAL_TRUNK_DIR
-
-
-#openspaces-jetty, openspaces-scala, mule - only xml gs-webui - only wiki space
-dirs="examples gigaspaces gigaspaces-dotnet gigaspaces-poco/cpp gs-webui mule openspaces openspaces-jetty openspaces-scala quality/frameworks/QA"
-
-for dir in $dirs
-do
-	echo "*** checkout $LOCAL_TRUNK_DIR/$dir ***" >> $LOG_FILE
-	svn checkout svn://pc-lab14/SVN/xap/trunk/$dir $LOCAL_TRUNK_DIR/$dir
-done
-
-
-
 echo "*** Update XMLs with new version of XSDs and DTD ***" >> $LOG_FILE
-find "${LOCAL_TRUNK_DIR}" -type f -not \( -name .svn -a -prune \) -name '*.xml' |
+find . -type f -not \( -name .git -a -prune \) -name '*.xml' |
 while read fname
 do
 	grep "dtd\/${MAJOR_OLD}_${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
@@ -33,42 +29,47 @@ do
 done
 
 echo "*** Update Documentation links with new wiki space ***" >> $LOG_FILE
-find "${LOCAL_TRUNK_DIR}" -type f -not \( -name .svn -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' -o -name '*.config' |
+find . -type f -not \( -name .git -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' -o -name '*.config' |
 while read fname
-do	
+do
+	echo "*** replace display\<version> ***" >> $LOG_FILE
 	grep "display\/XAP${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/display\/XAP${MAJOR_OLD}${MINOR_OLD}/display\/XAP${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
 	### Limor Please check this part in 10.1
+	echo "*** replace PLATFORM_VERSION=<version> ***" >> $LOG_FILE
 	grep "PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}/PLATFORM_VERSION=${MAJOR_NEW}.${MINOR_NEW}/g" "$fname"
-	#grep "xap${MAJOR_OLD}${MINOR_OLD}net" "$fname" && echo "$fname" >> $LOG_FILE
-	#sed -i "s/xap${MAJOR_OLD}${MINOR_OLD}net/xap${MAJOR_NEW}${MINOR_NEW}net/g" "$fname"
+	echo "*** replace xap<version>net ***" >> $LOG_FILE
+	grep "xap${MAJOR_OLD}${MINOR_OLD}net" "$fname" && echo "$fname" >> $LOG_FILE
+	sed -i "s/xap${MAJOR_OLD}${MINOR_OLD}net/xap${MAJOR_NEW}${MINOR_NEW}net/g" "$fname"
+	echo "*** replace /xap<version> ***" >> $LOG_FILE
 	grep "\/xap${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/\/xap${MAJOR_OLD}${MINOR_OLD}/xap${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
-done
-
-echo "*** Display svn diff ***" >> $LOG_FILE
-for dir in $dirs
-do
-	echo "*** svn diff $LOCAL_TRUNK_DIR/$dir ***" >> $LOG_FILE
-	svn diff $LOCAL_TRUNK_DIR/$dir >> $LOG_FILE
-done
-
-#C++ replace version in docs
-find . -type f -not \( -name .svn -a -prune \) -name '*.html' -o -name '*.txt' -o -name '*.properties' -o -name '*.bat' -o -name '*.java' -o -name '*.config' |
-while read fname
-do	
-	
-	grep "${MAJOR_OLD}\.${MINOR_OLD}" "$fname" && echo "$fname" >> test.log
+	#C++ replace version in docs
+	echo "*** replace <version> ***" >> $LOG_FILE
+	grep "${MAJOR_OLD}\.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/${MAJOR_OLD}\.${MINOR_OLD}/${MAJOR_NEW}\.${MINOR_NEW}/g" "$fname"
-	
 done
 
-#echo "*** Check-in changes to svn ***" >> $LOG_FILE
-#for dir in $dirs
-#do
-#	svn ci --username '' --password '' -m 'Update files with new version of XSDs, DTD and wiki space' $dir  
-#done
+echo "*** Display git diff ***" >> $LOG_FILE
+for dir in `pwd`/*/
+do
+      dir=${dir%*/}
+      repo=${dir##*/}
+
+      echo "### Processing repository: $repo"
+      pushd $repo
+      	if [ -d ".git" ]
+        then
+		echo "*** git diff $repo ***" >> $LOG_FILE
+		git diff * >> $LOG_FILE
+		#git add -u .
+		#git commit -m 'Update files with new version of XSDs, DTD and wiki space'
+		#git push origin master
+	fi
+      popd
+done
+
 
 
 
