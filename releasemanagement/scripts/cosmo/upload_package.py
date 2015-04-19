@@ -196,6 +196,8 @@ def upload_file_list_to_s3(filenames):
 			if fname.startswith('cloudify-virtualbox'):
 				replace_url(fname,"http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/"+PACKAGE_DEST_BUILD_DIR+"/")	
 				shutil.copyfile(PACKAGE_SOURCE_PATH+"/Vagrantfile",TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/Vagrantfile")
+			if PACK_CLI == "yes":
+				shutil.copyfile(PACKAGE_SOURCE_PATH+"/get-cloudify.py",TARZAN_BUILDS+"/get-cloudify.py")
 			shutil.copyfile(PACKAGE_SOURCE_PATH+"/"+fname,TARZAN_BUILDS+"/"+PACKAGE_DEST_BUILD_DIR+"/"+fname)
 			print "uploaded file %s to Tarzan" % fname
 			
@@ -232,6 +234,10 @@ def upload_file_list_to_s3(filenames):
 					replace_url(fname,"http://gigaspaces-repository-eu.s3.amazonaws.com/"+PACKAGE_DEST_BUILD_PATH+"/")
 					full_vagrantfile_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, 'Vagrantfile')
 					key = bucket.new_key(full_vagrantfile_key_name).set_contents_from_filename('Vagrantfile', policy='public-read')
+			if PACK_CLI == "yes":
+				full_cli_key_name = os.path.join("org/cloudify3/", "get-cloudify.py")
+				key = bucket.new_key(full_cli_key_name).set_contents_from_filename("get-cloudify.py", policy='public-read')
+						
 			full_key_name = os.path.join(PACKAGE_DEST_BUILD_PATH, fname)
 			key = bucket.new_key(full_key_name).set_contents_from_filename(fname, policy='public-read')
 			print "uploaded file %s to S3" % fname
@@ -313,7 +319,7 @@ def main():
 		filenames.append(file_name)
 		
 		shutil.copy2('package-configuration/linux-cli/get-cloudify.py', PACKAGE_SOURCE_PATH)
-		filenames.append('get-cloudify.py')
+		#filenames.append('get-cloudify.py')
 		
 	if PACK_UI == "yes":
 		#ui_conf = packages.PACKAGES['cloudify-ui']
