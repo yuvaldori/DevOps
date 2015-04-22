@@ -174,6 +174,7 @@ then
 		version-control -p $plugins_tag_name_pre -c $core_tag_name_pre -r $MILESTONE -b . -f version-tool/config/release-config.yaml -v
 	fi
 fi
+deactivate
 echo "### version tool - end"
 
 echo "Creating metadata file"
@@ -282,7 +283,7 @@ echo '    "creation_date":"'$(date +%Y-%m-%dT%H:%M:%S)'"' >> $metadata_file
 echo '}' >> $metadata_file
 
 echo "Check validation of $metadata_file file"
-cat $metadata_file | python -m simplejson.tool
+cat $metadata_file | sudo python -m simplejson.tool
 exit_on_error
 
 cp $metadata_file  cloudify-packager/docker/metadata
