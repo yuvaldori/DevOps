@@ -19,7 +19,7 @@ MINOR_NEW=1
 echo "*** start ***" > $LOG_FILE
 
 echo "*** Update XMLs with new version of XSDs and DTD ***" >> $LOG_FILE
-find . -type f -not \( -name .git -a -prune \) -name '*.xml' |
+find . -type f -not \( -name .git -a -prune \) -name '*.xml' -o -name '*.xsd' |
 while read fname
 do
 	grep "dtd\/${MAJOR_OLD}_${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
