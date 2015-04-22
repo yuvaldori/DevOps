@@ -280,7 +280,8 @@ echo '    "cloudify_version":"'$core_tag_name'",' >> $metadata_file
 echo '    "patch_version":"",' >> $metadata_file
 echo '    "creation_date":"'$(date +%Y-%m-%dT%H:%M:%S)'"' >> $metadata_file
 echo '}' >> $metadata_file
-# validate metadata.json file
+
+echo "Check validation of $metadata_file file"
 cat $metadata_file | python -m simplejson.tool
 exit_on_error
 
