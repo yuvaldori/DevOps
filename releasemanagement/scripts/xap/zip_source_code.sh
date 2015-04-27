@@ -35,4 +35,4 @@ do
 			fi
 done
 
-zip -r 10.1.0_source_code.zip ./* -x *.sh repo_names_sha devops/* examples/* xap-session-sharing-manager-itests/* xap-spring-data/* xap-example-data/* xap-example-helloworld/* xap-example-tutorials/*  xap-example-web/*
+zip -r 10.1.0_source_code.zip ./* -x '*.sh' -x 'repo_names_sha' -x 'devops/*' -x 'examples/*' -x 'xap-session-sharing-manager-itests/*' -x 'xap-spring-data/*' -x 'xap-example-*/*' -x '*/.git/*' -x '*/.qbcache/*' -x '*/.gitignore'
