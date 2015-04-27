@@ -29,7 +29,7 @@ do
 			      git checkout -b $temp_branch_name tags/$tag_name
 			      exit_on_error
 			      
-			      git —no-pager log -1
+			      git --no-pager log -1
 			      
 			    popd
 			fi
