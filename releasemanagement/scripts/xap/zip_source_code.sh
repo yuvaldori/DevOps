@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+# run command - ./source_code.sh > log.log 2>&1
+
 function  exit_on_error {
       status=$?
       echo "exit code="$status    
