@@ -35,4 +35,4 @@ do
 			fi
 done
 
-zip -r 10.1.0_source_code.zip ./* -x '*.sh' -x 'repo_names_sha' -x 'devops/*' -x 'examples/*' -x 'xap-session-sharing-manager-itests/*' -x 'xap-spring-data/*' -x 'xap-example-*/*' -x '*/.git/*' -x '*/.qbcache/*' -x '*/.gitignore'
+zip -r 10.1.0_source_code.zip ./* -x '*.log' -x '*.sh' -x 'repo_names_sha' -x 'devops/*' -x 'examples/*' -x 'xap-session-sharing-manager-itests/*' -x 'xap-spring-data/*' -x 'xap-example-*/*' -x '*/.git/*' -x '*/.qbcache/*' -x '*/.gitignore'
