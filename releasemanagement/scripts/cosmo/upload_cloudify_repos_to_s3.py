@@ -42,7 +42,8 @@ def generate_signed_url(OBJECT):
 	
 def upload_repo_to_s3(repo,repo_type):
 	tar_file='{0}.tar.gz'.format(repo)
-    	os.remove(tar_file) if os.path.exists(tar_file) else None 
+	if repo != 'cloudify-manager-blueprints':
+    		os.remove(tar_file) if os.path.exists(tar_file) else None 
     	#ver=os.path.basename(os.path.dirname(k))
     	get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0] 
     	ver=get_name.rstrip()
