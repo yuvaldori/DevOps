@@ -261,7 +261,7 @@ do
  			fi
  			
  			curl -u opencm:$GITHUB_PASSWORD -L https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/temp_branch.tar.gz > ../cloudify-manager-blueprints.tar.gz
- 			
+ 			git checkout -
  			if [[ `git branch | grep temp_branch` ]]
  			then
  				git branch -D temp_branch
