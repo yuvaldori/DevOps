@@ -108,8 +108,8 @@ do
 done
 
 
-if [[ "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_IMAGES" == "yes"  ||  "$PACK_AGENT" == "yes" ]]
-then
+#if [[ "$PACK_CLI" == "yes" || "$CREATE_VAGRANT_BOX" == "yes" || "$CREATE_DOCKER_IMAGES" == "yes"  ||  "$PACK_AGENT" == "yes" ]]
+#then
 	blueprints_aws_ec2_yaml="cloudify-manager-blueprints/aws-ec2/aws-ec2-manager-blueprint.yaml"
 	blueprints_cloudstack_yaml="cloudify-manager-blueprints/cloudstack/cloudstack-manager-blueprint.yaml"
 	blueprints_nova_net_yaml="cloudify-manager-blueprints/openstack-nova-net/openstack-nova-net-manager-blueprint.yaml"
@@ -142,7 +142,7 @@ then
 	docker_ubuntu_merge_file="cloudify-packager/docker/ubuntu_agent/scripts/install_packman.sh"
 	sed -i "s|.*cloudify-ubuntu-precise-agent.*|curl $(echo ${ubuntu_agent_precise_url}) --create-dirs -o /opt/tmp/manager/ubuntu_precise_agent.deb \&\& \\\|" $docker_ubuntu_merge_file
 	
-fi
+#fi
 
 #python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
 #exit_on_error
