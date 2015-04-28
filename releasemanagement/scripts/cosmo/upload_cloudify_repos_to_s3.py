@@ -47,7 +47,8 @@ def upload_repo_to_s3(repo,repo_type):
     	get_name=subprocess.Popen(['bash', '-c', '. generic_functions.sh ; get_version_name {0} {1} {2}'.format(repo, core_branch_name, plugins_branch_name)],stdout = subprocess.PIPE).communicate()[0] 
     	ver=get_name.rstrip()
     	OBJECT='{0}/{1}/{2}'.format(repo,ver,tar_file)
-    	local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
+    	if repo != 'cloudify-manager-blueprints':
+    		local('curl -u opencm:{0} -L https://github.com/cloudify-cosmo/{1}/archive/{2}.tar.gz > {3}'.format(params.OPENCM_PWD,repo,ver,tar_file),capture=False)
     	bucket = conn.get_bucket(BUCKET_NAME)
     	if repo_type == 'private':
     		new_key = bucket.new_key(OBJECT).set_contents_from_filename(tar_file, policy=None)
@@ -81,7 +82,7 @@ if __name__ == '__main__':
     for repo in repo_list:
     	private_repos(repo)
     
-    repo_list=['cloudify-cli']
+    repo_list=['cloudify-cli','cloudify-manager-blueprints']
     BUCKET_NAME="cloudify-public-repositories"
     for repo in repo_list:
     	public_repos(repo)
