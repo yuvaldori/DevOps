@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 source generic_functions.sh
-
+source credentials.sh
 
 echo "PACK_CLI=$PACK_CLI"
 echo "PACK_CORE=$PACK_CORE"
@@ -122,9 +122,11 @@ then
 	ui_package_url=$url_prefix"/cloudify-ui_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	ubuntu_agent_precise_url=$url_prefix"/cloudify-ubuntu-precise-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	ubuntu_agent_url=$url_prefix"/cloudify-ubuntu-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
+	ubuntu_agent_commercial_url=$url_prefix"/cloudify-ubuntu-commercial-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	centos_agent_url=$url_prefix"/cloudify-centos-final-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	windows_agent_url=$url_prefix"/cloudify-windows-agent_"$PRODUCT_VERSION_FULL"_amd64.deb"
 	docker_url=$url_prefix"/cloudify-docker_"$PRODUCT_VERSION_FULL".tar"
+	docker_commercial_url=$url_prefix"/cloudify-docker-commercial_"$PRODUCT_VERSION_FULL".tar"
 	
 	#sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
 	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
@@ -236,6 +238,39 @@ do
  			repo_names_sha='[ "'$r'":"'$sha'"'	
  		else
  			repo_names_sha=$repo_names_sha',"'$r'":"'$sha'"'
+ 		fi
+ 		
+ 		if [ "$r" == "cloudify-manager-blueprints" ]
+ 			echo "Updating commercial blueprint"
+ 			sed -i "s|docker_url.*|docker_url: $(echo ${docker_commercial_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+ 			sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_commercial_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+ 			if [[ `git branch | grep temp_branch` ]]
+ 			then
+ 				git branch -D temp_branch
+ 				exit_on_error
+ 			elif [[ `git branch -r | grep origin/temp_branch` ]]
+ 			then
+ 				git push origin --delete temp_branch
+ 				exit_on_error
+ 			else
+ 				git checkout -b temp_branch
+ 				exit_on_error
+ 				git push origin temp_branch
+ 				exit_on_error
+ 			fi
+ 			
+ 			curl -u opencm:$GITHUB_PASSWORD -L https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/temp_branch.tar.gz > ../cloudify-manager-blueprints.tar.gz
+ 			
+ 			if [[ `git branch | grep temp_branch` ]]
+ 			then
+ 				git branch -D temp_branch
+ 				exit_on_error
+ 			elif [[ `git branch -r | grep origin/temp_branch` ]]
+ 			then
+ 				git push origin --delete temp_branch
+ 				exit_on_error
+ 			fi
+ 			
  		fi
  		
  		echo "Updating VERSION file (cloudify-cli/cloudify-ui)"
