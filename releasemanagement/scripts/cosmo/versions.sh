@@ -270,7 +270,6 @@ do
  				git push origin --delete temp_branch
  				exit_on_error
  			fi
- 			
  		fi
  		
  		echo "Updating VERSION file (cloudify-cli/cloudify-ui)"
