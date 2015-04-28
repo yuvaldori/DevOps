@@ -259,20 +259,26 @@ do
  			
  			git checkout -b temp_branch
  			exit_on_error
+ 			
+ 			curl -u opencm:$GITHUB_PASSWORD -L https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/temp_branch.tar.gz > ../cloudify-manager-blueprints.tar.gz
+ 			
+ 			git add -u .
+ 			exit_on_error
+ 			git commit -m "Update commercial packages"
+ 			exit_on_error
  			git push origin temp_branch
  			exit_on_error
  			
- 			curl -u opencm:$GITHUB_PASSWORD -L https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/temp_branch.tar.gz > ../cloudify-manager-blueprints.tar.gz
- 			#git checkout -
- 			#if [[ `git branch | grep temp_branch` ]]
- 			#then
- 			#	git branch -D temp_branch
- 			#	exit_on_error
- 			#elif [[ `git branch -r | grep origin/temp_branch` ]]
- 			#then
- 			#	git push origin --delete temp_branch
- 			#	exit_on_error
- 			#fi
+ 			git checkout -
+ 			if [[ `git branch | grep temp_branch` ]]
+ 			then
+ 				git branch -D temp_branch
+ 				exit_on_error
+ 			elif [[ `git branch -r | grep origin/temp_branch` ]]
+ 			then
+ 				git push origin --delete temp_branch
+ 				exit_on_error
+ 			fi
                 fi
  		
  		echo "Updating VERSION file (cloudify-cli/cloudify-ui)"
