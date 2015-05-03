@@ -6,7 +6,7 @@
 #vagrant plugin install unf                                         #
 #####################################################################
 
-source ../../credentials.sh
+source ../../../credentials.sh
 source /etc/environment
 
 
@@ -32,7 +32,7 @@ vagrant destroy -f centos7_0_final_cli_aws
  centos65_ip=`vagrant ssh-config centos6_5_final_cli_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"` && 
    echo "centos65_ip=centos65_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-   -i ~/.ssh/aws/vagrant_centos_build.pem \
+   -i ~/.ssh/aws/vagrant_build.pem \
    ec2-user@$centos65_ip:/cloudify/*.rpm /cloudify && exit_on_error) &
 
 #centos7_0_final_cli_aws
@@ -40,7 +40,7 @@ vagrant destroy -f centos7_0_final_cli_aws
  centos7_ip=`vagrant ssh-config centos7_0_final_cli_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"` && 
    echo "centos7_ip=$centos7_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-   -i ~/.ssh/aws/vagrant_centos_build.pem \
+   -i ~/.ssh/aws/vagrant_build.pem \
    ec2-user@$centos7_ip:/cloudify/*.rpm /cloudify && exit_on_error) &
 
 wait
