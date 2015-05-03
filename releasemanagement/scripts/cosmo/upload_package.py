@@ -315,8 +315,8 @@ def main():
 		filenames.append(file_name)
 
 		cli_win_name='cloudify-windows-cli'
-		file_name=get_file_name_from_path(rename_packages('CloudifyCLI*.exe',cli_win_name+'_'+PRODUCT_VERSION_FULL+'.exe'))
-		filenames.append(file_name)
+		#file_name=get_file_name_from_path(rename_packages('CloudifyCLI*.exe',cli_win_name+'_'+PRODUCT_VERSION_FULL+'.exe'))
+		#filenames.append(file_name)
 		
 		shutil.copy2('package-configuration/linux-cli/get-cloudify.py', PACKAGE_SOURCE_PATH)
 		#filenames.append('get-cloudify.py')
