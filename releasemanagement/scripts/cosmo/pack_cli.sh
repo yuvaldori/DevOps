@@ -31,10 +31,10 @@ vagrant destroy -f centos7_0_final_cli_aws
 #centos6_5_final_cli_aws
 (vagrant up centos6_5_final_cli_aws --provider=aws && 
  centos65_ip=`vagrant ssh-config centos6_5_final_cli_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"` && 
-   echo "centos65_ip=centos65_ip" && 
+   echo "centos65_ip=$centos65_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
-   ec2-user@$centos65_ip:/cloudify/*.rpm /cloudify && exit_on_error) &
+   root@$centos65_ip:/cloudify/*.rpm /cloudify/cloudify-linux_cli_centos6_5.rpm && exit_on_error) &
 
 #centos7_0_final_cli_aws
 (vagrant up centos7_0_final_cli_aws --provider=aws && 
@@ -42,7 +42,7 @@ vagrant destroy -f centos7_0_final_cli_aws
    echo "centos7_ip=$centos7_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
-   ec2-user@$centos7_ip:/cloudify/*.rpm /cloudify && exit_on_error) &
+   ec2-user@$centos7_ip:/cloudify/*.rpm /cloudify/cloudify-linux_cli_centos7.rpm && exit_on_error) &
 
 wait
 
