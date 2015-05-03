@@ -55,7 +55,7 @@ for r in ${REPOS_LIST}
 do
 	echo "### Processing repository: $r"
 	VERSION_BRANCH_NAME=$(get_version_name $r $core_tag_name $plugins_tag_name)"-build"
-	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
+	echo "VERSION_BRANCH_NAME=$VERSION_BRANCH_NAME"
 	if [ "$r" == "cosmo-grafana" ]
 	then
 		BRANCHNAME=$GRAFANA_BRANCH_NAME
@@ -293,6 +293,7 @@ do
 		        sed -i "s|\"build\":.*|\"build\": \"$(echo ${MAJOR_BUILD_NUM})\"|g" VERSION
 		        if [ "$r" == "cloudify-cli" ]
 		        then
+		        	echo "Copy cli VERSION file to cloudify-packager folder"
 		        	cp VERSION ../../cloudify-packager
 		                popd
 		        fi
