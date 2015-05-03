@@ -14,8 +14,9 @@ function  exit_on_error {
       status=$?
       echo "exit code="$status    
       if [ $status != 0 ] ; then
-         	echo "Failed (exit code $status)" 
-		vagrant destroy -f centos7_0_final_cli_aws            
+         	echo "Failed (exit code $status)"
+         	#vagrant destroy -f centos6_5_final_cli_aws
+		#vagrant destroy -f centos7_0_final_cli_aws            
 		exit 1
       fi
 
@@ -46,5 +47,5 @@ vagrant destroy -f centos7_0_final_cli_aws
 wait
 
 #destroy centos machines
-vagrant destroy -f centos6_5_final_cli_aws
-vagrant destroy -f centos7_0_final_cli_aws
+#vagrant destroy -f centos6_5_final_cli_aws
+#vagrant destroy -f centos7_0_final_cli_aws
