@@ -293,6 +293,7 @@ do
 		        sed -i "s|\"build\":.*|\"build\": \"$(echo ${MAJOR_BUILD_NUM})\"|g" VERSION
 		        if [ "$r" == "cloudify-cli" ]
 		        then
+		        	cp VERSION ../../cloudify-packager
 		                popd
 		        fi
 		fi
