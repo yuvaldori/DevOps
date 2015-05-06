@@ -138,10 +138,6 @@ done
 	docker_file="cloudify-packager/docker/vars.py"
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
 	
-	
-	docker_ubuntu_merge_file="cloudify-packager/docker/ubuntu_agent/scripts/install_packman.sh"
-	sed -i "s|.*cloudify-ubuntu-precise-agent.*|curl $(echo ${ubuntu_agent_precise_url}) --create-dirs -o /opt/tmp/manager/ubuntu_precise_agent.deb \&\& \\\|" $docker_ubuntu_merge_file
-	
 #fi
 
 #python ./update-versions.py --repositories-dir . --cloudify-version $core_tag_name --plugins-version $plugins_tag_name --build-number $MAJOR_BUILD_NUM
