@@ -14,31 +14,37 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)" 
-		vagrant destroy -f ubuntu_precise_aws            
+		vagrant destroy -f ubuntu_precise_aws
+		vagrant destroy -f ubuntu_precise_commercial_aws
 		exit 1
       fi
 
 }
 
-sudo mkdir -p /cloudify
 sudo chown tgrid -R /cloudify
-#rm -f /cloudify/cloudify-ubuntu-agent*
 
-
-##destroy ubuntu vm if exit
+#destroy machines
 vagrant destroy -f ubuntu_precise_aws
+vagrant destroy -f ubuntu_precise_commercial_aws
 
-vagrant up ubuntu_precise_aws --provider=aws
-exit_on_error
+#ubuntu_precise_aws
+(vagrant up ubuntu_precise_aws --provider=aws && 
+ precise_ip=`vagrant ssh-config ubuntu_precise_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"` && 
+   echo "precise_ip=$precise_ip" && 
+   scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+   -i ~/.ssh/aws/vagrant_build.pem \
+   ubuntu@$precise_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-precise-agent.deb && exit_on_error) &
 
-##get guest ip address
-ip_address=`vagrant ssh-config ubuntu_precise_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"`
-echo "ip_address="$ip_address
+#ubuntu_precise_commercial_aws
+(vagrant up ubuntu_precise_commercial_aws --provider=aws && 
+ precisec_ip=`vagrant ssh-config ubuntu_precise_commercial_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"` && 
+   echo "precisec_ip=$precisec_ip" && 
+   scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+   -i ~/.ssh/aws/vagrant_build.pem \
+   ubuntu@$precisec_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-precise-commercial-agent.deb && exit_on_error) &
 
-##copy ubuntu deb file
-sudo mkdir -p /cloudify
-sudo chown tgrid -R /cloudify
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/.ssh/aws/vagrant_build.pem ubuntu@$ip_address:/cloudify/*.deb /cloudify
-exit_on_error
+wait
 
+#destroy machines
 vagrant destroy -f ubuntu_precise_aws
+vagrant destroy -f ubuntu_precise_commercial_aws

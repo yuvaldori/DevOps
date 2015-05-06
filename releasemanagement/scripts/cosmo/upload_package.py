@@ -279,12 +279,14 @@ def main():
 		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_trusty_commercial_name+'*.deb',ubuntu_agent_trusty_commercial_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 
-
-
 		#ubuntu_agent_precise_conf = packages.PACKAGES['cloudify-ubuntu-precise-agent']
 		#ubuntu_agent_precise_name = ubuntu_agent_precise_conf['name']
 		ubuntu_agent_precise_name = "cloudify-ubuntu-precise-agent"
 		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_precise_name+'*.deb',ubuntu_agent_precise_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
+		filenames.append(file_name)
+		
+		ubuntu_agent_precise_commercial_name = "cloudify-ubuntu-precise-commercial-agent"
+		file_name=get_file_name_from_path(rename_packages(ubuntu_agent_precise_commercial_name+'*.deb',ubuntu_agent_precise_commercial_name+'_'+PRODUCT_VERSION_FULL+'_amd64.deb'))
 		filenames.append(file_name)
 		
 		#debian-jessie-agent_conf = packages.PACKAGES['cloudify-debian-jessie-agent']
