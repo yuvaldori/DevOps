@@ -10,26 +10,32 @@ function  exit_on_error {
 
 }
 
+old_branch_name="10.1.1-patch1"
+new_branch_name="10.1.1patch1-build"
+
 for dir in `pwd`/*/
 do
-      dir=${dir%*/}
-      repo=${dir##*/}
+    dir=${dir%*/}
+    repo=${dir##*/}
+      
+    if [ "$repo" != "examples" ]
+	then
 
-          echo "### Processing repository: $repo"
-          pushd $repo
+        echo "### Processing repository: $repo"
+        pushd $repo
             if [ -d ".git" ]
             then
-                for build_branch in ${BUILD_BRANCHES_LIST}
-                do
-
-                        if [[ `git branch -r | grep origin/$build_branch` ]]
-                        then
-                            echo "Removing $build_branch"
-                            git branch -D $build_branch
-                            git push origin --delete $build_branch
-                            exit_on_error
-                        fi
-                done
+                if [[ ! `git branch | grep "$old_branch_name"` ]]
+                then
+                    git checkout -b $old_branch_name origin/$old_branch_name
+                fi
+                git branch -m $old_branch_name $new_branch_name
+                exit_on_error
+                git push origin :$old_branch_name
+                exit_on_error
+                git push origin $new_branch_name
+                exit_on_error
             fi
-      popd
+        popd
+    fi
 done
