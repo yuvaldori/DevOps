@@ -1,3 +1,3 @@
 #!/bin/bash 
 
-sudo mv /cloudify/cloudify-trusty-agent_*.deb /cloudify/cloudify-trusty-agent-commercial_.deb
+sudo mv /cloudify/cloudify-ubuntu-trusty-agent_"$PRODUCT_VERSION"_amd64.deb /cloudify/cloudify-trusty-agent-commercial_.deb
