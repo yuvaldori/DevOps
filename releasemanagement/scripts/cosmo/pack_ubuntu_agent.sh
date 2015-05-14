@@ -34,6 +34,8 @@ vagrant destroy -f ubuntu_trusty_commercial_aws
    -i ~/.ssh/aws/vagrant_build.pem \
    ubuntu@$trusty_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-trusty-agent.deb && exit_on_error) &
 
+sleep 30
+
 #ubuntu_trusty_commercial_aws
 (vagrant up ubuntu_trusty_commercial_aws --provider=aws && 
  trustyc_ip=`vagrant ssh-config ubuntu_trusty_commercial_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"` && 
