@@ -35,7 +35,7 @@ vagrant destroy -f ubuntu_precise_commercial_aws
    -i ~/.ssh/aws/vagrant_build.pem \
    ubuntu@$precise_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-precise-agent.deb && exit_on_error) &
 
-sleep 30
+sleep 10
 
 #ubuntu_precise_commercial_aws
 (vagrant up ubuntu_precise_commercial_aws --provider=aws && 
