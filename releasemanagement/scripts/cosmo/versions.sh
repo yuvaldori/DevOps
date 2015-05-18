@@ -291,7 +291,7 @@ do
 		        then
 		        	echo "Copy cli VERSION file to cloudify-packager folder"
 		        	cp VERSION ../../cloudify-packager
-		        	cp VERSION ../../cloudify-packager/vagrant/cli/windows
+		        	cp VERSION ../../cloudify-packager/vagrant/cli/windows/packaging
 		                popd
 		        fi
 		fi
