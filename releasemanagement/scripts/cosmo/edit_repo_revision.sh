@@ -16,4 +16,3 @@ ubuntu_merge_file="cloudify-packager/docker/ubuntu_agent/scripts/install_packman
 cli_win_fileName="cloudify-packager/vagrant/cli/windows/provision.sh"
 sed -i "s/.*CORE_TAG_NAME=.*/CORE_TAG_NAME=$core_tag_name/g" $linux_agent_file $vbox_file $docker_file $linux_cli_file $ubuntu_merge_file $cli_win_fileName
 sed -i "s/.*PLUGINS_TAG_NAME=.*/PLUGINS_TAG_NAME=$plugins_tag_name/g" $linux_agent_file $vbox_file $docker_file $linux_cli_file
-sed -i "s/.*VERSION=.*/VERSION=$core_tag_name/g" $cli_win_fileName
