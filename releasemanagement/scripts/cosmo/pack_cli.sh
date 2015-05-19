@@ -45,7 +45,7 @@ sleep 5
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
    ec2-user@$centos7_ip:/cloudify/*.rpm /cloudify/cloudify-linux_cli_centos7.rpm && exit_on_error) &
- sleep 5  
+ sleep 10  
   #windows_aws
 (vagrant up windows_aws --provider=aws && 
  win_ip=`vagrant ssh-config windows_aws | grep HostName | sed "s/HostName//g" | sed "s/ //g"` && 
