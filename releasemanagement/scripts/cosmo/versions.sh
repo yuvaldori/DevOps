@@ -260,7 +260,7 @@ do
  			
  			git checkout -b $temp_branch
  			exit_on_error
- 			git add -u .
+ 			git add .
  			exit_on_error
  			git commit -m "Update commercial packages"
  			exit_on_error
