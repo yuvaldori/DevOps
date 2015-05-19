@@ -115,7 +115,7 @@ done
 	blueprints_nova_net_yaml="cloudify-manager-blueprints/openstack-nova-net/openstack-nova-net-manager-blueprint.yaml"
 	blueprints_openstack_yaml="cloudify-manager-blueprints/openstack/openstack-manager-blueprint.yaml"
 	blueprints_simple_yaml="cloudify-manager-blueprints/simple/simple-manager-blueprint.yaml"
-	blueprints_softlayer_yaml="cloudify-manager-blueprints/softlayer/softlayer-manager-blueprint.yaml"
+	blueprints_softlayer_yaml="cloudify-softlayer-plugin/manager-blueprint/softlayer-manager-blueprint.yaml"
 	blueprints_vsphere_yaml="cloudify-vsphere-plugin/manager_blueprint/vsphere-manager-blueprint.yaml"
 	
 	url_prefix="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/"$MAJOR_VERSION"."$MINOR_VERSION"."$SERVICEPACK_VERSION"/"$MILESTONE-"RELEASE"
