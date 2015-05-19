@@ -236,11 +236,11 @@ do
  			repo_names_sha=$repo_names_sha',"'$r'":"'$sha'"'
  		fi
  		
- 		echo "Preparing cloudify-manager-blueprints before uploading to s3"
+ 		
  		if [ "$r" == "cloudify-manager-blueprints" ]
  		then
  			popd
- 			echo "Updating commercial blueprint"
+ 			echo "Preparing cloudify-manager-blueprints before uploading to s3 - updating commercial blueprint"
  			sed -i "s|docker_url.*|docker_url: $(echo ${docker_commercial_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
  			sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_commercial_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
  			pushd $r
