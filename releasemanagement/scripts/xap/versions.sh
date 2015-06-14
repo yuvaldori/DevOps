@@ -61,6 +61,10 @@ do
 	 				exit_on_error
 	 				git push origin $VERSION_BRANCH_NAME
 			 		exit_on_error
+			 		XAP_TRUNK_SVN_URL="svn://pc-lab14/SVN/xap"
+					BRANCH_FOLDER="$majorVersion_$minorVersion_X"
+					SVN_REVISION_NUMBER=`svn info ${XAP_TRUNK_SVN_URL} | grep Revision | awk '{print $2}'`
+					svn cp ${XAP_TRUNK_SVN_URL}/trunk/quality ${XAP_TRUNK_SVN_URL}/branches/${BRANCH_FOLDER}/${VERSION_BRANCH_NAME} -m "Create branch ${VERSION_BRANCH_NAME} from ${XAP_TRUNK_SVN_URL}/trunk/quality, revision: ${SVN_REVISION_NUMBER}"
 	 			fi
 			fi
 			sha=$(git rev-parse HEAD)
