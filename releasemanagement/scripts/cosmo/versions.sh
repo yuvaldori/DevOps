@@ -101,6 +101,9 @@ do
  				git checkout -b $VERSION_BRANCH_NAME
  				exit_on_error
  			fi
+ 			#edit json file
+ 			ui_file="cloudify-ui/bower.json"
+			sed -i "s|\"gs-ui-infra\":.*|\"gs-ui-infra\": \"git://github.com/cloudify-cosmo/gs-ui-infra.git#$(echo ${core_tag_name})\",|g" $ui_file
  		fi		
  		
  	popd
@@ -137,9 +140,6 @@ done
 	#edit json file
 	docker_file="cloudify-packager/docker/vars.py"
 	sed -i "s|\"ui_package_url\":.*|\"ui_package_url\": \"$(echo ${ui_package_url})\",|g" $docker_file
-	
-	ui_file="cloudify-ui/bower.json"
-	sed -i "s|\"gs-ui-infra\":.*|\"gs-ui-infra\": \"git://github.com/cloudify-cosmo/gs-ui-infra.git#$(echo ${core_tag_name})\",|g" $ui_file
 	
 #fi
 
