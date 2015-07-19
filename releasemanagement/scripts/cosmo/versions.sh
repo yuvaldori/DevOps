@@ -179,9 +179,6 @@ echo "### version tool - end"
 echo "Creating metadata file"
 metadata_file="metadata.json"
 echo '{' > $metadata_file
-	
-git config --global user.email "opencm@gigaspaces.com"
-git config --global user.name "opencm"
 
 echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
@@ -200,6 +197,8 @@ do
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
+		git config user.email "opencm@gigaspaces.com"
+		git config user.name "opencm"
 		#if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
 		if [[ ! "yo-ci" == "$r" ]]; then
 	        	#commit changes
