@@ -180,6 +180,9 @@ echo "Creating metadata file"
 metadata_file="metadata.json"
 echo '{' > $metadata_file
 	
+git config --global user.email "opencm@gigaspaces.com"
+git config --global user.name "opencm"
+
 echo "### Repositories list: $REPOS_LIST"
 for r in ${REPOS_LIST}
 do
