@@ -197,8 +197,8 @@ do
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
 	pushd $r
-		git config user.email "opencm@gigaspaces.com"
-		git config user.name "opencm"
+		# git config user.email "opencm@gigaspaces.com"
+		# git config user.name "opencm"
 		#if [[ ! "$PACKAGER_REPOS_LIST" =~ "$r" ]]; then
 		if [[ ! "yo-ci" == "$r" ]]; then
 	        	#commit changes
