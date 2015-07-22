@@ -13,11 +13,11 @@ function  exit_on_error {
       echo "exit code="$status    
       if [ $status != 0 ] ; then
          	echo "Failed (exit code $status)"
-         	vagrant destroy -f debian_jessie_aws
-		vagrant destroy -f ubuntu_trusty_aws
-		vagrant destroy -f ubuntu_trusty_commercial_aws
-		vagrant destroy -f ubuntu_precise_aws
-		vagrant destroy -f ubuntu_precise_commercial_aws
+         	#vagrant destroy -f debian_jessie_aws
+		#vagrant destroy -f ubuntu_trusty_aws
+		#vagrant destroy -f ubuntu_trusty_commercial_aws
+		#vagrant destroy -f ubuntu_precise_aws
+		#vagrant destroy -f ubuntu_precise_commercial_aws
 		exit 1
       fi
 
@@ -83,9 +83,9 @@ sleep 5
 wait
 
 #destroy machines
-vagrant destroy -f debian_jessie_aws
-vagrant destroy -f ubuntu_trusty_aws
-vagrant destroy -f ubuntu_trusty_commercial_aws
-vagrant destroy -f ubuntu_precise_aws
-vagrant destroy -f ubuntu_precise_commercial_aws
+#vagrant destroy -f debian_jessie_aws
+#vagrant destroy -f ubuntu_trusty_aws
+#vagrant destroy -f ubuntu_trusty_commercial_aws
+#vagrant destroy -f ubuntu_precise_aws
+#vagrant destroy -f ubuntu_precise_commercial_aws
 
