@@ -38,7 +38,7 @@ vagrant destroy -f ubuntu_precise_commercial_aws
    echo "debian_ip=$debian_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
-   admin@$debian_ip:/cloudify/*.deb /cloudify && exit_on_error) &
+   admin@$debian_ip:/tmp/*.tar.gz /cloudify && exit_on_error) &
 
 sleep 5
 
@@ -48,7 +48,7 @@ sleep 5
    echo "trusty_ip=$trusty_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
-   ubuntu@$trusty_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-trusty-agent.deb && exit_on_error) &
+   ubuntu@$trusty_ip:/tmp/*.tar.gz /cloudify/cloudify-ubuntu-trusty-agent.deb && exit_on_error) &
 
 sleep 5
 
@@ -58,7 +58,7 @@ sleep 5
    echo "trustyc_ip=$trustyc_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
-   ubuntu@$trustyc_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-trusty-commercial-agent.deb && exit_on_error) &
+   ubuntu@$trustyc_ip:/tmp/*.tar.gz /cloudify/cloudify-ubuntu-trusty-commercial-agent.deb && exit_on_error) &
 
 sleep 5
 
@@ -68,7 +68,7 @@ sleep 5
    echo "precise_ip=$precise_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
-   ubuntu@$precise_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-precise-agent.deb && exit_on_error) &
+   ubuntu@$precise_ip:/tmp/*.tar.gz /cloudify/cloudify-ubuntu-precise-agent.deb && exit_on_error) &
 
 sleep 5
 
@@ -78,7 +78,7 @@ sleep 5
    echo "precisec_ip=$precisec_ip" && 
    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
    -i ~/.ssh/aws/vagrant_build.pem \
-   ubuntu@$precisec_ip:/cloudify/*.deb /cloudify/cloudify-ubuntu-precise-commercial-agent.deb && exit_on_error) &
+   ubuntu@$precisec_ip:/tmp/*.tar.gz /cloudify/cloudify-ubuntu-precise-commercial-agent.deb && exit_on_error) &
 
 wait
 
