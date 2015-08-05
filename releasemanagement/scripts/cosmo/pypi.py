@@ -25,7 +25,7 @@ def test():
         print "### Activating virtualenv"
         os.system('. bin/activate')
         print "### Install modules from pypi"
-        modules = ['cloudify', 'cloudify-diamond-plugin', 'cloudify-agent-packager']
+        modules = ['cloudify', 'cloudify-diamond-plugin']
         for module in modules:
                 pip.main(['install', '--pre', '{0}'.format(module)]) 
         for module in repo_list:
