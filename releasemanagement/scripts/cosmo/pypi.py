@@ -103,4 +103,4 @@ if __name__ == '__main__':
 	        remove_pypi_release_branch()
 	        os.chdir(os.path.abspath('..'))
 	       
-	test()
+	#test()
