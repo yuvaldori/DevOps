@@ -253,8 +253,8 @@ def main():
 	filenames=[]
 
 	if CREATE_DOCKER_IMAGES == "yes":
-		file_name=get_file_name_from_path(rename_packages('cloudify-docker_.tar','cloudify-docker_'+PRODUCT_VERSION_FULL+'.tar'))
-		filenames.append(file_name)
+		#file_name=get_file_name_from_path(rename_packages('cloudify-docker_.tar','cloudify-docker_'+PRODUCT_VERSION_FULL+'.tar'))
+		#filenames.append(file_name)
 		
 		file_name=get_file_name_from_path(rename_packages('cloudify-docker_commercial.tar','cloudify-docker-commercial_'+PRODUCT_VERSION_FULL+'.tar'))
 		filenames.append(file_name)
