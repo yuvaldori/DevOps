@@ -131,11 +131,11 @@ done
 	docker_url=$url_prefix"/cloudify-docker_"$PRODUCT_VERSION_FULL".tar"
 	docker_commercial_url=$url_prefix"/cloudify-docker-commercial_"$PRODUCT_VERSION_FULL".tar"
 	
-	#sed -i "s|ui_package_url.*|ui_package_url: $(echo ${ui_package_url})|g" $defaults_config_yaml_file $config_yaml_file $defaults_libcloud_config_yaml_file $config_libcloud_yaml_file $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
-	sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
-	sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
-  	sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
-	sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+	
+	#sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+	#sed -i "s|windows_agent_url.*|windows_agent_url: $(echo ${windows_agent_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+  	#sed -i "s|centos_agent_url.*|centos_agent_url: $(echo ${centos_agent_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
+	#sed -i "s|docker_url.*|docker_url: $(echo ${docker_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
 	
 	#edit json file
 	docker_file="cloudify-packager/docker/vars.py"
