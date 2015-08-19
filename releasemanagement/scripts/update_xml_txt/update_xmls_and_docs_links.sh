@@ -12,9 +12,9 @@ function exit_on_error {
 
 LOG_FILE=./update_xml_docs.log
 MAJOR_OLD=10
-MINOR_OLD=0
-MAJOR_NEW=10
-MINOR_NEW=1
+MINOR_OLD=2
+MAJOR_NEW=11
+MINOR_NEW=0
 
 echo "*** start ***" > $LOG_FILE
 
