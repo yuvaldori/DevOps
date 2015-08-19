@@ -26,7 +26,7 @@ sudo chown tgrid -R /cloudify
 ##destroy ubuntu vm if exit
 vagrant destroy -f ubuntu
 
-vagrant up ubuntu --provider=aws
+vagrant up ubuntu --provider=aws --debug
 exit_on_error
 
 ##get guest ip address
