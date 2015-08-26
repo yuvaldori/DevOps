@@ -40,6 +40,7 @@ do
 			else
 				git checkout $BRANCH_NAME
 				git reset --hard origin/$BRANCH_NAME
+				git pull origin $BRANCH_NAME
 			fi
 			
 			if [ "$RELEASE_BUILD" == "true" ]
