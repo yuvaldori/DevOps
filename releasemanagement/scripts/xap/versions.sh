@@ -39,8 +39,11 @@ do
 				exit_on_error
 			else
 				git checkout $BRANCH_NAME
+				exit_on_error
 				git reset --hard origin/$BRANCH_NAME
+				exit_on_error
 				git pull origin $BRANCH_NAME
+				exit_on_error
 			fi
 			
 			if [ "$RELEASE_BUILD" == "true" ]
