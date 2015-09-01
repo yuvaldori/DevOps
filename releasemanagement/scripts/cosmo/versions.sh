@@ -65,7 +65,9 @@ do
 		BRANCHNAME=$BRANCH_NAME
 	fi
 	echo "BRANCHNAME=$BRANCHNAME"
+	
 	pushd $r
+		git checkout -b $VERSION_BRANCH_NAME tags/$TAG_NAME
 	
  		if [ "$r" == "cloudify-manager-blueprints" ]
  		then
