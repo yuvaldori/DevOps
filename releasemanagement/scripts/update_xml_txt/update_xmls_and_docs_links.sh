@@ -64,7 +64,7 @@ do
 		echo "*** git diff $repo ***" >> $LOG_FILE
 		git diff * >> $LOG_FILE
 		#git add -u .
-		#git commit -m 'Update files with new version of XSDs, DTD and wiki space'
+		#git commit -m 'Bump version to ${MAJOR_OLD}.${MINOR_OLD}'
 		#git push origin master
 	fi
       popd
