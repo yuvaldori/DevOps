@@ -44,7 +44,7 @@ do
 	sed -i "s/xap${MAJOR_OLD}${MINOR_OLD}net/xap${MAJOR_NEW}${MINOR_NEW}net/g" "$fname"
 	echo "*** replace /xap<version> ***" >> $LOG_FILE
 	grep "\/xap${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
-	sed -i "s/\/xap${MAJOR_OLD}${MINOR_OLD}/xap${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
+	sed -i "s/\/xap${MAJOR_OLD}${MINOR_OLD}/\/xap${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
 	#C++ replace version in docs
 	#echo "*** replace <version> ***" >> $LOG_FILE
 	#grep "${MAJOR_OLD}\.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
