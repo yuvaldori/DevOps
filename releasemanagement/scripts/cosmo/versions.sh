@@ -68,50 +68,5 @@ do
 	
 	pushd $r
 		git checkout -b $VERSION_BRANCH_NAME tags/$TAG_NAME
-	
- 		if [ "$r" == "cloudify-manager-blueprints" ]
- 		then
- 			popd
- 			echo "Preparing cloudify-manager-blueprints before uploading to s3 - updating commercial blueprint"
- 			#sed -i "s|docker_url.*|docker_url: $(echo ${docker_commercial_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
- 			#sed -i "s|ubuntu_agent_url.*|ubuntu_agent_url: $(echo ${ubuntu_agent_commercial_url})|g" $blueprints_aws_ec2_yaml $blueprints_cloudstack_yaml $blueprints_nova_net_yaml $blueprints_openstack_yaml $blueprints_simple_yaml $blueprints_softlayer_yaml $blueprints_vsphere_yaml
- 			pushd $r
- 			mkdir -p softlayer vsphere
- 			cp -rp ../cloudify-softlayer-plugin/manager-blueprint/* softlayer
- 			cp -rp ../cloudify-vsphere-plugin/manager_blueprint/* vsphere
- 			temp_branch="commercial"
- 			if [[ `git branch | grep $temp_branch` ]]
- 			then
- 				git branch -D $temp_branch
- 				exit_on_error
- 			elif [[ `git branch -r | grep origin/$temp_branch` ]]
- 			then
- 				git push origin --delete $temp_branch
- 				exit_on_error
- 			fi
- 			
- 			git checkout -b $temp_branch
- 			exit_on_error
- 			git add .
- 			exit_on_error
- 			git commit -m "Update commercial packages"
- 			exit_on_error
- 			git push origin $temp_branch
- 			exit_on_error
- 			
- 			curl -u opencm:$GITHUB_PASSWORD -L https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/$temp_branch.tar.gz > ../cloudify-manager-blueprints.tar.gz
- 			
- 			git checkout -
- 			if [[ `git branch | grep $temp_branch` ]]
- 			then
- 				git branch -D $temp_branch
- 				exit_on_error
- 			elif [[ `git branch -r | grep origin/$temp_branch` ]]
- 			then
- 				git push origin --delete $temp_branch
- 				exit_on_error
- 			fi
-                fi
- 	
  	popd
 done
