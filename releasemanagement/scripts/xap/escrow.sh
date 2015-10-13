@@ -18,22 +18,17 @@ for dir in `pwd`/*/
 do
     dir=${dir%*/}
     repo=${dir##*/}
-
-      if [ "$repo" != "examples" ] && [ "$repo" != "xap-session-sharing-manager-itests" ] && [ "$repo" != "xap-spring-data" ] &&  [[ ! "$repo" =~ "xap-example" ]]
-      then
-        echo "### Processing repository: $repo"
-        pushd $repo
-          git checkout master
-          git pull origin master
-          git branch | grep $temp_branch_name && git branch -D $temp_branch_name
-          git checkout -b $temp_branch_name tags/$tag_name
-          exit_on_error
-          git --no-pager log -1
-        popd
-      fi
+     
+    echo "### Processing repository: $repo"
+    pushd $repo
+      git checkout master
+      git pull origin master
+      git branch | grep $temp_branch_name && git branch -D $temp_branch_name
+      git checkout -b $temp_branch_name tags/$tag_name
+      exit_on_error
+      git --no-pager log -1
+    popd
 done
 
-( find . -type d -name ".git" \
-  && find . -name ".gitignore" \
-  && find . -name ".gitmodules" ) | xargs rm -rf
+#( find . -type d -name ".git" && find . -name ".gitignore" && find . -name ".gitmodules" ) | xargs rm -rf
   
