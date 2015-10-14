@@ -60,7 +60,7 @@ gem install compass
 
 #package cli
 sudo dpkg -i vagrant_1.6.5_x86_64.deb
-vagrant plugin install vagrant-aws
+vagrant plugin install vagrant-aws --plugin-version 0.5.0
 sudo vim /etc/environment
 VAGRANT_HOME=/home/vagrant/
 sudo apt-get install -y sshpass
