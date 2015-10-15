@@ -30,5 +30,5 @@ do
     popd
 done
 
-#( find . -type d -name ".git" && find . -name ".gitignore" && find . -name ".gitmodules" ) | xargs rm -rf
+#( find . -type d -name ".git" &&  find . -type d -name ".qbcache" && find . -name ".gitignore" && find . -name ".gitmodules" ) | xargs rm -rf
   
