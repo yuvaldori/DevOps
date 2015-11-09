@@ -1,0 +1,17 @@
+# 1. clone the source
+git clone ssh://<user>@<source-repo url>
+cd <source-repo>
+# 2. remove the stuff we want to exclude
+git filter-branch --tree-filter "rm -rf <files to exclude>" --prune-empty HEAD
+# 3. move to target repo and create a merge branch (for safety)
+cd <path to target-repo>
+git checkout -b <merge branch>
+git checkout -b master
+# 4. Add the source-repo as remote 
+git remote add source-repo <path to source-repo>
+# 5. fetch it
+git pull source-repo master
+# 6. check that you got it right (better safe than sorry, right?)
+gitk
+git push --set-upstream origin master
+git push
