@@ -7,6 +7,12 @@ find /export/builds/cloudify/[1-9]* -maxdepth 1 -mtime +4 |  grep "build_[0-9]\{
 find /export/builds/cloudify/[1-9]* -maxdepth 1 -mtime +4 |  grep "build_[0-9]\{4\}-" | awk '{print "rm -rf",$1}' | sh -x
 find /export/builds/cloudify/[1-9]* -maxdepth 1 -mtime +4 |  grep "build_[0-9]\{5\}-" | awk '{print "rm -rf",$1}' | sh -x
 
+find /opt/builds-new/xap/xap[1-9]*/[1-9]* -maxdepth 1 -mtime +3 |  grep "build_[0-9]\{4\}-" | awk '{print "rm -rf",$1}' | sh -x
+find /opt/builds-new/xap/xap[1-9]*/[1-9]* -maxdepth 1 -mtime +3 |  grep "build_[0-9]\{5\}-" | awk '{print "rm -rf",$1}' | sh -x
+find /opt/builds-new/cloudify/[1-9]* -maxdepth 1 -mtime +3 |  grep "build_[0-9]\{3\}-" | awk '{print "rm -rf",$1}' | sh -x
+find /opt/builds-new/cloudify/[1-9]* -maxdepth 1 -mtime +3 |  grep "build_[0-9]\{4\}-" | awk '{print "rm -rf",$1}' | sh -x
+find /opt/builds-new/cloudify/[1-9]* -maxdepth 1 -mtime +3 |  grep "build_[0-9]\{5\}-" | awk '{print "rm -rf",$1}' | sh -x
+
 # Clean all folders that match "build_XXXX-YYY" pattern from TGRID environments and older than 7 days
 find /export/tgrid/TestingGrid[1,C]*/local-builds -maxdepth 1 -mtime +7 |  grep "build_[0-9]\{4\}-" | awk '{print "rm -rf",$1}' | sh -x
 find /export/tgrid/TestingGrid[1,C]*/local-builds -maxdepth 1 -mtime +7 |  grep "build_[0-9]\{5\}-" | awk '{print "rm -rf",$1}' | sh -x
