@@ -20,6 +20,9 @@ do
     pushd $r
         if  [ -d ".git" ]
         then
+          git checkout master
+          git pull --all
+          git pull origin master
           git checkout -b $BRANCH_NAME $TAG_NAME
           exit_on_error
 
