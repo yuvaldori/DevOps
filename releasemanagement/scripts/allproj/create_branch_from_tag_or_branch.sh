@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 function exit_on_error {
     status=$?
