@@ -11,7 +11,7 @@ function exit_on_error {
 }
 ORIGIN=""
 #TAG_NAME=10.0.1_ga_build11824_03_29_2015
-if [ "$TAG_NAME" =~ "-build" ]
+if [[ "$TAG_NAME" =~ "-build" ]]
 then
     ORIGIN="origin/"
 fi
