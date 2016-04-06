@@ -9,8 +9,12 @@ function exit_on_error {
     fi
 
 }
-
+ORIGIN=""
 #TAG_NAME=10.0.1_ga_build11824_03_29_2015
+if [ "$TAG_NAME" =~ "-build" ]
+then
+    ORIGIN="origin/"
+fi
 
 for dir in `pwd`/*/
 do
@@ -23,7 +27,7 @@ do
           git checkout master
           git pull --all
           git pull origin master
-          git checkout -b $BRANCH_NAME $TAG_NAME
+          git checkout -b $BRANCH_NAME $ORIGIN$TAG_NAME
           exit_on_error
 
           # push tag to remote
