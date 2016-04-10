@@ -1,13 +1,13 @@
-MAJOR=9
-MINOR=7
+MAJOR=11
+MINOR=0
 SERVICEPACK=0
-BUILD_NUMBER=10531
+BUILD_NUMBER=14800
 #For milestone and ga
-MILESTONE=m7
+MILESTONE=ga
 #For patch
-PATCH_NUMBER=17
-	#xap | dotnet | cpp | cloudify
-PATCH_TYPE=dotnet
+PATCH_NUMBER=1
+        #xap | dotnet | cpp | cloudify
+PATCH_TYPE=xap
 
 
 VERSION=${MAJOR}.${MINOR}.${SERVICEPACK}
