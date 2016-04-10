@@ -21,19 +21,18 @@ scp -i ~/.ssh/website ${REPOSITORY}/release_notes/${RN_FILE} tempfiles@www.gigas
 
 #copy package files
 case  $PATCH_TYPE  in
-      xap)       
-   	 scp -i ~/.ssh/website $XAP_ZIP_FILE tempfiles@www.gigaspaces.com:${DEST_DIR}
+      xap)
+         scp -i ~/.ssh/website $XAP_ZIP_FILE tempfiles@www.gigaspaces.com:${DEST_DIR}
         ;;
       dotnet)
-        scp -i ~/.ssh/website $DOTNET_FILES tempfiles@www.gigaspaces.com:${DEST_DIR}	
-        ;;            
-      cpp)       
-     	 scp -i ~/.ssh/website $CPP_FILES tempfiles@www.gigaspaces.com:${DEST_DIR}
+        scp -i ~/.ssh/website $DOTNET_FILES tempfiles@www.gigaspaces.com:${DEST_DIR}
         ;;
-      cloudify)       
-        scp -i ~/.ssh/website $CLOUDIFY_FILES tempfiles@www.gigaspaces.com:${DEST_DIR}	 	
+      cpp)
+         scp -i ~/.ssh/website $CPP_FILES tempfiles@www.gigaspaces.com:${DEST_DIR}
+        ;;
+      cloudify)
+        scp -i ~/.ssh/website $CLOUDIFY_FILES tempfiles@www.gigaspaces.com:${DEST_DIR}
         ;;
 
-      *)              
+      *)
 esac
-
