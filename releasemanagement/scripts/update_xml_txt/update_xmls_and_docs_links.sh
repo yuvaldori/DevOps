@@ -35,7 +35,6 @@ do
 	echo "*** replace display\<version> ***" >> $LOG_FILE
 	grep "display\/XAP${MAJOR_OLD}${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/display\/XAP${MAJOR_OLD}${MINOR_OLD}/display\/XAP${MAJOR_NEW}${MINOR_NEW}/g" "$fname"
-	### Limor Please check this part in 10.1
 	echo "*** replace PLATFORM_VERSION=<version> ***" >> $LOG_FILE
 	grep "PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}" "$fname" && echo "$fname" >> $LOG_FILE
 	sed -i "s/PLATFORM_VERSION=${MAJOR_OLD}.${MINOR_OLD}/PLATFORM_VERSION=${MAJOR_NEW}.${MINOR_NEW}/g" "$fname"
