@@ -16,7 +16,7 @@
     <repositories>
         <repository>
             <id>openspaces</id>
-            <url>http://maven-repository.openspaces.gigaspaces.org</url>
+            <url>http://maven-repository.openspaces.org</url>
         </repository>
         <repository>
         <id>atlassian</id>
@@ -33,7 +33,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>org.openspaces</id>
-            <url>http://maven-repository.openspaces.gigaspaces.org</url>
+            <url>http://maven-repository.openspaces.org</url>
         </pluginRepository>
     </pluginRepositories>
 
