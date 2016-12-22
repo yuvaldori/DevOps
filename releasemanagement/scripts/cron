@@ -9,3 +9,4 @@ tgrid
 
 root
 0 1 * * * /export/utils/bin/ntp-sync.sh >> /var/log/ntp-sync.log
+
