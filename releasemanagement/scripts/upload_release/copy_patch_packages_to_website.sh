@@ -20,6 +20,7 @@ ssh  -i ~/.ssh/website  tempfiles@www.gigaspaces.com "mkdir -p ${DEST_DIR}"
 scp -i ~/.ssh/website ${REPOSITORY}/release_notes/${RN_FILE} tempfiles@www.gigaspaces.com:${DEST_DIR}
 
 #copy package files
+# Yuval Dori comment
 case  $PATCH_TYPE  in
       xap)       
    	 scp -i ~/.ssh/website $XAP_ZIP_FILE tempfiles@www.gigaspaces.com:${DEST_DIR}
